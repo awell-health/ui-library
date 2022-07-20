@@ -1,0 +1,19 @@
+html {
+  --awell-font-size-sm: 0.75rem;   /* 12px */
+  --awell-font-size-base: 1rem;    /* 16px, base */
+  --awell-font-size-md: 1.25rem;   /* 20px */
+  --awell-font-size-lg: 1.5rem;    /* 24px */
+  --awell-font-size-xl: 1.75rem;   /* 28px */
+  --awell-font-size-xxl: 2rem;     /* 32px */
+  --awell-font-size-xxxl: 2.25rem; /* 36px */
+
+  @media screen and (max-width: 600px){
+    --awell-font-size-sm: 1rem;   /* 12px */
+    --awell-font-size-base: 1.25rem;    /* 16px, base */
+    --awell-font-size-md: 1.5rem;   /* 20px */
+    --awell-font-size-lg: 1.75rem;    /* 24px */
+    --awell-font-size-xl: 2rem;   /* 28px */
+    --awell-font-size-xxl: 2.25rem;     /* 32px */
+    --awell-font-size-xxxl: 2.5rem; /* 36px */
+  }
+}

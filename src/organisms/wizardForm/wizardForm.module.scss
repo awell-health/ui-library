@@ -1,0 +1,41 @@
+@use '../../globalStyles';
+
+.awell_wizard_form {
+   @media screen and (max-width:425px){
+     max-width: 90%;
+     margin: 0 auto;
+     padding: 32px;
+     display: flex;
+     height: 80vh;
+     flex-direction: column;
+     justify-content: space-between;
+
+     & .wizard_form {
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+     }
+   }
+  @media screen and (min-width:768px){
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 90vh;
+  }
+   @media screen and (min-width:1024px){
+     justify-content: center;
+   }
+
+  & .button_wrapper {
+    display: flex;
+    margin-top: 40px;
+    justify-content: space-between;
+  }
+
+}
+
+
+
