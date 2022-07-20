@@ -1,9 +1,8 @@
 import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
 // @ts-ignore
-import classes from './radioButton.module.scss'
+import classes from './inputField.module.scss'
 
-export interface RadioButtonProps
-  extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * change event handles
    */
@@ -19,25 +18,26 @@ export interface RadioButtonProps
   /**
    * you can also set any attribute that is native to html button
    */
+  type: 'number' | 'input'
 }
 
-export const RadioButton = ({
+export const InputField = ({
   onChange,
   id,
   label,
+  type,
   ...props
-}: RadioButtonProps): JSX.Element => {
+}: InputFieldProps): JSX.Element => {
   return (
-    <div className={classes.awell_radio_button_wrapper}>
+    <div className={classes.awell_input_field_wrapper}>
+      <label htmlFor={id}>{label}</label>
       <input
         {...props}
-        type="radio"
+        type={type}
         id={id}
-        name="radio-group"
-        className={classes.awell_radio_button}
+        className={classes.awell_input_field}
         onChange={onChange}
       />
-      <label htmlFor={id}>{label}</label>
     </div>
   )
 }

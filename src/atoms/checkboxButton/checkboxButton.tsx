@@ -1,12 +1,13 @@
-import React, { ChangeEventHandler, InputHTMLAttributes } from 'react';
+import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
 // @ts-ignore
-import classes from './checkboxButton.module.scss';
+import classes from './checkboxButton.module.scss'
 
-export interface CheckboxButtonProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface CheckboxButtonProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * change event handles
    */
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>
   /**
    * sets label of the button
    */
@@ -20,11 +21,22 @@ export interface CheckboxButtonProps extends InputHTMLAttributes<HTMLInputElemen
    */
 }
 
-export const CheckboxButton = ({ onChange, id, label, ...props }: CheckboxButtonProps):JSX.Element => {
+export const CheckboxButton = ({
+  onChange,
+  id,
+  label,
+  ...props
+}: CheckboxButtonProps): JSX.Element => {
   return (
-          <label className={classes.awell_checkbox_label}>
-              <input {...props} type="checkbox" name="radio-group" className={classes.awell_checkbox_button} onChange={onChange}/>
-              {label}
-          </label>
-  );
+    <label className={classes.awell_checkbox_label}>
+      <input
+        {...props}
+        type="checkbox"
+        name="radio-group"
+        className={classes.awell_checkbox_button}
+        onChange={onChange}
+      />
+      {label}
+    </label>
+  )
 }

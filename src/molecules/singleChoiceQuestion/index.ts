@@ -1,0 +1,1 @@
+export { SingleChoiceQuestion } from './SingleChoiceQuestion'

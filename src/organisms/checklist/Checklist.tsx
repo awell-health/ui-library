@@ -47,7 +47,7 @@ export const Checklist: FC<ChecklistProps> = ({
   return (
     <div className={classes.awell_checklist}>
       <div className={classes.title}>
-        <Text variant="textMedium">{title}</Text>
+        <Text variant="smallHeadline">{title}</Text>
       </div>
       <div className={classes.checklist}>
         {items.map((item) => (
@@ -58,12 +58,16 @@ export const Checklist: FC<ChecklistProps> = ({
           />
         ))}
       </div>
-      <Button
-        onClick={onSubmit}
-        disabled={checkedItems.length !== items.length || readOnly || disabled}
-      >
-        {readOnly ? 'submitted' : 'submit'}
-      </Button>
+      <div className={classes.button_wrapper}>
+        <Button
+          onClick={onSubmit}
+          disabled={
+            checkedItems.length !== items.length || readOnly || disabled
+          }
+        >
+          {readOnly ? 'Submitted' : 'Submit'}
+        </Button>
+      </div>
     </div>
   )
 }

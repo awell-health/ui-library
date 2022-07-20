@@ -1,34 +1,31 @@
 @use '../../globalStyles';
 
 :root {
-  --primary-color: #004ac2;
-  --text-on-primary: #fff;
-
-  --primary-light: #0065FF;
-  --primary-subtle: #e6edf9;
-
-  --secondary-color: #004ac2;
-  --secondary-bg: #fff;
-  --text-on-secondary: #fff;
-  --awell-border-radius: 4px
+  --awell-checkbox-primary-color: var(--primary-color, var(--awell-brand100));
+  --awell-checkbox-border-radius: var(--border-radius-default, 2px);
+  --awell-checkbox-neutral: var(--neutral, var(--awell-neutralMid400)); //todo
 }
 
 .awell_checkbox_label {
   cursor: pointer;
+  padding: 4px 0;
+  display: flex;
+  align-items: self-end;
+  color: var(--awell-checkbox-neutral);
 }
 
 .awell_checkbox_button {
   position: relative;
   top: 2px;
   box-sizing: content-box;
-  width: 14px;
-  height: 14px;
-  margin: 0 5px 0 0;
+  width: 20px;
+  height: 20px;
+  margin: 0 8px 0 0;
   cursor: pointer;
   -webkit-appearance: none;
-  border-radius: 2px;
+  border-radius: var(--awell-checkbox-border-radius);
   background-color: #fff;
-  border: 1px solid #b7b7b7;
+  border: 2px solid var(--awell-checkbox-neutral);
 
   &:before {
     content: '';
@@ -38,11 +35,11 @@
   }
 
   &:checked:before {
-    width: 4px;
-    height: 9px;
-    margin: 0px 4px;
-    border-bottom: 2px solid var(--primary-color);
-    border-right: 2px solid var(--primary-color);
+    width: 8px;
+    height: 12px;
+    margin: 0px 5px;
+    border-bottom: 3px solid var(--awell-checkbox-primary-color);
+    border-right: 3px solid var(--awell-checkbox-primary-color);
     transform: scale(1) rotate(45deg);
   }
 }

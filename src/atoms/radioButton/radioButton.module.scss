@@ -1,7 +1,6 @@
-@use '../../globalStyles';
 
-.awell_radio_button {
-  --awell-radio-primary-color: var(--primary-color, #004ac2);
+.awell_radio_button_wrapper {
+  --awell-radio-primary-color: var(--primary-color, var(--awell-brand100));
   --awell-radio-text-on-primary: var(--text-on-primary, #fff);
 
   --awell-radio-primary-light: var(--primary-light, #0065FF);
@@ -9,8 +8,10 @@
 
   --awell-radio-primary-bg: var(--primary-bg, #fff);
   --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
-  --awell-radio-neutral: var(--neutral, #ddd); //todo
+  --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400)); //todo
 
+}
+.awell_radio_button {
 
   &:checked,
   &:not(:checked) {
@@ -21,6 +22,7 @@
   &:not(:checked) + label
   {
     position: relative;
+    margin-bottom: 8px;
     padding-left: 28px;
     cursor: pointer;
     line-height: 20px;

@@ -1,0 +1,29 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { MultipleChoiceQuestion } from './MultipleChoiceQuestion';
+
+<Meta title="molecules/MultipleChoiceQuestion" component={MultipleChoiceQuestion} />
+
+
+# Logo
+
+<Canvas>
+  <Story name="MultipleChoiceQuestion">
+    <MultipleChoiceQuestion onChange={()=> null} question={{      options: [
+                                             {
+                                               id: '1',
+                                               label: 'Heart disease (for example angina, heart attack or heart ) ',
+                                               value: 0,
+                                             },
+                                             {
+                                               id: '2',
+                                               label: 'Heart disease (for example angina, heart attack or heart )',
+                                               value: 1,
+                                             },
+                                             {
+                                               id: '3',
+                                               label: 'Heart disease (for example angina, heart attack or heart )',
+                                               value: 2,
+                                             },
+                                           ],}}/>
+  </Story>
+</Canvas>

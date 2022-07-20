@@ -1,0 +1,17 @@
+
+.awell_long_text_field_wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+
+}
+.awell_long_text_field {
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+
+  &:disabled {
+    color: #eee;
+    cursor: not-allowed;
+  }
+}

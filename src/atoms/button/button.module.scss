@@ -36,19 +36,19 @@
 
     &:hover {
       color: var(--awell-button-primary-text);
-      background-color: var(--awell-button-primary-active);
-      border-color: var(--awell-button-primary-active);
+      background-color: var(--awell-button-primary--active);
+      border-color: var(--awell-button-primary--active);
       text-decoration: none;
     }
     &:active {
       background-color: var(--awell-button-primary-color);
-      border-color: var(--awell-button-primary-active);
+      border-color: var(--awell-button-primary--active);
       color: var(--awell-button-primary-text);
     }
     &:disabled {
       color: #babec9;
       background-color: #f6f6f6;
-      border: 1px solid #f6f6f6;
+      border-color: #f6f6f6;
     }
   }
 

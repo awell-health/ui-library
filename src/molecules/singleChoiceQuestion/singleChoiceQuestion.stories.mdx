@@ -1,0 +1,29 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { SingleChoiceQuestion } from './SingleChoiceQuestion';
+
+<Meta title="molecules/Single Choice Question" component={SingleChoiceQuestion} />
+
+
+# Logo
+
+<Canvas>
+  <Story name="Single Choice Question">
+    <SingleChoiceQuestion onChange={()=> null} question={{      options: [
+                                             {
+                                               id: '1',
+                                               label: 'Heart disease (for example angina, heart attack or heart ) ',
+                                               value: 0,
+                                             },
+                                             {
+                                               id: '2',
+                                               label: 'Heart disease (for example angina, heart attack or heart )',
+                                               value: 1,
+                                             },
+                                             {
+                                               id: '3',
+                                               label: 'Heart disease (for example angina, heart attack or heart )',
+                                               value: 2,
+                                             },
+                                           ],}}/>
+  </Story>
+</Canvas>
