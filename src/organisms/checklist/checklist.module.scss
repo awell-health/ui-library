@@ -1,0 +1,20 @@
+@use '../../globalStyles';
+
+.awell_checklist {
+  & .title {
+    display: flex;
+  };
+  & .checklist {
+    display: flex;
+    flex-direction: column;
+    padding-left: 4px;
+    margin-top: var(--spacing-xs, 4px);
+    margin-bottom: var(--spacing-xs, 4px);
+  };
+  & .checkboxListFormControl {
+    display: flex;
+  };
+}
+
+
+

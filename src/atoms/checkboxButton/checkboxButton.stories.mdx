@@ -1,0 +1,33 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { CheckboxButton } from './checkboxButton';
+
+
+<Meta title="atoms/checkbox button" component={CheckboxButton} />
+
+
+# Button
+
+<Canvas>
+  <Story name="Checkbox Button">
+    <form>
+      <div>
+        <h3>Checkbox Button</h3>
+        <div>
+          <CheckboxButton label="Label" id="option-1" onChange={()=>null} checked={false}/>
+        </div>
+        <div>
+          <CheckboxButton label="Label" id="option-1" onChange={()=>null} checked />
+        </div>
+        <div>
+          <CheckboxButton label="Label" id="option-1" onChange={()=>null} />
+        </div>
+      </div>
+    </form>
+  </Story>
+</Canvas>
+
+### Component usage
+```js
+  <CheckboxButton label="Label" id="option-1" onChange={()=>null}/>
+```
+

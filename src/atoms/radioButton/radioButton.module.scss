@@ -1,0 +1,70 @@
+@use '../../globalStyles';
+
+.awell_radio_button {
+  --awell-radio-primary-color: var(--primary-color, #004ac2);
+  --awell-radio-text-on-primary: var(--text-on-primary, #fff);
+
+  --awell-radio-primary-light: var(--primary-light, #0065FF);
+  --awell-radio-primary-subtle: #e6edf9;
+
+  --awell-radio-primary-bg: var(--primary-bg, #fff);
+  --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
+  --awell-radio-neutral: var(--neutral, #ddd); //todo
+
+
+  &:checked,
+  &:not(:checked) {
+    position: absolute;
+    left: -9999px;
+  }
+  &:checked + label,
+  &:not(:checked) + label
+  {
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: var(--awell-radio-neutral);
+  }
+  &:checked + label:before,
+  &:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--awell-radio-neutral);
+    border-radius: 100%;
+    background: var(--awell-radio-primary-bg);
+  }
+  &:checked + label:after,
+  &:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: var(--awell-radio-primary-color);
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  &:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  &:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  &:disabled + label:after {
+    color: var(--awell-radio-neutral);
+    cursor: not-allowed;
+  }
+}

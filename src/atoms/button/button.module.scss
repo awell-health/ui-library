@@ -1,0 +1,105 @@
+@use '../../globalStyles';
+
+/* todo okomentować - przemyśleć nazwy  */
+
+.awell_button {
+  --awell-button-primary-color: var(--primary-color, #004ac2);
+  --awell-button-primary-text: var(--text-primary, #fff);
+
+  --awell-button-primary--active: var(--primary-light, #0065FF);
+  --awell-button-primary-color--active: var(--primary-light, #0065FF);
+  --awell-button-primary-subtle: #e6edf9;
+
+  --awell-button-primary-bg: var(--primary-bg, #fff);
+  --awell-button-border-radius: var(--border-radius-default, 4px);
+  
+  
+  text-align: center;
+  border-radius: var(--awell-button-border-radius);
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  font-weight: 450;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  border: 2px solid;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.primary {
+    color: var(--awell-button-primary-text);
+    background-color: var(--awell-button-primary-color);
+    box-shadow: none;
+    border-color: var(--awell-button-primary-color);
+
+    &:hover {
+      color: var(--awell-button-primary-text);
+      background-color: var(--awell-button-primary-active);
+      border-color: var(--awell-button-primary-active);
+      text-decoration: none;
+    }
+    &:active {
+      background-color: var(--awell-button-primary-color);
+      border-color: var(--awell-button-primary-active);
+      color: var(--awell-button-primary-text);
+    }
+    &:disabled {
+      color: #babec9;
+      background-color: #f6f6f6;
+      border: 1px solid #f6f6f6;
+    }
+  }
+
+  &.secondary {
+    color: var(--awell-button-primary-color);
+    border-color: var(--awell-button-primary-color);
+    background-color: var(--awell-button-primary-bg);
+    box-shadow: none;
+
+    &:hover {
+      background-color: var(--awell-button-primary-subtle);
+      text-decoration: none;
+    }
+    &:active {
+      background-color: var(--awell-button-primary-subtle);
+      color: var(--awell-button-primary-color, #004ac2);
+    }
+    &:disabled {
+      color: #babec9;
+      background-color: #fff;
+    }
+  }
+  &.text {
+    color: var(--awell-button-primary-color, #004ac2);
+    background-color: #fff;
+    border-color: #fff;
+    box-shadow: none;
+
+    &:hover {
+      background-color: var(--awell-button-primary-subtle, #eceaff);
+      border-color: var(--awell-button-primary-subtle, #eceaff);
+    }
+    &:active {
+      border-color: var(--awell-button-primary-subtle, #eceaff);
+    }
+    &:disabled {
+      color: #babec9;
+      background-color: #fff;
+      border: none;
+    }
+  }
+  &.counter {
+    border: none;
+    background-color: #f6f6f6;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    justify-content: space-around;
+  }
+}

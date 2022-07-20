@@ -1,0 +1,48 @@
+@use '../../globalStyles';
+
+:root {
+  --primary-color: #004ac2;
+  --text-on-primary: #fff;
+
+  --primary-light: #0065FF;
+  --primary-subtle: #e6edf9;
+
+  --secondary-color: #004ac2;
+  --secondary-bg: #fff;
+  --text-on-secondary: #fff;
+  --awell-border-radius: 4px
+}
+
+.awell_checkbox_label {
+  cursor: pointer;
+}
+
+.awell_checkbox_button {
+  position: relative;
+  top: 2px;
+  box-sizing: content-box;
+  width: 14px;
+  height: 14px;
+  margin: 0 5px 0 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border-radius: 2px;
+  background-color: #fff;
+  border: 1px solid #b7b7b7;
+
+  &:before {
+    content: '';
+    display: block;
+    transform: scale(0) rotate(45deg);
+    transition: transform 200ms;
+  }
+
+  &:checked:before {
+    width: 4px;
+    height: 9px;
+    margin: 0px 4px;
+    border-bottom: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+    transform: scale(1) rotate(45deg);
+  }
+}

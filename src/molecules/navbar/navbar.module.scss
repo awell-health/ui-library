@@ -1,0 +1,13 @@
+@use '../../globalStyles';
+
+:root {
+  --awell-navbar-neutral: var(--awell-neutral, #c1c7d0)
+}
+
+.awell_navbar {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--awell-navbar-neutral);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
