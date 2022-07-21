@@ -1,6 +1,5 @@
 @use '../../globalStyles';
 
-/* todo okomentować - przemyśleć nazwy  */
 
 .awell_button {
   --awell-button-primary-color: var(--primary-color, #004ac2);
@@ -12,13 +11,18 @@
 
   --awell-button-primary-bg: var(--primary-bg, #fff);
   --awell-button-border-radius: var(--border-radius-default, 4px);
-  
+
+  --awell-button-tertiary-background: var(--awell-neutralLight0);
+  --awell-button-tertiary-background--active: var(--awell-neutralLight40);
+  --awell-button-tertiary-color: var(--awell-neutralDark800);
+  --awell-button-tertiary-border: var(--awell-neutralDark800);
+  --awell-button-tertiary--disabled: var(--awell-neutralLight100);
   
   text-align: center;
   border-radius: var(--awell-button-border-radius);
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
-  font-weight: 450;
+  font-size: var(--awell-font-size-base);
+  padding: var(--awell-padding-base);
+  font-weight: 700;
   cursor: pointer;
   display: inline-block;
   text-decoration: none;
@@ -69,6 +73,24 @@
     &:disabled {
       color: #babec9;
       background-color: #fff;
+    }
+  }
+
+  &.tertiary {
+    color: var(--awell-button-tertiary-color);
+    background-color: var(--awell-button-tertiary-background);
+    border-color: var(--awell-button-tertiary-border);
+    box-shadow: none;
+
+    &:hover {
+      background-color: var(--awell-button-tertiary-background--active);
+      text-decoration: none;
+    }
+    &:active {
+      background-color: var(--awell-button-tertiary-background--active);
+    }
+    &:disabled {
+      background-color: var(--awell-button-tertiary--disabled);
     }
   }
   &.text {

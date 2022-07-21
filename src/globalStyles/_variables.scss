@@ -15,5 +15,28 @@ html {
     --awell-font-size-xl: 2rem;   /* 28px */
     --awell-font-size-xxl: 2.25rem;     /* 32px */
     --awell-font-size-xxxl: 2.5rem; /* 36px */
+
+    /* SPACING */
+    --awell-padding-base: 1rem 3rem;
+    --awell-padding-input: 1rem 1.5rem;
+
+    --awell-checkbox-size: 20px;
+  }
+
+  @media screen and (max-width: 1024px){
+    --awell-font-size-sm: 1rem;   /* 12px */
+    --awell-font-size-base: 1.25rem;    /* 16px, base */
+    --awell-font-size-md: 1.5rem;   /* 20px */
+    --awell-font-size-lg: 1.75rem;    /* 24px */
+    --awell-font-size-xl: 2rem;   /* 28px */
+    --awell-font-size-xxl: 2.25rem;     /* 32px */
+    --awell-font-size-xxxl: 2.5rem; /* 36px */
+
+    /* SPACING */
+    --awell-padding-base: 1rem 3rem;
+
+    --awell-padding-input: 1rem 1.5rem;
+
+    --awell-checkbox-size: 25px;
   }
 }

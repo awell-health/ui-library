@@ -8,9 +8,8 @@
 
 .awell_checkbox_label {
   cursor: pointer;
-  padding: 4px 0;
-  display: flex;
-  align-items: self-end;
+  padding: 8px 0;
+  display: inline-block;
   color: var(--awell-checkbox-neutral);
   font-size: var(--awell-font-size-md);
 
@@ -23,9 +22,9 @@
   position: relative;
   top: 2px;
   box-sizing: content-box;
-  width: 20px;
-  height: 20px;
-  margin: 0 8px 0 0;
+  width: var(--awell-checkbox-size);
+  height: var(--awell-checkbox-size);
+  margin: 0 16px 0 0;
   cursor: pointer;
   -webkit-appearance: none;
   border-radius: var(--awell-checkbox-border-radius);
@@ -42,9 +41,15 @@
   &:checked:before {
     width: 8px;
     height: 12px;
-    margin: 0px 5px;
+    margin: 0 5px;
     border-bottom: 3px solid var(--awell-checkbox-primary-color);
     border-right: 3px solid var(--awell-checkbox-primary-color);
     transform: scale(1) rotate(45deg);
+    @media screen and (max-width: 1024px) {
+      width: 9px;
+      height: 18px;
+      border-width: 4px;
+      margin: 0 6px;
+    }
   }
 }

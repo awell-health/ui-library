@@ -7,7 +7,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * sets style of the button
    */
-  variant?:'primary' | 'secondary' | 'counter' | 'text'
+  variant?:'primary' | 'secondary' | 'counter' | 'text' | 'tertiary'
   /**
    * you can also set any attribute that is native to html button
    */

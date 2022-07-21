@@ -157,10 +157,12 @@ export const Question = ({ ...props }) => {
       setVisible(1)
     }, 0)
   }, [])
-
+ const showLabel = props.question.userQuestionType !== QuestionType.Description;
   return (
     <div style={style} className={classes.awell_question}>
-      <Label htmlFor={props.question.id} label={props.question.title} />
+        {showLabel && (
+            <Label htmlFor={props.question.id} label={props.question.title} />
+        )}
       <QuestionData {...props} />
     </div>
   )

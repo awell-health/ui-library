@@ -2,7 +2,9 @@
 @use "colors";
 @use "variables";
 
-
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: 'Roboto', sans-serif;
 }

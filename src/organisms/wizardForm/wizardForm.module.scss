@@ -1,12 +1,14 @@
 @use '../../globalStyles';
 
 .awell_wizard_form {
+  & .title {
+    display: flex;
+    justify-content: center;
+  }
    @media screen and (max-width:425px){
-     max-width: 90%;
-     margin: 0 auto;
      padding: 32px;
      display: flex;
-     height: 80vh;
+     height: calc(100vh - 89px);
      flex-direction: column;
      justify-content: space-between;
 
@@ -18,12 +20,12 @@
    }
   @media screen and (min-width:768px){
     max-width: 600px;
+    height: calc(100vh - 109px);
     margin: 0 auto;
-    padding: 16px;
+    padding: 16px 0 64px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    height: 90vh;
+    justify-content: space-between;
   }
    @media screen and (min-width:1024px){
      justify-content: center;

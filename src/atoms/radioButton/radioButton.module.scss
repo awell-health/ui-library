@@ -10,6 +10,8 @@
   --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
   --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400)); //todo
 
+  font-size: var(--awell-font-size-md);
+
 }
 .awell_radio_button {
 
@@ -22,8 +24,8 @@
   &:not(:checked) + label
   {
     position: relative;
-    margin-bottom: 8px;
-    padding-left: 28px;
+    margin-bottom: 16px;
+    padding-left: 42px;
     cursor: pointer;
     display: inline-block;
     color: var(--awell-radio-neutral);
@@ -34,21 +36,22 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 18px;
-    height: 18px;
-    border: 1px solid var(--awell-radio-neutral);
+    width: var(--awell-checkbox-size);
+    height: var(--awell-checkbox-size);
+    border: 2px solid var(--awell-radio-neutral);
     border-radius: 100%;
     background: var(--awell-radio-primary-bg);
+    font-size: var(--awell-font-size-md);
   }
   &:checked + label:after,
   &:not(:checked) + label:after {
     content: '';
-    width: 12px;
-    height: 12px;
+    width: 17px;
+    height: 17px;
     background: var(--awell-radio-primary-color);
     position: absolute;
-    top: 4px;
-    left: 4px;
+    top: 6px;
+    left: 6px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;

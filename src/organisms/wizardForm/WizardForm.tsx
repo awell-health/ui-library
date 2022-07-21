@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler, useState } from 'react'
-import { Text } from '../../atoms/typography'
+import { Text, HeadingMain } from '../../atoms/typography'
 import { Button } from '../../atoms/button'
 import classes from './wizardForm.module.scss'
 import { useForm } from 'react-hook-form'
@@ -46,29 +46,31 @@ export const WizardForm: FC<WizardFormProps> = ({ form }) => {
   const isLastQuestion = current === form.questions.length - 1
   return (
     <div className={classes.awell_wizard_form}>
-      {/*<div className={classes.title}>*/}
-      {/*  <Text variant="smallHeadline">{form.title}</Text>*/}
-      {/*</div>*/}
-      <div className={classes.wizard_form}>
-        <Question
-          question={form.questions[current]}
-          control={control}
-          getValues={getValues}
-          key={form.questions[current].id}
-        />
+      <div className={classes.title}>
+        <HeadingMain variant="subHeadline">{form.title}</HeadingMain>
       </div>
-      <div className={classes.button_wrapper}>
-        <div>
-          {current !== 0 && (
-            <Button onClick={() => handleGoToPrev()}>Prev</Button>
+
+        <div className={classes.wizard_form}>
+          <Question
+              question={form.questions[current]}
+              control={control}
+              getValues={getValues}
+              key={form.questions[current].id}
+          />
+        </div>
+        <div className={classes.button_wrapper}>
+          <div>
+            {current !== 0 && (
+                <Button variant='tertiary' onClick={() => handleGoToPrev()}>Prev</Button>
+            )}
+          </div>
+          {isLastQuestion ? (
+              <Button onClick={() => null}>Submit</Button>
+          ) : (
+              <Button variant='secondary' onClick={() => handleGoToNext()}>Next</Button>
           )}
         </div>
-        {isLastQuestion ? (
-          <Button onClick={() => null}>Submit</Button>
-        ) : (
-          <Button onClick={() => handleGoToNext()}>Next</Button>
-        )}
-      </div>
+
     </div>
   )
 }
