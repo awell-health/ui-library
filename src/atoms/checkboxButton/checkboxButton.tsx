@@ -5,7 +5,7 @@ import classes from './checkboxButton.module.scss'
 export interface CheckboxButtonProps
   extends InputHTMLAttributes<HTMLInputElement> {
   /**
-   * change event handles
+   * change event handlers
    */
   onChange: ChangeEventHandler<HTMLInputElement>
   /**

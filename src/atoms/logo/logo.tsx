@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-ignore
 import classes from './logo.module.scss';
 import awellLogo from './../../assets/logo.svg';
 

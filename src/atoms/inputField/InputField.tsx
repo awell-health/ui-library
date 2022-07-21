@@ -4,7 +4,7 @@ import classes from './inputField.module.scss'
 
 export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
-   * change event handles
+   * change event handlers
    */
   onChange: ChangeEventHandler<HTMLInputElement>
   /**
@@ -18,7 +18,12 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * you can also set any attribute that is native to html button
    */
-  type: 'number' | 'input'
+  type: 'number' | 'text'
+
+  /**
+   * hide label - use only when label is provided in other manner
+   */
+  hideLabel?: boolean
 }
 
 export const InputField = ({
@@ -26,11 +31,12 @@ export const InputField = ({
   id,
   label,
   type,
+  hideLabel,
   ...props
 }: InputFieldProps): JSX.Element => {
   return (
     <div className={classes.awell_input_field_wrapper}>
-      <label htmlFor={id}>{label}</label>
+      {!hideLabel && <label htmlFor={id}>{label}</label>}
       <input
         {...props}
         type={type}

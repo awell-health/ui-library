@@ -1,38 +1,42 @@
-import React, { useState } from 'react'
-import { Text } from '../../atoms/typography'
+import React, { ChangeEvent, useState } from 'react'
 import classes from './multipleChoiceQuestion.module.scss'
 import { CheckboxButton } from '../../atoms/checkboxButton'
 
 interface MultipleChoiceQuestionProps {
   question: any
   onChange: (newValue: Array<string | number>) => void
+  values: Array<any>
 }
 export const MultipleChoiceQuestion = ({
   question,
   onChange,
+  values = [],
 }: MultipleChoiceQuestionProps): JSX.Element => {
-  const [checkedOptions, setCheckedOptions] = useState<Array<any>>([])
-
-  const handleSelectOption = (option: any) => {
-    if (!checkedOptions.includes(option)) {
-      setCheckedOptions([...checkedOptions, option])
+  const [checkedOptions, setCheckedOptions] = useState<Array<any>>(values)
+  const handleSelectOption = (
+    event: ChangeEvent<HTMLInputElement>,
+    option: any
+  ) => {
+    let newCheckedOptions = []
+    if (event.target.checked) {
+      newCheckedOptions = [...checkedOptions, option]
     } else {
-      setCheckedOptions(checkedOptions.filter((opt) => option.id !== opt.id))
+      newCheckedOptions = [checkedOptions.filter((opt) => option.id !== opt.id)]
     }
-    onChange(checkedOptions)
+    setCheckedOptions(newCheckedOptions)
+    onChange(newCheckedOptions)
   }
 
   return (
     <fieldset className={classes.awell_multiple_choice_question}>
       {(question.options || []).map((option: any) => (
         <CheckboxButton
-          onChange={handleSelectOption}
+          onChange={(event) => handleSelectOption(event, option)}
           label={option.label}
           id={option.id}
           checked={checkedOptions.includes(option)}
         />
       ))}
-      {/*<Text color="var(--awell-red100)">ADD error</Text>*/}
     </fieldset>
   )
 }

@@ -3,31 +3,34 @@ import classes from './singleChoiceQuestion.module.scss'
 import { RadioButton } from '../../atoms/radioButton'
 
 interface SingleChoiceQuestionProps {
-  question: any
+  options: any
+  values: any
   onChange: (newValue: Array<string | number>) => void
 }
 export const SingleChoiceQuestion = ({
-  question,
+  options,
   onChange,
+  values,
 }: SingleChoiceQuestionProps): JSX.Element => {
-  const [checkedOption, setCheckedOption] = useState<any>([])
-
+  const [checkedOption, setCheckedOption] = useState<any>(values)
+  console.log(values)
   const handleSelectOption = (option: any) => {
     setCheckedOption(option)
     onChange(option)
+    console.log('option', option)
+    console.log('option', onChange)
   }
 
   return (
     <fieldset className={classes.awell_single_choice_question}>
-      {(question.options || []).map((option: any) => (
+      {(options || []).map((option: any) => (
         <RadioButton
-          onChange={handleSelectOption}
+          onChange={() => handleSelectOption(option)}
           label={option.label}
           id={option.id}
           checked={option.id === checkedOption.id}
         />
       ))}
-      {/*<Text color="var(--awell-red100)">ADD error</Text>*/}
     </fieldset>
   )
 }

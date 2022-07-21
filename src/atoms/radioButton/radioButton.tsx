@@ -5,7 +5,7 @@ import classes from './radioButton.module.scss'
 export interface RadioButtonProps
   extends InputHTMLAttributes<HTMLInputElement> {
   /**
-   * change event handles
+   * change event handlers
    */
   onChange: ChangeEventHandler<HTMLInputElement>
   /**

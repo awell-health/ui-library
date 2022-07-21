@@ -1,7 +1,6 @@
-import React, {ReactElement} from 'react';
-// @ts-ignore
-import classes from './navbar.module.scss';
-import {Logo} from "../../atoms/logo";
+import React, { ReactElement } from 'react'
+import classes from './navbar.module.scss'
+import { Logo } from '../../atoms/logo'
 
 export interface NavbarProps {
   companyName?: string
@@ -9,13 +8,16 @@ export interface NavbarProps {
   children?: ReactElement
 }
 
-export const Navbar = ({children, ...logoProps}: NavbarProps):JSX.Element => {
+export const Navbar = ({
+  children,
+  ...logoProps
+}: NavbarProps): JSX.Element => {
   return (
-     <div className={classes.awell_navbar}>
-       <Logo {...logoProps}/>
-       <div>
-           {children}
-       </div>
-     </div>
-  );
+    <div className={classes.awell_navbar}>
+      <Logo {...logoProps} />
+      {/*<div>*/}
+      {/*    {children}*/}
+      {/*</div>*/}
+    </div>
+  )
 }

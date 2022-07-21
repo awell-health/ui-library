@@ -12,6 +12,11 @@
   display: flex;
   align-items: self-end;
   color: var(--awell-checkbox-neutral);
+  font-size: var(--awell-font-size-md);
+
+  @media screen and (min-width: 1024px) {
+    font-size: var(--awell-font-size-base);
+  }
 }
 
 .awell_checkbox_button {
