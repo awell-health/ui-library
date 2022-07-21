@@ -1,76 +1,102 @@
-import React, { FC, MouseEventHandler, useState } from 'react'
-import { Text, HeadingMain } from '../../atoms/typography'
+import React, { useState } from 'react'
+import { HeadingMain } from '../../atoms/typography'
 import { Button } from '../../atoms/button'
 import classes from './wizardForm.module.scss'
 import { useForm } from 'react-hook-form'
-import { Question } from '../../molecules/question/Question'
+import { Question } from '../../molecules/question'
 import { QuestionType } from '../../types'
+import { getInitialValues, isEmpty } from './helpers'
 
 export interface WizardFormProps {
   form: any
+  onSubmit: () => void
 }
 export type AnswerValue = string | number | number[]
 
-export const getDefaultValue = (question: any): AnswerValue => {
-  switch (question.userQuestionType) {
-    case QuestionType.MultipleSelect:
-      return []
-    case QuestionType.Slider:
-      return question.questionConfig?.slider?.min ?? 0
-    default:
-      return ''
-  }
-}
-export const WizardForm: FC<WizardFormProps> = ({ form }) => {
-  const xyz = form.questions.reduce((obj: any, item: { id: any }) => {
-    return {
-      ...obj,
-      [item.id]: getDefaultValue(item),
-    }
-  }, {})
+export const WizardForm = ({ form, onSubmit }: WizardFormProps) => {
   const { control, getValues } = useForm({
-    defaultValues: xyz,
+    defaultValues: getInitialValues(form.questions),
     shouldUnregister: false,
     shouldFocusError: true,
-    mode: 'onBlur',
+    mode: 'all',
   })
-  console.log(form.questions)
-  const [current, setCurrent] = useState(0)
+
+  const [current, setCurrent] = useState(-1)
+  const [currentError, setCurrentError] = useState<string>('')
+
+  /* todo move logic to hook*/
+  /* FIXME react hook form seems to not validate fields properly on blur - to be investigated*/
+  const handleCheckForErrors = (): boolean => {
+    const currentQuestion = form.questions[current]
+    setCurrentError('')
+    if (currentQuestion?.userQuestionType === QuestionType.Description) {
+      return false
+    }
+    if (
+      currentQuestion?.questionConfig?.mandatory &&
+      isEmpty(getValues(currentQuestion.id))
+    ) {
+      setCurrentError('This field is required')
+      return true
+    }
+    return false
+  }
   const handleGoToNext = () => {
-    setCurrent(current + 1)
+    if (current === -1) {
+      setCurrent(current + 1)
+    }
+    const hasErrors = handleCheckForErrors()
+    if (!hasErrors) {
+      setCurrent(current + 1)
+    }
   }
   const handleGoToPrev = () => {
     setCurrent(current - 1)
   }
-  console.log('get val', getValues())
+
+  if (current === -1) {
+    return (
+      <div className={classes.awell_wizard_form}>
+        <div className={classes.title}>
+          <HeadingMain variant="subHeadline">{form.title}</HeadingMain>
+          <Button onClick={handleGoToNext}>Start form</Button>
+        </div>
+      </div>
+    )
+  }
+
   const isLastQuestion = current === form.questions.length - 1
   return (
     <div className={classes.awell_wizard_form}>
-      <div className={classes.title}>
-        <HeadingMain variant="subHeadline">{form.title}</HeadingMain>
-      </div>
-
+      <>
         <div className={classes.wizard_form}>
           <Question
-              question={form.questions[current]}
-              control={control}
-              getValues={getValues}
-              key={form.questions[current].id}
+            question={form.questions[current]}
+            control={control}
+            getValues={getValues}
+            key={form.questions[current].id}
+            error={currentError}
           />
         </div>
         <div className={classes.button_wrapper}>
           <div>
             {current !== 0 && (
-                <Button variant='tertiary' onClick={() => handleGoToPrev()}>Prev</Button>
+              <Button variant="tertiary" onClick={handleGoToPrev}>
+                Prev
+              </Button>
             )}
           </div>
           {isLastQuestion ? (
-              <Button onClick={() => null}>Submit</Button>
+            <Button onClick={onSubmit} type="submit">
+              Submit
+            </Button>
           ) : (
-              <Button variant='secondary' onClick={() => handleGoToNext()}>Next</Button>
+            <Button variant="secondary" onClick={handleGoToNext}>
+              Next
+            </Button>
           )}
         </div>
-
+      </>
     </div>
   )
 }

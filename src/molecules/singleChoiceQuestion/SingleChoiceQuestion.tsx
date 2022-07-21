@@ -13,12 +13,9 @@ export const SingleChoiceQuestion = ({
   values,
 }: SingleChoiceQuestionProps): JSX.Element => {
   const [checkedOption, setCheckedOption] = useState<any>(values)
-  console.log(values)
   const handleSelectOption = (option: any) => {
     setCheckedOption(option)
     onChange(option)
-    console.log('option', option)
-    console.log('option', onChange)
   }
 
   return (
@@ -28,6 +25,7 @@ export const SingleChoiceQuestion = ({
           onChange={() => handleSelectOption(option)}
           label={option.label}
           id={option.id}
+          key={option.id}
           checked={option.id === checkedOption.id}
         />
       ))}

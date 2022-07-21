@@ -7,6 +7,7 @@ import { InputField } from '../../atoms/inputField'
 import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { Label } from '../../atoms/label'
+import { Text } from '../../atoms/typography'
 
 export const QuestionData = ({
   question,
@@ -44,11 +45,8 @@ export const QuestionData = ({
           control={control}
           defaultValue={[]}
           rules={{
-            validate: () => {
-              return config?.mandatory
-                ? getValues(question.id).length > 0
-                : true
-            },
+            validate: () =>
+              config?.mandatory ? getValues(question.id).length > 0 : true,
           }}
           render={({ field: { onChange, onBlur, value } }) => {
             return (
@@ -157,13 +155,26 @@ export const Question = ({ ...props }) => {
       setVisible(1)
     }, 0)
   }, [])
- const showLabel = props.question.userQuestionType !== QuestionType.Description;
+
+  const showLabel = props.question.userQuestionType !== QuestionType.Description
   return (
     <div style={style} className={classes.awell_question}>
-        {showLabel && (
-            <Label htmlFor={props.question.id} label={props.question.title} />
-        )}
+      {showLabel && (
+        <Label
+          htmlFor={props.question.id}
+          label={props.question.title}
+          mandatory={props.question?.questionConfig?.mandatory}
+        />
+      )}
       <QuestionData {...props} />
+
+      <div className={classes.error}>
+        {props.error && (
+          <Text variant="textSmall" color="var(--awell-signalError100)">
+            {props.error}
+          </Text>
+        )}
+      </div>
     </div>
   )
 }

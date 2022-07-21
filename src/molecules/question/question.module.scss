@@ -2,4 +2,8 @@
   --awell-question-opacity: 0;
   opacity: var(--awell-question-opacity);
   transition: opacity .25s ease-in;
+
+  & .error {
+    height: var(--awell-font-size-base); // to avoid content jumps on error
+  }
 }

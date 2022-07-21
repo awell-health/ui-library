@@ -39,17 +39,11 @@
   }
 
   &:checked:before {
-    width: 8px;
-    height: 12px;
+    width: 7px;
+    height: 15px;
     margin: 0 5px;
-    border-bottom: 3px solid var(--awell-checkbox-primary-color);
-    border-right: 3px solid var(--awell-checkbox-primary-color);
+    border-bottom: 4px solid var(--awell-checkbox-primary-color);
+    border-right: 4px solid var(--awell-checkbox-primary-color);
     transform: scale(1) rotate(45deg);
-    @media screen and (max-width: 1024px) {
-      width: 9px;
-      height: 18px;
-      border-width: 4px;
-      margin: 0 6px;
-    }
   }
 }

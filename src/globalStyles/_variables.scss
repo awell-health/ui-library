@@ -7,6 +7,12 @@ html {
   --awell-font-size-xxl: 2rem;     /* 32px */
   --awell-font-size-xxxl: 2.25rem; /* 36px */
 
+  --awell-checkbox-size: 20px;
+
+  --awell-header-height: 94px;
+  --awell-form-max-width: 600px;
+
+
   @media screen and (max-width: 600px){
     --awell-font-size-sm: 1rem;   /* 12px */
     --awell-font-size-base: 1.25rem;    /* 16px, base */
@@ -17,13 +23,29 @@ html {
     --awell-font-size-xxxl: 2.5rem; /* 36px */
 
     /* SPACING */
-    --awell-padding-base: 1rem 3rem;
+    --awell-padding-base: 1rem 2rem;
     --awell-padding-input: 1rem 1.5rem;
-
-    --awell-checkbox-size: 20px;
+    --awell-checkbox-size: 1.25rem;
   }
 
-  @media screen and (max-width: 1024px){
+  @media screen and (min-width: 601px) and (max-width: 1023px){
+    --awell-font-size-sm: 1rem;   /* 12px */
+    --awell-font-size-base: 1.25rem;    /* 16px, base */
+    --awell-font-size-md: 1.5rem;   /* 20px */
+    --awell-font-size-lg: 1.75rem;    /* 24px */
+    --awell-font-size-xl: 2rem;   /* 28px */
+    --awell-font-size-xxl: 2.25rem;     /* 32px */
+    --awell-font-size-xxxl: 2.5rem; /* 36px */
+
+    --awell-header-height: 109px;
+
+    /* SPACING */
+    --awell-padding-base: 1rem 3rem;
+
+    --awell-padding-input: 1rem 1.5rem;
+    --awell-checkbox-size: 1.25rem;
+  }
+  @media screen and (min-width: 1024px){
     --awell-font-size-sm: 1rem;   /* 12px */
     --awell-font-size-base: 1.25rem;    /* 16px, base */
     --awell-font-size-md: 1.5rem;   /* 20px */
@@ -33,10 +55,10 @@ html {
     --awell-font-size-xxxl: 2.5rem; /* 36px */
 
     /* SPACING */
-    --awell-padding-base: 1rem 3rem;
+    --awell-padding-base: 0.75rem 2rem;
 
     --awell-padding-input: 1rem 1.5rem;
 
-    --awell-checkbox-size: 25px;
+    --awell-checkbox-size: 1.25rem;
   }
 }

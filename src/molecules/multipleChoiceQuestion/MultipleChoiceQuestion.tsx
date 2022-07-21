@@ -21,7 +21,7 @@ export const MultipleChoiceQuestion = ({
     if (event.target.checked) {
       newCheckedOptions = [...checkedOptions, option]
     } else {
-      newCheckedOptions = [checkedOptions.filter((opt) => option.id !== opt.id)]
+      newCheckedOptions = checkedOptions.filter((opt) => option.id !== opt.id)
     }
     setCheckedOptions(newCheckedOptions)
     onChange(newCheckedOptions)
@@ -31,6 +31,7 @@ export const MultipleChoiceQuestion = ({
     <fieldset className={classes.awell_multiple_choice_question}>
       {(question.options || []).map((option: any) => (
         <CheckboxButton
+          key={option.id}
           onChange={(event) => handleSelectOption(event, option)}
           label={option.label}
           id={option.id}

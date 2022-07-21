@@ -9,7 +9,7 @@ export {
     InlineText,
     ExternalLink,
     InnerText
-} from './typography'
+} from './Typography'
 // @ts-ignore
-export type {TypographyProps} from './typography'
+export type {TypographyProps} from './Typography'
 export type {TextVariants} from './types'

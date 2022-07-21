@@ -3,4 +3,9 @@
 .awell_label {
   margin-bottom: 40px;
   display: block;
+
+  & .mandatory {
+    color: var(--awell-signalError100);
+    margin-left: 8px;
+  }
 }

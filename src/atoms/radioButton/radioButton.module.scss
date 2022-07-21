@@ -46,12 +46,12 @@
   &:checked + label:after,
   &:not(:checked) + label:after {
     content: '';
-    width: 17px;
-    height: 17px;
+    width: 14px;
+    height: 14px;
     background: var(--awell-radio-primary-color);
     position: absolute;
-    top: 6px;
-    left: 6px;
+    top: 5px;
+    left: 5px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
