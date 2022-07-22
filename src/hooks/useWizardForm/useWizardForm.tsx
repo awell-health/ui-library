@@ -1,97 +1,103 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { AnswerValue } from '../../organisms/wizardForm/WizardForm'
-import { convertToAwellInput, getDefaultValue, getInitialValues, updateVisibility } from '../../organisms/wizardForm/helpers'
-import { FormSettingsContextInterface, QuestionRuleResult } from './types'
+import {
+  convertToAwellInput,
+  getInitialValues,
+  isEmpty,
+  updateVisibility,
+} from '../../organisms/wizardForm/helpers'
+import { FormSettingsContextInterface, FormSettingsContextProps } from './types'
+import { QuestionType } from '../../types'
 
-
-const initialSettingsContext = {
-  onFormChange: () => null,
-  resetQuestion: () => null,
-  resetForm: () => null,
-  submitForm: () => null,
-  formMethods: null,
-}
-
-const FormSettingsContext = createContext<any>(
-  initialSettingsContext,
-)
-
-const WizardFromContextProvider = ({
-                                       children,
-                                       questions, answers, evaluateDisplayConditions, onSubmit
-                                     }:FormSettingsContextInterface): JSX.Element => {
-
+const useWizardForm = ({
+  questions,
+  evaluateDisplayConditions,
+  onSubmit,
+}: FormSettingsContextProps): FormSettingsContextInterface => {
   const formMethods = useForm({
     defaultValues: getInitialValues(questions),
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
-
   })
   const [visibleQuestions, setVisibleQuestions] = useState<Array<any>>([])
-  const [readyForSubmit, setReadyForSubmit] = useState(true)
-  const [errors, setErrors] = useState([])
-
-  const updateQuestionVisibility = useCallback(async () => {
+  const [currentError, setCurrentError] = useState<string>('')
+  const [current, setCurrent] = useState(-1)
+  const updateQuestionVisibility = async () => {
     const formValuesInput = convertToAwellInput(formMethods.getValues())
-    const answersInput = (answers || []).map(({ question_id, value }) => ({
-      question_id,
-      value,
-    }))
-    const evaluateInput = !formValuesInput ? answersInput : formValuesInput
-    const evaluationResults = await evaluateDisplayConditions(evaluateInput)
-    const updatedQuestions = updateVisibility(questions, evaluationResults).filter(e => e.visible)
+    const evaluationResults = await evaluateDisplayConditions(formValuesInput)
+
+    const updatedQuestions = updateVisibility(
+      questions,
+      evaluationResults
+    ).filter((e) => e.visible)
     setVisibleQuestions(updatedQuestions)
-  }, [answers, evaluateDisplayConditions])
-
-  const handleFormChange = async () => {
-    setReadyForSubmit(false)
-    await updateQuestionVisibility()
-  }
-
-  const resetQuestion = (question: any) => {
-    const defaultValue = getDefaultValue(question)
-    formMethods.setValue(question.id, defaultValue, {
-      shouldDirty: true,
-      shouldValidate: true,
-    })
-  }
-
-  const resetForm = () => {
-    formMethods.reset()
-  }
-
-  const submitForm = () => {
-    setErrors([])
-    formMethods.handleSubmit(
-      async (formResponse: Record<string, AnswerValue>) => {
-        await onSubmit(convertToAwellInput(formResponse))
-      },
-    )()
   }
 
   useEffect(() => {
     updateQuestionVisibility()
-  }, [answers])
+  }, [questions])
 
-  return (
-    <FormSettingsContext.Provider value={{
-      formMethods,
-      resetQuestion,
-      onFormChange: handleFormChange,
-      resetForm,
-      submitForm,
-      visibleQuestions,
-      readyForSubmit,
-      errors
-    }}>
-      {children}
-    </FormSettingsContext.Provider>
-  )
+  const handleCheckForErrors = (): boolean => {
+    const currentQuestion = visibleQuestions[current]
+    setCurrentError('')
+    if (currentQuestion?.userQuestionType === QuestionType.Description) {
+      return false
+    }
+
+    if (
+      currentQuestion?.questionConfig?.mandatory &&
+      isEmpty(formMethods.getValues(currentQuestion.id))
+    ) {
+      setCurrentError('This field is required')
+      return true
+    }
+    return false
+  }
+  const handleGoToNextQuestion = () => {
+    if (current === -1) {
+      setCurrent(current + 1)
+    }
+    const hasErrors = handleCheckForErrors()
+    if (!hasErrors) {
+      setCurrent(current + 1)
+    }
+  }
+  const handleGoToPrevQuestion = () => {
+    setCurrent(current - 1)
+  }
+
+  const handleFormChange = async () => {
+    handleCheckForErrors()
+    await updateQuestionVisibility()
+  }
+
+  const submitForm = () => {
+    const hasErrors = handleCheckForErrors()
+
+    if (!hasErrors) {
+      formMethods.handleSubmit(
+        async (formResponse: Record<string, AnswerValue>) => {
+          await onSubmit(convertToAwellInput(formResponse))
+        }
+      )()
+    }
+  }
+
+  return {
+    updateQuestionVisibility,
+    submitForm,
+    handleGoToNextQuestion,
+    handleGoToPrevQuestion,
+    handleFormChange,
+    formMethods,
+    currentQuestion: visibleQuestions?.[current],
+    currentError,
+    isFirstQuestion: current === 0,
+    isLastQuestion: current === visibleQuestions.length - 1,
+    isEntryPage: current === -1,
+  }
 }
 
-const useWizardForm = (): FormSettingsContextInterface =>
-  useContext(FormSettingsContext)
-
-export { WizardFromContextProvider, useWizardForm }
+export { useWizardForm }

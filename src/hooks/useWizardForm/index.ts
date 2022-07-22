@@ -1,1 +1,1 @@
-export { useWizardForm, WizardFromContextProvider } from './useWizardForm'
+export { useWizardForm } from './useWizardForm'

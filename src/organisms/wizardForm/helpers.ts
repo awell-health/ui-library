@@ -15,16 +15,15 @@ export const getDefaultValue = (question: any): AnswerValue => {
       return ''
   }
 }
-export const getInitialValues = (questions: any) => questions.reduce((obj: any, item: { id: any }) => {
-  return {
-    ...obj,
-    [item.id]: getDefaultValue(item),
-  }
-}, {})
-export const convertToAwellInput = (
-  formResponse:any,
-) => {
-  return Object.keys(formResponse).map(question_id => ({
+export const getInitialValues = (questions: any) =>
+  questions.reduce((obj: any, item: { id: any }) => {
+    return {
+      ...obj,
+      [item.id]: getDefaultValue(item),
+    }
+  }, {})
+export const convertToAwellInput = (formResponse: any) => {
+  return Object.keys(formResponse).map((question_id) => ({
     question_id,
     value: ensureString(formResponse[question_id]),
   }))
@@ -34,16 +33,21 @@ export const convertToAwellInput = (
  */
 export const updateVisibility = (
   questions: Array<any>,
-  evaluation_results: Array<QuestionRuleResult>,
+  evaluation_results: Array<QuestionRuleResult>
 ): Array<any> =>
-  questions.map(question => {
-    const result = evaluation_results.find(({question_id})=> question_id === question.id)
+  questions.map((question) => {
+    const result = evaluation_results.find(
+      ({ question_id }) => question_id === question.id
+    )
 
-
-    const visible = !result ? true : result.satisfied
+    const visible = !result ? true : result?.satisfied
     return { ...question, visible }
   })
 
 export const isEmpty = (value: any) => {
-  return (typeof Array.isArray(value) && value.length === 0) || (typeof value === 'string' && value.length === 0) || (typeof  value === 'object' && Object.keys(value).length === 0)
+  return (
+    (typeof Array.isArray(value) && value.length === 0) ||
+    (typeof value === 'string' && value.length === 0) ||
+    (typeof value === 'object' && Object.keys(value).length === 0)
+  )
 }

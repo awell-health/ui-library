@@ -8,6 +8,7 @@ import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { Label } from '../../atoms/label'
 import { Text } from '../../atoms/typography'
+import { RangeInput } from '../../atoms/rangeInput'
 
 export const QuestionData = ({
   question,
@@ -137,6 +138,22 @@ export const QuestionData = ({
               id={question.id}
               value={value}
               hideLabel
+            />
+          )}
+        />
+      )
+    case QuestionType.Slider:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue=""
+          rules={{ required: config?.mandatory }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <RangeInput
+              onChange={onChange}
+              id={question.id}
+              sliderConfig={config.slider}
             />
           )}
         />

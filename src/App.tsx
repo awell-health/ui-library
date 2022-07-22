@@ -11,6 +11,7 @@ function App() {
       <WizardFormComponent
         form={form}
         onSubmit={() => alert('submit button clicked')}
+        evaluateDisplayConditions={() => new Promise(() => null)}
       />
     </>
   )

@@ -15,6 +15,7 @@ export const WizardForm: Story = ({}) => {
     <WizardFormComponent
       form={form}
       onSubmit={() => alert('form submit button clicked')}
+      evaluateDisplayConditions={() => new Promise(() => null)}
     />
   )
 }

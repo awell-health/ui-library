@@ -6,6 +6,7 @@
 
 }
 .awell_long_text_field {
+  font: var(--awell-font);
   padding: var(--awell-padding-input);
   font-size: var(--awell-font-size-base);
   border: 2px solid #ddd;
