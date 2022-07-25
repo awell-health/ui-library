@@ -32,7 +32,6 @@ const serializeReducer = (acc = [], node: any) => {
     : ''
 
   if (node.hasOwnProperty('text')) {
-    console.log('node', node)
     return classAttribute
       ? `${acc}<span${classAttribute}>${escapeHtml(node.text)}</span>`
       : `${acc}${escapeHtml(node.text)}`

@@ -10,7 +10,6 @@ export interface DescriptionProps {
 }
 
 export const Description = ({ nodes }: DescriptionProps): JSX.Element => {
-  console.log(nodes)
   return (
     <div className={classes.awell_description_wrapper}>
       <RichTextViewer nodes={nodes} />

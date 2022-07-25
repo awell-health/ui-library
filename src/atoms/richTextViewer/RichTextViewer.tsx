@@ -7,6 +7,6 @@ interface RichTextViewerProps {
 
 export const RichTextViewer = ({ nodes }: RichTextViewerProps): JSX.Element => {
   const serializedHtml = serializeHtml(nodes)
-  console.log(serializedHtml)
+  // fixme consider using parser, I'm not fond of using dangerouslySetInnerHTML here
   return <div dangerouslySetInnerHTML={{ __html: serializedHtml }} />
 }
