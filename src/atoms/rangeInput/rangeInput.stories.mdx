@@ -1,18 +1,26 @@
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
-import { RangeInput} from './RangeInput';
+import { RangeInput} from '.';
 
 
 <Meta title="atoms/Range Input" component={RangeInput} />
 
 
-# Button
+# Range Input
 
 <Canvas>
-  <Story name="Radio Button">
+  <Story name="Range Input">
     <form>
       <div>
         <h3>RangeInput</h3>
-        <RangeInput label="Label" id="option-1" onChange={()=>null} />
+        <RangeInput label="Label"
+                    id="option-1"
+                    onChange={()=>null}
+                    sliderConfig={{
+                        min:0,
+                        max: 10,
+                        step_value: 1
+                      }}
+                    />
       </div>
     </form>
   </Story>

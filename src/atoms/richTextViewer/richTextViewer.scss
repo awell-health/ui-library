@@ -1,0 +1,18 @@
+.bold {
+  font-weight: bold;
+}
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.strikethrough.underline {
+  text-decoration: line-through underline;
+}

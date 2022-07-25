@@ -4,7 +4,10 @@ import classes from './typography.module.scss'
 
 export interface TypographyProps {
   children: string | string[] | JSX.Element | ReactNode
-  /* sets style of the typography element */
+  /* sets style of the typography element
+  *  Variants are compatible with all typography components
+     You can try out different typography variants by selecting one from controls panel
+  * */
   variant?: TextVariants
   /* sets custom color */
   color?: string

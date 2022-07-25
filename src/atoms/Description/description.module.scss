@@ -1,0 +1,19 @@
+
+.awell_description_wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+
+}
+.awell_description {
+  font: var(--awell-font);
+  padding: var(--awell-padding-input);
+  font-size: var(--awell-font-size-base);
+  border: 2px solid #ddd;
+  border-radius: 4px;
+
+  &:disabled {
+    color: #eee;
+    cursor: not-allowed;
+  }
+}

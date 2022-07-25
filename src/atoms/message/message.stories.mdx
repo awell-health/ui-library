@@ -1,0 +1,25 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { Message } from './Message';
+
+
+<Meta title="atoms/Message" component={Message} />
+
+
+# Message
+
+<Canvas>
+  <Story name="Message">
+    <form>
+      <div>
+        <h3>Message</h3>
+        <Message content={[
+          { type: 'p', children: [{ text: 'italic', italic: true }] },
+          { type: 'p', children: [{ text: 'underline', underline: true }] },
+          { type: 'p', children: [{ text: 'strike through', strikethrough: true }] }
+        ]} />
+      </div>
+    </form>
+  </Story>
+</Canvas>
+
+

@@ -10,6 +10,7 @@ import { Label } from '../../atoms/label'
 import { Text } from '../../atoms/typography'
 import { RangeInput } from '../../atoms/rangeInput'
 import { DatePicker } from '../../atoms/datePicker'
+import { Description } from '../../atoms/Description'
 
 export const QuestionData = ({
   question,
@@ -122,27 +123,6 @@ export const QuestionData = ({
           )}
         />
       )
-    case QuestionType.Description:
-      return (
-        <Controller
-          name={question.id}
-          control={control}
-          defaultValue=""
-          rules={{ required: config?.mandatory }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <LongTextField
-              type="text"
-              onChange={(e) => {
-                onChange(e.target.value)
-              }}
-              label={''}
-              id={question.id}
-              value={value}
-              hideLabel
-            />
-          )}
-        />
-      )
     case QuestionType.Slider:
       return (
         <Controller
@@ -171,6 +151,8 @@ export const QuestionData = ({
           )}
         />
       )
+    case QuestionType.Description:
+      return <Description nodes={question.title} />
     default:
       return <div>TO BE DONE</div>
   }

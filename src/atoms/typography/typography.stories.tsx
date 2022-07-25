@@ -51,20 +51,6 @@ export const Variants: Story<TypographyProps> = ({ variant }) => {
         fontFamily: 'Roboto',
       }}
     >
-      <section>
-        <ul>
-          <li style={{ padding: '4px' }}>
-            <Text>Variants are compatible with all typography components</Text>
-          </li>
-          <li style={{ padding: '4px' }}>
-            <Text>
-              You can try out different typography variants by selecting one
-              from controls panel
-            </Text>
-          </li>
-        </ul>
-      </section>
-
       <div style={{ padding: '32px', margin: '0 auto' }}>
         <Text variant={variant as ParagraphsVariants | HeadlineVariants}>
           Variant {variant}

@@ -4,6 +4,22 @@ export const form = {
   key: 'newFormShort',
   questions: [
     {
+      id: 'F9wnzORlsXcZ',
+      title: 'birth date',
+      form_id: 'cOhOlztRmi-M',
+      key: 'birthDate',
+      dataPointValueType: 'DATE',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'DATE',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+    {
       id: 'TCvRyRL9j1qc',
       title: 'how are u',
       form_id: 'cOhOlztRmi-M',

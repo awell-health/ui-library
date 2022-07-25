@@ -1,12 +1,15 @@
-import React, { InputHTMLAttributes } from 'react'
+import React from 'react'
+import classes from './message.module.scss'
+import { RichTextViewer } from '../richTextViewer'
 
-import classes from './rangeInput.module.scss'
-
-export interface MessageProps extends InputHTMLAttributes<HTMLInputElement> {
-  content: string
+export interface MessageProps {
+  content: Array<any>
 }
 
-/* work in progress*/
 export const Message = ({ content }: MessageProps): JSX.Element => {
-  return <div className={classes.awell_message}>{content}</div>
+  return (
+    <div className={classes.awell_message}>
+      <RichTextViewer nodes={content} />
+    </div>
+  )
 }
