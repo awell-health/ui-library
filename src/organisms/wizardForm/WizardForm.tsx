@@ -24,7 +24,6 @@ export const WizardForm = ({
   evaluateDisplayConditions,
 }: WizardFormProps) => {
   const {
-    updateQuestionVisibility,
     submitForm,
     handleGoToNextQuestion,
     handleGoToPrevQuestion,
@@ -51,7 +50,6 @@ export const WizardForm = ({
       </div>
     )
   }
-
   return (
     <div className={classes.awell_wizard_form}>
       <>

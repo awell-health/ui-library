@@ -8,22 +8,25 @@ import { SingleChoiceQuestion } from './SingleChoiceQuestion';
 
 <Canvas>
   <Story name="Single Choice Question">
-    <SingleChoiceQuestion onChange={()=> null} options={[
-                                             {
-                                               id: '1',
-                                               label: 'Heart disease (for example angina, heart attack or heart ) ',
-                                               value: 0,
-                                             },
-                                             {
-                                               id: '2',
-                                               label: 'Heart disease (for example angina, heart attack or heart )',
-                                               value: 1,
-                                             },
-                                             {
-                                               id: '3',
-                                               label: 'Heart disease (for example angina, heart attack or heart )',
-                                               value: 2,
-                                             },
-                                           ]}/>
+    <SingleChoiceQuestion onChange={()=> null}
+                          options={[
+                                    {
+                                      id: '1',
+                                      label: 'Heart disease (for example angina, heart attack or heart ) ',
+                                      value: 0,
+                                    },
+                                    {
+                                      id: '2',
+                                      label: 'Heart disease (for example angina, heart attack or heart )',
+                                      value: 1,
+                                    },
+                                    {
+                                      id: '3',
+                                      label: 'Heart disease (for example angina, heart attack or heart )',
+                                      value: 2,
+                                    },
+                                  ]}
+                          values={{id:'1'}}
+    />
   </Story>
 </Canvas>

@@ -9,6 +9,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { Label } from '../../atoms/label'
 import { Text } from '../../atoms/typography'
 import { RangeInput } from '../../atoms/rangeInput'
+import { DatePicker } from '../../atoms/datePicker'
 
 export const QuestionData = ({
   question,
@@ -155,6 +156,18 @@ export const QuestionData = ({
               id={question.id}
               sliderConfig={config.slider}
             />
+          )}
+        />
+      )
+    case QuestionType.Date:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue=""
+          rules={{ required: config?.mandatory }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <DatePicker onChange={onChange} id={question.id} />
           )}
         />
       )

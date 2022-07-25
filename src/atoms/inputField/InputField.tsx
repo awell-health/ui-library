@@ -1,5 +1,4 @@
 import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
-// @ts-ignore
 import classes from './inputField.module.scss'
 
 export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -7,10 +6,15 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
    * change event handlers
    */
   onChange: ChangeEventHandler<HTMLInputElement>
+
+  /**
+   * change event handlers
+   */
+  onClick?: any
   /**
    * sets label of the button
    */
-  label: string
+  label?: string
   /**
    * sets id that is used to connect input with label
    */
@@ -18,7 +22,7 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * you can also set any attribute that is native to html button
    */
-  type: 'number' | 'text'
+  type: 'number' | 'text' | 'date'
 
   /**
    * hide label - use only when label is provided in other manner

@@ -1,18 +1,18 @@
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
-import { DatePicker} from './DatePicker';
+import {DatePicker} from '.';
 
 
 <Meta title="atoms/Date Picker" component={DatePicker} />
 
 
-# Button
+# Date Picker
 
 <Canvas>
   <Story name="Date Picker">
     <form>
       <div>
-        <h3>DatePicker</h3>
-        <DatePicker />
+        <h3>Date Picker</h3>
+        <DatePicker id="id-date-picker"  onChange={() => null}/>
       </div>
     </form>
   </Story>

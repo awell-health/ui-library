@@ -24,10 +24,10 @@ const useWizardForm = ({
   const [visibleQuestions, setVisibleQuestions] = useState<Array<any>>([])
   const [currentError, setCurrentError] = useState<string>('')
   const [current, setCurrent] = useState(-1)
+
   const updateQuestionVisibility = async () => {
     const formValuesInput = convertToAwellInput(formMethods.getValues())
     const evaluationResults = await evaluateDisplayConditions(formValuesInput)
-
     const updatedQuestions = updateVisibility(
       questions,
       evaluationResults
@@ -84,7 +84,6 @@ const useWizardForm = ({
       )()
     }
   }
-
   return {
     updateQuestionVisibility,
     submitForm,

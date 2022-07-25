@@ -1,13 +1,3 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
-import { QuestionType } from '../../types'
-import { AnswerValue } from '../../organisms/wizardForm/WizardForm'
 import { UseFormReturn } from 'react-hook-form/dist/types'
 
 export enum DataPointValueType {
