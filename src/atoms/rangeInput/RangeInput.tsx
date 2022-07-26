@@ -1,11 +1,5 @@
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  InputHTMLAttributes,
-} from 'react'
-// @ts-ignore
+import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
 import classes from './rangeInput.module.scss'
-import { Text } from '../typography'
 
 export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
   /**

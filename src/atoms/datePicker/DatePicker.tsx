@@ -7,9 +7,9 @@ import { useClickOutsideNotifier } from '../../hooks/useClickOutsideNotifier'
 
 export interface DatePickerProps {
   /**
-   * change event handlers
+   * change event handler
    */
-  onChange: (date: Date) => void
+  onChange: (date: string) => void
   /**
    * sets label of the button
    */
@@ -22,15 +22,21 @@ export interface DatePickerProps {
    * hide label - use only when label is provided in other manner
    */
   hideLabel?: boolean
+  /**
+   * hide label - use only when label is provided in other manner
+   */
+  value: Date
 }
 
 export const DatePicker = ({
   id,
   onChange,
+  value,
   ...props
 }: DatePickerProps): JSX.Element => {
   const wrapperRef = createRef<HTMLDivElement>()
-  const [value, onValueChange] = useState(new Date())
+
+  const [dateValue, onValueChange] = useState(value)
   const [isDatePickerOpen, toggleDatePicker] = useState(false)
 
   useClickOutsideNotifier({
@@ -40,7 +46,7 @@ export const DatePicker = ({
 
   const handleChangeDate = (date: Date) => {
     onValueChange(date)
-    onChange(date)
+    onChange(format(dateValue, 'yyyy-MM-dd'))
   }
 
   return (
@@ -49,12 +55,12 @@ export const DatePicker = ({
         {...props}
         id={id}
         type="date"
-        value={format(value, 'yyyy-MM-dd')}
+        value={format(dateValue, 'yyyy-MM-dd')}
         onClick={() => toggleDatePicker(!isDatePickerOpen)}
         onChange={(e) => handleChangeDate(new Date(e.target.value))}
       />
       {isDatePickerOpen && (
-        <Calendar onChange={handleChangeDate} value={value} />
+        <Calendar onChange={handleChangeDate} value={dateValue} />
       )}
     </div>
   )

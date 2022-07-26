@@ -1,12 +1,13 @@
 import React from 'react'
 import classes from './description.module.scss'
 import { RichTextViewer } from '../richTextViewer'
+import { Nodes } from '../../types'
 
 export interface DescriptionProps {
   /**
    * nodes in slate format
    */
-  nodes: Array<any>
+  nodes: Nodes | string
 }
 
 export const Description = ({ nodes }: DescriptionProps): JSX.Element => {

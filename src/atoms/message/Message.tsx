@@ -1,9 +1,10 @@
 import React from 'react'
 import classes from './message.module.scss'
 import { RichTextViewer } from '../richTextViewer'
+import { Nodes } from '../../types'
 
 export interface MessageProps {
-  content: Array<any>
+  content: Nodes
 }
 
 export const Message = ({ content }: MessageProps): JSX.Element => {

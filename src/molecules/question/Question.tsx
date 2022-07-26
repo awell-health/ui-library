@@ -1,5 +1,10 @@
 import { Controller } from 'react-hook-form'
-import { QuestionType } from '../../types'
+import {
+  FormError,
+  QuestionConfig,
+  QuestionType,
+  SliderQuestionConfig,
+} from '../../types'
 import { SingleChoiceQuestion } from '../singleChoiceQuestion'
 import { MultipleChoiceQuestion } from '../multipleChoiceQuestion'
 import { LongTextField } from '../../atoms/longTextField'
@@ -11,13 +16,16 @@ import { Text } from '../../atoms/typography'
 import { RangeInput } from '../../atoms/rangeInput'
 import { DatePicker } from '../../atoms/datePicker'
 import { Description } from '../../atoms/Description'
+import { format } from 'date-fns'
+import { QuestionDataProps, QuestionProps } from './types'
 
 export const QuestionData = ({
   question,
   control,
   getValues,
-}: any): JSX.Element => {
-  const config = question?.questionConfig
+}: QuestionDataProps): JSX.Element => {
+  const config: QuestionConfig | SliderQuestionConfig | undefined =
+    question?.questionConfig
   switch (question.userQuestionType) {
     case QuestionType.YesNo:
       return (
@@ -26,7 +34,7 @@ export const QuestionData = ({
           control={control}
           defaultValue=""
           rules={{ required: config?.mandatory }}
-          render={({ field: { onChange, onBlur, value } }) => {
+          render={({ field: { onChange, value } }) => {
             return (
               <SingleChoiceQuestion
                 options={[
@@ -34,7 +42,7 @@ export const QuestionData = ({
                   { id: `${question.id}-no`, value: false, label: 'no' },
                 ]}
                 onChange={onChange}
-                values={value}
+                value={value}
               />
             )
           }}
@@ -51,7 +59,7 @@ export const QuestionData = ({
             validate: () =>
               config?.mandatory ? getValues(question.id).length > 0 : true,
           }}
-          render={({ field: { onChange, onBlur, value } }) => {
+          render={({ field: { onChange, value } }) => {
             return (
               <MultipleChoiceQuestion
                 question={question}
@@ -69,7 +77,7 @@ export const QuestionData = ({
           control={control}
           defaultValue=""
           rules={{ required: config?.mandatory }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({ field: { onChange, value } }) => (
             <LongTextField
               onChange={(e) => {
                 onChange(e.target.value)
@@ -89,7 +97,7 @@ export const QuestionData = ({
           control={control}
           defaultValue=""
           rules={{ required: config?.mandatory }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({ field: { onChange, value } }) => (
             <InputField
               type="number"
               onChange={(e) => {
@@ -110,7 +118,7 @@ export const QuestionData = ({
           control={control}
           defaultValue=""
           rules={{ required: config?.mandatory }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({ field: { onChange } }) => (
             <InputField
               type="text"
               onChange={(e) => {
@@ -130,13 +138,15 @@ export const QuestionData = ({
           control={control}
           defaultValue=""
           rules={{ required: config?.mandatory }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <RangeInput
-              onChange={onChange}
-              id={question.id}
-              sliderConfig={config.slider}
-            />
-          )}
+          render={({ field: { onChange } }) => {
+            return (
+              <RangeInput
+                onChange={onChange}
+                id={question.id}
+                sliderConfig={(config as SliderQuestionConfig)?.slider}
+              />
+            )
+          }}
         />
       )
     case QuestionType.Date:
@@ -144,11 +154,18 @@ export const QuestionData = ({
         <Controller
           name={question.id}
           control={control}
-          defaultValue=""
+          defaultValue={format(new Date(), 'yyyy-MM-dd')}
           rules={{ required: config?.mandatory }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <DatePicker onChange={onChange} id={question.id} />
-          )}
+          render={({ field: { onChange, value } }) => {
+            const dateValue = value ? new Date(value) : new Date()
+            return (
+              <DatePicker
+                onChange={onChange}
+                id={question.id}
+                value={dateValue}
+              />
+            )
+          }}
         />
       )
     case QuestionType.Description:
@@ -158,7 +175,12 @@ export const QuestionData = ({
   }
 }
 
-export const Question = ({ ...props }) => {
+export const Question = ({
+  question,
+  control,
+  getValues,
+  errors,
+}: QuestionProps): JSX.Element => {
   const [isVisible, setVisible] = useState(0)
   const style = { '--awell-question-opacity': isVisible } as React.CSSProperties
 
@@ -168,22 +190,29 @@ export const Question = ({ ...props }) => {
     }, 0)
   }, [])
 
-  const showLabel = props.question.userQuestionType !== QuestionType.Description
+  const currentError = errors.find(({ id }: FormError) => id === question.id)
+  const showLabel = question.userQuestionType !== QuestionType.Description
+
   return (
     <div style={style} className={classes.awell_question}>
       {showLabel && (
         <Label
-          htmlFor={props.question.id}
-          label={props.question.title}
-          mandatory={props.question?.questionConfig?.mandatory}
+          htmlFor={question.id}
+          label={question.title}
+          mandatory={question?.questionConfig?.mandatory}
         />
       )}
-      <QuestionData {...props} />
+
+      <QuestionData
+        question={question}
+        control={control}
+        getValues={getValues}
+      />
 
       <div className={classes.error}>
-        {props.error && (
+        {currentError && (
           <Text variant="textSmall" color="var(--awell-signalError100)">
-            {props.error}
+            {currentError.error}
           </Text>
         )}
       </div>

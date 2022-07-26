@@ -14,6 +14,12 @@ export const WizardForm: Story = ({}) => {
   return (
     <WizardFormComponent
       form={form}
+      buttonLabels={{
+        prev: 'Prev',
+        next: 'Next',
+        submit: 'Submit',
+      }}
+      errorLabels={{ required: 'Answer for this question is required' }}
       onSubmit={() => alert('form submit button clicked')}
       evaluateDisplayConditions={() => {
         return Promise.all([]).then(function () {

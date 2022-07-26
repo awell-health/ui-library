@@ -1,5 +1,4 @@
 import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
-// @ts-ignore
 import classes from './radioButton.module.scss'
 
 export interface RadioButtonProps

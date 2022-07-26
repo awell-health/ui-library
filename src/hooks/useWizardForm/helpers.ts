@@ -1,22 +1,28 @@
-import { AnswerValue } from './WizardForm'
-import { QuestionType } from '../../types'
-import { QuestionRuleResult } from '../../hooks/useWizardForm/types'
+import {
+  Question,
+  QuestionType,
+  QuestionWithVisibility,
+  SliderQuestionConfig,
+} from '../../types'
+import { AnswerValue, QuestionRuleResult } from './types'
 
 const ensureString = (val: AnswerValue) =>
   typeof val === 'string' ? val : JSON.stringify(val)
 
-export const getDefaultValue = (question: any): AnswerValue => {
+export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
     case QuestionType.MultipleSelect:
       return []
     case QuestionType.Slider:
-      return question.questionConfig?.slider?.min ?? 0
+      return (question.questionConfig as SliderQuestionConfig)?.slider?.min ?? 0
     default:
       return ''
   }
 }
-export const getInitialValues = (questions: any) =>
-  questions.reduce((obj: any, item: { id: any }) => {
+export const getInitialValues = (
+  questions: Array<Question>
+): Record<string, AnswerValue> =>
+  questions.reduce((obj: any, item: Question) => {
     return {
       ...obj,
       [item.id]: getDefaultValue(item),
@@ -32,9 +38,9 @@ export const convertToAwellInput = (formResponse: any) => {
  * Updates question visibility after rules evaluations
  */
 export const updateVisibility = (
-  questions: Array<any>,
+  questions: Array<Question>,
   evaluation_results: Array<QuestionRuleResult>
-): Array<any> =>
+): Array<QuestionWithVisibility> =>
   questions.map((question) => {
     const result = evaluation_results.find(
       ({ question_id }) => question_id === question.id

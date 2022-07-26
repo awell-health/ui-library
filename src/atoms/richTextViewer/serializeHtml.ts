@@ -1,6 +1,7 @@
 import escapeHtml from 'escape-html'
+import { Nodes, Node } from '../../types'
 
-const serializeReducer = (acc = [], node: any) => {
+const serializeReducer = (acc = [], node: Node) => {
   const className = Object.entries(node).reduce(
     (classNames, [prop, value]): any => {
       switch (prop) {
@@ -37,8 +38,10 @@ const serializeReducer = (acc = [], node: any) => {
       : `${acc}${escapeHtml(node.text)}`
   }
 
+  //@ts-ignore
   const children = node.children.reduce(serializeReducer, '')
 
+  //@ts-ignore
   switch (node.type) {
     case 'h1':
       return `${acc}<h1${classAttribute}>${children}</h1>`
@@ -60,11 +63,12 @@ const serializeReducer = (acc = [], node: any) => {
       return `${acc}<p${classAttribute}>${children}</p>`
     case 'a':
       return `${acc}<a href="${escapeHtml(
+        // @ts-ignore
         node.url
       )}"${classAttribute}>${children}</a>`
     case 'media_embed':
-      return `${acc}<embed type="video/webm"
-       src="${escapeHtml(node.url)}"
+      // @ts-ignore
+      return `${acc}<embed type="video/webm" src="${escapeHtml(node.url)}"
        width="250"
        height="200">`
     default:
@@ -72,9 +76,7 @@ const serializeReducer = (acc = [], node: any) => {
   }
 }
 
-export const serializeHtml = (nodes: Array<any> | string) => {
-  if (Array.isArray(nodes)) {
-    return nodes.reduce(serializeReducer, '')
-  }
-  return JSON.parse(nodes).reduce(serializeReducer, '')
+export const serializeHtml = (nodes: Nodes | string) => {
+  const nodesArray = Array.isArray(nodes) ? nodes : JSON.parse(nodes)
+  return nodesArray.reduce(serializeReducer, '')
 }

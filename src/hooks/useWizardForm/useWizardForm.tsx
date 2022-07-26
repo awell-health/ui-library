@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { AnswerValue } from '../../organisms/wizardForm/WizardForm'
 import {
   convertToAwellInput,
   getInitialValues,
   isEmpty,
   updateVisibility,
-} from '../../organisms/wizardForm/helpers'
-import { FormSettingsContextInterface, FormSettingsContextProps } from './types'
-import { QuestionType } from '../../types'
+} from './helpers'
+import {
+  AnswerValue,
+  FormSettingsContextInterface,
+  FormSettingsContextProps,
+  FormError,
+  QuestionType,
+  QuestionWithVisibility,
+} from './types'
 
 const useWizardForm = ({
   questions,
   evaluateDisplayConditions,
   onSubmit,
+  errorLabels,
 }: FormSettingsContextProps): FormSettingsContextInterface => {
   const formMethods = useForm({
     defaultValues: getInitialValues(questions),
@@ -21,8 +27,10 @@ const useWizardForm = ({
     shouldFocusError: true,
     mode: 'all',
   })
-  const [visibleQuestions, setVisibleQuestions] = useState<Array<any>>([])
-  const [currentError, setCurrentError] = useState<string>('')
+  const [visibleQuestions, setVisibleQuestions] = useState<
+    Array<QuestionWithVisibility>
+  >([])
+  const [errors, setErrors] = useState<Array<FormError>>([])
   const [current, setCurrent] = useState(-1)
 
   const updateQuestionVisibility = async () => {
@@ -41,7 +49,7 @@ const useWizardForm = ({
 
   const handleCheckForErrors = (): boolean => {
     const currentQuestion = visibleQuestions[current]
-    setCurrentError('')
+
     if (currentQuestion?.userQuestionType === QuestionType.Description) {
       return false
     }
@@ -50,7 +58,13 @@ const useWizardForm = ({
       currentQuestion?.questionConfig?.mandatory &&
       isEmpty(formMethods.getValues(currentQuestion.id))
     ) {
-      setCurrentError('This field is required')
+      const errorsWithoutCurrent = errors.filter(
+        (err) => err.id !== currentQuestion.id
+      )
+      setErrors([
+        ...errorsWithoutCurrent,
+        { id: currentQuestion.id, error: errorLabels.required },
+      ])
       return true
     }
     return false
@@ -84,6 +98,7 @@ const useWizardForm = ({
       )()
     }
   }
+
   return {
     updateQuestionVisibility,
     submitForm,
@@ -92,7 +107,7 @@ const useWizardForm = ({
     handleFormChange,
     formMethods,
     currentQuestion: visibleQuestions?.[current],
-    currentError,
+    errors,
     isFirstQuestion: current === 0,
     isLastQuestion: current === visibleQuestions.length - 1,
     isEntryPage: current === -1,

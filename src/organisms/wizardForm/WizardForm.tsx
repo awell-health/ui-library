@@ -4,24 +4,14 @@ import { Button } from '../../atoms/button'
 import classes from './wizardForm.module.scss'
 import { Question } from '../../molecules/question'
 import { useWizardForm } from '../../hooks/useWizardForm'
-import {
-  AnswerInput,
-  QuestionRuleResult,
-} from '../../hooks/useWizardForm/types'
-
-export interface WizardFormProps {
-  form: any
-  evaluateDisplayConditions: (
-    response: Array<AnswerInput>
-  ) => Promise<Array<QuestionRuleResult>>
-  onSubmit: (response: Array<AnswerInput>) => void
-}
-export type AnswerValue = string | number | number[]
+import { WizardFormProps } from './types'
 
 export const WizardForm = ({
   form,
   onSubmit,
+  buttonLabels,
   evaluateDisplayConditions,
+  errorLabels,
 }: WizardFormProps) => {
   const {
     submitForm,
@@ -30,7 +20,7 @@ export const WizardForm = ({
     handleFormChange,
     formMethods: { control, getValues },
     currentQuestion,
-    currentError,
+    errors,
     isFirstQuestion,
     isLastQuestion,
     isEntryPage,
@@ -38,6 +28,7 @@ export const WizardForm = ({
     questions: form.questions,
     onSubmit,
     evaluateDisplayConditions,
+    errorLabels,
   })
 
   if (isEntryPage) {
@@ -56,27 +47,28 @@ export const WizardForm = ({
         <div className={classes.wizard_form}>
           <Question
             question={currentQuestion}
+            onFormChange={handleFormChange}
             control={control}
             getValues={getValues}
             key={currentQuestion.id}
-            error={currentError}
+            errors={errors}
           />
         </div>
         <div className={classes.button_wrapper}>
           <div>
             {!isFirstQuestion && (
               <Button variant="tertiary" onClick={handleGoToPrevQuestion}>
-                Prev
+                {buttonLabels.prev}
               </Button>
             )}
           </div>
           {isLastQuestion ? (
             <Button onClick={submitForm} type="submit">
-              Submit
+              {buttonLabels.submit}
             </Button>
           ) : (
             <Button variant="secondary" onClick={handleGoToNextQuestion}>
-              Next
+              {buttonLabels.next}
             </Button>
           )}
         </div>

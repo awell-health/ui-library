@@ -1,8 +1,9 @@
 import './richTextViewer.scss'
 import { serializeHtml } from './serializeHtml'
+import { Nodes } from '../../types'
 
 interface RichTextViewerProps {
-  nodes: Array<any>
+  nodes: Nodes | string
 }
 
 export const RichTextViewer = ({ nodes }: RichTextViewerProps): JSX.Element => {

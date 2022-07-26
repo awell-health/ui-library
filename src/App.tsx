@@ -11,7 +11,17 @@ function App() {
       <WizardFormComponent
         form={form}
         onSubmit={() => alert('submit button clicked')}
-        evaluateDisplayConditions={() => new Promise(() => null)}
+        evaluateDisplayConditions={() => {
+          return Promise.all([]).then(function () {
+            return []
+          })
+        }}
+        buttonLabels={{
+          prev: 'Prev',
+          next: 'Next',
+          submit: 'Submit',
+        }}
+        errorLabels={{ required: 'Answer for this question is required' }}
       />
     </>
   )

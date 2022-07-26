@@ -1,4 +1,6 @@
-export const form = {
+import { Form } from '../types'
+
+export const form: Form = {
   id: 'cOhOlztRmi-M',
   title: 'New form short',
   key: 'newFormShort',
@@ -100,7 +102,6 @@ export const form = {
           max_label: '10',
           is_value_tooltip_on: false,
           show_min_max_values: false,
-          __typename: 'SliderConfig',
         },
       },
     },

@@ -1,26 +1,27 @@
 import React, { useState } from 'react'
 import classes from './singleChoiceQuestion.module.scss'
 import { RadioButton } from '../../atoms/radioButton'
+import { AnswerOption } from '../../types'
 
 interface SingleChoiceQuestionProps {
-  options: any
-  values: any
-  onChange: (newValue: Array<string | number>) => void
+  options: Array<AnswerOption>
+  value: AnswerOption
+  onChange: (newValue: AnswerOption) => void
 }
 export const SingleChoiceQuestion = ({
   options,
   onChange,
-  values,
+  value,
 }: SingleChoiceQuestionProps): JSX.Element => {
-  const [checkedOption, setCheckedOption] = useState<any>(values)
-  const handleSelectOption = (option: any) => {
+  const [checkedOption, setCheckedOption] = useState<AnswerOption>(value)
+  const handleSelectOption = (option: AnswerOption) => {
     setCheckedOption(option)
     onChange(option)
   }
 
   return (
     <fieldset className={classes.awell_single_choice_question}>
-      {(options || []).map((option: any) => (
+      {(options || []).map((option: AnswerOption) => (
         <RadioButton
           onChange={() => handleSelectOption(option)}
           label={option.label}

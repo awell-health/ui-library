@@ -1,4 +1,5 @@
 import { serializeHtml } from './serializeHtml'
+import { Nodes } from '../../types'
 
 const fixtures = [
   { type: 'h1', children: [{ text: 'title 1' }] },
@@ -92,6 +93,6 @@ const fixtures = [
 const fixturesOutput = `<h2>title 2</h2><h2>title 3</h2><h2><span class="bold">bold</span></h2><h2><span class="bold italic">italicbold</span></h2><p><span class="italic">italic</span></p><p><span class="underline">underline</span></p><p><span class="strikethrough">strike through</span></p><p><span class="strikethrough underline">strike through underlined</span></p><p><span class="strikethrough underline"></span><a href="http://localhost:6006/?path=/docs/organisms-wizardform--wizard-form">http://localhost:6006/?path=/docs/organisms-wizardform--wizard-form</a></p><ul><li><span>bullet list</span></li><li><span><span class="bold">bullet list bold</span></span></li></ul><ol><li><span><span class="bold">number list bold</span></span></li><li><span>number list</span></li></ol><p></p><p></p><embed type="video/webm"`
 
 it('Should correctly parse nodes to html string', () => {
-  const rendered = serializeHtml(fixtures)
+  const rendered = serializeHtml(fixtures as unknown as Nodes)
   expect(rendered).toContain(fixturesOutput)
 })

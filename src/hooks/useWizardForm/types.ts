@@ -1,4 +1,8 @@
 import { UseFormReturn } from 'react-hook-form/dist/types'
+import { AnswerInput, Question, FormError } from '../../types'
+
+export type { FormError, QuestionWithVisibility } from '../../types'
+export { QuestionType } from '../../types'
 
 export enum DataPointValueType {
   Boolean = 'BOOLEAN',
@@ -7,29 +11,26 @@ export enum DataPointValueType {
   NumbersArray = 'NUMBERS_ARRAY',
   String = 'STRING',
 }
-export type AnswerInput = {
-  question_id: string
-  value: string
-}
-export type Answer = {
-  __typename?: 'Answer'
-  question_id: string
-  value: string
-  value_type: DataPointValueType
-}
+
 export type QuestionRuleResult = {
-  __typename?: 'QuestionRuleResult'
   question_id: string
   rule_id: string
   satisfied: boolean
 }
+
+export type ErrorLabels = {
+  required: string
+}
+
+export type AnswerValue = string | number | number[]
 
 export interface FormSettingsContextProps {
   evaluateDisplayConditions: (
     response: Array<AnswerInput>
   ) => Promise<Array<QuestionRuleResult>>
   onSubmit: (response: Array<AnswerInput>) => Promise<void> | void
-  questions: Array<any>
+  questions: Array<Question>
+  errorLabels: ErrorLabels
 }
 export interface FormSettingsContextInterface {
   updateQuestionVisibility: () => void
@@ -38,8 +39,8 @@ export interface FormSettingsContextInterface {
   handleGoToPrevQuestion: () => void
   handleFormChange: () => void
   formMethods: UseFormReturn
-  currentQuestion: any
-  currentError: string
+  currentQuestion: Question
+  errors: Array<FormError>
   isFirstQuestion: boolean
   isLastQuestion: boolean
   isEntryPage: boolean

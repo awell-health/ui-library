@@ -1,5 +1,4 @@
 import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
-// @ts-ignore
 import classes from './checkboxButton.module.scss'
 
 export interface CheckboxButtonProps
