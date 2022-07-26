@@ -3,14 +3,14 @@ import classes from './inputField.module.scss'
 
 export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
-   * change event handlers
+   * you can also set any attribute that is native to html button
    */
-  onChange: ChangeEventHandler<HTMLInputElement>
+  type: 'number' | 'text' | 'date'
 
   /**
-   * change event handlers
+   * hide label - use only when label is provided in other manner
    */
-  onClick?: any
+  hideLabel?: boolean
   /**
    * sets label of the button
    */
@@ -20,14 +20,13 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
    */
   id: string
   /**
-   * you can also set any attribute that is native to html button
+   * change event handlers
    */
-  type: 'number' | 'text' | 'date'
-
+  onChange: ChangeEventHandler<HTMLInputElement>
   /**
-   * hide label - use only when label is provided in other manner
+   * change event handlers
    */
-  hideLabel?: boolean
+  onClick?: any
 }
 
 export const InputField = ({

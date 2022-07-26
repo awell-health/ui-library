@@ -2,12 +2,17 @@
 .awell_long_text_field_wrapper {
   display: flex;
   flex-direction: column;
-  padding: 8px 0;
+  padding: var(--awell-padding-sm) 0;
+
+  & label {
+    margin-bottom: var(--awell-padding-md);
+    font-size: var(--awell-font-size-base);
+  }
 
 }
 .awell_long_text_field {
   font: var(--awell-font);
-  padding: var(--awell-padding-input);
+  padding: var(--awell-padding-all-input);
   font-size: var(--awell-font-size-base);
   border: 2px solid #ddd;
   border-radius: 4px;

@@ -3,7 +3,7 @@ import classes from './multipleChoiceQuestion.module.scss'
 import { CheckboxButton } from '../../atoms/checkboxButton'
 import { AnswerOption, Question } from '../../types'
 
-interface MultipleChoiceQuestionProps {
+export interface MultipleChoiceQuestionProps {
   question: Question
   onChange: (newValue: Array<string | number>) => void
   values: Array<AnswerOption>

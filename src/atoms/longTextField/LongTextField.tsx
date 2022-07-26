@@ -4,10 +4,6 @@ import classes from './longTextField.module.scss'
 export interface LongTextFieldProps
   extends InputHTMLAttributes<HTMLTextAreaElement> {
   /**
-   * change event handlers
-   */
-  onChange: ChangeEventHandler<HTMLTextAreaElement>
-  /**
    * sets label of the button
    */
   label: string
@@ -16,13 +12,17 @@ export interface LongTextFieldProps
    */
   id: string
   /**
-   * value for controlled component
-   */
-  value: string
-  /**
    * hide label - use only when label is provided in other manner
    */
   hideLabel?: boolean
+  /**
+   * change event handlers
+   */
+  onChange: ChangeEventHandler<HTMLTextAreaElement>
+  /**
+   * value for controlled component
+   */
+  value?: string
 }
 
 export const LongTextField = ({

@@ -6,25 +6,16 @@ import { InputField } from '../inputField'
 import { useClickOutsideNotifier } from '../../hooks/useClickOutsideNotifier'
 
 export interface DatePickerProps {
-  /**
-   * change event handler
-   */
   onChange: (date: string) => void
-  /**
-   * sets label of the button
-   */
   label?: string
   /**
    * sets id that is used to connect input with label
    */
   id: string
   /**
-   * hide label - use only when label is provided in other manner
+   * hide label - use only when label is provided in other way
    */
   hideLabel?: boolean
-  /**
-   * hide label - use only when label is provided in other manner
-   */
   value: Date
 }
 
@@ -55,6 +46,7 @@ export const DatePicker = ({
         {...props}
         id={id}
         type="date"
+        hideLabel
         value={format(dateValue, 'yyyy-MM-dd')}
         onClick={() => toggleDatePicker(!isDatePickerOpen)}
         onChange={(e) => handleChangeDate(new Date(e.target.value))}

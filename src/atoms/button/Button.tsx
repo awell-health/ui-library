@@ -7,14 +7,12 @@ import React, {
 import classes from './button.module.scss'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  onClick: MouseEventHandler<HTMLButtonElement>
   /**
    * sets style of the button
    */
   variant?: 'primary' | 'secondary' | 'counter' | 'text' | 'tertiary'
-  /**
-   * you can also set any attribute that is native to html button
-   */
+  children: React.ReactNode | string
+  onClick: MouseEventHandler<HTMLButtonElement>
 }
 
 export const Button = forwardRef(

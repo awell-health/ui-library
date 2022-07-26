@@ -4,10 +4,6 @@ import classes from './checkboxButton.module.scss'
 export interface CheckboxButtonProps
   extends InputHTMLAttributes<HTMLInputElement> {
   /**
-   * change event handlers
-   */
-  onChange: ChangeEventHandler<HTMLInputElement>
-  /**
    * sets label of the button
    */
   label: string
@@ -15,6 +11,10 @@ export interface CheckboxButtonProps
    * sets id that is used to connect input with label
    */
   id: string
+  /**
+   * change event handlers
+   */
+  onChange: ChangeEventHandler<HTMLInputElement>
   /**
    * you can also set any attribute that is native to html button
    */

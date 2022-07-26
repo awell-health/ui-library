@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { HeadlineVariants, ParagraphsVariants } from './types'
-import { HeadingMain, Text, TypographyProps } from '.'
+import { Text, TypographyProps } from '.'
 
 export default {
   title: 'Atoms/Typography',
@@ -42,7 +42,7 @@ export default {
   ],
 } as Meta
 
-export const Variants: Story<TypographyProps> = ({ variant }) => {
+export const Typography: Story<TypographyProps> = ({ variant }) => {
   return (
     <div
       style={{

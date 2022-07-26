@@ -3,14 +3,6 @@ import classes from './rangeInput.module.scss'
 
 export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
-   * change event handlers
-   */
-  onChange: ChangeEventHandler<HTMLInputElement>
-  /**
-   * sets id that is used to connect input with label
-   */
-  id: string
-  /**
    * slider config
    */
   sliderConfig: {
@@ -23,6 +15,14 @@ export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
     is_value_tooltip_on: boolean
     show_min_max_values: boolean
   }
+  /**
+   * change event handlers
+   */
+  onChange: ChangeEventHandler<HTMLInputElement>
+  /**
+   * sets id that is used to connect input with label
+   */
+  id: string
 }
 
 export const RangeInput = ({
@@ -54,6 +54,7 @@ export const RangeInput = ({
         step={sliderConfig.step_value}
         className={classes.awell_range_input}
         onChange={onChange}
+        defaultValue={sliderConfig.min}
       />
     </div>
   )

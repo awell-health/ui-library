@@ -5,14 +5,17 @@ import { Description } from './Description';
 <Meta title="atoms/Description" component={Description} />
 
 
-# Button
+# Description
 
 <Canvas>
   <Story name="Description">
     <form>
       <div>
-        <h3>Description</h3>
-        <Description nodes={  [{ type: 'h1', children: [{ text: 'title 1' }] }]} />
+        <Description nodes={[
+                               { type: 'p', children: [{ text: 'italic', italic: true }] },
+                               { type: 'p', children: [{ text: 'underline', underline: true }] },
+                               { type: 'p', children: [{ text: 'strike through', strikethrough: true }] }
+                             ]}/>
       </div>
     </form>
   </Story>

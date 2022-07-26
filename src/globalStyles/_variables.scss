@@ -8,6 +8,13 @@ html {
   --awell-font-size-xxl: 2rem;     /* 32px */
   --awell-font-size-xxxl: 2.25rem; /* 36px */
 
+  /* SPACING */
+  --awell-padding-sm: 0.25rem;
+  --awell-padding-base: 0.5rem;
+  --awell-padding-md: 1rem;
+  --awell-padding-lg: 1.5rem;
+  --awell-padding-xl: 2rem;
+
   --awell-checkbox-size: 20px;
 
   --awell-header-height: 94px;
@@ -24,8 +31,8 @@ html {
     --awell-font-size-xxxl: 2.5rem; /* 36px */
 
     /* SPACING */
-    --awell-padding-base: 1rem 2rem;
-    --awell-padding-input: 1rem 1.5rem;
+    --awell-padding-all-base: 1rem 2rem;
+    --awell-padding-all-input: 1rem 1.5rem;
     --awell-checkbox-size: 1.25rem;
   }
 
@@ -41,9 +48,9 @@ html {
     --awell-header-height: 109px;
 
     /* SPACING */
-    --awell-padding-base: 1rem 3rem;
+    --awell-padding-all-base: 1rem 3rem;
 
-    --awell-padding-input: 1rem 1.5rem;
+    --awell-padding-all-input: 1rem 1.5rem;
     --awell-checkbox-size: 1.25rem;
   }
   @media screen and (min-width: 1024px){
@@ -56,9 +63,9 @@ html {
     --awell-font-size-xxxl: 2.5rem; /* 36px */
 
     /* SPACING */
-    --awell-padding-base: 0.75rem 2rem;
+    --awell-padding-all-base: 0.75rem 2rem;
 
-    --awell-padding-input: 1rem 1.5rem;
+    --awell-padding-all-input: 1rem 1.5rem;
 
     --awell-checkbox-size: 1.25rem;
   }
