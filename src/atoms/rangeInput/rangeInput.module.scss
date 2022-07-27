@@ -38,7 +38,7 @@
 & .awell_range_input {
   --awell-range-input-track-color: var(--primary-bg, #fff);
   --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
-  --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400)); //todo
+  --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400));
 
   font-size: var(--awell-font-size-md);
   width: 100%;
@@ -109,7 +109,7 @@
     border: 0;
     border-radius: 15px;
     cursor: pointer;
-    margin-top: 0px;
+    margin-top: 0;
     /*Needed to keep the Edge thumb centred*/
   }
   &:focus::-ms-fill-lower {

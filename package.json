@@ -1,68 +1,147 @@
 {
   "name": "@awell_health/ui-library",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
-  "dependencies": {
-    "react-scripts": "5.0.1",
-    "typescript": "^4.7.4",
-    "react-dom": "^18.2.0",
+  "description": "UI components to integrate with Awell Health",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awell-health/ui-library.git"
+  },
+  "author": "awellHealth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/awell-health/ui-library/issues"
+  },
+  "main": "./dist/umd/index.js",
+  "module": "./dist/esm/index.js",
+  "typings": "dist/types/src/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "storybook": "start-storybook -p 6006",
+    "start:start": "npm-run-all --parallel storybook",
+    "storybook:build": "build-storybook",
+    "clean": "rm -rf dist",
+    "ci:build": "yarn build",
+    "prebuild": "yarn clean",
+    "build:esm": "rm -rf dist/esm && BABEL_ENV=production babel src --out-dir dist/esm --extensions \".ts,.js,.tsx,.jsx\" --ignore **/stories,**/*.test.ts,**/*.test.tsx",
+    "build:rollup": "rollup -c ./rollup/rollup.config.js",
+    "build": "yarn build:rollup && yarn build:esm",
+    "lint": "yarn lint:js && yarn lint:css",
+    "lint:js:file": "eslint --quiet",
+    "lint:js": "eslint --quiet --ext .js,.jsx,.ts,.tsx ./",
+    "test": "jest --config=jest.config.json",
+    "test:ci": "jest --silent --testLocationInResults --ci --all --coverage --json --outputFile=\"report.json\" --config=jest.config.json",
+    "semantic-release": "semantic-release"
+  },
+  "peerDependencies": {
+    "date-ns": "^2.29.1",
     "react": "^18.2.0",
-    "web-vitals": "^2.1.4",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.1",
+    "web-vitals": "^2.1.4"
+  },
+  "dependencies": {
     "date-fns": "^2.29.1",
     "escape-html": "^1.0.3",
     "html-react-parser": "^3.0.1",
     "react-calendar": "^3.7.0",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0"
+    "react-hook-form": "^7.33.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-proposal-decorators": "^7.17.8",
+    "@babel/plugin-proposal-export-default-from": "^7.16.7",
+    "@babel/plugin-proposal-export-namespace-from": "^7.8.3",
+    "@babel/plugin-proposal-function-bind": "^7.16.7",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-object-assign": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.16.7",
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
+    "@rollup/plugin-alias": "^3.1.9",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@semantic-release/changelog": "^6.0.1",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
     "@storybook/addon-interactions": "^6.5.9",
     "@storybook/addon-links": "^6.5.9",
     "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/components": "^6.3.12",
+    "@storybook/core-events": "^6.3.12",
     "@storybook/manager-webpack5": "^6.5.9",
     "@storybook/node-logger": "^6.5.9",
-    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.9",
     "@storybook/testing-library": "^0.0.13",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/user-event": "^13.5.0",
     "@types/escape-html": "^1.0.2",
-    "@types/react-calendar": "^3.5.1",
-    "@types/slate": "^0.47.11",
-    "babel-plugin-named-exports-order": "^0.0.2",
-    "prop-types": "^15.8.1",
-    "sass": "^1.53.0",
-    "webpack": "^5.73.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.45",
     "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
+    "@types/react-calendar": "^3.5.1",
+    "@types/react-dom": "^18.0.6",
+    "@types/slate": "^0.47.11",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "babel-jest": "^27.4.6",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-react-remove-properties": "^0.3.0",
+    "babel-plugin-styled-components": "^1.10.6",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-plugin-transform-rename-import": "^2.3.0",
+    "css-loader": "^6.7.1",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-config-airbnb-typescript": "15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "jest": "^27.4.7",
+    "lint-staged": "^11.2.6",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.14",
+    "postcss-loader": "^6.2.1",
+    "postcss-scss": "^4.0.4",
+    "prettier": "^2.0.2",
+    "prop-types": "^15.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^2.77.2",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-sass": "^1.2.13",
+    "rollup-plugin-svg": "^2.0.0",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "sass": "^1.51.0",
+    "sass-loader": "^13.0.2",
+    "storybook-addon-sass-postcss": "^0.1.3",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.7.4",
+    "typescript-plugin-css-modules": "^3.4.0",
+    "webpack": "^5.73.0",
+    "webpack-merge": "^5.8.0"
   },
   "browserslist": {
     "production": [
@@ -75,16 +154,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/awell-health/ui-library.git"
-  },
-  "author": "awellHealth",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/awell-health/ui-library/issues"
   }
 }

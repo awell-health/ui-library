@@ -18,7 +18,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declarationDir": "./dist/types",
+    "declaration": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+
   },
   "include": [
     "src"
@@ -27,6 +35,6 @@
     "dist",
     "node_modules",
     "src/**/*.test.tsx",
-    "src/**/*.stories.tsx",
+    "src/**/*.stories.tsx"
   ]
 }

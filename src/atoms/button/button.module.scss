@@ -1,6 +1,5 @@
 @use '../../globalStyles';
 
-
 .awell_button {
   --awell-button-primary-color: var(--primary-color, #004ac2);
   --awell-button-primary-text: var(--text-primary, #fff);
@@ -17,7 +16,7 @@
   --awell-button-tertiary-color: var(--awell-neutralDark800);
   --awell-button-tertiary-border: var(--awell-neutralDark800);
   --awell-button-tertiary--disabled: var(--awell-neutralLight100);
-  
+
   text-align: center;
   border-radius: var(--awell-button-border-radius);
   font-size: var(--awell-font-size-base);

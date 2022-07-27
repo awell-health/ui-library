@@ -1,32 +1,30 @@
 @use '../../globalStyles';
 
-
-
 .hugeHeadline {
   --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
   font-family: Roboto, serif;
-  font-size: var(--awell-font-size-xxxl); // 40px
+  font-size: var(--awell-font-size-xxxl);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 }
 .bigHeadline {
   --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
-  font-size: var(--awell-font-size-xxl); // 28px
+  font-size: var(--awell-font-size-xxl);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };
 .headline {
   --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
-  font-size: var(--awell-font-size-xl); // 24rem
+  font-size: var(--awell-font-size-xl);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };
 .subHeadline {
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
-  font-size: var(--awell-font-size-lg); // 18px
+  font-size: var(--awell-font-size-lg);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
@@ -49,7 +47,7 @@
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
   font-size: var(--awell-font-size-sm);
   font-weight: 700;
-  textTransform: uppercase;
+  text-transform: uppercase;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };

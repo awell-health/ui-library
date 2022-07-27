@@ -1,5 +1,4 @@
 import React from 'react'
-import classes from './message.module.scss'
 import { RichTextViewer } from '../richTextViewer'
 import { Nodes } from '../../types'
 
@@ -9,7 +8,7 @@ export interface MessageProps {
 
 export const Message = ({ content }: MessageProps): JSX.Element => {
   return (
-    <div className={classes.awell_message}>
+    <div>
       <RichTextViewer nodes={content} />
     </div>
   )

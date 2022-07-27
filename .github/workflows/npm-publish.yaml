@@ -1,8 +1,10 @@
-name: Publish Package to npmjs
+name: '🧨 Publish Package to npmjs'
 on:
   push:
     branches:
       - main
+    tags:
+      - "**"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,8 +15,11 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: yarn
-      - run: yarn build
-      - run: yarn publish --access public
+      - name: '📦 Installing dependencies'
+        run: yarn --frozen-lockfile
+      - name: '🏗 Build package'
+        run: yarn build
+      - name: '🚀 Publish to npm'
+        run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

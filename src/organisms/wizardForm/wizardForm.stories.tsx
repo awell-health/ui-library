@@ -10,7 +10,7 @@ export default {
   displayName: 'WizardForm',
 }
 
-export const WizardForm: Story = ({}) => {
+export const WizardForm: Story = () => {
   return (
     <WizardFormComponent
       form={form}

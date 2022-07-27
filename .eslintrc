@@ -1,0 +1,82 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jest/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "ecmaFeatures": { "legacyDecorators": true, "jsx": true },
+    "ecmaVersion": 2020,
+    "project": "./tsconfig.eslint.json"
+  },
+  "settings": {
+    "react": { "version": "detect" },
+    "import/resolver": {
+      "alias": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "map": [
+          ["src", "./src"]
+        ]
+      }
+    }
+  },
+  "rules": {
+    "max-len": 0,
+    "prefer-object-spread": 1,
+    "import/prefer-default-export": 0,
+    "@typescript-eslint/no-explicit-any": 1,
+    "import/no-unresolved": [
+      "error",
+      { "ignore": ["react-native-svg", "react-native", "testConfig"] }
+    ],
+    "react/jsx-filename-extension": [2, { "extensions": [".jsx", ".tsx"] }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/rollup/**", // directory with rollup configs
+          "**/*{.,_}{test,spec}.{js,jsx,ts,tsx}", // tests where the extension or filename suffix denotes that it is a test
+          "**/stories/**", // storybook stories
+          "**/*.(stories|story).jsx?" // storybook stories
+        ],
+        "optionalDependencies": false
+      }
+    ],
+    "@typescript-eslint/no-empty-function": 1,
+    "prettier/prettier": "error",
+    "react/jsx-fragments": 0,
+    "react/prop-types": 0,
+    "react/default-props-match-prop-types": 0,
+    "react/jsx-props-no-spreading": 0,
+    "@typescript-eslint/no-var-requires": 1,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "web.js": "never",
+        "web.jsx": "never",
+        "web.ts": "never",
+        "web.tsx": "never",
+        "js": "never",
+        "mjs": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never",
+        "graphql": "always"
+      }
+    ]
+  }
+}
