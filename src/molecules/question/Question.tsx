@@ -15,7 +15,7 @@ import { Label } from '../../atoms/label'
 import { Text } from '../../atoms/typography'
 import { RangeInput } from '../../atoms/rangeInput'
 import { DatePicker } from '../../atoms/datePicker'
-import { Description } from '../../atoms/Description'
+import { Description } from '../../atoms/description'
 import { format } from 'date-fns'
 import { QuestionDataProps, QuestionProps } from './types'
 
