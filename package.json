@@ -1,8 +1,8 @@
 {
   "name": "ui-library",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
+  "version": "0.0.1",
+  "private": false,
+  "peerDependencies": {
     "@apollo/client": "^3.6.9",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
