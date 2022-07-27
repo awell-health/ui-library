@@ -372,3 +372,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .idea
+
+npm-debug.log
+/dist
+/lib
+/storybook-static
+report.json
