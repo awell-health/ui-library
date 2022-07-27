@@ -43,10 +43,6 @@ const useWizardForm = ({
     setVisibleQuestions(updatedQuestions)
   }
 
-  useEffect(() => {
-    updateQuestionVisibility()
-  }, [questions, updateQuestionVisibility])
-
   const handleCheckForErrors = (): boolean => {
     const currentQuestion = visibleQuestions[current]
 
