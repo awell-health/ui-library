@@ -1,9 +1,40 @@
 # ui-library
 
-Kit with ui components
+UI components to be used for integrating with Awell Health products.
 
 #### Preview components in storybook
 `yarn storybook`
+
+## Develop on local with [yalc](https://github.com/wclr/yalc)
+
+#### Install
+`yarn global add yalc`
+
+#### Build (in ui-library)
+`yarn build`
+
+#### Publish (in ui-library)
+`yalc publish`
+
+#### Use in other project
+`yalc add <package-name>`
+
+
+# How to use it in your project 
+
+#### Import styles in root directory
+```
+ import '@awell_health/ui-library/dist/index.css'
+```
+
+#### Use components
+```
+ import { WizardForm } from '@awell_health/ui-library'
+  
+ (...)
+ return <WizardForm (...) />  
+
+```
 
 
 
