@@ -40,7 +40,7 @@
     "@typescript-eslint/no-explicit-any": 1,
     "import/no-unresolved": [
       "error",
-      { "ignore": ["react-native-svg", "react-native", "testConfig"] }
+      { "ignore": ["storybook"] }
     ],
     "react/jsx-filename-extension": [2, { "extensions": [".jsx", ".tsx"] }],
     "import/no-extraneous-dependencies": [
