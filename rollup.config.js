@@ -7,13 +7,12 @@ import json from '@rollup/plugin-json'
 import del from 'rollup-plugin-delete'
 import svg from 'rollup-plugin-svg'
 import postcss from 'rollup-plugin-postcss'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
 
 export default {
   input: `src/index.ts`,
   output: [
     {
-      file: 'dist/umd/index.js',
+      file: 'dist/index.js',
       name: '@awell_health/ui-library',
       format: 'umd',
       globals: {
@@ -27,6 +26,7 @@ export default {
     del({ targets: 'dist/*' }),
     json(),
     svg(),
+    commonjs(),
     resolve({ browser: true }),
     postcss({
       extract: true,
@@ -51,7 +51,5 @@ export default {
       extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
       exclude: '../node_modules/**',
     }),
-    nodeResolve(),
-    commonjs(),
   ],
 }
