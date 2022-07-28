@@ -1,6 +1,6 @@
 {
   "name": "@awell_health/ui-library",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": false,
   "description": "UI components to integrate with Awell Health",
   "repository": {
@@ -13,7 +13,6 @@
     "url": "https://github.com/awell-health/ui-library/issues"
   },
   "main": "./dist/umd/index.js",
-  "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist/**/*"

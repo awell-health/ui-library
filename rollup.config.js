@@ -21,15 +21,6 @@ export default {
         'react-dom': 'react-dom',
       },
     },
-    {
-      file: 'dist/esm/index.js',
-      name: '@awell_health/ui-library',
-      format: 'esm', // ES2015 modules version so consumers can tree-shake
-      globals: {
-        react: 'react',
-        'react-dom': 'react-dom',
-      },
-    },
   ],
   external: ['react', 'react-dom'],
   plugins: [
