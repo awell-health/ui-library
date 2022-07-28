@@ -1833,7 +1833,7 @@
   dependencies:
     slash "^3.0.0"
 
-"@rollup/plugin-babel@^5.3.1":
+"@rollup/plugin-babel@^5.3.0", "@rollup/plugin-babel@^5.3.1":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz#04bc0608f4aa4b2e4b1aebf284344d0f68fda283"
   integrity sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==
@@ -1861,7 +1861,7 @@
   dependencies:
     "@rollup/pluginutils" "^3.0.8"
 
-"@rollup/plugin-node-resolve@^13.3.0":
+"@rollup/plugin-node-resolve@^13.0.6", "@rollup/plugin-node-resolve@^13.3.0":
   version "13.3.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-13.3.0.tgz#da1c5c5ce8316cef96a2f823d111c1e4e498801c"
   integrity sha512-Lus8rbUo1eEcnS4yTFKLZrVumLPY+YayBdWXgFSHYhTT2iJbMhoaaBL3xl5NCdeRytErGr8tZ0L71BMRmnlwSw==
@@ -12152,6 +12152,19 @@ rollup-plugin-dts@^4.2.2:
     magic-string "^0.26.1"
   optionalDependencies:
     "@babel/code-frame" "^7.16.7"
+
+rollup-plugin-exclude-dependencies-from-bundle@^1.1.22:
+  version "1.1.22"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-exclude-dependencies-from-bundle/-/rollup-plugin-exclude-dependencies-from-bundle-1.1.22.tgz#150094af3874f5d74a6c9ff7ce47a8bb0b28dd04"
+  integrity sha512-MV+3dpnQYilq6czsui0eJjDZEZIDORc5cBxOZ8Dm7XPjOaygAc+4AGZDC3qn4g9p13vYc0XRQ2T8JFdUmSQvXw==
+  dependencies:
+    "@rollup/plugin-babel" "^5.3.0"
+    "@rollup/plugin-node-resolve" "^13.0.6"
+
+rollup-plugin-peer-deps-external@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-peer-deps-external/-/rollup-plugin-peer-deps-external-2.2.4.tgz#8a420bbfd6dccc30aeb68c9bf57011f2f109570d"
+  integrity sha512-AWdukIM1+k5JDdAqV/Cxd+nejvno2FVLVeZ74NKggm3Q5s9cbbcOgUPGdbxPi4BXu7xGaZ8HG12F+thImYu/0g==
 
 rollup-plugin-postcss@^4.0.2:
   version "4.0.2"

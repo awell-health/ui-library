@@ -7,6 +7,7 @@ import json from '@rollup/plugin-json'
 import del from 'rollup-plugin-delete'
 import svg from 'rollup-plugin-svg'
 import postcss from 'rollup-plugin-postcss'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 
 export default {
   input: `src/index.ts`,
@@ -21,11 +22,9 @@ export default {
       },
     },
     {
-      dir: 'dist/esm', // indicate not create a single-file
+      file: 'dist/esm/index.js',
       name: '@awell_health/ui-library',
-      preserveModules: true,
       format: 'esm', // ES2015 modules version so consumers can tree-shake
-      preserveModulesRoot: 'src', // optional but useful to create a more plain folder structure
       globals: {
         react: 'react',
         'react-dom': 'react-dom',
@@ -38,7 +37,6 @@ export default {
     json(),
     svg(),
     resolve({ browser: true }),
-    commonjs(),
     postcss({
       extract: true,
       autoModules: true,
@@ -62,5 +60,7 @@ export default {
       extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
       exclude: '../node_modules/**',
     }),
+    nodeResolve(),
+    commonjs(),
   ],
 }
