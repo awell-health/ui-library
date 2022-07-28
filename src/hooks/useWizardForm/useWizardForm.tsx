@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   convertToAwellInput,
@@ -43,8 +43,12 @@ const useWizardForm = ({
     setVisibleQuestions(updatedQuestions)
   }
 
+  useEffect(() => {
+    updateQuestionVisibility()
+  }, [])
+
   const handleCheckForErrors = (): boolean => {
-    const currentQuestion = visibleQuestions[current]
+    const currentQuestion = visibleQuestions?.[current]
 
     if (currentQuestion?.userQuestionType === QuestionType.Description) {
       return false
