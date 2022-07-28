@@ -5,8 +5,8 @@ import { babel } from '@rollup/plugin-babel'
 import ts2 from 'rollup-plugin-typescript2'
 import json from '@rollup/plugin-json'
 import del from 'rollup-plugin-delete'
-import sass from 'rollup-plugin-sass'
 import svg from 'rollup-plugin-svg'
+import postcss from 'rollup-plugin-postcss'
 
 export default {
   input: `src/index.ts`,
@@ -20,6 +20,17 @@ export default {
         'react-dom': 'react-dom',
       },
     },
+    {
+      dir: 'dist/esm', // indicate not create a single-file
+      name: '@awell_health/ui-library',
+      preserveModules: true,
+      format: 'esm', // ES2015 modules version so consumers can tree-shake
+      preserveModulesRoot: 'src', // optional but useful to create a more plain folder structure
+      globals: {
+        react: 'react',
+        'react-dom': 'react-dom',
+      },
+    },
   ],
   external: ['react', 'react-dom'],
   plugins: [
@@ -28,8 +39,11 @@ export default {
     svg(),
     resolve({ browser: true }),
     commonjs(),
-    sass(),
-    // dts(),
+    postcss({
+      extract: true,
+      autoModules: true,
+      use: ['sass'],
+    }),
     ts2({
       tsconfigOverride: {
         include: ['src/**/*'],

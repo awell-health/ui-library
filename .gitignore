@@ -378,3 +378,4 @@ npm-debug.log
 /lib
 /storybook-static
 report.json
+.npmrc

@@ -27,6 +27,7 @@ module.exports = {
     ['@babel/plugin-proposal-private-methods', { loose: true }],
     ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
     ['module-resolver', { alias: { packages: './src' } }],
+    'react-css-modules',
   ],
   env: {
     test: {
