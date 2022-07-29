@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import Calendar from 'react-calendar'
 import { format } from 'date-fns'
 import './datePicker.scss'
@@ -27,8 +27,16 @@ export const DatePicker = ({
 }: DatePickerProps): JSX.Element => {
   const wrapperRef = createRef<HTMLDivElement>()
 
-  const [dateValue, onValueChange] = useState(value)
+  const [dateValue, setDateValue] = useState<Date>(value)
   const [isDatePickerOpen, toggleDatePicker] = useState(false)
+
+  useEffect(() => {
+    setDateValue(value)
+  }, [value])
+
+  useEffect(() => {
+    onChange(format(dateValue, 'yyyy-MM-dd'))
+  }, [dateValue, onChange])
 
   useClickOutsideNotifier({
     ref: wrapperRef,
@@ -36,8 +44,8 @@ export const DatePicker = ({
   })
 
   const handleChangeDate = (date: Date) => {
-    onValueChange(date)
-    onChange(format(dateValue, 'yyyy-MM-dd'))
+    setDateValue(date)
+    toggleDatePicker(false)
   }
 
   return (
@@ -48,8 +56,15 @@ export const DatePicker = ({
         type="date"
         hideLabel
         value={format(dateValue, 'yyyy-MM-dd')}
-        onClick={() => toggleDatePicker(!isDatePickerOpen)}
-        onChange={(e) => handleChangeDate(new Date(e.target.value))}
+        onFocus={() => toggleDatePicker(true)}
+        onBlur={(event) => {
+          // Only close the date picker if the click event causing the blur
+          // does not target the calendar.
+          if (!wrapperRef.current?.contains(event.target)) {
+            toggleDatePicker(false)
+          }
+        }}
+        onChange={(e) => setDateValue(new Date(e.target.value))}
       />
       {isDatePickerOpen && (
         <Calendar onChange={handleChangeDate} value={dateValue} />
