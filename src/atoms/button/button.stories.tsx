@@ -14,6 +14,7 @@ export default {
       control: 'text',
       defaultValue: 'Button',
     },
+    onClick: { action: 'clicked' },
   },
   decorators: [
     (StoryComponent) => (
@@ -29,9 +30,9 @@ export default {
   ],
 } as Meta
 
-export const Button: Story<ButtonProps> = ({ variant, children }) => {
+export const Button: Story<ButtonProps> = ({ variant, children, onClick }) => {
   return (
-    <ButtonComponent variant={variant} onClick={() => alert('Clicked!')}>
+    <ButtonComponent variant={variant} onClick={onClick}>
       {children}
     </ButtonComponent>
   )
