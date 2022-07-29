@@ -17,6 +17,7 @@ export default {
       control: 'text',
       defaultValue: 'checkbox-button-story-id',
     },
+    onChange: { action: 'changed' },
   },
   decorators: [
     (StoryComponent) => (
@@ -31,8 +32,12 @@ export default {
   ],
 } as Meta
 
-export const CheckboxButton: Story<CheckboxButtonProps> = ({ label, id }) => {
-  return <CheckboxButtonComponent label={label} onChange={() => null} id={id} />
+export const CheckboxButton: Story<CheckboxButtonProps> = ({
+  label,
+  id,
+  onChange,
+}) => {
+  return <CheckboxButtonComponent label={label} onChange={onChange} id={id} />
 }
 
 CheckboxButton.parameters = {
