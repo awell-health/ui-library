@@ -20,7 +20,7 @@
   "parserOptions": {
     "ecmaFeatures": { "legacyDecorators": true, "jsx": true },
     "ecmaVersion": 2020,
-    "project": "./tsconfig.eslint.json"
+    "project": "./tsconfig.json"
   },
   "settings": {
     "react": { "version": "detect" },

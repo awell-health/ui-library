@@ -2,3 +2,5 @@ node_modules
 lib
 storybook-static
 dist
+globals.d.ts
+rollup.config.js
