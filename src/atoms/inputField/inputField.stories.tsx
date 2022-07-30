@@ -12,7 +12,7 @@ export default {
     },
     id: {
       control: 'text',
-      defaultValue: 'checkbox-button-story-id',
+      defaultValue: 'input-field-story-id',
     },
     hideLabel: {
       control: 'boolean',
@@ -23,6 +23,8 @@ export default {
       options: ['text', 'number'],
       defaultValue: 'text',
     },
+    onChange: { action: 'change' },
+    onClick: { action: 'click' },
   },
   decorators: [
     (StoryComponent) => (
@@ -42,12 +44,15 @@ export const InputField: Story<InputFieldProps> = ({
   id,
   hideLabel,
   type,
+  onChange,
+  onClick,
 }) => {
   return (
     <InputFieldComponent
       type={type}
       label={label}
-      onChange={() => null}
+      onChange={onChange}
+      onClick={onClick}
       id={id}
       hideLabel={hideLabel}
     />
