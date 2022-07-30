@@ -14,6 +14,7 @@ export default {
       control: 'text',
       defaultValue: 'radio-button-story-id',
     },
+    onChange: { action: 'change' },
   },
   decorators: [
     (StoryComponent) => (
@@ -28,8 +29,12 @@ export default {
   ],
 } as Meta
 
-export const RadioButton: Story<RadioButtonProps> = ({ label, id }) => {
-  return <RadioButtonComponent label={label} onChange={() => null} id={id} />
+export const RadioButton: Story<RadioButtonProps> = ({
+  label,
+  id,
+  onChange,
+}) => {
+  return <RadioButtonComponent label={label} onChange={onChange} id={id} />
 }
 
 RadioButton.parameters = {
