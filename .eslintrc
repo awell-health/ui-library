@@ -50,7 +50,8 @@
           "**/rollup/**", // directory with rollup configs
           "**/*{.,_}{test,spec}.{js,jsx,ts,tsx}", // tests where the extension or filename suffix denotes that it is a test
           "**/stories/**", // storybook stories
-          "**/*.(stories|story).tsx?", // storybook stories
+          "**/*.stories.tsx", // storybook stories
+          "**/*.story.tsx", // storybook stories
           "**/setupTests.ts" // test setup
         ],
         "optionalDependencies": false
