@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import classes from './singleChoiceQuestion.module.scss'
 import { RadioButton } from '../../atoms/radioButton'
 import { AnswerOption } from '../../types'
 
-interface SingleChoiceQuestionProps {
+export interface SingleChoiceQuestionProps {
   options: Array<AnswerOption>
   value: AnswerOption
   onChange: (newValue: AnswerOption) => void
@@ -14,9 +14,17 @@ export const SingleChoiceQuestion = ({
   value,
 }: SingleChoiceQuestionProps): JSX.Element => {
   const [checkedOption, setCheckedOption] = useState<AnswerOption>(value)
+
+  useEffect(() => {
+    setCheckedOption(value)
+  }, [value])
+
+  useEffect(() => {
+    onChange(checkedOption)
+  }, [checkedOption, onChange])
+
   const handleSelectOption = (option: AnswerOption) => {
     setCheckedOption(option)
-    onChange(option)
   }
 
   return (
