@@ -2,64 +2,81 @@
 
 .hugeHeadline {
   --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-family: Roboto, serif;
   font-size: var(--awell-font-size-xxxl);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 }
+
 .bigHeadline {
   --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-xxl);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };
+
 .headline {
   --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-xl);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };
+
 .subHeadline {
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-lg);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };
+
 .smallHeadline {
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-md);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };
+
 .tinyHeadline {
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-base);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };
+
 .tinyHeadlineCaps {
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-sm);
   font-weight: 700;
   text-transform: uppercase;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 };
+
 .discreetHeadline {
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-sm);
   font-weight: 700;
   color: red;
   margin: var(--awell-spacing, 0);
 };
+
 .undersizeHeadline {
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-sm);
   font-weight: 700;
   color: red;
@@ -68,55 +85,70 @@
 
 .textRegular{
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-base);
   font-weight: 400;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 }
+
 .textMedium{
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-base);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 }
+
 .textSmall{
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-sm);
   font-weight: 400;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 }
+
 .textSmallMedium{
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-sm);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 }
+
 .textSmallBold{
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-sm);
   font-weight: 700;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 }
+
 .textTinyHint{
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: 9px;
   font-weight: 400;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
 }
+
 .inputPlaceholder{
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-weight: 400;
   font-size: var(--awell-font-size-base);
   color: #ccc;
   margin: var(--awell-spacing, 0);
 }
+
 .link {
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-base);
   font-weight: 700;
   color: blue;
@@ -129,6 +161,7 @@
 
 .linkBold{
     --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
+
   font-size: var(--awell-font-size-base);
   font-weight: 700;
 }

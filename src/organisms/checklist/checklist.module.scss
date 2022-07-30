@@ -4,6 +4,7 @@
   & .title {
     display: flex;
   };
+
   & .checklist {
     display: flex;
     flex-direction: column;
@@ -11,6 +12,7 @@
     margin-top: var(--spacing-xs, 8px);
     margin-bottom: var(--spacing-xs, 8px);
   };
+
   & .checkboxListFormControl {
     display: flex;
   };
