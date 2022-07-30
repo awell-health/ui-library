@@ -12,12 +12,13 @@ export default {
     },
     id: {
       control: 'text',
-      defaultValue: 'checkbox-button-story-id',
+      defaultValue: 'longtextfield-story-id',
     },
     hideLabel: {
       control: 'boolean',
       defaultValue: true,
     },
+    onChange: { action: 'change' },
   },
   decorators: [
     (StoryComponent) => (
@@ -37,11 +38,12 @@ export const LongTextField: Story<LongTextFieldProps> = ({
   id,
   hideLabel,
   value,
+  onChange,
 }) => {
   return (
     <LongTextFieldComponent
       label={label}
-      onChange={() => null}
+      onChange={onChange}
       id={id}
       hideLabel={hideLabel}
       value={value}
