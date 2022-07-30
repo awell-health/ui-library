@@ -1,6 +1,7 @@
-node_modules
-lib
-storybook-static
+babel.config.js
 dist
 globals.d.ts
+lib
+node_modules
 rollup.config.js
+storybook-static

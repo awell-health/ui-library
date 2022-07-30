@@ -1,6 +1,5 @@
 import { FormError, Question } from '../../types'
-import { Control } from 'react-hook-form'
-import { UseFormGetValues } from 'react-hook-form/dist/types/form'
+import { Control, UseFormGetValues } from 'react-hook-form'
 
 export interface QuestionDataProps {
   question: Question

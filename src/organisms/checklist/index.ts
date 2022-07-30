@@ -1,2 +1,2 @@
-export {Checklist} from './Checklist'
-export type {ChecklistProps} from './Checklist'
+export { Checklist } from './Checklist'
+export type { ChecklistProps } from './Checklist'

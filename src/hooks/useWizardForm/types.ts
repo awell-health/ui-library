@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form/dist/types'
+import { UseFormReturn } from 'react-hook-form'
 import { AnswerInput, Question, FormError } from '../../types'
 
 export type { FormError, QuestionWithVisibility } from '../../types'
