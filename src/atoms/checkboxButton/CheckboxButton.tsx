@@ -22,15 +22,13 @@ export interface CheckboxButtonProps
 
 export const CheckboxButton = ({
   onChange,
-  id,
   label,
   ...props
 }: CheckboxButtonProps): JSX.Element => {
   return (
-    <label className={classes.awell_checkbox_label} htmlFor={id}>
+    <label className={classes.awell_checkbox_label}>
       <input
         {...props}
-        id={id}
         type="checkbox"
         name="radio-group"
         className={classes.awell_checkbox_button}

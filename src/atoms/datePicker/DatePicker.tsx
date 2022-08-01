@@ -57,13 +57,6 @@ export const DatePicker = ({
         hideLabel
         value={format(dateValue, 'yyyy-MM-dd')}
         onFocus={() => toggleDatePicker(true)}
-        onBlur={(event) => {
-          // Only close the date picker if the click event causing the blur
-          // does not target the calendar.
-          if (!wrapperRef.current?.contains(event.target)) {
-            toggleDatePicker(false)
-          }
-        }}
         onChange={(e) => setDateValue(new Date(e.target.value))}
       />
       {isDatePickerOpen && (
