@@ -4,13 +4,15 @@
   --awell-calendar-day-border: var(--awell-neutralLight40);
   --awell-calendar-day--selected: var(--awell-brand80);
   --awell-calendar-day--active: var(--awell-brand200);
+
   position: relative;
 
   & input {
     /* to hide native date picker */
-    &::-webkit-input-placeholder{
+    &::input-placeholder{
       visibility: hidden !important;
     }
+
     &::-webkit-calendar-picker-indicator{
       pointer-events: none;
     }
@@ -20,7 +22,7 @@
     border: 1px solid #f2f2f2;
     padding: 16px;
     border-radius: 4px;
-    box-shadow: 0px 1px 4px #d9d9d9;
+    box-shadow: 0 1px 4px #d9d9d9;
     width: 100%;
     max-width: 335px;
     background: white;
@@ -31,6 +33,7 @@
     display: flex;
     justify-content: space-between;
   }
+
   .react-calendar__navigation__arrow {
     border: none;
     padding: 12px 8px;
@@ -61,6 +64,7 @@
     height: 40px;
     align-items: center;
   }
+
   & .react-calendar__month-view__weekdays__weekday {
     text-align: center;
     color: var(--awell-neutralDark300);
@@ -70,6 +74,7 @@
       text-decoration: none;
     }
   }
+
   & .react-calendar__tile,
   & .react-calendar__month-view__days__day {
     cursor: pointer;

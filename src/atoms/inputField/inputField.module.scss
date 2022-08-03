@@ -8,10 +8,11 @@
     font-size: var(--awell-font-size-base);
   }
 }
+
 .awell_input_field {
   padding: var(--awell-padding-all-input);
   font-size: var(--awell-font-size-base);
-  font: var(--awell-font);
+  font-family: var(--awell-font);
   border: 2px solid #ddd;
   border-radius: 4px;
 

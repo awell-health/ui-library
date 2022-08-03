@@ -26,19 +26,19 @@
   height: var(--awell-checkbox-size);
   margin: 0 16px 0 0;
   cursor: pointer;
-  -webkit-appearance: none;
+  appearance: none;
   border-radius: var(--awell-checkbox-border-radius);
   background-color: #fff;
   border: 2px solid var(--awell-checkbox-neutral);
 
-  &:before {
+  &::before {
     content: '';
     display: block;
     transform: scale(0) rotate(45deg);
     transition: transform 200ms;
   }
 
-  &:checked:before {
+  &:checked::before {
     width: 7px;
     height: 15px;
     margin: 0 5px;
