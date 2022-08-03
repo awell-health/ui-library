@@ -10,4 +10,5 @@ export type {
   SliderQuestionConfig,
 } from './question'
 export type { Form, FormError } from './form'
-export type { Nodes, Node } from './richText'
+export type { Nodes, Node, Element, Text } from './richText'
+export { isText, isElement } from './richText'

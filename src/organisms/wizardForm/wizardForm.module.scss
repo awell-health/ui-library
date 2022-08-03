@@ -36,6 +36,7 @@
   }
    @media screen and (min-width:1440px){
      justify-content: center;
+
      & .wizard_form {
        height: 50%;
        display: flex;
@@ -47,6 +48,7 @@
    @media screen and (min-width:2560px){
      justify-content: center;
      padding: 0;
+
      & .wizard_form {
        height: 30%;
        display: flex;

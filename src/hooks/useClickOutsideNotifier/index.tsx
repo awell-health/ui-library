@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 interface useClickOutsideNotifierProps {
-  ref: React.Ref<HTMLElement>
+  ref: React.RefObject<HTMLElement>
   clickOutsideHandler: () => void
 }
 
@@ -14,8 +14,7 @@ export const useClickOutsideNotifier = ({
 }: useClickOutsideNotifierProps): void => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      //@ts-ignore
-      if (ref?.current && !ref?.current.contains(event.target)) {
+      if (ref?.current && !ref?.current.contains(event.target as Node)) {
         clickOutsideHandler()
       }
     }

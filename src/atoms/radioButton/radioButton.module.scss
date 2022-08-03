@@ -2,10 +2,8 @@
 .awell_radio_button_wrapper {
   --awell-radio-primary-color: var(--primary-color, var(--awell-brand100));
   --awell-radio-text-on-primary: var(--text-on-primary, #fff);
-
   --awell-radio-primary-light: var(--primary-light, #0065FF);
   --awell-radio-primary-subtle: #e6edf9;
-
   --awell-radio-primary-bg: var(--primary-bg, #fff);
   --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
   --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400));
@@ -13,13 +11,14 @@
   font-size: var(--awell-font-size-md);
 
 }
-.awell_radio_button {
 
+.awell_radio_button {
   &:checked,
   &:not(:checked) {
     position: absolute;
     left: -9999px;
   }
+
   &:checked + label,
   &:not(:checked) + label
   {
@@ -30,8 +29,9 @@
     display: inline-block;
     color: var(--awell-radio-neutral);
   }
-  &:checked + label:before,
-  &:not(:checked) + label:before {
+
+  &:checked + label::before,
+  &:not(:checked) + label::before {
     content: '';
     position: absolute;
     left: 0;
@@ -43,8 +43,9 @@
     background: var(--awell-radio-primary-bg);
     font-size: var(--awell-font-size-md);
   }
-  &:checked + label:after,
-  &:not(:checked) + label:after {
+
+  &:checked + label::after,
+  &:not(:checked) + label::after {
     content: '';
     width: 14px;
     height: 14px;
@@ -53,21 +54,23 @@
     top: 5px;
     left: 5px;
     border-radius: 100%;
-    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
     transition: all 0.2s ease;
   }
-  &:not(:checked) + label:after {
+
+  &:not(:checked) + label::after {
     opacity: 0;
-    -webkit-transform: scale(0);
+    transform: scale(0);
     transform: scale(0);
   }
-  &:checked + label:after {
+
+  &:checked + label::after {
     opacity: 1;
-    -webkit-transform: scale(1);
+    transform: scale(1);
     transform: scale(1);
   }
 
-  &:disabled + label:after {
+  &:disabled + label::after {
     color: var(--awell-radio-neutral);
     cursor: not-allowed;
   }

@@ -52,6 +52,7 @@ export const Checklist: FC<ChecklistProps> = ({
       <div className={classes.checklist}>
         {items.map((item) => (
           <CheckboxButton
+            key={item.id}
             onChange={(event) => handleChange(item)(event.target.checked)}
             label={item.label}
             id={item.id}

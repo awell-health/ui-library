@@ -16,7 +16,7 @@ export interface LongTextFieldProps
    */
   hideLabel?: boolean
   /**
-   * change event handlers
+   * change event handler
    */
   onChange: ChangeEventHandler<HTMLTextAreaElement>
   /**

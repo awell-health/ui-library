@@ -62,7 +62,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             return (
               <MultipleChoiceQuestion
-                question={question}
+                options={question.options}
                 onChange={onChange}
                 values={value}
               />

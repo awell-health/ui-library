@@ -20,7 +20,7 @@
   "parserOptions": {
     "ecmaFeatures": { "legacyDecorators": true, "jsx": true },
     "ecmaVersion": 2020,
-    "project": "./tsconfig.eslint.json"
+    "project": "./tsconfig.json"
   },
   "settings": {
     "react": { "version": "detect" },
@@ -50,7 +50,9 @@
           "**/rollup/**", // directory with rollup configs
           "**/*{.,_}{test,spec}.{js,jsx,ts,tsx}", // tests where the extension or filename suffix denotes that it is a test
           "**/stories/**", // storybook stories
-          "**/*.(stories|story).jsx?" // storybook stories
+          "**/*.stories.tsx", // storybook stories
+          "**/*.story.tsx", // storybook stories
+          "**/setupTests.ts" // test setup
         ],
         "optionalDependencies": false
       }

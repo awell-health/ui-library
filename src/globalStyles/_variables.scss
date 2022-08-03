@@ -1,5 +1,5 @@
 html {
-  --awell-font: Roboto;
+  --awell-font: roboto;
   --awell-font-size-sm: 0.75rem;   /* 12px */
   --awell-font-size-base: 1rem;    /* 16px, base */
   --awell-font-size-md: 1.25rem;   /* 20px */
@@ -14,9 +14,7 @@ html {
   --awell-padding-md: 1rem;
   --awell-padding-lg: 1.5rem;
   --awell-padding-xl: 2rem;
-
   --awell-checkbox-size: 20px;
-
   --awell-header-height: 94px;
   --awell-form-max-width: 600px;
 
@@ -44,12 +42,10 @@ html {
     --awell-font-size-xl: 2rem;   /* 28px */
     --awell-font-size-xxl: 2.25rem;     /* 32px */
     --awell-font-size-xxxl: 2.5rem; /* 36px */
-
     --awell-header-height: 109px;
 
     /* SPACING */
     --awell-padding-all-base: 1rem 3rem;
-
     --awell-padding-all-input: 1rem 1.5rem;
     --awell-checkbox-size: 1.25rem;
   }
@@ -64,9 +60,7 @@ html {
 
     /* SPACING */
     --awell-padding-all-base: 0.75rem 2rem;
-
     --awell-padding-all-input: 1rem 1.5rem;
-
     --awell-checkbox-size: 1.25rem;
   }
 }

@@ -1,4 +1,8 @@
-import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
+import React, {
+  ChangeEventHandler,
+  InputHTMLAttributes,
+  MouseEventHandler,
+} from 'react'
 import classes from './inputField.module.scss'
 
 export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -20,13 +24,13 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
    */
   id: string
   /**
-   * change event handlers
+   * change event handler
    */
   onChange: ChangeEventHandler<HTMLInputElement>
   /**
-   * change event handlers
+   * click event handler
    */
-  onClick?: any
+  onClick?: MouseEventHandler<HTMLInputElement>
 }
 
 export const InputField = ({

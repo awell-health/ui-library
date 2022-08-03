@@ -1,2 +1,2 @@
-export { CheckboxButton } from './CheckboxButton';
-export type { CheckboxButtonProps } from './CheckboxButton';
+export { CheckboxButton } from './CheckboxButton'
+export type { CheckboxButtonProps } from './CheckboxButton'

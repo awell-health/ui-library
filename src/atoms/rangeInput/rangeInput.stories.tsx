@@ -1,12 +1,15 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { RangeInput as RangeInputComponent, RangeInputProps } from '.'
-import { RadioButton } from '../radioButton/radioButton.stories'
 
 export default {
   title: 'Atoms/Range Input',
   component: RangeInputComponent,
   argTypes: {
+    id: {
+      control: 'text',
+      defaultValue: 'range-input-story-id',
+    },
     sliderConfig: {
       defaultValue: {
         min: 0,
@@ -20,6 +23,7 @@ export default {
       },
       control: 'object',
     },
+    onChange: { action: 'change' },
   },
   decorators: [
     (StoryComponent) => (
@@ -34,11 +38,15 @@ export default {
   ],
 } as Meta
 
-export const RangeInput: Story<RangeInputProps> = ({ sliderConfig }) => {
+export const RangeInput: Story<RangeInputProps> = ({
+  id,
+  sliderConfig,
+  onChange,
+}) => {
   return (
     <RangeInputComponent
-      onChange={() => null}
-      id="range-input-story-id"
+      onChange={onChange}
+      id={id}
       sliderConfig={sliderConfig}
     />
   )

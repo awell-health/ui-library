@@ -137,16 +137,17 @@ export const InlineText: FC<TypographyProps> = ({
 }
 InlineText.displayName = 'InlineText'
 
-export const ExternalLink: FC<TypographyProps & { href: string; rel: string }> =
-  ({ color, href, rel, children, ...props }) => {
-    const style = { '--awell-typography-color': color } as React.CSSProperties
+export const ExternalLink: FC<
+  TypographyProps & { href: string; rel: string }
+> = ({ color, href, rel, children, ...props }) => {
+  const style = { '--awell-typography-color': color } as React.CSSProperties
 
-    return (
-      <a style={style} className={classes.link} href={href} rel={rel}>
-        {children}
-      </a>
-    )
-  }
+  return (
+    <a style={style} className={classes.link} href={href} rel={rel}>
+      {children}
+    </a>
+  )
+}
 ExternalLink.displayName = 'ExternalLink'
 
 export const InnerText: FC<TypographyProps> = ({

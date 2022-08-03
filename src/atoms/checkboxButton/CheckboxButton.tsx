@@ -22,7 +22,6 @@ export interface CheckboxButtonProps
 
 export const CheckboxButton = ({
   onChange,
-  id,
   label,
   ...props
 }: CheckboxButtonProps): JSX.Element => {

@@ -15,7 +15,11 @@ export interface LabelProps {
   mandatory?: boolean
 }
 
-export const Label = ({ htmlFor, label, mandatory }: LabelProps): JSX.Element => {
+export const Label = ({
+  htmlFor,
+  label,
+  mandatory,
+}: LabelProps): JSX.Element => {
   return (
     <label htmlFor={htmlFor} className={classes.awell_label}>
       <InlineText variant="smallHeadline">{label}</InlineText>

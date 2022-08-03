@@ -1,4 +1,8 @@
-node_modules
-lib
-storybook-static
+.lintstagedrc.js
+babel.config.js
 dist
+globals.d.ts
+lib
+node_modules
+rollup.config.js
+storybook-static
