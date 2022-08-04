@@ -16,7 +16,6 @@ export const WizardForm = ({
     submitForm,
     handleGoToNextQuestion,
     handleGoToPrevQuestion,
-    handleFormChange,
     formMethods: { control, getValues },
     currentQuestion,
     errors,

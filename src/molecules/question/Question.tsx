@@ -31,7 +31,6 @@ export const QuestionData = ({
     data: unknown
   ) => {
     onChange(data)
-    // await onFormChange()
   }
   const config: QuestionConfig | SliderQuestionConfig | undefined =
     question?.questionConfig
@@ -72,9 +71,7 @@ export const QuestionData = ({
             return (
               <MultipleChoiceQuestion
                 options={question.options}
-                onChange={(data) => {
-                  handleFormChange(onChange, data)
-                }}
+                onChange={(data) => handleFormChange(onChange, data)}
                 values={value}
               />
             )
