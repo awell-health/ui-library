@@ -21,6 +21,8 @@ export {
   InlineText,
   ExternalLink,
   InnerText,
+  CircularSpinner,
+  HorizontalSpinner,
 } from './atoms'
 
 export {

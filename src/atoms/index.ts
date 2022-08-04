@@ -10,6 +10,7 @@ export { Message } from './message'
 export { RadioButton } from './radioButton'
 export { RangeInput } from './rangeInput'
 export { RichTextViewer } from './richTextViewer'
+export { CircularSpinner, HorizontalSpinner } from './spinner'
 export {
   HeadingMain,
   HeadingSecondary,
