@@ -7,15 +7,17 @@ import {
 } from '../../types'
 import { SingleChoiceQuestion } from '../singleChoiceQuestion'
 import { MultipleChoiceQuestion } from '../multipleChoiceQuestion'
-import { LongTextField } from '../../atoms/longTextField'
-import { InputField } from '../../atoms/inputField'
+import {
+  LongTextField,
+  InputField,
+  Label,
+  Text,
+  RangeInput,
+  DatePicker,
+  Description,
+} from '../../atoms'
 import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
-import { Label } from '../../atoms/label'
-import { Text } from '../../atoms/typography'
-import { RangeInput } from '../../atoms/rangeInput'
-import { DatePicker } from '../../atoms/datePicker'
-import { Description } from '../../atoms/description'
 import { format } from 'date-fns'
 import { QuestionDataProps, QuestionProps } from './types'
 
@@ -24,6 +26,13 @@ export const QuestionData = ({
   control,
   getValues,
 }: QuestionDataProps): JSX.Element => {
+  const handleFormChange = async (
+    onChange: (...event: any[]) => void,
+    data: unknown
+  ) => {
+    onChange(data)
+    // await onFormChange()
+  }
   const config: QuestionConfig | SliderQuestionConfig | undefined =
     question?.questionConfig
   switch (question.userQuestionType) {
@@ -41,7 +50,7 @@ export const QuestionData = ({
                   { id: `${question.id}-yes`, value: true, label: 'yes' },
                   { id: `${question.id}-no`, value: false, label: 'no' },
                 ]}
-                onChange={onChange}
+                onChange={(data) => handleFormChange(onChange, data)}
                 value={value}
               />
             )
@@ -63,7 +72,9 @@ export const QuestionData = ({
             return (
               <MultipleChoiceQuestion
                 options={question.options}
-                onChange={onChange}
+                onChange={(data) => {
+                  handleFormChange(onChange, data)
+                }}
                 values={value}
               />
             )
@@ -79,9 +90,7 @@ export const QuestionData = ({
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => (
             <LongTextField
-              onChange={(e) => {
-                onChange(e.target.value)
-              }}
+              onChange={(e) => handleFormChange(onChange, e.target.value)}
               label={question.title}
               id={question.id}
               value={value}
@@ -100,9 +109,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <InputField
               type="number"
-              onChange={(e) => {
-                onChange(e.target.value)
-              }}
+              onChange={(e) => handleFormChange(onChange, e.target.value)}
               label={question.title}
               id={question.id}
               value={value}
@@ -121,9 +128,7 @@ export const QuestionData = ({
           render={({ field: { onChange } }) => (
             <InputField
               type="text"
-              onChange={(e) => {
-                onChange(e.target.value)
-              }}
+              onChange={(e) => handleFormChange(onChange, e.target.value)}
               label={question.title}
               id={question.id}
               hideLabel
@@ -141,7 +146,7 @@ export const QuestionData = ({
           render={({ field: { onChange } }) => {
             return (
               <RangeInput
-                onChange={onChange}
+                onChange={(e) => handleFormChange(onChange, e.target.value)}
                 id={question.id}
                 sliderConfig={(config as SliderQuestionConfig)?.slider}
               />
@@ -160,7 +165,7 @@ export const QuestionData = ({
             const dateValue = value ? new Date(value) : new Date()
             return (
               <DatePicker
-                onChange={onChange}
+                onChange={(data) => handleFormChange(onChange, data)}
                 id={question.id}
                 value={dateValue}
               />

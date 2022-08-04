@@ -1,4 +1,5 @@
 import {
+  AnswerOption,
   Question,
   QuestionType,
   QuestionWithVisibility,
@@ -28,10 +29,36 @@ export const getInitialValues = (
       [item.id]: getDefaultValue(item),
     }
   }, {})
+
+// FIXME
+const getValue = (
+  answer: Array<AnswerOption> | string | number | boolean | AnswerOption
+) => {
+  if (typeof answer === 'string') {
+    return answer
+  }
+  if (typeof answer === 'number') {
+    return `${answer}`
+  }
+
+  if (typeof answer === 'boolean') {
+    return answer ? '1' : '0'
+  }
+
+  if (Array.isArray(answer)) {
+    return JSON.stringify(answer.map(({ value }) => value))
+  }
+
+  if (typeof answer.value === 'boolean') {
+    return answer ? '1' : '0'
+  }
+
+  return JSON.stringify(answer?.value)
+}
 export const convertToAwellInput = (formResponse: any) => {
   return Object.keys(formResponse).map((question_id) => ({
     question_id,
-    value: ensureString(formResponse[question_id]),
+    value: getValue(formResponse[question_id]),
   }))
 }
 /**

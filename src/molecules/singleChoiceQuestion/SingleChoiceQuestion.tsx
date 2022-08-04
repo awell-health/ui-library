@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import classes from './singleChoiceQuestion.module.scss'
-import { RadioButton } from '../../atoms/radioButton'
+import { RadioButton } from '../../atoms'
 import { AnswerOption } from '../../types'
 
 export interface SingleChoiceQuestionProps {
@@ -16,12 +16,8 @@ export const SingleChoiceQuestion = ({
   const [checkedOption, setCheckedOption] = useState<AnswerOption>(value)
 
   useEffect(() => {
-    setCheckedOption(value)
-  }, [value])
-
-  useEffect(() => {
     onChange(checkedOption)
-  }, [checkedOption, onChange])
+  }, [checkedOption])
 
   const handleSelectOption = (option: AnswerOption) => {
     setCheckedOption(option)

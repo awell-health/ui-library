@@ -1,6 +1,5 @@
 import React from 'react'
-import { HeadingMain } from '../../atoms'
-import { Button } from '../../atoms'
+import { HeadingMain, Button } from '../../atoms'
 import classes from './wizardForm.module.scss'
 import { Question } from '../../molecules'
 import { useWizardForm } from '../../hooks/useWizardForm'

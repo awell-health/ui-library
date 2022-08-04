@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   convertToAwellInput,
@@ -33,7 +33,7 @@ const useWizardForm = ({
   const [errors, setErrors] = useState<Array<FormError>>([])
   const [current, setCurrent] = useState(-1)
 
-  const updateQuestionVisibility = async () => {
+  const updateQuestionVisibility = useCallback(async () => {
     const formValuesInput = convertToAwellInput(formMethods.getValues())
     const evaluationResults = await evaluateDisplayConditions(formValuesInput)
     const updatedQuestions = updateVisibility(
@@ -41,15 +41,18 @@ const useWizardForm = ({
       evaluationResults
     ).filter((e) => e.visible)
     setVisibleQuestions(updatedQuestions)
-  }
+  }, [questions])
 
   useEffect(() => {
     updateQuestionVisibility()
-  }, [])
+  }, [updateQuestionVisibility])
 
   const handleCheckForErrors = (): boolean => {
     const currentQuestion = visibleQuestions?.[current]
-
+    const errorsWithoutCurrent = errors.filter(
+      (err) => err.id !== currentQuestion?.id
+    )
+    setErrors(errorsWithoutCurrent)
     if (currentQuestion?.userQuestionType === QuestionType.Description) {
       return false
     }
@@ -69,22 +72,19 @@ const useWizardForm = ({
     }
     return false
   }
-  const handleGoToNextQuestion = () => {
+  const handleGoToNextQuestion = async () => {
+    await updateQuestionVisibility().finally(() => {
+      const hasErrors = handleCheckForErrors()
+      if (!hasErrors) {
+        setCurrent(current + 1)
+      }
+    })
     if (current === -1) {
-      setCurrent(current + 1)
-    }
-    const hasErrors = handleCheckForErrors()
-    if (!hasErrors) {
       setCurrent(current + 1)
     }
   }
   const handleGoToPrevQuestion = () => {
     setCurrent(current - 1)
-  }
-
-  const handleFormChange = async () => {
-    handleCheckForErrors()
-    await updateQuestionVisibility()
   }
 
   const submitForm = () => {
@@ -104,7 +104,6 @@ const useWizardForm = ({
     submitForm,
     handleGoToNextQuestion,
     handleGoToPrevQuestion,
-    handleFormChange,
     formMethods,
     currentQuestion: visibleQuestions?.[current],
     errors,

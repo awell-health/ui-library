@@ -37,7 +37,6 @@ export interface FormSettingsContextInterface {
   submitForm: () => void
   handleGoToNextQuestion: () => void
   handleGoToPrevQuestion: () => void
-  handleFormChange: () => void
   formMethods: UseFormReturn
   currentQuestion: Question
   errors: Array<FormError>

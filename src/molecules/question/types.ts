@@ -11,5 +11,4 @@ export interface QuestionProps {
   control: Control
   getValues: UseFormGetValues<any>
   errors: Array<FormError>
-  onFormChange: () => void
 }

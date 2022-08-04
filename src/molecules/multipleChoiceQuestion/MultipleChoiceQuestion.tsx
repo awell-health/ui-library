@@ -23,10 +23,6 @@ export const MultipleChoiceQuestion = ({
     useState<Array<AnswerOption>>(values)
 
   useEffect(() => {
-    setCheckedOptions(values)
-  }, [values])
-
-  useEffect(() => {
     onChange(checkedOptions)
   }, [checkedOptions])
 
