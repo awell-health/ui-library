@@ -45,7 +45,6 @@ export const WizardForm = ({
         <div className={classes.wizard_form}>
           <Question
             question={currentQuestion}
-            onFormChange={handleFormChange}
             control={control}
             getValues={getValues}
             key={currentQuestion.id}
