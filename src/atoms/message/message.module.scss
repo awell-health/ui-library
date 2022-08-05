@@ -1,0 +1,9 @@
+.awell_message {
+  padding: var(--awell-padding-xxl) var(--awell-padding-xl);
+  display: flex;
+  justify-content: center;
+
+  & .wrapper {
+    max-width: 600px;
+  }
+}

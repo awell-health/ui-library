@@ -1,8 +1,11 @@
 @use '../../globalStyles';
 
 .awell_checklist {
+  padding: var(--awell-padding-xxl) var(--awell-padding-xl);
+
   & .title {
     display: flex;
+    margin-bottom: var(--spacing-m);
   };
 
   & .checklist {
@@ -18,6 +21,8 @@
   };
 
   & .button_wrapper {
+    display: flex;
+    justify-content: center;
     margin-top: var(--spacing-m, 16px);
   }
 }

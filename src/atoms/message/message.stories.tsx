@@ -19,9 +19,13 @@ export default {
       control: 'text',
       defaultValue: JSON.stringify(defaultContent, null, 2),
     },
+    subject: {
+      control: 'text',
+      defaultValue: 'Orthopedic appointment follow up',
+    },
   },
 } as Meta
 
-export const Message: Story<MessageProps> = ({ content }) => {
-  return <MessageComponent content={content} />
+export const Message: Story<MessageProps> = ({ content, subject }) => {
+  return <MessageComponent content={content} subject={subject} />
 }

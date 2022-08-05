@@ -3,12 +3,20 @@ import './richTextViewer.scss'
 import { serializeHtml } from './serializeHtml'
 import { Nodes } from '../../types'
 
-interface RichTextViewerProps {
+interface HTMLRichTextViewerProps {
+  nodes: string
+  format: 'HTML'
+}
+interface SLATEichTextViewerProps {
   nodes: Nodes | string
+  format: 'SLATE'
 }
 
-export const RichTextViewer = ({ nodes }: RichTextViewerProps): JSX.Element => {
-  const serializedHtml = serializeHtml(nodes)
-  // fixme consider using parser, I'm not fond of using dangerouslySetInnerHTML here
+export const RichTextViewer = ({
+  nodes,
+  format,
+}: SLATEichTextViewerProps | HTMLRichTextViewerProps): JSX.Element => {
+  const serializedHtml = format === 'SLATE' ? serializeHtml(nodes) : nodes
+
   return <div dangerouslySetInnerHTML={{ __html: serializedHtml }} />
 }

@@ -13,7 +13,7 @@ export interface DescriptionProps {
 export const Description = ({ nodes }: DescriptionProps): JSX.Element => {
   return (
     <div className={classes.awell_description_wrapper}>
-      <RichTextViewer nodes={nodes} />
+      <RichTextViewer nodes={nodes} format="SLATE" />
     </div>
   )
 }
