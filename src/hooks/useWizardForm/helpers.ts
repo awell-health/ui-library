@@ -7,9 +7,6 @@ import {
 } from '../../types'
 import { AnswerValue, QuestionRuleResult } from './types'
 
-const ensureString = (val: AnswerValue) =>
-  typeof val === 'string' ? val : JSON.stringify(val)
-
 export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
     case QuestionType.MultipleSelect:
@@ -32,7 +29,7 @@ export const getInitialValues = (
 
 // FIXME
 const getValue = (
-  answer: Array<AnswerOption> | string | number | boolean | AnswerOption
+  answer: Array<AnswerOption> | string | number | AnswerOption
 ) => {
   if (typeof answer === 'string') {
     return answer
@@ -41,16 +38,12 @@ const getValue = (
     return `${answer}`
   }
 
-  if (typeof answer === 'boolean') {
-    return answer ? '1' : '0'
-  }
-
   if (Array.isArray(answer)) {
     return JSON.stringify(answer.map(({ value }) => value))
   }
 
   if (typeof answer.value === 'boolean') {
-    return answer ? '1' : '0'
+    return answer.value ? '1' : '0'
   }
 
   return JSON.stringify(answer?.value)
