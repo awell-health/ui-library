@@ -1,17 +1,20 @@
 @use '../../globalStyles';
 
-:root {
+
+.awell_checkbox_label {
   --awell-checkbox-primary-color: var(--primary-color, var(--awell-brand100));
   --awell-checkbox-border-radius: var(--border-radius-default, 2px);
   --awell-checkbox-neutral: var(--neutral, var(--awell-neutralMid400));
-}
 
-.awell_checkbox_label {
   cursor: pointer;
   padding: 8px 0;
   display: inline-block;
   color: var(--awell-checkbox-neutral);
   font-size: var(--awell-font-size-md);
+
+  & input:disabled {
+    --awell-checkbox-primary-color: var(--awell-checkbox-neutral);
+  }
 
   @media screen and (min-width: 1024px) {
     font-size: var(--awell-font-size-base);
@@ -30,6 +33,7 @@
   border-radius: var(--awell-checkbox-border-radius);
   background-color: #fff;
   border: 2px solid var(--awell-checkbox-neutral);
+
 
   &::before {
     content: '';

@@ -1,14 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
-import { action } from '@storybook/addon-actions'
-import { Checklist as ChecklistComponent } from '.'
-
-export default {
-  title: 'organisms/Checklist',
-  component: ChecklistComponent,
-  displayName: 'Checklist',
-}
+import { Checklist as ChecklistComponent, ChecklistProps } from '.'
 
 const checklistItems = [
   {
@@ -25,23 +17,59 @@ const checklistItems = [
   },
 ]
 
-export const Checklist: Story = ({ onItemUpdated, onSubmit }) => {
+export default {
+  title: 'organisms/Checklist',
+  component: ChecklistComponent,
+  displayName: 'Checklist',
+  argTypes: {
+    title: {
+      control: 'text',
+      defaultValue: 'Checklist activity example',
+    },
+    submitLabel: {
+      control: 'text',
+      defaultValue: 'Submit',
+    },
+    items: {
+      control: 'object',
+      defaultValue: checklistItems,
+    },
+    disabled: {
+      control: 'boolean',
+      defaultValue: false,
+    },
+    readOnly: {
+      control: 'boolean',
+      defaultValue: false,
+    },
+    onSubmit: { action: 'submitted' },
+  },
+}
+
+export const Checklist: Story<ChecklistProps> = ({
+  onSubmit,
+  title,
+  submitLabel,
+  items,
+  disabled,
+  readOnly,
+}) => {
   return (
     <ChecklistComponent
-      title="My checklist"
-      items={checklistItems}
-      onItemUpdated={onItemUpdated}
+      title={title}
+      items={items}
       onSubmit={onSubmit}
+      submitLabel={submitLabel}
+      disabled={disabled}
+      readOnly={readOnly}
     />
   )
 }
 
-Checklist.args = {
-  labels: {
-    title: 'My Checklist',
-    buttonSubmit: 'Submit',
-    buttonCompleted: 'Submitted',
+Checklist.parameters = {
+  docs: {
+    source: {
+      type: 'code',
+    },
   },
-  onItemUpdated: action(`item updated`),
-  onSubmit: action('submitted'),
 }

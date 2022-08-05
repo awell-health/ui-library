@@ -1,7 +1,5 @@
 import React, { FC, MouseEventHandler, useState } from 'react'
-import { Text } from '../../atoms/typography'
-import { CheckboxButton } from '../../atoms/checkboxButton'
-import { Button } from '../../atoms/button'
+import { Text, CheckboxButton, Button } from '../../atoms'
 import classes from './checklist.module.scss'
 
 export interface ChecklistItem {
@@ -9,27 +7,22 @@ export interface ChecklistItem {
   label: string
 }
 
-interface ChecklistUpdate {
-  itemId: string
-  checked: boolean
-}
-
 export interface ChecklistProps {
   title: string
   items: Array<ChecklistItem>
-  onItemUpdated: (new_value: ChecklistUpdate) => void
   onSubmit: MouseEventHandler<HTMLButtonElement>
   readOnly?: boolean
   disabled?: boolean
+  submitLabel: string
 }
 
 export const Checklist: FC<ChecklistProps> = ({
   title,
   items,
-  onItemUpdated,
   onSubmit,
   readOnly = false,
   disabled = false,
+  submitLabel,
 }) => {
   const [checkedItems, setCheckedItems] = useState(readOnly ? items : [])
 
@@ -41,7 +34,6 @@ export const Checklist: FC<ChecklistProps> = ({
         checkedItems.filter((checkedItem) => checkedItem !== item)
       )
     }
-    onItemUpdated({ itemId: item.id, checked })
   }
 
   return (
@@ -56,6 +48,7 @@ export const Checklist: FC<ChecklistProps> = ({
             onChange={(event) => handleChange(item)(event.target.checked)}
             label={item.label}
             id={item.id}
+            disabled={readOnly}
           />
         ))}
       </div>
@@ -66,7 +59,7 @@ export const Checklist: FC<ChecklistProps> = ({
             checkedItems.length !== items.length || readOnly || disabled
           }
         >
-          {readOnly ? 'Submitted' : 'Submit'}
+          {submitLabel}
         </Button>
       </div>
     </div>
