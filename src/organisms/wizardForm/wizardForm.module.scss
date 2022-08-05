@@ -3,7 +3,7 @@
 .awell_wizard_form {
   padding: 32px;
   display: flex;
-  height: 100%;
+  height: calc(100vh - var(--awell-header-height));
   flex-direction: column;
   justify-content: space-between;
   max-width: var(--awell-form-max-width);
