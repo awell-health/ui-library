@@ -1,6 +1,8 @@
 .awell_message {
   padding: var(--awell-padding-xxl) var(--awell-padding-xl);
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 
   & .wrapper {
