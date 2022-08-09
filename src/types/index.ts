@@ -12,3 +12,4 @@ export type {
 export type { Form, FormError } from './form'
 export type { Nodes, Node, Element, Text } from './richText'
 export { isText, isElement } from './richText'
+export { MessageAttachmentType } from './message'

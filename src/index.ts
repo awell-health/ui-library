@@ -7,7 +7,6 @@ export {
   Label,
   Logo,
   LongTextField,
-  Message,
   RadioButton,
   RangeInput,
   RichTextViewer,
@@ -30,6 +29,7 @@ export {
   Navbar,
   Question,
   SingleChoiceQuestion,
+  AttachmentList,
 } from './molecules'
 
-export { Checklist, WizardForm } from './organisms'
+export { Checklist, WizardForm, Message } from './organisms'
