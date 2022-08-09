@@ -2,25 +2,49 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { WizardForm as WizardFormComponent } from '.'
-import { form } from '../../constants/fixtures'
+import { form as formData } from '../../constants/fixtures'
+import { Button } from '../../atoms/button/button.stories'
 
 export default {
   title: 'organisms/WizardForm',
   component: WizardFormComponent,
   displayName: 'WizardForm',
-}
 
-export const WizardForm: Story = () => {
-  return (
-    <WizardFormComponent
-      form={form}
-      buttonLabels={{
+  argTypes: {
+    onSubmit: { action: 'submitted' },
+    form: {
+      control: 'object',
+      defaultValue: formData,
+    },
+    buttonLabels: {
+      control: 'object',
+      defaultValue: {
         prev: 'Prev',
         next: 'Next',
         submit: 'Submit',
-      }}
-      errorLabels={{ required: 'Answer for this question is required' }}
-      onSubmit={() => alert('form submit button clicked')}
+      },
+    },
+    errorLabels: {
+      control: 'object',
+      defaultValue: {
+        required: 'Answer for this question is required',
+      },
+    },
+  },
+}
+
+export const WizardForm: Story = ({
+  onSubmit,
+  form,
+  buttonLabels,
+  errorLabels,
+}) => {
+  return (
+    <WizardFormComponent
+      form={form}
+      buttonLabels={buttonLabels}
+      errorLabels={errorLabels}
+      onSubmit={onSubmit}
       evaluateDisplayConditions={() => {
         return Promise.all([]).then(function () {
           return []
@@ -36,6 +60,13 @@ WizardForm.args = {
     buttonSubmit: 'Submit',
     buttonCompleted: 'Submitted',
   },
-  onItemUpdated: action(`item updated`),
   onSubmit: action('submitted'),
+}
+
+WizardForm.parameters = {
+  docs: {
+    source: {
+      type: 'code',
+    },
+  },
 }

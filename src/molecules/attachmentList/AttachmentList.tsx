@@ -1,13 +1,7 @@
 import React from 'react'
 import { MessageAttachment } from '../../atoms'
-import { MessageAttachment as MessageAttachmentType } from '../../types/message'
 import classes from './attachmentList.module.scss'
-
-export interface AttachmentListProps {
-  attachments: Array<MessageAttachmentType>
-  icon: React.ReactNode
-  label: string
-}
+import { AttachmentListProps } from './types'
 
 export const AttachmentList = ({
   attachments,

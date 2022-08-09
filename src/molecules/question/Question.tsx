@@ -1,10 +1,5 @@
 import { Controller } from 'react-hook-form'
-import {
-  FormError,
-  QuestionConfig,
-  QuestionType,
-  SliderQuestionConfig,
-} from '../../types'
+import { FormError, UserQuestionType, SliderQuestionConfig } from '../../types'
 import { SingleChoiceQuestion } from '../singleChoiceQuestion'
 import { MultipleChoiceQuestion } from '../multipleChoiceQuestion'
 import {
@@ -26,10 +21,9 @@ export const QuestionData = ({
   control,
   getValues,
 }: QuestionDataProps): JSX.Element => {
-  const config: QuestionConfig | SliderQuestionConfig | undefined =
-    question?.questionConfig
+  const config = question?.questionConfig
   switch (question.userQuestionType) {
-    case QuestionType.YesNo:
+    case UserQuestionType.YesNo:
       return (
         <Controller
           name={question.id}
@@ -40,8 +34,8 @@ export const QuestionData = ({
             return (
               <SingleChoiceQuestion
                 options={[
-                  { id: `${question.id}-yes`, value: true, label: 'yes' },
-                  { id: `${question.id}-no`, value: false, label: 'no' },
+                  { id: `${question.id}-yes`, value: 1, label: 'yes' },
+                  { id: `${question.id}-no`, value: 0, label: 'no' },
                 ]}
                 onChange={(data) => onChange(data)}
                 value={value}
@@ -50,7 +44,7 @@ export const QuestionData = ({
           }}
         />
       )
-    case QuestionType.MultipleSelect:
+    case UserQuestionType.MultipleSelect:
       return (
         <Controller
           name={question.id}
@@ -63,7 +57,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             return (
               <MultipleChoiceQuestion
-                options={question.options}
+                options={question.options || []}
                 onChange={(data) => onChange(data)}
                 values={value}
               />
@@ -71,7 +65,7 @@ export const QuestionData = ({
           }}
         />
       )
-    case QuestionType.MultipleChoice:
+    case UserQuestionType.MultipleChoice:
       return (
         <Controller
           name={question.id}
@@ -84,7 +78,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             return (
               <SingleChoiceQuestion
-                options={question.options}
+                options={question.options || []}
                 onChange={(data) => onChange(data)}
                 value={value}
               />
@@ -92,7 +86,7 @@ export const QuestionData = ({
           }}
         />
       )
-    case QuestionType.LongText:
+    case UserQuestionType.LongText:
       return (
         <Controller
           name={question.id}
@@ -110,7 +104,7 @@ export const QuestionData = ({
           )}
         />
       )
-    case QuestionType.Number:
+    case UserQuestionType.Number:
       return (
         <Controller
           name={question.id}
@@ -129,7 +123,7 @@ export const QuestionData = ({
           )}
         />
       )
-    case QuestionType.ShortText:
+    case UserQuestionType.ShortText:
       return (
         <Controller
           name={question.id}
@@ -148,7 +142,7 @@ export const QuestionData = ({
           )}
         />
       )
-    case QuestionType.Slider:
+    case UserQuestionType.Slider:
       return (
         <Controller
           name={question.id}
@@ -167,7 +161,7 @@ export const QuestionData = ({
           }}
         />
       )
-    case QuestionType.Date:
+    case UserQuestionType.Date:
       return (
         <Controller
           name={question.id}
@@ -186,7 +180,7 @@ export const QuestionData = ({
           }}
         />
       )
-    case QuestionType.Description:
+    case UserQuestionType.Description:
       return <Description nodes={question.title} />
     default:
       return <div>TO BE DONE</div>
@@ -209,7 +203,7 @@ export const Question = ({
   }, [])
 
   const currentError = errors.find(({ id }: FormError) => id === question.id)
-  const showLabel = question.userQuestionType !== QuestionType.Description
+  const showLabel = question.userQuestionType !== UserQuestionType.Description
 
   return (
     <div style={style} className={classes.awell_question}>

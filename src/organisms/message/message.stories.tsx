@@ -1,8 +1,9 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
-import { Message as MessageComponent, MessageProps } from './Message'
-import { MessageAttachmentType } from '../../types'
+import { Message as MessageComponent } from './Message'
+import { MessageProps, MessageAttachmentType } from './types'
 import image from '../../assets/link.svg'
+import { Button } from '../../atoms/button/button.stories'
 
 const defaultContent = [
   { type: 'p', children: [{ text: 'italic', italic: true }] },
@@ -66,4 +67,12 @@ export const Message: Story<MessageProps> = ({
       attachmentIcon={<img src={image} alt="" />}
     />
   )
+}
+
+Message.parameters = {
+  docs: {
+    source: {
+      type: 'code',
+    },
+  },
 }

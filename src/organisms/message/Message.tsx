@@ -1,18 +1,8 @@
 import React from 'react'
-import { RichTextViewer } from '../../atoms/richTextViewer'
+import { RichTextViewer } from '../../atoms'
 import classes from './message.module.scss'
 import { AttachmentList } from '../../molecules'
-import { MessageAttachment as MessageAttachmentType } from '../../types/message'
-
-export interface MessageProps {
-  content: string
-  subject: string
-  children?: React.ReactNode
-  format: 'SLATE' | 'HTML'
-  attachments: Array<MessageAttachmentType>
-  attachmentIcon: React.ReactNode
-  attachmentLabel: string
-}
+import { MessageProps } from './types'
 
 export const Message = ({
   content,

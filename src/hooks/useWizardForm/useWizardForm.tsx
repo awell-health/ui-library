@@ -11,7 +11,7 @@ import {
   FormSettingsContextInterface,
   FormSettingsContextProps,
   FormError,
-  QuestionType,
+  UserQuestionType,
   QuestionWithVisibility,
 } from './types'
 
@@ -53,7 +53,7 @@ const useWizardForm = ({
       (err) => err.id !== currentQuestion?.id
     )
     setErrors(errorsWithoutCurrent)
-    if (currentQuestion?.userQuestionType === QuestionType.Description) {
+    if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
       return false
     }
 
