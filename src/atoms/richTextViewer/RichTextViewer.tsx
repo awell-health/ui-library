@@ -1,5 +1,4 @@
 import React from 'react'
-import './richTextViewer.scss'
 import { serializeHtml } from './serializeHtml'
 import { Nodes } from '../../types'
 

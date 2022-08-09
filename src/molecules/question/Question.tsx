@@ -51,7 +51,6 @@ export const QuestionData = ({
         />
       )
     case QuestionType.MultipleSelect:
-    case QuestionType.MultipleChoice:
       return (
         <Controller
           name={question.id}
@@ -67,6 +66,27 @@ export const QuestionData = ({
                 options={question.options}
                 onChange={(data) => onChange(data)}
                 values={value}
+              />
+            )
+          }}
+        />
+      )
+    case QuestionType.MultipleChoice:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue={[]}
+          rules={{
+            validate: () =>
+              config?.mandatory ? getValues(question.id).length > 0 : true,
+          }}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <SingleChoiceQuestion
+                options={question.options}
+                onChange={(data) => onChange(data)}
+                value={value}
               />
             )
           }}

@@ -1,23 +1,16 @@
 import escapeHtml from 'escape-html'
 import { Nodes, Node, isText, isElement } from '../../types'
+import richTextClasses from './richTextViewer.module.scss'
 
 const generateClassAttribute = (node: Node): string | undefined => {
   const classes = Object.entries(node)
-    .map(([prop, value]) => {
+    .map(([prop]) => {
       switch (prop) {
-        case 'align':
-          return `align-${value}`
-        case 'indent':
-          return `indent-${value}`
-        case 'lineHeight':
-          return `line-height-${String(value).replace('.', '_')}`
-        case 'fontSize':
-          return `font-size-${value}`
         case 'bold':
         case 'italic':
         case 'underline':
         case 'strikethrough':
-          return prop
+          return richTextClasses[prop]
         default:
           return undefined
       }

@@ -27,5 +27,5 @@ export default {
 } as Meta
 
 export const Message: Story<MessageProps> = ({ content, subject }) => {
-  return <MessageComponent content={content} subject={subject} />
+  return <MessageComponent content={content} subject={subject} format="SLATE" />
 }
