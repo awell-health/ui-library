@@ -1,11 +1,9 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
-import {
-  AttachmentList as AttachmentListComponent,
-  AttachmentListProps,
-} from './AttachmentList'
+import { AttachmentList as AttachmentListComponent } from './AttachmentList'
 import image from './../../assets/link.svg'
 import { MessageAttachmentType } from '../../types'
+import { AttachmentListProps } from './types'
 
 const attachments = [
   {
@@ -18,7 +16,13 @@ const attachments = [
     name: 'Attachment 2',
     url: 'https://www.awellhealth.com/',
     id: 'id2',
-    type: MessageAttachmentType.Link,
+    type: MessageAttachmentType.Video,
+  },
+  {
+    name: 'Attachment 3',
+    url: 'https://www.awellhealth.com/',
+    id: 'id2',
+    type: MessageAttachmentType.File,
   },
 ]
 
@@ -26,9 +30,13 @@ export default {
   title: 'molecules/Attachment List',
   component: AttachmentListComponent,
   argTypes: {
-    label: {
+    labels: {
       control: 'text',
-      defaultValue: 'Download',
+      defaultValue: {
+        video: 'See video',
+        link: 'Open link',
+        file: 'Download',
+      },
     },
     attachments: {
       control: 'object',
@@ -38,14 +46,14 @@ export default {
 } as Meta
 
 export const MessageAttachment: Story<AttachmentListProps> = ({
-  label,
+  labels,
   attachments,
 }) => {
   return (
     <div>
       <AttachmentListComponent
         attachments={attachments}
-        label={label}
+        labels={labels}
         icon={<img src={image} alt="" />}
       />
     </div>

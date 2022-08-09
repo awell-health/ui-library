@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import { Message as MessageComponent } from './Message'
 import { MessageProps, MessageAttachmentType } from './types'
 import image from '../../assets/link.svg'
-import { Button } from '../../atoms/button/button.stories'
+import { object } from 'prop-types'
 
 const defaultContent = [
   { type: 'p', children: [{ text: 'italic', italic: true }] },
@@ -44,9 +44,13 @@ export default {
       control: 'object',
       defaultValue: attachments,
     },
-    attachmentLabel: {
-      control: 'text',
-      defaultValue: 'Download',
+    attachmentLabels: {
+      control: 'object',
+      defaultValue: {
+        video: 'Open video',
+        link: 'Open link',
+        file: 'Download',
+      },
     },
   },
 } as Meta
@@ -54,7 +58,7 @@ export default {
 export const Message: Story<MessageProps> = ({
   content,
   subject,
-  attachmentLabel,
+  attachmentLabels,
   attachments,
 }) => {
   return (
@@ -63,7 +67,7 @@ export const Message: Story<MessageProps> = ({
       subject={subject}
       format="SLATE"
       attachments={attachments}
-      attachmentLabel={attachmentLabel}
+      attachmentLabels={attachmentLabels}
       attachmentIcon={<img src={image} alt="" />}
     />
   )

@@ -10,7 +10,7 @@ export const Message = ({
   children,
   format,
   attachmentIcon,
-  attachmentLabel,
+  attachmentLabels,
   attachments,
 }: MessageProps): JSX.Element => {
   return (
@@ -23,7 +23,7 @@ export const Message = ({
       <AttachmentList
         attachments={attachments}
         icon={attachmentIcon}
-        label={attachmentLabel}
+        labels={attachmentLabels}
       />
       {children}
     </article>
