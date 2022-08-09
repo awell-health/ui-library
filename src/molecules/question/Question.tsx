@@ -26,12 +26,6 @@ export const QuestionData = ({
   control,
   getValues,
 }: QuestionDataProps): JSX.Element => {
-  const handleFormChange = async (
-    onChange: (...event: any[]) => void,
-    data: unknown
-  ) => {
-    onChange(data)
-  }
   const config: QuestionConfig | SliderQuestionConfig | undefined =
     question?.questionConfig
   switch (question.userQuestionType) {
@@ -49,7 +43,7 @@ export const QuestionData = ({
                   { id: `${question.id}-yes`, value: true, label: 'yes' },
                   { id: `${question.id}-no`, value: false, label: 'no' },
                 ]}
-                onChange={(data) => handleFormChange(onChange, data)}
+                onChange={(data) => onChange(data)}
                 value={value}
               />
             )
@@ -71,7 +65,7 @@ export const QuestionData = ({
             return (
               <MultipleChoiceQuestion
                 options={question.options}
-                onChange={(data) => handleFormChange(onChange, data)}
+                onChange={(data) => onChange(data)}
                 values={value}
               />
             )
@@ -87,7 +81,7 @@ export const QuestionData = ({
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => (
             <LongTextField
-              onChange={(e) => handleFormChange(onChange, e.target.value)}
+              onChange={(e) => onChange(e.target.value)}
               label={question.title}
               id={question.id}
               value={value}
@@ -106,7 +100,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <InputField
               type="number"
-              onChange={(e) => handleFormChange(onChange, e.target.value)}
+              onChange={(e) => onChange(e.target.value)}
               label={question.title}
               id={question.id}
               value={value}
@@ -122,12 +116,13 @@ export const QuestionData = ({
           control={control}
           defaultValue=""
           rules={{ required: config?.mandatory }}
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <InputField
               type="text"
-              onChange={(e) => handleFormChange(onChange, e.target.value)}
+              onChange={(e) => onChange(e.target.value)}
               label={question.title}
               id={question.id}
+              value={value}
               hideLabel
             />
           )}
@@ -140,12 +135,13 @@ export const QuestionData = ({
           control={control}
           defaultValue=""
           rules={{ required: config?.mandatory }}
-          render={({ field: { onChange } }) => {
+          render={({ field: { onChange, value } }) => {
             return (
               <RangeInput
-                onChange={(e) => handleFormChange(onChange, e.target.value)}
+                onChange={(e) => onChange(e.target.value)}
                 id={question.id}
                 sliderConfig={(config as SliderQuestionConfig)?.slider}
+                value={value}
               />
             )
           }}
@@ -162,7 +158,7 @@ export const QuestionData = ({
             const dateValue = value ? new Date(value) : new Date()
             return (
               <DatePicker
-                onChange={(data) => handleFormChange(onChange, data)}
+                onChange={(data) => onChange(data)}
                 id={question.id}
                 value={dateValue}
               />
