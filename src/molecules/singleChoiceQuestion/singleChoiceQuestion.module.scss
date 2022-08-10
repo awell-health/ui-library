@@ -2,5 +2,20 @@
   display: flex;
   flex-direction: column;
   border: none;
-  padding: 0 0 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.question_label {
+  margin-bottom: var(--awell-spacing-4);
+  font-size: var(--awell-font-size-sm);
+  font-weight: var(--awell-font-medium);
+  color: rgb(55 65 81);
+}
+
+.awell_single_choice_question > div {
+  margin-top: var(--awell-spacing-4);
+  &:first-child {
+    margin-top: 0;
+  }
 }

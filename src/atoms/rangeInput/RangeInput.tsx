@@ -1,7 +1,12 @@
 import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
 import classes from './rangeInput.module.scss'
+import { QuestionLabel } from '../questionLabel'
 
 export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  /**
+   * Question label
+   */
+  label: string
   /**
    * slider config
    */
@@ -23,12 +28,18 @@ export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
    * sets id that is used to connect input with label
    */
   id: string
+  /**
+   * Is the question required?
+   */
+  mandatory?: boolean
 }
 
 export const RangeInput = ({
+  label,
   onChange,
   id,
   sliderConfig,
+  mandatory,
   ...props
 }: RangeInputProps): JSX.Element => {
   const style = {
@@ -44,18 +55,21 @@ export const RangeInput = ({
   } as React.CSSProperties
 
   return (
-    <div className={classes.awell_range_input_wrapper} style={style}>
-      <input
-        {...props}
-        type="range"
-        id={id}
-        min={sliderConfig.min}
-        max={sliderConfig.max}
-        step={sliderConfig.step_value}
-        className={classes.awell_range_input}
-        onChange={onChange}
-        defaultValue={sliderConfig.min}
-      />
+    <div className={classes.input_wrapper}>
+      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      <div className={classes.awell_range_input_wrapper} style={style}>
+        <input
+          {...props}
+          type="range"
+          id={id}
+          min={sliderConfig.min}
+          max={sliderConfig.max}
+          step={sliderConfig.step_value}
+          className={classes.awell_range_input}
+          onChange={onChange}
+          defaultValue={sliderConfig.min}
+        />
+      </div>
     </div>
   )
 }

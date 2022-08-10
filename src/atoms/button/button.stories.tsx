@@ -6,9 +6,20 @@ export default {
   title: 'Atoms/Button',
   component: ButtonComponent,
   argTypes: {
-    variant: {
-      options: ['primary', 'secondary', 'text', 'tertiary'],
+    size: {
+      options: ['xs', 'sm', 'base', 'lg', 'xl'],
       control: { type: 'radio' },
+      defaultValue: 'base',
+    },
+    fullWidth: {
+      options: [true, false],
+      control: { type: 'radio' },
+      defaultValue: false,
+    },
+    variant: {
+      options: ['primary', 'secondary', 'tertiary'],
+      control: { type: 'radio' },
+      defaultValue: 'primary',
     },
     children: {
       control: 'text',
@@ -21,7 +32,6 @@ export default {
       <div
         style={{
           padding: '1em',
-          width: 'fit-content',
         }}
       >
         <StoryComponent />
@@ -30,9 +40,20 @@ export default {
   ],
 } as Meta
 
-export const Button: Story<ButtonProps> = ({ variant, children, onClick }) => {
+export const Button: Story<ButtonProps> = ({
+  size,
+  fullWidth,
+  variant,
+  children,
+  onClick,
+}) => {
   return (
-    <ButtonComponent variant={variant} onClick={onClick}>
+    <ButtonComponent
+      size={size}
+      fullWidth={fullWidth}
+      variant={variant}
+      onClick={onClick}
+    >
       {children}
     </ButtonComponent>
   )

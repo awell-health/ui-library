@@ -10,18 +10,26 @@ export default {
       control: 'text',
       defaultValue: 'Name',
     },
+    error: {
+      control: 'text',
+      defaultValue: '',
+    },
     id: {
       control: 'text',
       defaultValue: 'input-field-story-id',
     },
     hideLabel: {
       control: 'boolean',
-      defaultValue: true,
+      defaultValue: false,
     },
     type: {
       control: 'radio',
       options: ['text', 'number'],
       defaultValue: 'text',
+    },
+    mandatory: {
+      control: 'boolean',
+      defaultValue: false,
     },
     onChange: { action: 'change' },
     onClick: { action: 'click' },
@@ -40,12 +48,14 @@ export default {
 } as Meta
 
 export const InputField: Story<InputFieldProps> = ({
+  error,
   label,
   id,
   hideLabel,
   type,
   onChange,
   onClick,
+  mandatory,
 }) => {
   return (
     <InputFieldComponent
@@ -53,8 +63,10 @@ export const InputField: Story<InputFieldProps> = ({
       label={label}
       onChange={onChange}
       onClick={onClick}
+      error={error}
       id={id}
       hideLabel={hideLabel}
+      mandatory={mandatory}
     />
   )
 }

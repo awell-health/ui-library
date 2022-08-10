@@ -50,7 +50,7 @@ export const form: Form = {
       rule_id: null,
       questionConfig: {
         recode_enabled: false,
-        mandatory: false,
+        mandatory: true,
         slider: null,
       },
     },
@@ -103,7 +103,7 @@ export const form: Form = {
       rule_id: null,
       questionConfig: {
         recode_enabled: false,
-        mandatory: false,
+        mandatory: true,
         slider: null,
       },
     },
@@ -119,7 +119,7 @@ export const form: Form = {
       rule_id: null,
       questionConfig: {
         recode_enabled: false,
-        mandatory: false,
+        mandatory: true,
         slider: {
           min: 0,
           max: 10,

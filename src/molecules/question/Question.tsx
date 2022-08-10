@@ -10,7 +10,6 @@ import { MultipleChoiceQuestion } from '../multipleChoiceQuestion'
 import {
   LongTextField,
   InputField,
-  Label,
   Text,
   RangeInput,
   DatePicker,
@@ -39,12 +38,14 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             return (
               <SingleChoiceQuestion
+                label={question.title}
                 options={[
                   { id: `${question.id}-yes`, value: true, label: 'yes' },
                   { id: `${question.id}-no`, value: false, label: 'no' },
                 ]}
                 onChange={(data) => onChange(data)}
                 value={value}
+                mandatory={question.questionConfig?.mandatory}
               />
             )
           }}
@@ -63,9 +64,11 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             return (
               <MultipleChoiceQuestion
+                label={question.title}
                 options={question.options}
                 onChange={(data) => onChange(data)}
                 values={value}
+                mandatory={question.questionConfig?.mandatory}
               />
             )
           }}
@@ -84,9 +87,11 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             return (
               <SingleChoiceQuestion
+                label={question.title}
                 options={question.options}
                 onChange={(data) => onChange(data)}
                 value={value}
+                mandatory={question.questionConfig?.mandatory}
               />
             )
           }}
@@ -105,7 +110,7 @@ export const QuestionData = ({
               label={question.title}
               id={question.id}
               value={value}
-              hideLabel
+              mandatory={question.questionConfig?.mandatory}
             />
           )}
         />
@@ -124,7 +129,7 @@ export const QuestionData = ({
               label={question.title}
               id={question.id}
               value={value}
-              hideLabel
+              mandatory={question.questionConfig?.mandatory}
             />
           )}
         />
@@ -143,7 +148,7 @@ export const QuestionData = ({
               label={question.title}
               id={question.id}
               value={value}
-              hideLabel
+              mandatory={question.questionConfig?.mandatory}
             />
           )}
         />
@@ -158,10 +163,12 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             return (
               <RangeInput
+                label={question.title}
                 onChange={(e) => onChange(e.target.value)}
                 id={question.id}
                 sliderConfig={(config as SliderQuestionConfig)?.slider}
                 value={value}
+                mandatory={question.questionConfig?.mandatory}
               />
             )
           }}
@@ -181,6 +188,7 @@ export const QuestionData = ({
                 onChange={(data) => onChange(data)}
                 id={question.id}
                 value={dateValue}
+                mandatory={question.questionConfig?.mandatory}
               />
             )
           }}
@@ -209,18 +217,9 @@ export const Question = ({
   }, [])
 
   const currentError = errors.find(({ id }: FormError) => id === question.id)
-  const showLabel = question.userQuestionType !== QuestionType.Description
 
   return (
     <div style={style} className={classes.awell_question}>
-      {showLabel && (
-        <Label
-          htmlFor={question.id}
-          label={question.title}
-          mandatory={question?.questionConfig?.mandatory}
-        />
-      )}
-
       <QuestionData
         question={question}
         control={control}

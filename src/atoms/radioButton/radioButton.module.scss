@@ -1,77 +1,44 @@
+@use '../../globalStyles';
 
-.awell_radio_button_wrapper {
-  --awell-radio-primary-color: var(--primary-color, var(--awell-brand100));
-  --awell-radio-text-on-primary: var(--text-on-primary, #fff);
-  --awell-radio-primary-light: var(--primary-light, #0065FF);
-  --awell-radio-primary-subtle: #e6edf9;
-  --awell-radio-primary-bg: var(--primary-bg, #fff);
-  --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
-  --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400));
-
-  font-size: var(--awell-font-size-md);
-
+.input_wrapper {
+  position: relative;
+  display: flex;
+  place-items: start;
 }
 
-.awell_radio_button {
-  &:checked,
-  &:not(:checked) {
-    position: absolute;
-    left: -9999px;
-  }
+.radio_wrapper {
+  display: flex;
+  align-items: center;
+  height: 1.25rem;
 
-  &:checked + label,
-  &:not(:checked) + label
-  {
-    position: relative;
-    margin-bottom: 16px;
-    padding-left: 42px;
-    cursor: pointer;
-    display: inline-block;
-    color: var(--awell-radio-neutral);
-  }
+  input[type="radio"] {
+    height: 1rem;
+    width: 1rem;
+    color: var(--awell-brand100);
+    border: 1px solid #d1d5db;
+    margin: 0;
 
-  &:checked + label::before,
-  &:not(:checked) + label::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: var(--awell-checkbox-size);
-    height: var(--awell-checkbox-size);
-    border: 2px solid var(--awell-radio-neutral);
-    border-radius: 100%;
-    background: var(--awell-radio-primary-bg);
-    font-size: var(--awell-font-size-md);
-  }
+    &:focus {
+      --ring-color: var(--awell-brand100);
+      --ring-offset-color: #fff;
+      --ring-offset-width: 2px;
+      --ring-offset-shadow: 0 0 0 var(--ring-offset-width) var(--ring-offset-color);
+      --ring-shadow: 0 0 0 calc(2px + var(--ring-offset-width)) var(--ring-color);
+      --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
-  &:checked + label::after,
-  &:not(:checked) + label::after {
-    content: '';
-    width: 14px;
-    height: 14px;
-    background: var(--awell-radio-primary-color);
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    border-radius: 100%;
-    transition: all 0.2s ease;
-    transition: all 0.2s ease;
-  }
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      box-shadow: var(--ring-offset-shadow),var(--ring-shadow),var(--shadow,0 0 #0000);
+    }
 
-  &:not(:checked) + label::after {
-    opacity: 0;
-    transform: scale(0);
-    transform: scale(0);
+    &:checked, &:checked:focus, &:checked:hover, &:checked:focus, &:checked:hover {
+      border-color: transparent;
+    }
   }
+}
 
-  &:checked + label::after {
-    opacity: 1;
-    transform: scale(1);
-    transform: scale(1);
-  }
-
-  &:disabled + label::after {
-    color: var(--awell-radio-neutral);
-    cursor: not-allowed;
-  }
+.label_wrapper {
+  margin-left: var(--awell-spacing-3);
+  font-size: var(--awell-font-size-sm);
+  color: #374151;
 }

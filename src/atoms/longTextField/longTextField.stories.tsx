@@ -16,7 +16,11 @@ export default {
     },
     hideLabel: {
       control: 'boolean',
-      defaultValue: true,
+      defaultValue: false,
+    },
+    mandatory: {
+      control: 'boolean',
+      defaultValue: false,
     },
     onChange: { action: 'change' },
   },
@@ -39,6 +43,7 @@ export const LongTextField: Story<LongTextFieldProps> = ({
   hideLabel,
   value,
   onChange,
+  mandatory,
 }) => {
   return (
     <LongTextFieldComponent
@@ -47,6 +52,7 @@ export const LongTextField: Story<LongTextFieldProps> = ({
       id={id}
       hideLabel={hideLabel}
       value={value}
+      mandatory={mandatory}
     />
   )
 }

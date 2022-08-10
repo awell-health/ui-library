@@ -1,53 +1,45 @@
 @use '../../globalStyles';
 
+.input_wrapper {
+  position: relative;
+  display: flex;
+  place-items: start;
+}
 
-.awell_checkbox_label {
-  --awell-checkbox-primary-color: var(--primary-color, var(--awell-brand100));
-  --awell-checkbox-border-radius: var(--border-radius-default, 2px);
-  --awell-checkbox-neutral: var(--neutral, var(--awell-neutralMid400));
+.checkbox_wrapper {
+  display: flex;
+  align-items: center;
+  height: 1.25rem;
 
-  cursor: pointer;
-  padding: 8px 0;
-  display: inline-block;
-  color: var(--awell-checkbox-neutral);
-  font-size: var(--awell-font-size-md);
+  input[type="checkbox"] {
+    height: 1rem;
+    width: 1rem;
+    color: var(--awell-brand100);
+    border-radius: var(--awell-border-radius-rounded);
+    border: 1px solid #d1d5db;
+    margin: 0;
 
-  & input:disabled {
-    --awell-checkbox-primary-color: var(--awell-checkbox-neutral);
-  }
+    &:focus {
+      --ring-color: var(--awell-brand100);
+      --ring-offset-color: #fff;
+      --ring-offset-width: 2px;
+      --ring-offset-shadow: 0 0 0 var(--ring-offset-width) var(--ring-offset-color);
+      --ring-shadow: 0 0 0 calc(2px + var(--ring-offset-width)) var(--ring-color);
+      --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
-  @media screen and (min-width: 1024px) {
-    font-size: var(--awell-font-size-base);
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      box-shadow: var(--ring-offset-shadow),var(--ring-shadow),var(--shadow,0 0 #0000);
+    }
+
+    &:checked, &:checked:focus, &:checked:hover, &:checked:focus, &:checked:hover {
+      border-color: transparent;
+    }
   }
 }
 
-.awell_checkbox_button {
-  position: relative;
-  top: 2px;
-  box-sizing: content-box;
-  width: var(--awell-checkbox-size);
-  height: var(--awell-checkbox-size);
-  margin: 0 16px 0 0;
-  cursor: pointer;
-  appearance: none;
-  border-radius: var(--awell-checkbox-border-radius);
-  background-color: #fff;
-  border: 2px solid var(--awell-checkbox-neutral);
-
-
-  &::before {
-    content: '';
-    display: block;
-    transform: scale(0) rotate(45deg);
-    transition: transform 200ms;
-  }
-
-  &:checked::before {
-    width: 7px;
-    height: 15px;
-    margin: 0 5px;
-    border-bottom: 4px solid var(--awell-checkbox-primary-color);
-    border-right: 4px solid var(--awell-checkbox-primary-color);
-    transform: scale(1) rotate(45deg);
-  }
+.label_wrapper {
+  margin-left: var(--awell-spacing-3);
+  font-size: var(--awell-font-size-sm);
+  color: #374151;
 }

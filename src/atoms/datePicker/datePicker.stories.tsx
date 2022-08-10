@@ -15,16 +15,33 @@ export default {
       control: 'date',
       defaultValue: new Date(),
     },
+    mandatory: {
+      control: 'boolean',
+      defaultValue: false,
+    },
     onChange: { action: 'changed' },
   },
 } as Meta
 
-export const DatePicker: Story<DatePickerProps> = ({ id, onChange, value }) => {
+export const DatePicker: Story<DatePickerProps> = ({
+  id,
+  onChange,
+  value,
+  mandatory,
+}) => {
   return (
     <form>
-      <div>
-        <h3>Date Picker</h3>
-        <DatePickerComponent id={id} onChange={onChange} value={value} />
+      <div
+        style={{
+          padding: '1em',
+        }}
+      >
+        <DatePickerComponent
+          id={id}
+          onChange={onChange}
+          value={value}
+          mandatory={mandatory}
+        />
       </div>
     </form>
   )

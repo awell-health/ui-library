@@ -27,16 +27,19 @@ export const RadioButton = ({
   ...props
 }: RadioButtonProps): JSX.Element => {
   return (
-    <div className={classes.awell_radio_button_wrapper}>
-      <input
-        {...props}
-        type="radio"
-        id={id}
-        name="radio-group"
-        className={classes.awell_radio_button}
-        onChange={onChange}
-      />
-      <label htmlFor={id}>{label}</label>
+    <div className={classes.input_wrapper}>
+      <div className={classes.radio_wrapper}>
+        <input
+          {...props}
+          id={id}
+          name="radio-group"
+          type="radio"
+          onChange={onChange}
+        />
+      </div>
+      <div className={classes.label_wrapper}>
+        <label htmlFor={id}>{label}</label>
+      </div>
     </div>
   )
 }

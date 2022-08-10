@@ -1,133 +1,150 @@
 @use '../../globalStyles';
 
 .awell_button {
-  --awell-button-primary-color: var(--primary-color, #004ac2);
-  --awell-button-primary-text: var(--text-primary, #fff);
-  --awell-button-primary--active: var(--primary-light, #0065FF);
-  --awell-button-primary-color--active: var(--primary-light, #0065FF);
-  --awell-button-primary-subtle: #e6edf9;
-  --awell-button-primary-bg: var(--primary-bg, #fff);
-  --awell-button-border-radius: var(--border-radius-default, 4px);
-  --awell-button-tertiary-background: var(--awell-neutralLight0);
-  --awell-button-tertiary-background--active: var(--awell-neutralLight40);
-  --awell-button-tertiary-color: var(--awell-neutralDark800);
-  --awell-button-tertiary-border: var(--awell-neutralDark800);
-  --awell-button-tertiary--disabled: var(--awell-neutralLight100);
+  --awell-button-border-radius: var(--awell-border-radius-md);
+  --ring-offset-color: #fff;
+  --ring-offset-width: 2px;
+  --ring-offset-shadow: 0 0 0 var(--ring-offset-width) var(--ring-offset-color);
+  --ring-shadow: 0 0 0 calc(2px + var(--ring-offset-width)) var(--ring-color);
+  --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  font-weight: var(--awell-font-medium);
   border-radius: var(--awell-button-border-radius);
-  font-size: var(--awell-font-size-base);
-  padding: var(--awell-padding-all-base);
-  font-weight: 700;
+  text-align: center;
   cursor: pointer;
-  display: inline-block;
   text-decoration: none;
-  border: 2px solid;
 
-  &:disabled {
-    cursor: not-allowed;
+  /** BUTTON SIZES **/
+  &.w-full {
+   width: 100%; 
+   text-align: center;
+   justify-content: center;
   }
 
+  &.size-xs {
+    padding: var(--awell-spacing-1\.5) var(--awell-spacing-2\.5);
+    font-size: var(--awell-font-size-xs);
+    line-height: var(--awell-leading-4);
+  }
+
+  &.size-sm {
+    padding: var(--awell-spacing-2) var(--awell-spacing-3);
+    font-size: var(--awell-font-size-sm);
+    line-height: var(--awell-leading-4);
+  }
+
+  &.size-base {
+    padding: var(--awell-spacing-2) var(--awell-spacing-4);
+    font-size: var(--awell-font-size-sm);
+    line-height: var(--awell-leading-5);
+  }
+
+  &.size-lg {
+    padding: var(--awell-spacing-2) var(--awell-spacing-4);
+    font-size: var(--awell-font-size-base);
+    line-height: var(--awell-leading-6);
+  }
+
+  &.size-xl {
+    padding: var(--awell-spacing-3) var(--awell-spacing-6);
+    font-size: var(--awell-font-size-base);
+    line-height: var(--awell-leading-6);
+  }
+
+  /** BUTTON VARIANTS **/
+
   &.primary {
-    color: var(--awell-button-primary-text);
-    background-color: var(--awell-button-primary-color);
-    box-shadow: none;
-    border-color: var(--awell-button-primary-color);
-
+    --awell-button-primary-bg: var(--primary-color, #004ac2);
+    --awell-button-primary-text-color: var(--text-primary, #fff);
+    
+    color: var(--awell-button-primary-text-color);
+    background-color: var(--awell-button-primary-bg);
+    box-shadow: var(--awell-shadow-sm);
+    
     &:hover {
-      color: var(--awell-button-primary-text);
-      background-color: var(--awell-button-primary--active);
-      border-color: var(--awell-button-primary--active);
-      text-decoration: none;
-    }
+      --awell-button-primary--hover-bg: var(--primary-light, #0065FF);
+      --awell-button-primary--hover-text-color: var(--text-primary, #fff);
 
-    &:active {
-      background-color: var(--awell-button-primary-color);
-      border-color: var(--awell-button-primary--active);
-      color: var(--awell-button-primary-text);
+      color: var(--awell-button-primary--hover-text-color);
+      background-color: var(--awell-button-primary--hover-bg);
+      text-decoration: none;
     }
 
     &:disabled {
       color: #babec9;
       background-color: #f6f6f6;
-      border-color: #f6f6f6;
+    }
+
+    &:focus {
+      --ring-color: rgb(147 197 253);
+
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      box-shadow: var(--ring-offset-shadow),var(--ring-shadow),var(--shadow,0 0 #0000);
     }
   }
 
   &.secondary {
-    color: var(--awell-button-primary-color);
-    border-color: var(--awell-button-primary-color);
-    background-color: var(--awell-button-primary-bg);
-    box-shadow: none;
-
+    --awell-button-secondary-bg: var(--awell-brand10);
+    --awell-button-secondary-text-color: var(--awell-brand100);
+    
+    color: var(--awell-button-secondary-text-color);
+    background-color: var(--awell-button-secondary-bg);
+    
     &:hover {
-      background-color: var(--awell-button-primary-subtle);
+      --awell-button-secondary--hover-bg: var(--awell-brand75);
+      
+      background-color: var(--awell-button-secondary--hover-bg);
       text-decoration: none;
-    }
-
-    &:active {
-      background-color: var(--awell-button-primary-subtle);
-      color: var(--awell-button-primary-color, #004ac2);
     }
 
     &:disabled {
       color: #babec9;
       background-color: #fff;
+    }
+
+    &:focus {
+      --ring-color: var(--awell-brand60);
+
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      box-shadow: var(--ring-offset-shadow),var(--ring-shadow),var(--shadow,0 0 #0000);
     }
   }
 
   &.tertiary {
-    color: var(--awell-button-tertiary-color);
-    background-color: var(--awell-button-tertiary-background);
-    border-color: var(--awell-button-tertiary-border);
-    box-shadow: none;
+    --awell-button-tertiary-bg: #fff;
+    --awell-button-tertiary-border-color: rgb(209 213 219);
+    --awell-button-tertiary-text-color:rgb(55 65 81);
+    
+    color: var(--awell-button-tertiary-text-color);
+    border-color: var(--awell-button-tertiary-border-color);
+    background-color: var(--awell-button-tertiary-bg);
 
     &:hover {
-      background-color: var(--awell-button-tertiary-background--active);
+      --awell-button-tertiary--hover-bg: rgb(249 250 251);
+
+      background-color: var( --awell-button-tertiary--hover-bg);
       text-decoration: none;
     }
 
-    &:active {
-      background-color: var(--awell-button-tertiary-background--active);
-    }
 
-    &:disabled {
-      background-color: var(--awell-button-tertiary--disabled);
-    }
-  }
+    &:focus {
+      --ring-color: var(--awell-brand80);
 
-  &.text {
-    color: var(--awell-button-primary-color, #004ac2);
-    background-color: #fff;
-    border-color: #fff;
-    box-shadow: none;
-
-    &:hover {
-      background-color: var(--awell-button-primary-subtle, #eceaff);
-      border-color: var(--awell-button-primary-subtle, #eceaff);
-    }
-
-    &:active {
-      border-color: var(--awell-button-primary-subtle, #eceaff);
-    }
-
-    &:disabled {
-      color: #babec9;
-      background-color: #fff;
-      border: none;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      box-shadow: var(--ring-offset-shadow),var(--ring-shadow),var(--shadow,0 0 #0000);
     }
   }
 
-  &.counter {
-    border: none;
-    background-color: #f6f6f6;
-    font-size: 30px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    justify-content: space-around;
+  /*
+    GLOBAL DISABLED STYLES
+  */
+  &:disabled {
+    cursor: not-allowed;
   }
 }

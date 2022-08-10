@@ -1,22 +1,30 @@
-
 .awell_long_text_field_wrapper {
   display: flex;
   flex-direction: column;
-  padding: var(--awell-padding-sm) 0;
 
   & label {
-    margin-bottom: var(--awell-padding-md);
-    font-size: var(--awell-font-size-base);
+    margin-bottom: var(--awell-spacing-1);
+    font-size: var(--awell-font-size-sm);
+    font-weight: var(--awell-font-medium);
+    color: rgb(55 65 81);
   }
 
 }
 
 .awell_long_text_field {
   font: var(--awell-font);
-  padding: var(--awell-padding-all-input);
-  font-size: var(--awell-font-size-base);
-  border: 2px solid #ddd;
-  border-radius: 4px;
+  padding: var(--awell-spacing-2) var(--awell-spacing-3);
+  font-size: var(--awell-font-size-sm);
+  line-height: var(--awell-leading-5);
+  border: 1px solid rgb(209 213 219);
+  border-radius: var(--awell-border-radius-md);
+  box-shadow: var(--awell-shadow-sm);
+  appearance: none;
+  resize: vertical;
+
+  &:focus {
+    border-color: var(--awell-brand100);
+  }
 
   &:disabled {
     color: #eee;

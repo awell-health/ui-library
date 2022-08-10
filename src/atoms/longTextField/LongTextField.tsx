@@ -1,5 +1,6 @@
 import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
 import classes from './longTextField.module.scss'
+import { QuestionLabel } from '../questionLabel'
 
 export interface LongTextFieldProps
   extends InputHTMLAttributes<HTMLTextAreaElement> {
@@ -23,6 +24,10 @@ export interface LongTextFieldProps
    * value for controlled component
    */
   value?: string
+  /**
+   * Is the question required?
+   */
+  mandatory?: boolean
 }
 
 export const LongTextField = ({
@@ -30,14 +35,19 @@ export const LongTextField = ({
   id,
   label,
   hideLabel,
+  mandatory,
   ...props
 }: LongTextFieldProps): JSX.Element => {
+  const DEFAULT_ROWS = 4
   return (
     <div className={classes.awell_long_text_field_wrapper}>
-      {!hideLabel && <label htmlFor={id}>{label}</label>}
+      {!hideLabel && (
+        <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      )}
       <textarea
         {...props}
         id={id}
+        rows={DEFAULT_ROWS}
         className={classes.awell_long_text_field}
         onChange={onChange}
       />

@@ -17,12 +17,17 @@ export interface DatePickerProps {
    */
   hideLabel?: boolean
   value: Date
+  /**
+   * Is the question required?
+   */
+  mandatory?: boolean
 }
 
 export const DatePicker = ({
   id,
   onChange,
   value,
+  mandatory,
   ...props
 }: DatePickerProps): JSX.Element => {
   const wrapperRef = createRef<HTMLDivElement>()
@@ -52,12 +57,13 @@ export const DatePicker = ({
     <div className={'awell_date_picker'} ref={wrapperRef}>
       <InputField
         {...props}
+        label="Select a date"
         id={id}
         type="date"
-        hideLabel
         value={format(dateValue, 'yyyy-MM-dd')}
         onFocus={() => toggleDatePicker(true)}
         onChange={(e) => setDateValue(new Date(e.target.value))}
+        mandatory={mandatory}
       />
       {isDatePickerOpen && (
         <Calendar onChange={handleChangeDate} value={dateValue} />
