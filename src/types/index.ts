@@ -1,10 +1,9 @@
-export { QuestionType } from './question'
+export { QuestionType, UserQuestionType } from './question'
 export type {
   Question,
   Option,
   QuestionWithVisibility,
   AnswerInput,
-  AnswerOption,
   OptionValue,
   QuestionConfig,
   SliderQuestionConfig,
@@ -12,3 +11,5 @@ export type {
 export type { Form, FormError } from './form'
 export type { Nodes, Node, Element, Text } from './richText'
 export { isText, isElement } from './richText'
+export type { AttachmentLabels } from './message'
+export { MessageAttachmentType } from './message'

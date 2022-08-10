@@ -12,10 +12,10 @@ type ButtonLabels = {
 
 export interface WizardFormProps {
   form: Form
+  buttonLabels: ButtonLabels
+  errorLabels: ErrorLabels
+  onSubmit: (response: Array<AnswerInput>) => void
   evaluateDisplayConditions: (
     response: Array<AnswerInput>
   ) => Promise<Array<QuestionRuleResult>>
-  onSubmit: (response: Array<AnswerInput>) => void
-  buttonLabels: ButtonLabels
-  errorLabels: ErrorLabels
 }

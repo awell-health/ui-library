@@ -1,19 +1,17 @@
 import React from 'react'
-import { RichTextViewer } from '../richTextViewer'
+import { RichTextViewer } from '../../atoms'
 import classes from './message.module.scss'
-
-export interface MessageProps {
-  content: string
-  subject: string
-  children?: React.ReactNode
-  format: 'SLATE' | 'HTML'
-}
+import { AttachmentList } from '../../molecules'
+import { MessageProps } from './types'
 
 export const Message = ({
   content,
   subject,
   children,
   format,
+  attachmentIcon,
+  attachmentLabels,
+  attachments,
 }: MessageProps): JSX.Element => {
   return (
     <article className={classes.awell_message}>
@@ -21,6 +19,12 @@ export const Message = ({
         <strong>{subject}</strong>
         <RichTextViewer nodes={content} format={format} />
       </div>
+
+      <AttachmentList
+        attachments={attachments}
+        icon={attachmentIcon}
+        labels={attachmentLabels}
+      />
       {children}
     </article>
   )
