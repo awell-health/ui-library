@@ -18,10 +18,6 @@ export default {
       control: 'text',
       defaultValue: 'input-field-story-id',
     },
-    hideLabel: {
-      control: 'boolean',
-      defaultValue: false,
-    },
     type: {
       control: 'radio',
       options: ['text', 'number'],
@@ -51,7 +47,6 @@ export const InputField: Story<InputFieldProps> = ({
   error,
   label,
   id,
-  hideLabel,
   type,
   onChange,
   onClick,
@@ -65,7 +60,6 @@ export const InputField: Story<InputFieldProps> = ({
       onClick={onClick}
       error={error}
       id={id}
-      hideLabel={hideLabel}
       mandatory={mandatory}
     />
   )

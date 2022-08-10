@@ -32,9 +32,9 @@ export const Button = forwardRef(
     return (
       <button
         {...props}
-        className={`${classes.awell_button} ${classes[`size-${size}`]} ${
+        className={`${classes.awell_button} ${classes[`size_${size}`]} ${
           classes[variant]
-        } ${fullWidth ? classes['w-full'] : ''}`}
+        } ${fullWidth ? classes['w_full'] : ''}`}
         onClick={onClick}
         ref={ref}
       >

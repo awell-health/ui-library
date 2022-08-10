@@ -8,11 +8,11 @@ html {
     BREAKPOINTS
     Based on https://tailwindcss.com/docs/responsive-design
   */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
+  // --breakpoint-sm: 640px;
+  // --breakpoint-md: 768px;
+  // --breakpoint-lg: 1024px;
+  // --breakpoint-xl: 1280px;
+  // --breakpoint-2xl: 1536px;
 
   /*
     FONT SIZES
@@ -31,18 +31,18 @@ html {
   --font-size-7xl: 4.5rem;      /* 72px */
   --font-size-8xl: 6rem;        /* 96px */
 
-  --awell-font-size-xs: --font-size-xs;
-  --awell-font-size-sm: --font-size-sm;
-  --awell-font-size-base: --font-size-base;
-  --awell-font-size-lg: --font-size-lg;
-  --awell-font-size-xl: --font-size-xl;
-  --awell-font-size-2xl: --font-size-2xl;
-  --awell-font-size-3xl: --font-size-3xl;
-  --awell-font-size-4xl: --font-size-4xl;
-  --awell-font-size-5xl: --font-size-5xl;
-  --awell-font-size-6xl: --font-size-6xl;
-  --awell-font-size-7xl: --font-size-7xl;
-  --awell-font-size-8xl: --font-size-8xl;
+  --awell-font-size-xs: var(--font-size-xs);
+  --awell-font-size-sm: var(--font-size-sm);
+  --awell-font-size-base: var(--font-size-base);
+  --awell-font-size-lg: var(--font-size-lg);
+  --awell-font-size-xl: var(--font-size-xl);
+  --awell-font-size-2xl: var(--font-size-2xl);
+  --awell-font-size-3xl: var(--font-size-3xl);
+  --awell-font-size-4xl: var(--font-size-4xl);
+  --awell-font-size-5xl: var(--font-size-5xl);
+  --awell-font-size-6xl: var(--font-size-6xl);
+  --awell-font-size-7xl: var(--font-size-7xl);
+  --awell-font-size-8xl: var(--font-size-8xl);
 
   /*
     SPACING
@@ -168,9 +168,4 @@ html {
   --awell-leading-relaxed: 1.625;
   --awell-leading-loose: 2;
   
-  /*
-    FORM
-  */
-  --awell-form-max-width: 600px;
-
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { WizardForm as WizardFormComponent } from '.'
-import { form } from '../../constants/fixtures'
+import { form } from '../../constants/formFixture'
 
 export default {
   title: 'organisms/WizardForm',
@@ -12,21 +12,24 @@ export default {
 
 export const WizardForm: Story = () => {
   return (
-    <WizardFormComponent
-      form={form}
-      buttonLabels={{
-        prev: 'Prev',
-        next: 'Next',
-        submit: 'Submit',
-      }}
-      errorLabels={{ required: 'Answer for this question is required' }}
-      onSubmit={() => alert('form submit button clicked')}
-      evaluateDisplayConditions={() => {
-        return Promise.all([]).then(function () {
-          return []
-        })
-      }}
-    />
+    // It's the responsibility of the consuming app to provide styling for surrounding layout
+    <div style={{ maxWidth: '65ch', margin: '0 auto' }}>
+      <WizardFormComponent
+        form={form}
+        buttonLabels={{
+          prev: 'Prev',
+          next: 'Next',
+          submit: 'Submit',
+        }}
+        errorLabels={{ required: 'Answer for this question is required' }}
+        onSubmit={() => alert('form submit button clicked')}
+        evaluateDisplayConditions={() => {
+          return Promise.all([]).then(function () {
+            return []
+          })
+        }}
+      />
+    </div>
   )
 }
 

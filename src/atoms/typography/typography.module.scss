@@ -4,7 +4,7 @@
   --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
 
   font-family: Roboto, serif;
-  font-size: var(--awell-font-size-xxxl);
+  font-size: var(--awell-font-size-3xl);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);
@@ -13,7 +13,7 @@
 .bigHeadline {
   --awell-typography-element-color: var(--awell-typography-color, var(--awell-neutralDark800, #000));
 
-  font-size: var(--awell-font-size-xxl);
+  font-size: var(--awell-font-size-2xl);
   font-weight: 500;
   color: var(--awell-typography-element-color);
   margin: var(--awell-spacing, 0);

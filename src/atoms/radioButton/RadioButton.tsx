@@ -22,23 +22,16 @@ export interface RadioButtonProps
 
 export const RadioButton = ({
   onChange,
-  id,
   label,
   ...props
 }: RadioButtonProps): JSX.Element => {
   return (
     <div className={classes.input_wrapper}>
       <div className={classes.radio_wrapper}>
-        <input
-          {...props}
-          id={id}
-          name="radio-group"
-          type="radio"
-          onChange={onChange}
-        />
+        <input {...props} name="radio-group" type="radio" onChange={onChange} />
       </div>
       <div className={classes.label_wrapper}>
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={props?.id}>{label}</label>
       </div>
     </div>
   )

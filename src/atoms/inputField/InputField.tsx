@@ -12,11 +12,6 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
    * you can also set any attribute that is native to html button
    */
   type: 'number' | 'text' | 'date'
-
-  /**
-   * hide label - use only when label is provided in other manner
-   */
-  hideLabel?: boolean
   /**
    * sets label of the button
    */
@@ -48,16 +43,13 @@ export const InputField = ({
   id,
   label,
   type,
-  hideLabel,
   error,
   mandatory,
   ...props
 }: InputFieldProps): JSX.Element => {
   return (
     <div className={classes.awell_input_field_wrapper}>
-      {!hideLabel && (
-        <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
-      )}
+      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
       <div
         className={`${classes.input_wrapper_with_error} ${
           error ? classes.has_error : ''

@@ -4,41 +4,67 @@
   position: relative;
   display: flex;
   place-items: start;
+  align-items: center;
 }
 
 .radio_wrapper {
   display: flex;
   align-items: center;
-  height: 1.25rem;
 
-  input[type="radio"] {
-    height: 1rem;
-    width: 1rem;
+  input[type='radio'] {
+    height: 1.4rem;
+    width: 1.4rem;
     color: var(--awell-brand100);
-    border: 1px solid #d1d5db;
+    border: 1px solid #94a3b8;
     margin: 0;
+
+    @media (min-width: 600px) {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+
+    // @media (min-width: 1024px) {
+    //   height: 1rem;
+    //   width: 1rem;
+    // }
 
     &:focus {
       --ring-color: var(--awell-brand100);
       --ring-offset-color: #fff;
       --ring-offset-width: 2px;
-      --ring-offset-shadow: 0 0 0 var(--ring-offset-width) var(--ring-offset-color);
-      --ring-shadow: 0 0 0 calc(2px + var(--ring-offset-width)) var(--ring-color);
+      --ring-offset-shadow: 0 0 0 var(--ring-offset-width)
+        var(--ring-offset-color);
+      --ring-shadow: 0 0 0 calc(2px + var(--ring-offset-width))
+        var(--ring-color);
       --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
       outline: 2px solid transparent;
       outline-offset: 2px;
-      box-shadow: var(--ring-offset-shadow),var(--ring-shadow),var(--shadow,0 0 #0000);
+      box-shadow: var(--ring-offset-shadow), var(--ring-shadow),
+        var(--shadow, 0 0 #0000);
     }
 
-    &:checked, &:checked:focus, &:checked:hover, &:checked:focus, &:checked:hover {
+    &:checked,
+    &:checked:focus,
+    &:checked:hover,
+    &:checked:focus,
+    &:checked:hover {
       border-color: transparent;
     }
   }
 }
 
 .label_wrapper {
-  margin-left: var(--awell-spacing-3);
-  font-size: var(--awell-font-size-sm);
+  margin-left: var(--awell-spacing-4);
+  font-size: var(--awell-font-size-lg);
   color: #374151;
+  
+  @media (min-width: 600px) {
+    margin-left: var(--awell-spacing-3);
+    font-size: var(--awell-font-size-base);
+  }
+
+  // @media (min-width: 1024px) {
+  //   margin-left: var(--awell-spacing-2);
+  // }
 }

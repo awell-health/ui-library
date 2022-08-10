@@ -1,15 +1,7 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Message as MessageComponent, MessageProps } from './Message'
-
-const defaultContent = [
-  { type: 'p', children: [{ text: 'italic', italic: true }] },
-  { type: 'p', children: [{ text: 'underline', underline: true }] },
-  {
-    type: 'p',
-    children: [{ text: 'strike through', strikethrough: true }],
-  },
-]
+import { messageFixture } from '../../constants/messageFixture'
 
 export default {
   title: 'atoms/Message',
@@ -17,7 +9,7 @@ export default {
   argTypes: {
     content: {
       control: 'text',
-      defaultValue: JSON.stringify(defaultContent, null, 2),
+      defaultValue: JSON.stringify(messageFixture, null, 2),
     },
     subject: {
       control: 'text',
@@ -27,5 +19,10 @@ export default {
 } as Meta
 
 export const Message: Story<MessageProps> = ({ content, subject }) => {
-  return <MessageComponent content={content} subject={subject} format="SLATE" />
+  return (
+    // It's the responsibility of the consuming app to provide styling for surrounding layout
+    <div style={{ maxWidth: '65ch', margin: '0 auto' }}>
+      <MessageComponent content={content} subject={subject} format="SLATE" />
+    </div>
+  )
 }

@@ -1,13 +1,3 @@
-.input_wrapper {
-  label {
-    margin-bottom: var(--awell-spacing-4);
-    font-size: var(--awell-font-size-sm);
-    font-weight: var(--awell-font-medium);
-    color: rgb(55 65 81);
-    display: block;
-  }
-}
-
 .awell_range_input_wrapper {
   --ticksHeight: 30%;
   --awell-thick-width: 2px;
@@ -22,6 +12,7 @@
   position: relative;
   height: 28px;
   transition: all 0.25s ease-in;
+  margin-top: var(--awell-spacing-4);
 
 
   /* min / max labels at the edges */

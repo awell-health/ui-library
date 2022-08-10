@@ -21,7 +21,6 @@ export interface CheckboxButtonProps
 }
 
 export const CheckboxButton = ({
-  id,
   onChange,
   label,
   ...props
@@ -31,14 +30,13 @@ export const CheckboxButton = ({
       <div className={classes.checkbox_wrapper}>
         <input
           {...props}
-          id={id}
           name="checkbox-group"
           type="checkbox"
           onChange={onChange}
         />
       </div>
       <div className={classes.label_wrapper}>
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={props?.id}>{label}</label>
       </div>
     </div>
   )

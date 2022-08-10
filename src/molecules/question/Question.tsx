@@ -185,6 +185,7 @@ export const QuestionData = ({
             const dateValue = value ? new Date(value) : new Date()
             return (
               <DatePicker
+                label={question.title}
                 onChange={(data) => onChange(data)}
                 id={question.id}
                 value={dateValue}

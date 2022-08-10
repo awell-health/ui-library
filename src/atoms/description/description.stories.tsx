@@ -4,15 +4,7 @@ import {
   Description as DescriptionComponent,
   DescriptionProps,
 } from './Description'
-
-const defaultNodes = [
-  { type: 'p', children: [{ text: 'italic', italic: true }] },
-  { type: 'p', children: [{ text: 'underline', underline: true }] },
-  {
-    type: 'p',
-    children: [{ text: 'strike through', strikethrough: true }],
-  },
-]
+import { descriptionFixture } from '../../constants/descriptionFixture'
 
 export default {
   title: 'atoms/Description',
@@ -20,11 +12,16 @@ export default {
   argTypes: {
     nodes: {
       control: 'text',
-      defaultValue: JSON.stringify(defaultNodes, null, 2),
+      defaultValue: JSON.stringify(descriptionFixture, null, 2),
     },
   },
 } as Meta
 
 export const Description: Story<DescriptionProps> = ({ nodes }) => {
-  return <DescriptionComponent nodes={nodes} />
+  return (
+    // It's the responsibility of the consuming app to provide styling for surrounding layout
+    <div style={{ maxWidth: '65ch', margin: '0 auto' }}>
+      <DescriptionComponent nodes={nodes} />
+    </div>
+  )
 }

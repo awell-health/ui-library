@@ -18,8 +18,10 @@ export const Message = ({
   return (
     <article className={classes.awell_message}>
       <div className={classes.wrapper}>
-        <strong>{subject}</strong>
-        <RichTextViewer nodes={content} format={format} />
+        <div className={classes.message_title}>{subject}</div>
+        <div className={classes.content}>
+          <RichTextViewer nodes={content} format={format} />
+        </div>
       </div>
       {children}
     </article>

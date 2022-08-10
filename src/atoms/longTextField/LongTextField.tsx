@@ -13,10 +13,6 @@ export interface LongTextFieldProps
    */
   id: string
   /**
-   * hide label - use only when label is provided in other manner
-   */
-  hideLabel?: boolean
-  /**
    * change event handler
    */
   onChange: ChangeEventHandler<HTMLTextAreaElement>
@@ -34,16 +30,13 @@ export const LongTextField = ({
   onChange,
   id,
   label,
-  hideLabel,
   mandatory,
   ...props
 }: LongTextFieldProps): JSX.Element => {
   const DEFAULT_ROWS = 4
   return (
     <div className={classes.awell_long_text_field_wrapper}>
-      {!hideLabel && (
-        <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
-      )}
+      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
       <textarea
         {...props}
         id={id}

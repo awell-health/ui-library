@@ -7,6 +7,10 @@ export default {
   title: 'atoms/Date Picker',
   component: DatePickerComponent,
   argTypes: {
+    label: {
+      control: 'text',
+      defaultValue: 'Select a date',
+    },
     id: {
       control: 'text',
       defaultValue: 'date-picker-story-id',
@@ -25,6 +29,7 @@ export default {
 
 export const DatePicker: Story<DatePickerProps> = ({
   id,
+  label,
   onChange,
   value,
   mandatory,
@@ -37,6 +42,7 @@ export const DatePicker: Story<DatePickerProps> = ({
         }}
       >
         <DatePickerComponent
+          label={label}
           id={id}
           onChange={onChange}
           value={value}
