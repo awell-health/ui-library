@@ -16,6 +16,9 @@
   border: 2px solid #ddd;
   border-radius: 4px;
 
+  &:focus, &:active {
+    outline-color: var(--awell-accent-color);
+  }
   &:disabled {
     color: #eee;
     cursor: not-allowed;

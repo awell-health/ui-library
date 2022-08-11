@@ -1,7 +1,7 @@
 
 .awell_radio_button_wrapper {
-  --awell-radio-primary-color: var(--primary-color, var(--awell-brand100));
-  --awell-radio-text-on-primary: var(--text-on-primary, #fff);
+  --awell-radio-primary-color: var(--awell-accent-color);
+  --awell-radio-text-on-primary: var(--awell-text-on-accent-color);
   --awell-radio-primary-light: var(--primary-light, #0065FF);
   --awell-radio-primary-subtle: #e6edf9;
   --awell-radio-primary-bg: var(--primary-bg, #fff);
@@ -13,6 +13,8 @@
 }
 
 .awell_radio_button {
+
+
   &:checked,
   &:not(:checked) {
     position: absolute;
@@ -55,23 +57,25 @@
     left: 5px;
     border-radius: 100%;
     transition: all 0.2s ease;
-    transition: all 0.2s ease;
   }
 
   &:not(:checked) + label::after {
     opacity: 0;
-    transform: scale(0);
     transform: scale(0);
   }
 
   &:checked + label::after {
     opacity: 1;
     transform: scale(1);
-    transform: scale(1);
   }
 
   &:disabled + label::after {
     color: var(--awell-radio-neutral);
     cursor: not-allowed;
+  }
+
+  &:focus + label::before,
+  &:active + label::before {
+    border-color: var(--awell-radio-primary-color);
   }
 }

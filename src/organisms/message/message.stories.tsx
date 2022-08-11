@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import { Message as MessageComponent } from './Message'
 import { MessageProps, MessageAttachmentType } from './types'
 import image from '../../assets/link.svg'
-import { object } from 'prop-types'
+import { ThemeProvider } from '../../atoms'
 
 const defaultContent = [
   { type: 'p', children: [{ text: 'italic', italic: true }] },
@@ -62,14 +62,16 @@ export const Message: Story<MessageProps> = ({
   attachments,
 }) => {
   return (
-    <MessageComponent
-      content={content}
-      subject={subject}
-      format="SLATE"
-      attachments={attachments}
-      attachmentLabels={attachmentLabels}
-      attachmentIcon={<img src={image} alt="" />}
-    />
+    <ThemeProvider accentColor="#004ac2">
+      <MessageComponent
+        content={content}
+        subject={subject}
+        format="SLATE"
+        attachments={attachments}
+        attachmentLabels={attachmentLabels}
+        attachmentIcon={<img src={image} alt="" />}
+      />
+    </ThemeProvider>
   )
 }
 

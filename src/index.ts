@@ -22,6 +22,7 @@ export {
   InnerText,
   CircularSpinner,
   HorizontalSpinner,
+  ThemeProvider,
 } from './atoms'
 
 export {

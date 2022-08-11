@@ -5,6 +5,7 @@ import {
   MessageAttachmentProps,
 } from './MessageAttachment'
 import image from './../../assets/link.svg'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Message Attachment',
@@ -31,11 +32,11 @@ export const MessageAttachment: Story<MessageAttachmentProps> = ({
   label,
 }) => {
   return (
-    <div>
+    <ThemeProvider accentColor="#004ac2">
       <MessageAttachmentComponent name={name} url={url} label={label}>
         <img src={image} alt="" />
       </MessageAttachmentComponent>
-    </div>
+    </ThemeProvider>
   )
 }
 

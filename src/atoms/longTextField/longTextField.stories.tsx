@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { LongTextField as LongTextFieldComponent, LongTextFieldProps } from '.'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Long Text Field',
@@ -41,13 +42,15 @@ export const LongTextField: Story<LongTextFieldProps> = ({
   onChange,
 }) => {
   return (
-    <LongTextFieldComponent
-      label={label}
-      onChange={onChange}
-      id={id}
-      hideLabel={hideLabel}
-      value={value}
-    />
+    <ThemeProvider accentColor="#004ac2">
+      <LongTextFieldComponent
+        label={label}
+        onChange={onChange}
+        id={id}
+        hideLabel={hideLabel}
+        value={value}
+      />
+    </ThemeProvider>
   )
 }
 

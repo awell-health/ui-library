@@ -42,7 +42,6 @@ export const RangeInput = ({
       ? 'var(--awell-neutralLight50)'
       : 'transparent',
   } as React.CSSProperties
-
   return (
     <div className={classes.awell_range_input_wrapper} style={style}>
       <input

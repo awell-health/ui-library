@@ -4,6 +4,7 @@ import { AttachmentList as AttachmentListComponent } from './AttachmentList'
 import image from './../../assets/link.svg'
 import { MessageAttachmentType } from '../../types'
 import { AttachmentListProps } from './types'
+import { ThemeProvider } from '../../atoms/'
 
 const attachments = [
   {
@@ -50,13 +51,13 @@ export const MessageAttachment: Story<AttachmentListProps> = ({
   attachments,
 }) => {
   return (
-    <div>
+    <ThemeProvider accentColor="#004ac2">
       <AttachmentListComponent
         attachments={attachments}
         labels={labels}
         icon={<img src={image} alt="" />}
       />
-    </div>
+    </ThemeProvider>
   )
 }
 

@@ -3,7 +3,7 @@ import { Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { WizardForm as WizardFormComponent } from '.'
 import { form as formData } from '../../constants/fixtures'
-import { Button } from '../../atoms/button/button.stories'
+import { ThemeProvider } from '../../atoms'
 
 export default {
   title: 'organisms/WizardForm',
@@ -40,17 +40,19 @@ export const WizardForm: Story = ({
   errorLabels,
 }) => {
   return (
-    <WizardFormComponent
-      form={form}
-      buttonLabels={buttonLabels}
-      errorLabels={errorLabels}
-      onSubmit={onSubmit}
-      evaluateDisplayConditions={() => {
-        return Promise.all([]).then(function () {
-          return []
-        })
-      }}
-    />
+    <ThemeProvider accentColor="#004ac2">
+      <WizardFormComponent
+        form={form}
+        buttonLabels={buttonLabels}
+        errorLabels={errorLabels}
+        onSubmit={onSubmit}
+        evaluateDisplayConditions={() => {
+          return Promise.all([]).then(function () {
+            return []
+          })
+        }}
+      />
+    </ThemeProvider>
   )
 }
 

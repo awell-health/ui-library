@@ -2,14 +2,14 @@
 .awell_date_picker {
   --awell-calendar-day: var(--awell-neutralLight0);
   --awell-calendar-day-border: var(--awell-neutralLight40);
-  --awell-calendar-day--selected: var(--awell-brand80);
-  --awell-calendar-day--active: var(--awell-brand200);
+  --awell-calendar-day--selected: var(--awell-accent-color);
+  --awell-calendar-day--active: var(--awell-accent-color--light);
 
   position: relative;
 
   & input {
     /* to hide native date picker */
-    &::input-placeholder{
+    &::input-placeholder {
       visibility: hidden !important;
     }
 
@@ -91,6 +91,4 @@
   & .react-calendar__tile--active:enabled:focus {
     background: var(--awell-calendar-day--selected);
   }
-
-
 }
