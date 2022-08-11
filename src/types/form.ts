@@ -1,10 +1,3 @@
-import { Question } from './question'
-
-export type Form = {
-  id: string
-  questions: Array<Question>
-  title: string
-  key?: string
-}
+export type { Form } from '../types/generated/types-orchestration'
 
 export type FormError = { id: string; error: string }

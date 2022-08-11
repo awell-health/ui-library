@@ -2,7 +2,7 @@ import { UseFormReturn } from 'react-hook-form'
 import { AnswerInput, Question, FormError } from '../../types'
 
 export type { FormError, QuestionWithVisibility } from '../../types'
-export { QuestionType } from '../../types'
+export { QuestionType, UserQuestionType } from '../../types'
 
 export enum DataPointValueType {
   Boolean = 'BOOLEAN',

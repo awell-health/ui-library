@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { RadioButton as RadioButtonComponent, RadioButtonProps } from '.'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Radio Button',
@@ -34,7 +35,11 @@ export const RadioButton: Story<RadioButtonProps> = ({
   id,
   onChange,
 }) => {
-  return <RadioButtonComponent label={label} onChange={onChange} id={id} />
+  return (
+    <ThemeProvider accentColor="#004ac2">
+      <RadioButtonComponent label={label} onChange={onChange} id={id} />
+    </ThemeProvider>
+  )
 }
 
 RadioButton.parameters = {

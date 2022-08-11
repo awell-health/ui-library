@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { InputField as InputFieldComponent, InputFieldProps } from '.'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Input Field',
@@ -53,15 +54,17 @@ export const InputField: Story<InputFieldProps> = ({
   mandatory,
 }) => {
   return (
-    <InputFieldComponent
-      type={type}
-      label={label}
-      onChange={onChange}
-      onClick={onClick}
-      error={error}
-      id={id}
-      mandatory={mandatory}
-    />
+    <ThemeProvider accentColor="#004ac2">
+      <InputFieldComponent
+        type={type}
+        label={label}
+        onChange={onChange}
+        onClick={onClick}
+        error={error}
+        id={id}
+        mandatory={mandatory}
+      />
+    </ThemeProvider>
   )
 }
 

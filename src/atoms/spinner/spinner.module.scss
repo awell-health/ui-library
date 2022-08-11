@@ -1,4 +1,5 @@
 .awell_circular_spinner {
+  --awell-spinner-color: var(--awell-accent-color);
   display: inline-block;
   position: relative;
   width: 80px;
@@ -11,10 +12,10 @@
     width: 64px;
     height: 64px;
     margin: 8px;
-    border: 8px solid var(--accent-color);
+    border: 8px solid var(--awell-spinner-color);
     border-radius: 50%;
     animation: awell_circular_spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: var(--accent-color) transparent transparent transparent;
+    border-color: var(--awell-spinner-color) transparent transparent transparent;
   }
   & div:nth-child(1) {
     animation-delay: -0.45s;
@@ -37,6 +38,7 @@
 }
 
 .awell_horizontal_spinner {
+  --awell-spinner-color: var(--awell-brand100);
   display: inline-block;
   position: relative;
   width: 80px;
@@ -48,7 +50,7 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: var(--accent-color);
+    background: var(--awell-spinner-color);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
 

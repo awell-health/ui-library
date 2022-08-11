@@ -6,11 +6,12 @@ export { Description } from './description'
 export { InputField } from './inputField'
 export { Logo } from './logo'
 export { LongTextField } from './longTextField'
-export { Message } from './message'
 export { RadioButton } from './radioButton'
 export { RangeInput } from './rangeInput'
 export { RichTextViewer } from './richTextViewer'
+export { MessageAttachment } from './messageAttachment'
 export { CircularSpinner, HorizontalSpinner } from './spinner'
+export { ThemeProvider } from './themeProvider'
 export {
   HeadingMain,
   HeadingSecondary,

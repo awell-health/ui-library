@@ -1,20 +1,4 @@
 html {
-  /*
-    Accent (or primary colour) & secondary colour:
-    Determines button background colors, focus styles, link colors, and more
-  */
-  --rgb-accent-color: 0, 74, 194;
-
-  --accent-color: rgba(var(--rgb-accent-color), 1);
-  --accent-hover-color: rgba(var(--rgb-accent-color), 0.9);
-  --accent-ring-color-inputs: rgba(var(--rgb-accent-color), 1);
-  --accent-ring-color-buttons: rgba(var(--rgb-accent-color), 0.4);
-
-  --secondary-color: rgba(var(--rgb-accent-color), 0.2);
-  --secondary-text-color: rgba(var(--rgb-accent-color), 1);
-  --secondary-hover-color: rgba(var(--rgb-accent-color), 0.3);
-  --secondary-ring-color-inputs: rgba(var(--rgb-accent-color), 1);
-  --secondary-ring-color-buttons: rgba(var(--rgb-accent-color), 0.4);
 
   /*
     FONT
@@ -22,14 +6,9 @@ html {
   --awell-font: roboto;
 
   /*
-    BREAKPOINTS
-    Based on https://tailwindcss.com/docs/responsive-design
+    Misc
   */
-  // --breakpoint-sm: 640px;
-  // --breakpoint-md: 768px;
-  // --breakpoint-lg: 1024px;
-  // --breakpoint-xl: 1280px;
-  // --breakpoint-2xl: 1536px;
+  --awell-header-height: 94px;
 
   /*
     FONT SIZES

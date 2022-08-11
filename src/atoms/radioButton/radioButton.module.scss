@@ -14,7 +14,7 @@
   input[type='radio'] {
     height: var(--awell-radio-checkbox-height-mobile);
     width: var(--awell-radio-checkbox-width-mobile);
-    color: var(--accent-color);
+    color: var(--awell-accent-color);
     border: 1px solid var(--awell-radio-checkbox-border-color);
     margin: 0;
 
@@ -24,19 +24,19 @@
     }
 
     &:focus {
-      --ring-color: var(--accent-ring-color-inputs);
-      --ring-offset-color: #fff;
-      --ring-offset-width: 2px;
-      --ring-offset-shadow: 0 0 0 var(--ring-offset-width)
-        var(--ring-offset-color);
-      --ring-shadow: 0 0 0 calc(2px + var(--ring-offset-width))
-        var(--ring-color);
-      --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --awell-ring-color: var(--accent-ring-color-inputs);
+      --awell-ring-offset-color: #fff;
+      --awell-ring-offset-width: 2px;
+      --awell-ring-offset-shadow: 0 0 0 var(--awell-ring-offset-width)
+        var(--awell-ring-offset-color);
+      --awell-ring-shadow: 0 0 0 calc(2px + var(--awell-ring-offset-width))
+        var(--awell-ring-color);
+      --awell-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
       outline: 2px solid transparent;
       outline-offset: 2px;
-      box-shadow: var(--ring-offset-shadow), var(--ring-shadow),
-        var(--shadow, 0 0 #0000);
+      box-shadow: var(--awell-ring-offset-shadow), var(--awell-ring-shadow),
+        var(--awell-shadow, 0 0 #0000);
     }
 
     &:checked,

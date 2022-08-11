@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import classes from './multipleChoiceQuestion.module.scss'
 import { CheckboxButton } from '../../atoms/checkboxButton'
-import { AnswerOption } from '../../types'
+import { Option } from '../../types'
 import { QuestionLabel } from '../../atoms/questionLabel'
 
 /**
@@ -11,9 +11,9 @@ import { QuestionLabel } from '../../atoms/questionLabel'
  */
 export interface MultipleChoiceQuestionProps {
   label: string
-  options: Array<AnswerOption>
-  onChange: (newValue: Array<AnswerOption>) => void
-  values: Array<AnswerOption>
+  options: Array<Option>
+  onChange: (newValue: Array<Option>) => void
+  values: Array<Option>
   /**
    * Is the question required?
    */
@@ -27,8 +27,7 @@ export const MultipleChoiceQuestion = ({
   values = [],
   mandatory,
 }: MultipleChoiceQuestionProps): JSX.Element => {
-  const [checkedOptions, setCheckedOptions] =
-    useState<Array<AnswerOption>>(values)
+  const [checkedOptions, setCheckedOptions] = useState<Array<Option>>(values)
 
   useEffect(() => {
     onChange(checkedOptions)
@@ -36,7 +35,7 @@ export const MultipleChoiceQuestion = ({
 
   const handleSelectOption = (
     event: ChangeEvent<HTMLInputElement>,
-    option: AnswerOption
+    option: Option
   ) => {
     let newCheckedOptions = []
     if (event.target.checked) {
@@ -51,7 +50,7 @@ export const MultipleChoiceQuestion = ({
     <div>
       <QuestionLabel label={label} mandatory={mandatory} />
       <fieldset className={classes.awell_multiple_choice_question}>
-        {options.map((option: AnswerOption) => (
+        {options.map((option: Option) => (
           <CheckboxButton
             key={option.id}
             onChange={(event) => handleSelectOption(event, option)}

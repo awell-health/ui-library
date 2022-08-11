@@ -4,11 +4,11 @@
   /**
     Primary button
   **/
-  --primary-button-background-color: var(--accent-color, #004ac2);
-  --primary-button-text-color: var(--text-primary, #fff);
+  --primary-button-background-color: var(--accent-color);
+  --primary-button-text-color: var(--awell-accent-text-color);
   --primary-button-focus-ring-color: var(--accent-ring-color-buttons);
   --primary-button--hover-background-color: var(--accent-hover-color);
-  --primary-button--hover-text-color: var(--text-primary, #fff);
+  --primary-button--hover-text-color: var(--text-primary);
 
   /**
     Secondary button

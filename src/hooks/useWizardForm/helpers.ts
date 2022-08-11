@@ -1,7 +1,7 @@
 import {
-  AnswerOption,
+  Option,
   Question,
-  QuestionType,
+  UserQuestionType,
   QuestionWithVisibility,
   SliderQuestionConfig,
 } from '../../types'
@@ -9,9 +9,9 @@ import { AnswerValue, QuestionRuleResult } from './types'
 
 export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
-    case QuestionType.MultipleSelect:
+    case UserQuestionType.MultipleSelect:
       return []
-    case QuestionType.Slider:
+    case UserQuestionType.Slider:
       return (question.questionConfig as SliderQuestionConfig)?.slider?.min ?? 0
     default:
       return ''
@@ -28,9 +28,7 @@ export const getInitialValues = (
   }, {})
 
 // FIXME
-const getValue = (
-  answer: Array<AnswerOption> | string | number | AnswerOption
-) => {
+const getValue = (answer: Array<Option> | string | number | Option) => {
   if (typeof answer === 'string') {
     return answer
   }

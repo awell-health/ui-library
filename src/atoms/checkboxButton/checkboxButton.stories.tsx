@@ -4,6 +4,7 @@ import {
   CheckboxButton as CheckboxButtonComponent,
   CheckboxButtonProps,
 } from '.'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Checkbox Button',
@@ -37,7 +38,11 @@ export const CheckboxButton: Story<CheckboxButtonProps> = ({
   id,
   onChange,
 }) => {
-  return <CheckboxButtonComponent label={label} onChange={onChange} id={id} />
+  return (
+    <ThemeProvider accentColor="#004ac2">
+      <CheckboxButtonComponent label={label} onChange={onChange} id={id} />
+    </ThemeProvider>
+  )
 }
 
 CheckboxButton.parameters = {

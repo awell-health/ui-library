@@ -53,7 +53,6 @@ export const RangeInput = ({
       ? 'var(--awell-neutralLight50)'
       : 'transparent',
   } as React.CSSProperties
-
   return (
     <div className={classes.input_wrapper}>
       <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />

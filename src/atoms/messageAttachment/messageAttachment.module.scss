@@ -1,0 +1,39 @@
+@use '../../globalStyles';
+
+.awell_message_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  transition: all .3s ease-in-out;
+  padding: var(--awell-padding-base);
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--awell-neutralMid60);
+  }
+  &:hover {
+    transition: all .3s ease-in-out;
+  };
+
+  & .awell_message_link_button {
+    padding: var(--awell-padding-base) var(--awell-padding-md);
+    color: var(--awell-accent-color);
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: var(--awell-font-size-sm);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  & .awell_message_name_container {
+    display: flex;
+    align-items: center;
+
+    & img {
+      margin-right: var(--awell-padding-base);
+    }
+  }
+}

@@ -7,7 +7,6 @@ export {
   QuestionLabel,
   Logo,
   LongTextField,
-  Message,
   RadioButton,
   RangeInput,
   RichTextViewer,
@@ -23,6 +22,7 @@ export {
   InnerText,
   CircularSpinner,
   HorizontalSpinner,
+  ThemeProvider,
 } from './atoms'
 
 export {
@@ -30,6 +30,7 @@ export {
   Navbar,
   Question,
   SingleChoiceQuestion,
+  AttachmentList,
 } from './molecules'
 
-export { Checklist, WizardForm } from './organisms'
+export { Checklist, WizardForm, Message } from './organisms'

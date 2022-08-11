@@ -4,6 +4,7 @@ import {
   MultipleChoiceQuestion as MultipleChoiceQuestionComponent,
   MultipleChoiceQuestionProps,
 } from './MultipleChoiceQuestion'
+import { ThemeProvider } from '../../atoms'
 
 const defaultOptions = [
   {
@@ -66,12 +67,14 @@ export const MultipleChoiceQuestion: Story<MultipleChoiceQuestionProps> = ({
   mandatory,
 }) => {
   return (
-    <MultipleChoiceQuestionComponent
-      label={label}
-      options={options}
-      onChange={onChange}
-      values={values}
-      mandatory={mandatory}
-    />
+    <ThemeProvider accentColor="#004ac2">
+      <MultipleChoiceQuestionComponent
+        label={label}
+        options={options}
+        onChange={onChange}
+        values={values}
+        mandatory={mandatory}
+      />
+    </ThemeProvider>
   )
 }

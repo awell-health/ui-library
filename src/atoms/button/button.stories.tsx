@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { Button as ButtonComponent, ButtonProps } from './Button'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Button',
@@ -42,9 +43,11 @@ export const Button: Story<ButtonProps> = ({
   onClick,
 }) => {
   return (
-    <ButtonComponent fullWidth={fullWidth} variant={variant} onClick={onClick}>
-      {children}
-    </ButtonComponent>
+    <ThemeProvider accentColor="#004ac2">
+      <ButtonComponent variant={variant} onClick={onClick}>
+        {children}
+      </ButtonComponent>
+    </ThemeProvider>
   )
 }
 

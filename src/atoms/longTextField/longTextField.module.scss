@@ -26,6 +26,10 @@
     border-color: var(--focus-ring-color);
   }
 
+  &:focus, &:active {
+    outline-color: var(--awell-accent-color);
+  }
+
   &:disabled {
     color: #eee;
     cursor: not-allowed;

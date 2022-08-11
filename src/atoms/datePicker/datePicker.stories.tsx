@@ -2,6 +2,7 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { DatePicker as DatePickerComponent } from '.'
 import { DatePickerProps } from './DatePicker'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'atoms/Date Picker',
@@ -41,13 +42,15 @@ export const DatePicker: Story<DatePickerProps> = ({
           padding: '1em',
         }}
       >
-        <DatePickerComponent
-          label={label}
-          id={id}
-          onChange={onChange}
-          value={value}
-          mandatory={mandatory}
-        />
+        <ThemeProvider accentColor="#004ac2">
+          <DatePickerComponent
+            label={label}
+            mandatory={mandatory}
+            id={id}
+            onChange={onChange}
+            value={value}
+          />
+        </ThemeProvider>
       </div>
     </form>
   )
