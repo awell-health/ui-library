@@ -11,6 +11,7 @@ export { RangeInput } from './rangeInput'
 export { RichTextViewer } from './richTextViewer'
 export { MessageAttachment } from './messageAttachment'
 export { CircularSpinner, HorizontalSpinner } from './spinner'
+export { ThemeProvider } from './themeProvider'
 export {
   HeadingMain,
   HeadingSecondary,

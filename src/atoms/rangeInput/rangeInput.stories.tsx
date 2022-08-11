@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { RangeInput as RangeInputComponent, RangeInputProps } from '.'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Range Input',
@@ -44,11 +45,13 @@ export const RangeInput: Story<RangeInputProps> = ({
   onChange,
 }) => {
   return (
-    <RangeInputComponent
-      onChange={onChange}
-      id={id}
-      sliderConfig={sliderConfig}
-    />
+    <ThemeProvider accentColor="#004ac2">
+      <RangeInputComponent
+        onChange={onChange}
+        id={id}
+        sliderConfig={sliderConfig}
+      />
+    </ThemeProvider>
   )
 }
 

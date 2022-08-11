@@ -1,6 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { Checklist as ChecklistComponent, ChecklistProps } from '.'
+import { ThemeProvider } from '../../atoms'
 
 const checklistItems = [
   {
@@ -55,14 +56,16 @@ export const Checklist: Story<ChecklistProps> = ({
   readOnly,
 }) => {
   return (
-    <ChecklistComponent
-      title={title}
-      items={items}
-      onSubmit={onSubmit}
-      submitLabel={submitLabel}
-      disabled={disabled}
-      readOnly={readOnly}
-    />
+    <ThemeProvider accentColor="#004ac2">
+      <ChecklistComponent
+        title={title}
+        items={items}
+        onSubmit={onSubmit}
+        submitLabel={submitLabel}
+        disabled={disabled}
+        readOnly={readOnly}
+      />
+    </ThemeProvider>
   )
 }
 

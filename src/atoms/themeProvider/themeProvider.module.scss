@@ -1,0 +1,16 @@
+@use '../../globalStyles';
+
+.awell_theme {
+  --awell-button-primary-color: var(--primary-color, #004ac2);
+  --awell-button-primary-text: var(--text-primary, #fff);
+  --awell-button-primary--active: var(--primary-light, #0065FF);
+  --awell-button-primary-color--active: var(--primary-light, #0065FF);
+  --awell-button-primary-subtle: #e6edf9;
+  --awell-button-primary-bg: var(--primary-bg, #fff);
+  --awell-button-border-radius: var(--border-radius-default, 4px);
+  --awell-button-tertiary-background: var(--awell-neutralLight0);
+  --awell-button-tertiary-background--active: var(--awell-neutralLight40);
+  --awell-button-tertiary-color: var(--awell-neutralDark800);
+  --awell-button-tertiary-border: var(--awell-neutralDark800);
+  --awell-button-tertiary--disabled: var(--awell-neutralLight100);
+}

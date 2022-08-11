@@ -2,7 +2,7 @@
 
 
 .awell_checkbox_label {
-  --awell-checkbox-primary-color: var(--primary-color, var(--awell-brand100));
+  --awell-checkbox-primary-color: var(--awell-accent-color);
   --awell-checkbox-border-radius: var(--border-radius-default, 2px);
   --awell-checkbox-neutral: var(--neutral, var(--awell-neutralMid400));
 
@@ -33,6 +33,10 @@
   border-radius: var(--awell-checkbox-border-radius);
   background-color: #fff;
   border: 2px solid var(--awell-checkbox-neutral);
+
+  &:focus, &:active {
+    border-color: var(--awell-accent-color);
+  }
 
 
   &::before {

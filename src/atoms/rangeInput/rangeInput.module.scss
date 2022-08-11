@@ -36,7 +36,7 @@
 
 
 & .awell_range_input {
-  --awell-range-input-track-color: var(--primary-bg, #fff);
+  --awell-accent-color--lighter: var(--primary-bg, #fff);
   --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
   --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400));
 
@@ -51,7 +51,7 @@
   }
 
   &::-webkit-slider-runnable-track {
-    background: rgb(46 135 252 / 78%);
+    background: var(--awell-accent-color--lighter);
     border: 0;
     border-radius: 25px;
     width: 100%;
@@ -63,7 +63,7 @@
     margin-top: -1.3px;
     width: 14px;
     height: 14px;
-    background: #004ac2;
+    background: var(--awell-accent-color);
     border: 0;
     border-radius: 15px;
     cursor: pointer;
@@ -71,7 +71,7 @@
   }
 
   &::-moz-range-track {
-    background: rgb(46 135 252 / 78%);
+    background: var(--awell-accent-color--lighter);
     border: 0;
     border-radius: 25px;
     width: 100%;
@@ -82,7 +82,7 @@
   &::-moz-range-thumb {
     width: 14px;
     height: 14px;
-    background: #004ac2;
+    background: var(--awell-accent-color);
     border: 0;
     border-radius: 15px;
     cursor: pointer;
@@ -99,13 +99,13 @@
   }
 
   &::-ms-fill-lower {
-    background: #0357c6;
+    background: var(--awell-accent-color);
     border: 0;
     border-radius: 50px;
   }
 
   &::-ms-fill-upper {
-    background: rgb(46 135 252 / 78%);
+    background: var(--awell-accent-color--lighter); // TODO
     border: 0;
     border-radius: 50px;
   }
@@ -113,7 +113,7 @@
   &::-ms-thumb {
     width: 14px;
     height: 14px;
-    background: #004ac2;
+    background: var(--awell-accent-color);
     border: 0;
     border-radius: 15px;
     cursor: pointer;
@@ -123,11 +123,11 @@
   }
 
   &:focus::-ms-fill-lower {
-    background: rgb(46 135 252 / 78%);
+    background: var(--awell-accent-color--lighter);
   }
 
   &:focus::-ms-fill-upper {
-    background: #8ebefd;
+    background: var(--awell-accent-color--lighter); // TODO
   }
 
 

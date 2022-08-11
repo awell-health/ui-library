@@ -2,6 +2,7 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { DatePicker as DatePickerComponent } from '.'
 import { DatePickerProps } from './DatePicker'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'atoms/Date Picker',
@@ -24,7 +25,9 @@ export const DatePicker: Story<DatePickerProps> = ({ id, onChange, value }) => {
     <form>
       <div>
         <h3>Date Picker</h3>
-        <DatePickerComponent id={id} onChange={onChange} value={value} />
+        <ThemeProvider accentColor="#004ac2">
+          <DatePickerComponent id={id} onChange={onChange} value={value} />
+        </ThemeProvider>
       </div>
     </form>
   )

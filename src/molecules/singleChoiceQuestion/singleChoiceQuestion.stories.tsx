@@ -4,6 +4,7 @@ import {
   SingleChoiceQuestion as SingleChoiceQuestionComponent,
   SingleChoiceQuestionProps,
 } from './SingleChoiceQuestion'
+import { ThemeProvider } from '../../atoms'
 
 const defaultOptions = [
   {
@@ -57,10 +58,12 @@ export const SingleChoiceQuestion: Story<SingleChoiceQuestionProps> = ({
   value,
 }) => {
   return (
-    <SingleChoiceQuestionComponent
-      options={options}
-      onChange={onChange}
-      value={value}
-    />
+    <ThemeProvider accentColor="#004ac2">
+      <SingleChoiceQuestionComponent
+        options={options}
+        onChange={onChange}
+        value={value}
+      />
+    </ThemeProvider>
   )
 }
