@@ -4,6 +4,7 @@ import { Message as MessageComponent } from './Message'
 import { MessageProps, MessageAttachmentType } from './types'
 import image from '../../assets/link.svg'
 import { ThemeProvider } from '../../atoms'
+import { messageFixture } from '../../constants/messageFixture'
 
 const defaultContent = [
   { type: 'p', children: [{ text: 'italic', italic: true }] },
@@ -34,7 +35,7 @@ export default {
   argTypes: {
     content: {
       control: 'text',
-      defaultValue: JSON.stringify(defaultContent, null, 2),
+      defaultValue: JSON.stringify(messageFixture, null, 2),
     },
     subject: {
       control: 'text',
