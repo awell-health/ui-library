@@ -36,7 +36,7 @@ export const CheckboxButton = ({
         />
       </div>
       <div className={classes.label_wrapper}>
-        <label htmlFor={props?.id}>{label}</label>
+        <label htmlFor={props.id}>{label}</label>
       </div>
     </div>
   )
