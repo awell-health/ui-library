@@ -48,10 +48,5 @@
   margin-left: var(--awell-spacing-4);
   font-size: var(--awell-font-size-lg);
   color: var(--awell-radio-checkbox-label-color);
-  
-  @media (min-width: 600px) {
-    font-size: var(--awell-font-size-base);
-    margin-left: var(--awell-spacing-3);
-  }
-
+  line-height: var(--awell-leading-7)
 }

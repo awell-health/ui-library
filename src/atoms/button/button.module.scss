@@ -6,8 +6,12 @@
   **/
   --awell-primary-button-background-color: var(--awell-accent-color);
   --awell-primary-button-text-color: var(--awell-accent-text-color);
-  --awell-primary-button-focus-ring-color: var(--awell-accent-ring-color-buttons);
-  --awell-primary-button--hover-background-color: var(--awell-accent-hover-color);
+  --awell-primary-button-focus-ring-color: var(
+    --awell-accent-ring-color-buttons
+  );
+  --awell-primary-button--hover-background-color: var(
+    --awell-accent-hover-color
+  );
   --awell-primary-button--hover-text-color: var(--awell-accent-text-color);
 
   /**
@@ -15,8 +19,12 @@
   **/
   --awell-secondary-button-background-color: var(--awell-secondary-color);
   --awell-secondary-button-text-color: var(--awell-secondary-text-color);
-  --awell-secondary-button-focus-ring-color: var(--awell-secondary-ring-color-buttons);
-  --awell-secondary-button--hover-background-color: var(--awell-secondary-hover-color);
+  --awell-secondary-button-focus-ring-color: var(
+    --awell-secondary-ring-color-buttons
+  );
+  --awell-secondary-button--hover-background-color: var(
+    --awell-secondary-hover-color
+  );
   --awell-secondary-button--hover-text-color: var(--awell-secondary-text-color);
 
   /**
@@ -45,14 +53,14 @@
   cursor: pointer;
   text-decoration: none;
   box-shadow: var(--awell-shadow-sm);
-  padding: var(--awell-spacing-2) var(--awell-spacing-4);
+  padding: var(--awell-spacing-3) var(--awell-spacing-6);
   font-size: var(--awell-font-size-base);
   line-height: var(--awell-leading-6);
 
   @media (min-width: 600px) {
     padding: var(--awell-spacing-2) var(--awell-spacing-4);
-    font-size: var(--awell-font-size-sm);
-    line-height: var(--awell-leading-5);
+    font-size: var(--awell-font-size-base);
+    line-height: var(--awell-leading-6);
   }
 
   /**
@@ -64,7 +72,8 @@
     outline-offset: var(--awell-focus-ring-offset-width);
     box-shadow: 0 0 0 var(--awell-focus-ring-offset-width)
         var(--awell-focus-ring-offset-color),
-      0 0 0 calc(2px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color),
+      0 0 0 calc(2px + var(--awell-focus-ring-offset-width))
+        var(--awell-focus-ring-color),
       0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 

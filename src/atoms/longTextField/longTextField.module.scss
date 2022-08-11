@@ -8,8 +8,9 @@
 
 .awell_long_text_field {
   font: var(--awell-font);
-  padding: var(--awell-spacing-2) var(--awell-spacing-3);
-  font-size: var(--awell-font-size-sm);
+  padding: var(--awell-spacing-3) var(--awell-spacing-4);
+  color: var(--awell-slate900);
+  font-size: var(--awell-font-size-base);
   line-height: var(--awell-leading-5);
   border: 1px solid rgb(209 213 219);
   border-radius: var(--awell-border-radius-md);

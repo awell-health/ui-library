@@ -18,7 +18,7 @@ export const MessageAttachment = ({
     <div className={classes.awell_message_container}>
       <div className={classes.awell_message_name_container}>
         {children}
-        <InlineText variant="textSmall">{name}</InlineText>
+        {name}
       </div>
 
       <a

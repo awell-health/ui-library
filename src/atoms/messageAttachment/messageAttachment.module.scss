@@ -7,10 +7,10 @@
   width: 100%;
   height: 100%;
   transition: all .3s ease-in-out;
-  padding: var(--awell-spacing-2) var(--awell-spacing-2);
+  padding: var(--awell-spacing-3) var(--awell-spacing-2);
 
   &:not(:last-of-type) {
-    border-bottom: 1px solid var(--awell-neutralMid60);
+    border-bottom: 1px solid var(--awell-slate300);
   }
   &:hover {
     transition: all .3s ease-in-out;
@@ -21,7 +21,7 @@
     color: var(--awell-accent-color);
     border-radius: 4px;
     text-decoration: none;
-    font-size: var(--awell-font-size-sm);
+    font-size: var(--awell-font-size-base);
 
     &:hover {
       text-decoration: underline;
@@ -31,9 +31,11 @@
   & .awell_message_name_container {
     display: flex;
     align-items: center;
+    font-size: var(--awell-font-size-base);
+    color: var(--awell-slate800);
 
     & img {
-      margin-right: var(--awell-spacing-2);
+      margin-right: var(--awell-spacing-4);
     }
   }
 }

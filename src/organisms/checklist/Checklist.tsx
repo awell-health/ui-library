@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler, useState } from 'react'
-import { Text, CheckboxButton, Button } from '../../atoms'
+import { Text, CheckboxButton, Button, QuestionLabel } from '../../atoms'
 import classes from './checklist.module.scss'
 
 export interface ChecklistItem {
@@ -39,7 +39,7 @@ export const Checklist: FC<ChecklistProps> = ({
   return (
     <div className={classes.awell_checklist}>
       <div className={classes.title}>
-        <Text variant="smallHeadline">{title}</Text>
+        <QuestionLabel label={title} />
       </div>
       <div className={classes.checklist}>
         {items.map((item) => (
