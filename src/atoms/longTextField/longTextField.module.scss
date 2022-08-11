@@ -1,6 +1,6 @@
 .awell_long_text_field_wrapper {
-  --focus-ring-color: var(--accent-ring-color-inputs);
-  --focus-ring-offset-width: 0px;
+  --awell-focus-ring-color: var(--awell-accent-ring-color-inputs);
+  --awell-focus-ring-offset-width: 0px;
 
   display: flex;
   flex-direction: column;
@@ -22,8 +22,8 @@
     outline-offset: 2px;
     box-shadow:
       0 0 0 0px #fff,
-      0 0 0 calc(1px + var(--focus-ring-offset-width)) var(--focus-ring-color), 0 0 #0000;
-    border-color: var(--focus-ring-color);
+      0 0 0 calc(1px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color), 0 0 #0000;
+    border-color: var(--awell-focus-ring-color);
   }
 
   &:focus, &:active {

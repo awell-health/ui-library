@@ -24,7 +24,7 @@
     }
 
     &:focus {
-      --awell-ring-color: var(--accent-ring-color-inputs);
+      --awell-ring-color: var(--awell-accent-ring-color-inputs);
       --awell-ring-offset-color: #fff;
       --awell-ring-offset-width: 2px;
       --awell-ring-offset-shadow: 0 0 0 var(--awell-ring-offset-width)

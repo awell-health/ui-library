@@ -5,6 +5,7 @@ import {
   DescriptionProps,
 } from './Description'
 import { descriptionFixture } from '../../constants/descriptionFixture'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'atoms/Description',
@@ -18,5 +19,9 @@ export default {
 } as Meta
 
 export const Description: Story<DescriptionProps> = ({ nodes }) => {
-  return <DescriptionComponent nodes={nodes} />
+  return (
+    <ThemeProvider accentColor="#004ac2">
+      <DescriptionComponent nodes={nodes} />
+    </ThemeProvider>
+  )
 }

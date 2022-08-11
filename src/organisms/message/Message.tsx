@@ -15,19 +15,19 @@ export const Message = ({
 }: MessageProps): JSX.Element => {
   return (
     <article className={classes.awell_message}>
-      <div className={classes.wrapper}>
-        <div className={classes.message_title}>{subject}</div>
-        <div className={classes.content}>
-          <RichTextViewer nodes={content} format={format} />
-        </div>
+      <div className={classes.message_title}>{subject}</div>
+      <div className={classes.content}>
+        <RichTextViewer nodes={content} format={format} />
       </div>
 
-      <AttachmentList
-        attachments={attachments}
-        icon={attachmentIcon}
-        labels={attachmentLabels}
-      />
-      {children}
+      <div className={classes.attachmentList}>
+        <AttachmentList
+          attachments={attachments}
+          icon={attachmentIcon}
+          labels={attachmentLabels}
+        />
+        {children}
+      </div>
     </article>
   )
 }

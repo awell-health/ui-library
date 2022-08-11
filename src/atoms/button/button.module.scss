@@ -4,36 +4,36 @@
   /**
     Primary button
   **/
-  --primary-button-background-color: var(--accent-color);
-  --primary-button-text-color: var(--awell-accent-text-color);
-  --primary-button-focus-ring-color: var(--accent-ring-color-buttons);
-  --primary-button--hover-background-color: var(--accent-hover-color);
-  --primary-button--hover-text-color: var(--text-primary);
+  --awell-primary-button-background-color: var(--awell-accent-color);
+  --awell-primary-button-text-color: var(--awell-accent-text-color);
+  --awell-primary-button-focus-ring-color: var(--awell-accent-ring-color-buttons);
+  --awell-primary-button--hover-background-color: var(--awell-accent-hover-color);
+  --awell-primary-button--hover-text-color: var(--awell-accent-text-color);
 
   /**
     Secondary button
   **/
-  --secondary-button-background-color: var(--secondary-color);
-  --secondary-button-text-color: var(--secondary-text-color);
-  --secondary-button-focus-ring-color: var(--secondary-ring-color-buttons);
-  --secondary-button--hover-background-color: var(--secondary-hover-color);
-  --secondary-button--hover-text-color: var(--secondary-text-color);
+  --awell-secondary-button-background-color: var(--awell-secondary-color);
+  --awell-secondary-button-text-color: var(--awell-secondary-text-color);
+  --awell-secondary-button-focus-ring-color: var(--awell-secondary-ring-color-buttons);
+  --awell-secondary-button--hover-background-color: var(--awell-secondary-hover-color);
+  --awell-secondary-button--hover-text-color: var(--awell-secondary-text-color);
 
   /**
     Tertiary button
   **/
-  --tertiary-button-background-color: #fff;
-  --tertiary-button-border-color: var(--awell-slate300);
-  --tertiary-button-text-color: var(--awell-slate700);
-  --tertiary-button-focus-ring-color: var(--awell-slate400);
-  --tertiary-button--hover-background-color: var(--awell-slate50);
-  --tertiary-button--hover-text-color: var(--awell-slate700);
+  --awell-tertiary-button-background-color: #fff;
+  --awell-tertiary-button-border-color: var(--awell-slate300);
+  --awell-tertiary-button-text-color: var(--awell-slate700);
+  --awell-tertiary-button-focus-ring-color: var(--awell-slate400);
+  --awell-tertiary-button--hover-background-color: var(--awell-slate50);
+  --awell-tertiary-button--hover-text-color: var(--awell-slate700);
 
   /**
     Generic
   **/
-  --focus-ring-offset-color: #fff;
-  --focus-ring-offset-width: 2px;
+  --awell-focus-ring-offset-color: #fff;
+  --awell-focus-ring-offset-width: 2px;
   --awell-button-border-radius: var(--awell-border-radius-md);
 
   display: inline-flex;
@@ -59,12 +59,12 @@
     Generic focus style
   **/
   &:focus {
-    --focus-ring-color: --primary-button-focus-ring-color;
-    outline: var(--focus-ring-offset-width) solid transparent;
-    outline-offset: var(--focus-ring-offset-width);
-    box-shadow: 0 0 0 var(--focus-ring-offset-width)
-        var(--focus-ring-offset-color),
-      0 0 0 calc(2px + var(--focus-ring-offset-width)) var(--focus-ring-color),
+    --awell-focus-ring-color: --awell-primary-button-focus-ring-color;
+    outline: var(--awell-focus-ring-offset-width) solid transparent;
+    outline-offset: var(--awell-focus-ring-offset-width);
+    box-shadow: 0 0 0 var(--awell-focus-ring-offset-width)
+        var(--awell-focus-ring-offset-color),
+      0 0 0 calc(2px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color),
       0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 
@@ -76,12 +76,12 @@
 
   /** BUTTON VARIANTS **/
   &.primary {
-    color: var(--primary-button-text-color);
-    background-color: var(--primary-button-background-color);
+    color: var(--awell-primary-button-text-color);
+    background-color: var(--awell-primary-button-background-color);
 
     &:hover {
-      color: var(--primary-button--hover-text-color);
-      background-color: var(--primary-button--hover-background-color);
+      color: var(--awell-primary-button--hover-text-color);
+      background-color: var(--awell-primary-button--hover-background-color);
       text-decoration: none;
     }
 
@@ -91,17 +91,17 @@
     }
 
     &:focus {
-      --focus-ring-color: var(--primary-button-focus-ring-color);
+      --awell-focus-ring-color: var(--awell-primary-button-focus-ring-color);
     }
   }
 
   &.secondary {
-    color: var(--secondary-button-text-color);
-    background-color: var(--secondary-button-background-color);
+    color: var(--awell-secondary-button-text-color);
+    background-color: var(--awell-secondary-button-background-color);
 
     &:hover {
-      background-color: var(--secondary-button--hover-background-color);
-      color: var(--secondary-button--hover-text-color);
+      background-color: var(--awell-secondary-button--hover-background-color);
+      color: var(--awell-secondary-button--hover-text-color);
       text-decoration: none;
     }
 
@@ -111,23 +111,23 @@
     }
 
     &:focus {
-      --focus-ring-color: var(--secondary-button-focus-ring-color);
+      --awell-focus-ring-color: var(--awell-secondary-button-focus-ring-color);
     }
   }
 
   &.tertiary {
-    color: var(--tertiary-button-text-color);
-    border-color: var(--tertiary-button-border-color);
-    background-color: var(--tertiary-button-background-color);
+    color: var(--awell-tertiary-button-text-color);
+    border-color: var(--awell-tertiary-button-border-color);
+    background-color: var(--awell-tertiary-button-background-color);
 
     &:hover {
-      background-color: var(--tertiary-button--hover-background-color);
-      color: var(--tertiary-button--hover-text-color);
+      background-color: var(--awell-tertiary-button--hover-background-color);
+      color: var(--awell-tertiary-button--hover-text-color);
       text-decoration: none;
     }
 
     &:focus {
-      --focus-ring-color: var(--tertiary-button-focus-ring-color);
+      --awell-focus-ring-color: var(--awell-tertiary-button-focus-ring-color);
     }
   }
 

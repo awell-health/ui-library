@@ -44,7 +44,11 @@ export const Button: Story<ButtonProps> = ({
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <ButtonComponent variant={variant} onClick={onClick}>
+      <ButtonComponent
+        fullWidth={fullWidth}
+        variant={variant}
+        onClick={onClick}
+      >
         {children}
       </ButtonComponent>
     </ThemeProvider>

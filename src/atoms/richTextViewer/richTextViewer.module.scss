@@ -2,6 +2,7 @@
   font: var(--awell-font);
   color: var(--awell-slate600);
   font-size: var(--awell-font-size-lg);
+  width: 100%;
 
   h1,
   h2,
@@ -53,8 +54,8 @@
 
   a {
     text-decoration: none;
-    color: var(--accent-color);
-    border-bottom: 1px solid var(--accent-color);
+    color: var(--awell-accent-color);
+    border-bottom: 1px solid var(--awell-accent-color);
     cursor: pointer;
     &:hover {
       border-bottom-width: 2px;

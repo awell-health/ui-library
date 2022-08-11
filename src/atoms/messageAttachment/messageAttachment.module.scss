@@ -7,7 +7,7 @@
   width: 100%;
   height: 100%;
   transition: all .3s ease-in-out;
-  padding: var(--awell-padding-base);
+  padding: var(--awell-spacing-2) var(--awell-spacing-2);
 
   &:not(:last-of-type) {
     border-bottom: 1px solid var(--awell-neutralMid60);
@@ -17,7 +17,7 @@
   };
 
   & .awell_message_link_button {
-    padding: var(--awell-padding-base) var(--awell-padding-md);
+    padding: var(--awell-spacing-2) var(--awell-spacing-4);
     color: var(--awell-accent-color);
     border-radius: 4px;
     text-decoration: none;
@@ -33,7 +33,7 @@
     align-items: center;
 
     & img {
-      margin-right: var(--awell-padding-base);
+      margin-right: var(--awell-spacing-2);
     }
   }
 }

@@ -13,6 +13,10 @@
   margin: 0 auto;
 }
 
+.content {
+  width: 100%;
+}
+
 .message_title {
   color: rgb(17 24 39);
   text-align: center;
@@ -33,7 +37,7 @@
     display: block;
     width: 10rem;
     margin-top: var(--awell-spacing-4);
-    background-color: var(--accent-color);
+    background-color: var(--awell-accent-color);
     height: 3px;
     border-radius: var(--awell-border-radius-lg);
     
@@ -42,4 +46,9 @@
     }
   }
   
+}
+
+.attachmentList {
+  margin-top: var(--awell-spacing-4);
+  width: 100%;
 }
