@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import classes from './themeProvider.module.scss'
 import { getTextColor, shadeColor } from './helpers'
 
 export interface ThemeProviderProps {
@@ -15,14 +14,10 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     '--awell-accent-color': accentColor,
     '--awell-text-on-accent-color': getTextColor(accentColor),
     '--awell-accent-color--light': shadeColor(accentColor, 15),
-    '--awell-accent-color--lighter': shadeColor(accentColor, 30),
+    '--awell-accent-color--lighter': shadeColor(accentColor, 40),
     '--awell-accent-color--darker': shadeColor(accentColor, -15),
   } as React.CSSProperties
-  return (
-    <div className={classes.awell_theme} style={style}>
-      {children}
-    </div>
-  )
+  return <div style={style}>{children}</div>
 }
 
 ThemeProvider.displayName = 'Button'

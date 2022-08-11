@@ -34,7 +34,7 @@
     box-shadow: none;
     border-color: var(--awell-button-primary-color);
 
-    &:hover {
+    &:hover, &:focus {
       color: var(--awell-button-primary-text);
       background-color: var(--awell-button-primary--active);
       border-color: var(--awell-button-primary--active);
@@ -60,7 +60,7 @@
     background-color: var(--awell-button-primary-bg);
     box-shadow: none;
 
-    &:hover {
+    &:hover, &:focus{
       background-color: var(--awell-button-primary-subtle);
       text-decoration: none;
     }
@@ -82,7 +82,7 @@
     border-color: var(--awell-button-tertiary-border);
     box-shadow: none;
 
-    &:hover {
+    &:hover, &:focus {
       background-color: var(--awell-button-tertiary-background--active);
       text-decoration: none;
     }
@@ -102,7 +102,7 @@
     border-color: #fff;
     box-shadow: none;
 
-    &:hover {
+    &:hover, &:focus {
       background-color: var(--awell-button-primary-subtle, #eceaff);
       border-color: var(--awell-button-primary-subtle, #eceaff);
     }

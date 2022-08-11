@@ -8,6 +8,7 @@ import { CircularSpinner, HorizontalSpinner } from '../spinner'
 import { RadioButton } from '../radioButton'
 import { Button } from '../button'
 import { CheckboxButton } from '../checkboxButton'
+import { RangeInput } from '../rangeInput'
 
 const getComponentForSelected = (type: string) => {
   switch (type) {
@@ -37,6 +38,23 @@ const getComponentForSelected = (type: string) => {
           Label
         </Button>
       )
+    case 'rangeInput':
+      return (
+        <RangeInput
+          sliderConfig={{
+            min: 0,
+            max: 100,
+            step_value: 1,
+            display_marks: false,
+            min_label: 'small',
+            max_label: 'big',
+            is_value_tooltip_on: false,
+            show_min_max_values: false,
+          }}
+          onChange={() => null}
+          id="range"
+        />
+      )
     default:
       return (
         <Button id={'id'} onClick={() => null}>
@@ -60,6 +78,7 @@ export default {
         'circularSpinner',
         'radioButton',
         'checkboxButton',
+        'rangeInput',
         'button',
       ],
       defaultValue: 'button',
