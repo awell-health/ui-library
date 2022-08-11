@@ -12,24 +12,19 @@
   align-items: center;
 
   input[type='radio'] {
-    height: 1.4rem;
-    width: 1.4rem;
-    color: var(--awell-brand100);
-    border: 1px solid #94a3b8;
+    height: var(--radio-checkbox-height-mobile);
+    width: var(--radio-checkbox-width-mobile);
+    color: var(--accent-color);
+    border: 1px solid var(--radio-checkbox-border-color);
     margin: 0;
 
     @media (min-width: 600px) {
-      height: 1.25rem;
-      width: 1.25rem;
+      height: var(--radio-checkbox-height-above-mobile);
+      width: var(--radio-checkbox-width-above-mobile);
     }
 
-    // @media (min-width: 1024px) {
-    //   height: 1rem;
-    //   width: 1rem;
-    // }
-
     &:focus {
-      --ring-color: var(--awell-brand100);
+      --ring-color: var(--accent-ring-color-inputs);
       --ring-offset-color: #fff;
       --ring-offset-width: 2px;
       --ring-offset-shadow: 0 0 0 var(--ring-offset-width)
@@ -57,14 +52,10 @@
 .label_wrapper {
   margin-left: var(--awell-spacing-4);
   font-size: var(--awell-font-size-lg);
-  color: #374151;
+  color: var(--radio-checkbox-label-color);
   
   @media (min-width: 600px) {
     margin-left: var(--awell-spacing-3);
     font-size: var(--awell-font-size-base);
   }
-
-  // @media (min-width: 1024px) {
-  //   margin-left: var(--awell-spacing-2);
-  // }
 }

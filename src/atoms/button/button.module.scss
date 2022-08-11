@@ -4,20 +4,20 @@
   /**
     Primary button
   **/
-  --primary-button-background-color: var(--primary-color, #004ac2);
+  --primary-button-background-color: var(--accent-color, #004ac2);
   --primary-button-text-color: var(--text-primary, #fff);
-  --primary-button-focus-ring-color: rgb(147 197 253);
-  --primary-button--hover-background-color: var(--primary-light, #0065ff);
+  --primary-button-focus-ring-color: var(--accent-ring-color-buttons);
+  --primary-button--hover-background-color: var(--accent-hover-color);
   --primary-button--hover-text-color: var(--text-primary, #fff);
 
   /**
     Secondary button
   **/
-  --secondary-button-background-color: var(--awell-brand10);
-  --secondary-button-text-color: var(--awell-brand100);
-  --secondary-button-focus-ring-color: var(--awell-brand60);
-  --secondary-button--hover-background-color: var(--awell-brand75);
-  --secondary-button--hover-text-color: var(--primary-light, #0065ff);
+  --secondary-button-background-color: var(--secondary-color);
+  --secondary-button-text-color: var(--secondary-text-color);
+  --secondary-button-focus-ring-color: var(--secondary-ring-color-buttons);
+  --secondary-button--hover-background-color: var(--secondary-hover-color);
+  --secondary-button--hover-text-color: var(--secondary-text-color);
 
   /**
     Tertiary button
@@ -28,7 +28,7 @@
   --tertiary-button-focus-ring-color: var(--awell-brand80);
   --tertiary-button--hover-background-color: rgb(249 250 251);
   --tertiary-button--hover-text-color: rgb(55 65 81);
-  
+
   /**
     Generic
   **/
@@ -45,6 +45,9 @@
   cursor: pointer;
   text-decoration: none;
   box-shadow: var(--awell-shadow-sm);
+  padding: var(--awell-spacing-2) var(--awell-spacing-4);
+  font-size: var(--awell-font-size-sm);
+  line-height: var(--awell-leading-5);
 
   /**
     Generic focus style
@@ -59,41 +62,10 @@
       0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 
-  /** BUTTON SIZES **/
   &.w_full {
     width: 100%;
     text-align: center;
     justify-content: center;
-  }
-
-  &.size_xs {
-    padding: var(--awell-spacing-1\.5) var(--awell-spacing-2\.5);
-    font-size: var(--awell-font-size-xs);
-    line-height: var(--awell-leading-4);
-  }
-
-  &.size_sm {
-    padding: var(--awell-spacing-2) var(--awell-spacing-3);
-    font-size: var(--awell-font-size-sm);
-    line-height: var(--awell-leading-4);
-  }
-
-  &.size_base {
-    padding: var(--awell-spacing-2) var(--awell-spacing-4);
-    font-size: var(--awell-font-size-sm);
-    line-height: var(--awell-leading-5);
-  }
-
-  &.size_lg {
-    padding: var(--awell-spacing-2) var(--awell-spacing-4);
-    font-size: var(--awell-font-size-base);
-    line-height: var(--awell-leading-6);
-  }
-
-  &.size_xl {
-    padding: var(--awell-spacing-3) var(--awell-spacing-6);
-    font-size: var(--awell-font-size-base);
-    line-height: var(--awell-leading-6);
   }
 
   /** BUTTON VARIANTS **/
@@ -108,8 +80,8 @@
     }
 
     &:disabled {
-      color: #babec9;
-      background-color: #f6f6f6;
+      color: var(--awell-slate400);
+      background-color: var(--awell-slate200);
     }
 
     &:focus {

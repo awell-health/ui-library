@@ -6,11 +6,6 @@ export default {
   title: 'Atoms/Button',
   component: ButtonComponent,
   argTypes: {
-    size: {
-      options: ['xs', 'sm', 'base', 'lg', 'xl'],
-      control: { type: 'radio' },
-      defaultValue: 'base',
-    },
     fullWidth: {
       options: [true, false],
       control: { type: 'radio' },
@@ -41,19 +36,13 @@ export default {
 } as Meta
 
 export const Button: Story<ButtonProps> = ({
-  size,
   fullWidth,
   variant,
   children,
   onClick,
 }) => {
   return (
-    <ButtonComponent
-      size={size}
-      fullWidth={fullWidth}
-      variant={variant}
-      onClick={onClick}
-    >
+    <ButtonComponent fullWidth={fullWidth} variant={variant} onClick={onClick}>
       {children}
     </ButtonComponent>
   )

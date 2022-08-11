@@ -3,15 +3,14 @@
 **/
 
 .content {
-    color: #0f172a;
     font: var(--awell-font);
-    color: #475569;
+    color: var(--awell-slate600);
     font-size: var(--awell-font-size-lg);
 
     h1, h2, h3, h4, h5 {
         margin: 0;
         margin-bottom: var(--awell-spacing-4);
-        color: #1e293b;
+        color: var(--awell-slate800);
     }
 
     h1 {
@@ -55,8 +54,8 @@
 
     a {
         text-decoration: none;
-        color: var(--awell-brand100);
-        border-bottom: 1px solid var(--awell-brand100);
+        color: var(--accent-color);
+        border-bottom: 1px solid var(--accent-color);
         cursor: pointer;
         &:hover {
             border-bottom-width: 2px;

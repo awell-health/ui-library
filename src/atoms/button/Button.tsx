@@ -10,7 +10,6 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * sets style of the button
    */
-  size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl'
   fullWidth?: boolean
   variant?: 'primary' | 'secondary' | 'tertiary'
   children: React.ReactNode | string
@@ -23,7 +22,6 @@ export const Button = forwardRef(
       children,
       onClick,
       fullWidth = false,
-      size = 'base',
       variant = 'primary',
       ...props
     }: ButtonProps,
@@ -32,9 +30,9 @@ export const Button = forwardRef(
     return (
       <button
         {...props}
-        className={`${classes.awell_button} ${classes[`size_${size}`]} ${
-          classes[variant]
-        } ${fullWidth ? classes['w_full'] : ''}`}
+        className={`${classes.awell_button} ${classes[variant]} ${
+          fullWidth ? classes['w_full'] : ''
+        }`}
         onClick={onClick}
         ref={ref}
       >

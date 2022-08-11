@@ -6,21 +6,10 @@
   padding: 0;
 }
 
-.question_label {
-  margin-bottom: var(--awell-spacing-4);
-  font-size: var(--awell-font-size-sm);
-  font-weight: var(--awell-font-medium);
-  color: rgb(55 65 81);
-}
-
 .awell_multiple_choice_question > div {
   margin-top: var(--awell-spacing-5);
 
   @media (min-width: 600px) {
     margin-top: var(--awell-spacing-4);
   }
-
-  // @media (min-width: 1024px) {
-  //   margin-top: var(--awell-spacing-2);
-  // }
 }

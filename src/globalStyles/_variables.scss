@@ -1,5 +1,22 @@
 html {
   /*
+    Accent (or primary colour) & secondary colour:
+    Determines button background colors, focus styles, link colors, and more
+  */
+  --rgb-accent-color: 72, 0, 89;
+
+  --accent-color: rgba(var(--rgb-accent-color), 1);
+  --accent-hover-color: rgba(var(--rgb-accent-color), 0.9);
+  --accent-ring-color-inputs: rgba(var(--rgb-accent-color), 1);
+  --accent-ring-color-buttons: rgba(var(--rgb-accent-color), 0.4);
+
+  --secondary-color: rgba(var(--rgb-accent-color), 0.2);
+  --secondary-text-color: rgba(var(--rgb-accent-color), 1);
+  --secondary-hover-color: rgba(var(--rgb-accent-color), 0.3);
+  --secondary-ring-color-inputs: rgba(var(--rgb-accent-color), 1);
+  --secondary-ring-color-buttons: rgba(var(--rgb-accent-color), 0.4);
+
+  /*
     FONT
   */
   --awell-font: roboto;
@@ -167,5 +184,16 @@ html {
   --awell-leading-normal: 1.5;
   --awell-leading-relaxed: 1.625;
   --awell-leading-loose: 2;
+
+  /**
+    RADIOS & CHECKBOXES
+  **/
+  --radio-checkbox-height-mobile: 1.4rem;
+  --radio-checkbox-width-mobile: 1.4rem;
+  --radio-checkbox-height-above-mobile: 1.25rem;
+  --radio-checkbox-width-above-mobile: 1.25rem;
+  --radio-checkbox-border-color: var(--awell-slate400);
+  --radio-checkbox-label-color: var(--awell-slate700);
+  --checkbox-border-radius: var(--awell-border-radius-rounded);
   
 }
