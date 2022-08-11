@@ -18,10 +18,5 @@ export default {
 } as Meta
 
 export const Description: Story<DescriptionProps> = ({ nodes }) => {
-  return (
-    // It's the responsibility of the consuming app to provide styling for surrounding layout
-    <div style={{ maxWidth: '65ch', margin: '0 auto' }}>
-      <DescriptionComponent nodes={nodes} />
-    </div>
-  )
+  return <DescriptionComponent nodes={nodes} />
 }

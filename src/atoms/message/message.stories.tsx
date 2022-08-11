@@ -19,10 +19,5 @@ export default {
 } as Meta
 
 export const Message: Story<MessageProps> = ({ content, subject }) => {
-  return (
-    // It's the responsibility of the consuming app to provide styling for surrounding layout
-    <div style={{ maxWidth: '65ch', margin: '0 auto' }}>
-      <MessageComponent content={content} subject={subject} format="SLATE" />
-    </div>
-  )
+  return <MessageComponent content={content} subject={subject} format="SLATE" />
 }

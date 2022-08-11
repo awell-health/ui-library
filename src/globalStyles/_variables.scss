@@ -188,12 +188,17 @@ html {
   /**
     RADIOS & CHECKBOXES
   **/
-  --radio-checkbox-height-mobile: 1.4rem;
-  --radio-checkbox-width-mobile: 1.4rem;
-  --radio-checkbox-height-above-mobile: 1.25rem;
-  --radio-checkbox-width-above-mobile: 1.25rem;
-  --radio-checkbox-border-color: var(--awell-slate400);
-  --radio-checkbox-label-color: var(--awell-slate700);
-  --checkbox-border-radius: var(--awell-border-radius-rounded);
-  
+  --awell-radio-checkbox-height-mobile: 1.4rem;
+  --awell-radio-checkbox-width-mobile: 1.4rem;
+  --awell-radio-checkbox-height-above-mobile: 1.25rem;
+  --awell-radio-checkbox-width-above-mobile: 1.25rem;
+  --awell-radio-checkbox-border-color: var(--awell-slate400);
+  --awell-radio-checkbox-label-color: var(--awell-slate700);
+  --awell-checkbox-border-radius: var(--awell-border-radius-rounded);
+
+  /**
+    ACTIVITY CONTENT
+  **/
+  --awell-activity-max-width: 65ch;
+  --awell-activity-padding: 0 var(--awell-spacing-4);
 }

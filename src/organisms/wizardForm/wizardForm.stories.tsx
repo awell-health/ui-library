@@ -12,24 +12,21 @@ export default {
 
 export const WizardForm: Story = () => {
   return (
-    // It's the responsibility of the consuming app to provide styling for surrounding layout
-    <div style={{ maxWidth: '65ch', margin: '0 auto' }}>
-      <WizardFormComponent
-        form={form}
-        buttonLabels={{
-          prev: 'Prev',
-          next: 'Next',
-          submit: 'Submit',
-        }}
-        errorLabels={{ required: 'Answer for this question is required' }}
-        onSubmit={() => alert('form submit button clicked')}
-        evaluateDisplayConditions={() => {
-          return Promise.all([]).then(function () {
-            return []
-          })
-        }}
-      />
-    </div>
+    <WizardFormComponent
+      form={form}
+      buttonLabels={{
+        prev: 'Prev',
+        next: 'Next',
+        submit: 'Submit',
+      }}
+      errorLabels={{ required: 'Answer for this question is required' }}
+      onSubmit={() => alert('form submit button clicked')}
+      evaluateDisplayConditions={() => {
+        return Promise.all([]).then(function () {
+          return []
+        })
+      }}
+    />
   )
 }
 

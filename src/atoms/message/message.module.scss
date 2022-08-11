@@ -1,10 +1,16 @@
 @use '../../globalStyles';
 
 .awell_message {
+  --awell-activity-message-max-width: var(--awell-activity-max-width);
+  --awell-activity-message-padding: var(--awell-activity-padding);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: var(--awell-activity-message-max-width);
+  padding: var(--awell-activity-message-padding);
+  margin: 0 auto;
 }
 
 .message_title {

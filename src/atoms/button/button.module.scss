@@ -23,11 +23,11 @@
     Tertiary button
   **/
   --tertiary-button-background-color: #fff;
-  --tertiary-button-border-color: rgb(209 213 219);
-  --tertiary-button-text-color: rgb(55 65 81);
-  --tertiary-button-focus-ring-color: var(--awell-brand80);
-  --tertiary-button--hover-background-color: rgb(249 250 251);
-  --tertiary-button--hover-text-color: rgb(55 65 81);
+  --tertiary-button-border-color: var(--awell-slate300);
+  --tertiary-button-text-color: var(--awell-slate700);
+  --tertiary-button-focus-ring-color: var(--awell-slate400);
+  --tertiary-button--hover-background-color: var(--awell-slate50);
+  --tertiary-button--hover-text-color: var(--awell-slate700);
 
   /**
     Generic
@@ -46,8 +46,14 @@
   text-decoration: none;
   box-shadow: var(--awell-shadow-sm);
   padding: var(--awell-spacing-2) var(--awell-spacing-4);
-  font-size: var(--awell-font-size-sm);
-  line-height: var(--awell-leading-5);
+  font-size: var(--awell-font-size-base);
+  line-height: var(--awell-leading-6);
+
+  @media (min-width: 600px) {
+    padding: var(--awell-spacing-2) var(--awell-spacing-4);
+    font-size: var(--awell-font-size-sm);
+    line-height: var(--awell-leading-5);
+  }
 
   /**
     Generic focus style

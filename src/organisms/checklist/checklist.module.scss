@@ -1,6 +1,13 @@
 @use '../../globalStyles';
 
 .awell_checklist {
+  --awell-activity-checklist-max-width: var(--awell-activity-max-width);
+  --awell-activity-checklist-padding: var(--awell-activity-padding);
+
+  max-width: var(--awell-activity-checklist-max-width);
+  padding: var(--awell-activity-checklist-padding);
+  margin: 0 auto;
+
   & .title {
     display: flex;
     margin-bottom: var(--awell-spacing-1);

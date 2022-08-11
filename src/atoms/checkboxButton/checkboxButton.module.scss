@@ -13,16 +13,16 @@
   height: 1.25rem;
 
   input[type="checkbox"] {
-    height: var(--radio-checkbox-height-mobile);
-    width: var(--radio-checkbox-width-mobile);
+    height: var(--awell-radio-checkbox-height-mobile);
+    width: var(--awell-radio-checkbox-width-mobile);
     color: var(--accent-color);
-    border-radius: var(--checkbox-border-radius);
-    border: 1px solid var(--radio-checkbox-border-color);
+    border-radius: var(--awell-checkbox-border-radius);
+    border: 1px solid var(--awell-radio-checkbox-border-color);
     margin: 0;
 
     @media (min-width: 600px) {
-      height: var(--radio-checkbox-height-above-mobile);
-      width: var(--radio-checkbox-width-above-mobile);
+      height: var(--awell-radio-checkbox-height-above-mobile);
+      width: var(--awell-radio-checkbox-width-above-mobile);
     }
 
     &:focus {
@@ -47,7 +47,7 @@
 .label_wrapper {
   margin-left: var(--awell-spacing-4);
   font-size: var(--awell-font-size-lg);
-  color: var(--radio-checkbox-label-color);
+  color: var(--awell-radio-checkbox-label-color);
   
   @media (min-width: 600px) {
     font-size: var(--awell-font-size-base);
