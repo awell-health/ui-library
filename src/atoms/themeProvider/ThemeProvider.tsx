@@ -3,7 +3,7 @@ import { getTextColor, shadeColor } from './helpers'
 
 export interface ThemeProviderProps {
   children: React.ReactNode | string
-  accentColor: string
+  accentColor?: string
 }
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({
@@ -19,5 +19,3 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
   } as React.CSSProperties
   return <div style={style}>{children}</div>
 }
-
-ThemeProvider.displayName = 'Button'
