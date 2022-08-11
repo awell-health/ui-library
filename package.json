@@ -1,6 +1,6 @@
 {
   "name": "@awell_health/ui-library",
-  "version": "0.0.21",
+  "version": "0.0.23",
   "private": false,
   "description": "UI components to integrate with Awell Health",
   "repository": {
@@ -41,7 +41,6 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@heroicons/react": "^1.0.6",
     "date-fns": "^2.29.1",
     "escape-html": "^1.0.3",
     "html-react-parser": "^3.0.1",

@@ -11,10 +11,6 @@ export default {
       control: 'text',
       defaultValue: 'Name',
     },
-    error: {
-      control: 'text',
-      defaultValue: '',
-    },
     id: {
       control: 'text',
       defaultValue: 'input-field-story-id',
@@ -45,7 +41,6 @@ export default {
 } as Meta
 
 export const InputField: Story<InputFieldProps> = ({
-  error,
   label,
   id,
   type,
@@ -60,7 +55,6 @@ export const InputField: Story<InputFieldProps> = ({
         label={label}
         onChange={onChange}
         onClick={onClick}
-        error={error}
         id={id}
         mandatory={mandatory}
       />

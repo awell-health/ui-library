@@ -8,8 +8,7 @@ export default {
   component: ButtonComponent,
   argTypes: {
     fullWidth: {
-      options: [true, false],
-      control: { type: 'radio' },
+      control: { type: 'boolean' },
       defaultValue: false,
     },
     variant: {

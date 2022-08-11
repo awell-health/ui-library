@@ -8,7 +8,7 @@ export interface ThemeProviderProps {
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
-  accentColor = 'var(--awell-brand100)',
+  accentColor = 'var(--awell-brand100, #004ac2)',
 }) => {
   const style = {
     '--awell-accent-color': accentColor,
