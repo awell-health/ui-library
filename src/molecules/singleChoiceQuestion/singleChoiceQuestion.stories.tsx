@@ -28,6 +28,14 @@ export default {
   title: 'Molecules/SingleChoiceQuestion',
   component: SingleChoiceQuestionComponent,
   argTypes: {
+    label: {
+      control: 'text',
+      defaultValue: 'A question label',
+    },
+    mandatory: {
+      control: 'boolean',
+      defaultValue: false,
+    },
     options: {
       control: 'object',
       defaultValue: defaultOptions,
@@ -53,16 +61,20 @@ export default {
 } as Meta
 
 export const SingleChoiceQuestion: Story<SingleChoiceQuestionProps> = ({
+  label,
   options,
   onChange,
   value,
+  mandatory,
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
       <SingleChoiceQuestionComponent
+        label={label}
         options={options}
         onChange={onChange}
         value={value}
+        mandatory={mandatory}
       />
     </ThemeProvider>
   )

@@ -10,20 +10,29 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * sets style of the button
    */
-  variant?: 'primary' | 'secondary' | 'counter' | 'text' | 'tertiary'
+  fullWidth?: boolean
+  variant?: 'primary' | 'secondary' | 'tertiary'
   children: React.ReactNode | string
   onClick: MouseEventHandler<HTMLButtonElement>
 }
 
 export const Button = forwardRef(
   (
-    { children, onClick, variant = 'primary', ...props }: ButtonProps,
+    {
+      children,
+      onClick,
+      fullWidth = false,
+      variant = 'primary',
+      ...props
+    }: ButtonProps,
     ref: ForwardedRef<HTMLButtonElement>
   ) => {
     return (
       <button
         {...props}
-        className={`${classes.awell_button} ${classes[variant]}`}
+        className={`${classes.awell_button} ${classes[variant]} ${
+          fullWidth ? classes['w_full'] : ''
+        }`}
         onClick={onClick}
         ref={ref}
       >

@@ -19,10 +19,10 @@
   }
 
   & .react-calendar {
-    border: 1px solid #f2f2f2;
+    border: var(--awell-slate100);
     padding: 16px;
     border-radius: 4px;
-    box-shadow: 0 1px 4px #d9d9d9;
+    box-shadow: var(--awell-shadow-md);
     width: 100%;
     max-width: 335px;
     background: white;

@@ -1,12 +1,16 @@
 @use '../../globalStyles';
 
 .awell_wizard_form {
-  padding: 32px;
+  --awell-activity-form-max-width: var(--awell-activity-max-width);
+  --awell-activity-form-padding: var(--awell-activity-padding);
+
   display: flex;
   height: calc(100vh - var(--awell-header-height));
   flex-direction: column;
   justify-content: space-between;
-  max-width: var(--awell-form-max-width);
+  max-width: var(--awell-activity-form-max-width);
+  padding: var(--awell-activity-form-padding);
+  margin: 0 auto;
 
   & .title {
     display: flex;

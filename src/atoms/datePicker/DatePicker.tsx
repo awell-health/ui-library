@@ -7,22 +7,27 @@ import { useClickOutsideNotifier } from '../../hooks/useClickOutsideNotifier'
 
 export interface DatePickerProps {
   onChange: (date: string) => void
-  label?: string
+  /**
+   * Corresponding question label
+   */
+  label: string
   /**
    * sets id that is used to connect input with label
    */
   id: string
-  /**
-   * hide label - use only when label is provided in other way
-   */
-  hideLabel?: boolean
   value: Date
+  /**
+   * Is the question required?
+   */
+  mandatory?: boolean
 }
 
 export const DatePicker = ({
   id,
+  label,
   onChange,
   value,
+  mandatory,
   ...props
 }: DatePickerProps): JSX.Element => {
   const wrapperRef = createRef<HTMLDivElement>()
@@ -52,12 +57,13 @@ export const DatePicker = ({
     <div className={'awell_date_picker'} ref={wrapperRef}>
       <InputField
         {...props}
+        label={label}
         id={id}
         type="date"
-        hideLabel
         value={format(dateValue, 'yyyy-MM-dd')}
         onFocus={() => toggleDatePicker(true)}
         onChange={(e) => setDateValue(new Date(e.target.value))}
+        mandatory={mandatory}
       />
       {isDatePickerOpen && (
         <Calendar onChange={handleChangeDate} value={dateValue} />

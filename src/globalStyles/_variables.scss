@@ -1,68 +1,183 @@
 html {
+
+  /*
+    FONT
+  */
   --awell-font: roboto;
-  --awell-font-size-sm: 0.75rem;   /* 12px */
-  --awell-font-size-base: 1rem;    /* 16px, base */
-  --awell-font-size-md: 1.25rem;   /* 20px */
-  --awell-font-size-lg: 1.5rem;    /* 24px */
-  --awell-font-size-xl: 1.75rem;   /* 28px */
-  --awell-font-size-xxl: 2rem;     /* 32px */
-  --awell-font-size-xxxl: 2.25rem; /* 36px */
 
-
-  /* SPACING */
-  --awell-padding-sm: 0.25rem;
-  --awell-padding-base: 0.5rem;
-  --awell-padding-md: 1rem;
-  --awell-padding-lg: 1.5rem;
-  --awell-padding-xl: 2rem;
-  --awell-padding-xxl: 4rem;
-  --awell-checkbox-size: 20px;
+  /*
+    Misc
+  */
   --awell-header-height: 94px;
-  --awell-form-max-width: 600px;
 
+  /*
+    FONT SIZES
+    Based on https://tailwindcss.com/docs/font-size
+  */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  --font-size-6xl: 3.75em;      /* 60px */
+  --font-size-7xl: 4.5rem;      /* 72px */
+  --font-size-8xl: 6rem;        /* 96px */
 
-  @media screen and (max-width: 600px){
-    --awell-font-size-sm: 1rem;   /* 12px */
-    --awell-font-size-base: 1.25rem;    /* 16px, base */
-    --awell-font-size-md: 1.5rem;   /* 20px */
-    --awell-font-size-lg: 1.75rem;    /* 24px */
-    --awell-font-size-xl: 2rem;   /* 28px */
-    --awell-font-size-xxl: 2.25rem;     /* 32px */
-    --awell-font-size-xxxl: 2.5rem; /* 36px */
+  --awell-font-size-xs: var(--font-size-xs);
+  --awell-font-size-sm: var(--font-size-sm);
+  --awell-font-size-base: var(--font-size-base);
+  --awell-font-size-lg: var(--font-size-lg);
+  --awell-font-size-xl: var(--font-size-xl);
+  --awell-font-size-2xl: var(--font-size-2xl);
+  --awell-font-size-3xl: var(--font-size-3xl);
+  --awell-font-size-4xl: var(--font-size-4xl);
+  --awell-font-size-5xl: var(--font-size-5xl);
+  --awell-font-size-6xl: var(--font-size-6xl);
+  --awell-font-size-7xl: var(--font-size-7xl);
+  --awell-font-size-8xl: var(--font-size-8xl);
 
-    /* SPACING */
-    --awell-padding-all-base: 1rem 2rem;
-    --awell-padding-all-input: 1rem 1.5rem;
-    --awell-checkbox-size: 1.25rem;
-  }
+  /*
+    SPACING
+    Based on https://tailwindcss.com/docs/padding
+  */
+  --spacing-none: 0rem;
+  --spacing-O\.5: 0.125rem;   /* 2px */
+  --spacing-1: 0.25rem;       /* 4px */
+  --spacing-1\.5: 0.375rem;   /* 6px */
+  --spacing-2: 0.5rem;        /* 8px */
+  --spacing-2\.5: 0.625rem;   /* 10px */
+  --spacing-3: 0.65rem;       /* 12px */
+  --spacing-3\.5: 0.875rem;   /* 14px */
+  --spacing-4: 1rem;          /* 16px */
+  --spacing-5: 1.25rem;       /* 20px */
+  --spacing-6: 1.5rem;        /* 24px */
+  --spacing-7: 1.75rem;       /* 28px */
+  --spacing-8: 2rem;          /* 32px */
+  --spacing-9: 2.25rem;       /* 36px */
+  --spacing-10: 2.5rem;       /* 40px */
+  --spacing-11: 2.75rem;      /* 44px */
+  --spacing-12: 3rem;         /* 48px */
+  --spacing-14: 3.5rem;       /* 56px */
+  --spacing-16: 4rem;         /* 64px */
+  --spacing-20: 5rem;         /* 80px */
+  --spacing-24: 6rem;         /* 96px */
+  --spacing-28: 7rem;         /* 112px */
+  --spacing-32: 8rem;         /* 128px */
+  --spacing-36: 9rem;         /* 144px */
+  --spacing-40: 10rem;        /* 160px */
+  --spacing-44: 11rem;        /* 176px */
+  --spacing-48: 12rem;        /* 192px */
+  --spacing-52: 13rem;        /* 208px */
+  --spacing-56: 14rem;        /* 224px */
+  --spacing-60: 15rem;        /* 240px */
 
-  @media screen and (min-width: 601px) and (max-width: 1023px){
-    --awell-font-size-sm: 1rem;   /* 12px */
-    --awell-font-size-base: 1.25rem;    /* 16px, base */
-    --awell-font-size-md: 1.5rem;   /* 20px */
-    --awell-font-size-lg: 1.75rem;    /* 24px */
-    --awell-font-size-xl: 2rem;   /* 28px */
-    --awell-font-size-xxl: 2.25rem;     /* 32px */
-    --awell-font-size-xxxl: 2.5rem; /* 36px */
-    --awell-header-height: 109px;
+  --awell-spacing-none: var(--spacing-none);
+  --awell-spacing-O\.5: var(--spacing-O\.5) ;
+  --awell-spacing-1: var(--spacing-1);
+  --awell-spacing-1\.5: var(--spacing-1\.5);
+  --awell-spacing-2: var(--spacing-2);
+  --awell-spacing-2\.5: var(--spacing-2\.5); 
+  --awell-spacing-3:  var(--spacing-3);
+  --awell-spacing-3\.5: var(--spacing-3\.5);
+  --awell-spacing-4: var(--spacing-4);
+  --awell-spacing-5: var(--spacing-5);
+  --awell-spacing-6: var(--spacing-6); 
+  --awell-spacing-7: var(--spacing-7); 
+  --awell-spacing-8: var(--spacing-8); 
+  --awell-spacing-9: var(--spacing-9); 
+  --awell-spacing-10: var(--spacing-10); 
+  --awell-spacing-11: var(--spacing-11); 
+  --awell-spacing-12: var(--spacing-12); 
+  --awell-spacing-14: var(--spacing-14); 
+  --awell-spacing-16: var(--spacing-16);
+  --awell-spacing-20: var(--spacing-20); 
+  --awell-spacing-24: var(--spacing-24); 
+  --awell-spacing-28: var(--spacing-28); 
+  --awell-spacing-32: var(--spacing-32); 
+  --awell-spacing-36: var(--spacing-36); 
+  --awell-spacing-40: var(--spacing-40); 
+  --awell-spacing-44: var(--spacing-44); 
+  --awell-spacing-48: var(--spacing-48); 
+  --awell-spacing-52: var(--spacing-52); 
+  --awell-spacing-56: var(--spacing-56);
+  --awell-spacing-60: var(--spacing-60); 
 
-    /* SPACING */
-    --awell-padding-all-base: 1rem 3rem;
-    --awell-padding-all-input: 1rem 1.5rem;
-    --awell-checkbox-size: 1.25rem;
-  }
-  @media screen and (min-width: 1024px){
-    --awell-font-size-sm: 1rem;   /* 12px */
-    --awell-font-size-base: 1.25rem;    /* 16px, base */
-    --awell-font-size-md: 1.5rem;   /* 20px */
-    --awell-font-size-lg: 1.75rem;    /* 24px */
-    --awell-font-size-xl: 2rem;   /* 28px */
-    --awell-font-size-xxl: 2.25rem;     /* 32px */
-    --awell-font-size-xxxl: 2.5rem; /* 36px */
+  /*
+    BORDER RADIUS
+    Based on https://tailwindcss.com/docs/border-radius#rounding-corners-separately
+  */
+  --awell-border-radius-none: 0px;        
+  --awell-border-radius-sm: 0.125rem;     /* 4px */
+  --awell-border-radius-rounded: 0.25rem; /* 6px */
+  --awell-border-radius-md: 0.375rem;     /* 8px */
+  --awell-border-radius-lg: 0.5rem;       /* 12px */
+  --awell-border-radius-xl: 0.75rem;      /* 16px */
+  --awell-border-radius-2xl: 1rem;        /* 18px */
+  --awell-border-radius-3xl: 1.5rem;      /* 24px */
+  --awell-border-radius-full: 9999px;     /* cirlce */
 
-    /* SPACING */
-    --awell-padding-all-base: 0.75rem 2rem;
-    --awell-padding-all-input: 1rem 1.5rem;
-    --awell-checkbox-size: 1.25rem;
-  }
+  /*
+    SHADOW
+    Based on https://tailwindcss.com/docs/box-shadow
+  */
+  --awell-shadow-none: 0 0 #0000;
+  --awell-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --awell-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --awell-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --awell-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --awell-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /*
+    FONT WEIGHT
+    Based on https://tailwindcss.com/docs/font-weight
+  */
+  --awell-font-thin: 100;
+  --awell-font-extralight: 200;
+  --awell-font-light:	300;
+  --awell-font-normal: 400;
+  --awell-font-medium: 500;
+  --awell-font-semibold: 600;
+  --awell-font-bold: 700;
+  --awell-font-extrabold:	800;
+  --awell-font-black:	900;
+
+  /*
+    LINE-HEIGHT
+    Based on https://tailwindcss.com/docs/line-height#relative-line-heights
+  */
+  --awell-leading-3: .75rem; /* 12px */
+  --awell-leading-4: 1rem; /* 16px */
+  --awell-leading-5: 1.25rem; /* 20px */
+  --awell-leading-6: 1.5rem; /* 24px */
+  --awell-leading-7: 1.75rem; /* 28px */
+  --awell-leading-8: 2rem; /* 32px */
+  --awell-leading-9: 2.25rem; /* 36px */
+  --awell-leading-10: 2.5rem; /* 40px */
+  --awell-leading-none: 1;
+  --awell-leading-tight: 1.25;
+  --awell-leading-snug: 1.375;
+  --awell-leading-normal: 1.5;
+  --awell-leading-relaxed: 1.625;
+  --awell-leading-loose: 2;
+
+  /**
+    RADIOS & CHECKBOXES
+  **/
+  --awell-radio-checkbox-height-mobile: 1.4rem;
+  --awell-radio-checkbox-width-mobile: 1.4rem;
+  --awell-radio-checkbox-height-above-mobile: 1.25rem;
+  --awell-radio-checkbox-width-above-mobile: 1.25rem;
+  --awell-radio-checkbox-border-color: var(--awell-slate400);
+  --awell-radio-checkbox-label-color: var(--awell-slate700);
+  --awell-checkbox-border-radius: var(--awell-border-radius-rounded);
+
+  /**
+    ACTIVITY CONTENT
+  **/
+  --awell-activity-max-width: 65ch;
+  --awell-activity-padding: 0 var(--awell-spacing-4);
 }

@@ -1,19 +1,29 @@
 @use '../../globalStyles';
 
 .awell_checklist {
-  padding: var(--awell-padding-xxl) var(--awell-padding-xl);
+  --awell-activity-checklist-max-width: var(--awell-activity-max-width);
+  --awell-activity-checklist-padding: var(--awell-activity-padding);
+
+  max-width: var(--awell-activity-checklist-max-width);
+  padding: var(--awell-activity-checklist-padding);
+  margin: 0 auto;
 
   & .title {
     display: flex;
-    margin-bottom: var(--spacing-m);
+    margin-bottom: var(--awell-spacing-1);
   };
 
   & .checklist {
     display: flex;
     flex-direction: column;
     padding-left: 4px;
-    margin-top: var(--spacing-xs, 8px);
-    margin-bottom: var(--spacing-xs, 8px);
+    > div {
+      margin-top: var(--awell-spacing-5);
+
+      @media (min-width: 600px) {
+        margin-top: var(--awell-spacing-4);
+      }
+    }
   };
 
   & .checkboxListFormControl {
@@ -23,7 +33,7 @@
   & .button_wrapper {
     display: flex;
     justify-content: center;
-    margin-top: var(--spacing-m, 16px);
+    margin-top: var(--awell-spacing-8);
   }
 }
 

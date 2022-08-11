@@ -1,5 +1,5 @@
-
 .awell_range_input_wrapper {
+  --awell-range-slider-background-color: var(--awell-accent-ring-color-buttons);
   --ticksHeight: 30%;
   --awell-thick-width: 2px;
   --awell-ticks: linear-gradient(to right, var(--awell-thick-color) var(--awell-thick-width), transparent 1px) repeat-x;
@@ -13,6 +13,8 @@
   position: relative;
   height: 28px;
   transition: all 0.25s ease-in;
+  margin-top: var(--awell-spacing-4);
+
 
   /* min / max labels at the edges */
   &::before,
@@ -50,7 +52,7 @@
   }
 
   &::-webkit-slider-runnable-track {
-    background: var(--awell-accent-color--lighter);
+    background: var(--awell-range-slider-background-color);
     border: 0;
     border-radius: 25px;
     width: 100%;
@@ -70,7 +72,7 @@
   }
 
   &::-moz-range-track {
-    background: var(--awell-accent-color--lighter);
+    background: var(--awell-range-slider-background-color);
     border: 0;
     border-radius: 25px;
     width: 100%;
@@ -104,7 +106,7 @@
   }
 
   &::-ms-fill-upper {
-    background: var(--awell-accent-color--lighter); // TODO
+    background: var(--awell-range-slider-background-color); // TODO
     border: 0;
     border-radius: 50px;
   }
@@ -122,11 +124,11 @@
   }
 
   &:focus::-ms-fill-lower {
-    background: var(--awell-accent-color--lighter);
+    background: var(--awell-range-slider-background-color);
   }
 
   &:focus::-ms-fill-upper {
-    background: var(--awell-accent-color--lighter); // TODO
+    background: var(--awell-range-slider-background-color); // TODO
   }
 
 

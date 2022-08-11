@@ -4,21 +4,17 @@ import React, {
   MouseEventHandler,
 } from 'react'
 import classes from './inputField.module.scss'
+import { QuestionLabel } from '../questionLabel'
 
 export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * you can also set any attribute that is native to html button
    */
   type: 'number' | 'text' | 'date'
-
-  /**
-   * hide label - use only when label is provided in other manner
-   */
-  hideLabel?: boolean
   /**
    * sets label of the button
    */
-  label?: string
+  label: string
   /**
    * sets id that is used to connect input with label
    */
@@ -31,6 +27,10 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
    * click event handler
    */
   onClick?: MouseEventHandler<HTMLInputElement>
+  /**
+   * Is the question required?
+   */
+  mandatory?: boolean
 }
 
 export const InputField = ({
@@ -38,12 +38,12 @@ export const InputField = ({
   id,
   label,
   type,
-  hideLabel,
+  mandatory,
   ...props
 }: InputFieldProps): JSX.Element => {
   return (
     <div className={classes.awell_input_field_wrapper}>
-      {!hideLabel && <label htmlFor={id}>{label}</label>}
+      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
       <input
         {...props}
         type={type}

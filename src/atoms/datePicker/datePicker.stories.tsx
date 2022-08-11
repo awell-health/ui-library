@@ -8,6 +8,10 @@ export default {
   title: 'atoms/Date Picker',
   component: DatePickerComponent,
   argTypes: {
+    label: {
+      control: 'text',
+      defaultValue: 'Select a date',
+    },
     id: {
       control: 'text',
       defaultValue: 'date-picker-story-id',
@@ -16,17 +20,36 @@ export default {
       control: 'date',
       defaultValue: new Date(),
     },
+    mandatory: {
+      control: 'boolean',
+      defaultValue: false,
+    },
     onChange: { action: 'changed' },
   },
 } as Meta
 
-export const DatePicker: Story<DatePickerProps> = ({ id, onChange, value }) => {
+export const DatePicker: Story<DatePickerProps> = ({
+  id,
+  label,
+  onChange,
+  value,
+  mandatory,
+}) => {
   return (
     <form>
-      <div>
-        <h3>Date Picker</h3>
+      <div
+        style={{
+          padding: '1em',
+        }}
+      >
         <ThemeProvider accentColor="#004ac2">
-          <DatePickerComponent id={id} onChange={onChange} value={value} />
+          <DatePickerComponent
+            label={label}
+            mandatory={mandatory}
+            id={id}
+            onChange={onChange}
+            value={value}
+          />
         </ThemeProvider>
       </div>
     </form>

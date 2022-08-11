@@ -1,20 +1,69 @@
 .awell_input_field_wrapper {
+  --awell-focus-ring-color: var(--awell-accent-ring-color-inputs);
+  --awell-focus-ring-offset-width: 0px;
+
   display: flex;
   flex-direction: column;
-  padding: var(--awell-padding-sm) 0;
+}
 
-  & label {
-    margin-bottom: var(--awell-padding-md);
-    font-size: var(--awell-font-size-base);
+.input_wrapper_with_error {
+  position: relative;
+  width: 100%;
+
+  &.has_error {
+    input {
+      color: var(--awell-red);
+      border-color: var(--awell-red);
+
+      &:focus {
+        --awell-focus-ring-color: var(--awell-red);
+        border-color: var(--awell-red);
+      }
+    }
+  }
+}
+
+.error_message {
+  color: var(--awell-red);
+  margin-top: var(--awell-spacing-2);
+  font-size: var(--awell-font-size-sm);
+}
+
+.error_icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-right: var(--awell-spacing-3);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+
+  svg {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: var(--awell-red);
   }
 }
 
 .awell_input_field {
-  padding: var(--awell-padding-all-input);
-  font-size: var(--awell-font-size-base);
-  font-family: var(--awell-font);
-  border: 2px solid #ddd;
-  border-radius: 4px;
+  font: var(--awell-font);
+  padding: var(--awell-spacing-2) var(--awell-spacing-3);
+  font-size: var(--awell-font-size-sm);
+  line-height: var(--awell-leading-5);
+  border: 1px solid rgb(209 213 219);
+  border-radius: var(--awell-border-radius-md);
+  box-shadow: var(--awell-shadow-sm);
+  width: 100%;
+
+  &:focus {
+    outline: 2px transparent;
+    outline-offset: 2px;
+    box-shadow:
+      0 0 0 0px #fff,
+      0 0 0 calc(1px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color), 0 0 #0000;
+    border-color: var(--awell-focus-ring-color);
+  }
 
   &:focus, &:active {
     outline-color: var(--awell-accent-color);

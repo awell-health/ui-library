@@ -4,7 +4,7 @@ export {
   DatePicker,
   Description,
   InputField,
-  Label,
+  QuestionLabel,
   Logo,
   LongTextField,
   RadioButton,

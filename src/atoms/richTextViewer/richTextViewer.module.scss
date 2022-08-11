@@ -1,19 +1,108 @@
-.bold {
-  font-weight: bold;
-}
+.content {
+  font: var(--awell-font);
+  color: var(--awell-slate600);
+  font-size: var(--awell-font-size-lg);
+  width: 100%;
 
-.strikethrough {
-  text-decoration: line-through;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin: 0;
+    margin-bottom: var(--awell-spacing-4);
+    color: var(--awell-slate800);
+  }
 
-.underline {
-  text-decoration: underline;
-}
+  h1 {
+    font-size: var(--awell-font-size-3xl);
 
-.italic {
-  font-style: italic;
-}
+    @media (min-width: 600px) {
+      font-size: var(--awell-font-size-2xl);
+    }
+  }
 
-.strikethrough.underline {
-  text-decoration: line-through underline;
+  h2 {
+    font-size: var(--awell-font-size-2xl);
+
+    @media (min-width: 600px) {
+      font-size: var(--awell-font-size-xl);
+    }
+  }
+
+  h3 {
+    font-size: var(--awell-font-size-xl);
+
+    @media (min-width: 600px) {
+      font-size: var(--awell-font-size-lg);
+    }
+  }
+
+  h4 {
+    font-size: var(--awell-font-size-lg);
+
+    @media (min-width: 600px) {
+      font-size: var(--awell-font-size-base);
+      text-transform: uppercase;
+    }
+  }
+
+  h5 {
+    font-size: var(--awell-font-size-base);
+    font-weight: var(--awell-font-semibold);
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--awell-accent-color);
+    border-bottom: 1px solid var(--awell-accent-color);
+    cursor: pointer;
+    &:hover {
+      border-bottom-width: 2px;
+    }
+    &:focus-visible {
+      outline-offset: 1px;
+      border-bottom-width: 0;
+    }
+  }
+
+  p {
+    margin-bottom: var(--awell-spacing-4);
+    line-height: var(--awell-leading-normal);
+  }
+
+  ul,
+  ol {
+    li {
+      margin-top: var(--awell-spacing-2);
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .strikethrough {
+    text-decoration: line-through;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+
+  .italic {
+    font-style: italic;
+  }
+
+  .strikethrough.underline {
+    text-decoration: line-through underline;
+  }
 }

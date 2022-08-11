@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { WizardForm as WizardFormComponent } from '.'
-import { form as formData } from '../../constants/fixtures'
+import { form as formData } from '../../constants/formFixture'
 import { ThemeProvider } from '../../atoms'
 
 export default {

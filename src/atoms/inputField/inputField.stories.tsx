@@ -15,14 +15,14 @@ export default {
       control: 'text',
       defaultValue: 'input-field-story-id',
     },
-    hideLabel: {
-      control: 'boolean',
-      defaultValue: true,
-    },
     type: {
       control: 'radio',
       options: ['text', 'number'],
       defaultValue: 'text',
+    },
+    mandatory: {
+      control: 'boolean',
+      defaultValue: false,
     },
     onChange: { action: 'change' },
     onClick: { action: 'click' },
@@ -43,10 +43,10 @@ export default {
 export const InputField: Story<InputFieldProps> = ({
   label,
   id,
-  hideLabel,
   type,
   onChange,
   onClick,
+  mandatory,
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
@@ -56,7 +56,7 @@ export const InputField: Story<InputFieldProps> = ({
         onChange={onChange}
         onClick={onClick}
         id={id}
-        hideLabel={hideLabel}
+        mandatory={mandatory}
       />
     </ThemeProvider>
   )

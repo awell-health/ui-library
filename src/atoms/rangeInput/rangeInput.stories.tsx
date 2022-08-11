@@ -7,9 +7,17 @@ export default {
   title: 'Atoms/Range Input',
   component: RangeInputComponent,
   argTypes: {
+    label: {
+      control: 'text',
+      defaultValue: 'A question label',
+    },
     id: {
       control: 'text',
       defaultValue: 'range-input-story-id',
+    },
+    mandatory: {
+      control: 'boolean',
+      defaultValue: false,
     },
     sliderConfig: {
       defaultValue: {
@@ -40,16 +48,20 @@ export default {
 } as Meta
 
 export const RangeInput: Story<RangeInputProps> = ({
+  label,
   id,
   sliderConfig,
   onChange,
+  mandatory,
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
       <RangeInputComponent
+        label={label}
         onChange={onChange}
         id={id}
         sliderConfig={sliderConfig}
+        mandatory={mandatory}
       />
     </ThemeProvider>
   )

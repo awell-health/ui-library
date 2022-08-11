@@ -13,6 +13,8 @@ UI components to be used for integrating with Awell Health products.
 #### Build (in ui-library)
 `yarn build`
 
+Note: before running the build commmand, you need to update the version in `package.json` manually. You can chose any version you like, it just need to make sense and be a different version than it was.
+
 #### Publish (in ui-library)
 `yalc publish`
 
@@ -35,8 +37,6 @@ UI components to be used for integrating with Awell Health products.
  return <WizardForm (...) />  
 
 ```
-
-
 
 # Possible known issues
 ## Empty SCSS file

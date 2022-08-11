@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { getTextColor, shadeColor } from './helpers'
+import { getTextColor, opacityColor, shadeColor } from './helpers'
 
 export interface ThemeProviderProps {
   children: React.ReactNode | string
@@ -8,14 +8,19 @@ export interface ThemeProviderProps {
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
-  accentColor = 'var(--awell-brand100)',
+  accentColor = 'var(--awell-brand100, #004ac2)',
 }) => {
   const style = {
     '--awell-accent-color': accentColor,
-    '--awell-text-on-accent-color': getTextColor(accentColor),
-    '--awell-accent-color--light': shadeColor(accentColor, 15),
-    '--awell-accent-color--lighter': shadeColor(accentColor, 40),
-    '--awell-accent-color--darker': shadeColor(accentColor, -15),
+    '--awell-accent-text-color': getTextColor(accentColor),
+    '--awell-accent-hover-color': opacityColor(accentColor, 0.9),
+    '--awell-accent-ring-color-inputs': accentColor,
+    '--awell-accent-ring-color-buttons': opacityColor(accentColor, 0.4),
+    '--awell-secondary-color': opacityColor(accentColor, 0.2),
+    '--awell-secondary-text-color': accentColor,
+    '--awell-secondary-hover-color': opacityColor(accentColor, 0.3),
+    '--awell-secondary-ring-color-inputs': accentColor,
+    '--awell-secondary-ring-color-buttons': accentColor,
   } as React.CSSProperties
   return <div style={style}>{children}</div>
 }

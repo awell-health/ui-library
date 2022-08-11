@@ -28,6 +28,14 @@ export default {
   title: 'Molecules/MultipleChoiceQuestion',
   component: MultipleChoiceQuestionComponent,
   argTypes: {
+    label: {
+      control: 'text',
+      defaultValue: 'A question label',
+    },
+    mandatory: {
+      control: 'boolean',
+      defaultValue: false,
+    },
     options: {
       control: 'object',
       defaultValue: defaultOptions,
@@ -52,16 +60,20 @@ export default {
 } as Meta
 
 export const MultipleChoiceQuestion: Story<MultipleChoiceQuestionProps> = ({
+  label,
   options,
   onChange,
   values,
+  mandatory,
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
       <MultipleChoiceQuestionComponent
+        label={label}
         options={options}
         onChange={onChange}
         values={values}
+        mandatory={mandatory}
       />
     </ThemeProvider>
   )

@@ -2,5 +2,14 @@
   display: flex;
   flex-direction: column;
   border: none;
-  padding: 0 0 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.awell_single_choice_question > div {
+  margin-top: var(--awell-spacing-5);
+
+  @media (min-width: 600px) {
+    margin-top: var(--awell-spacing-4);
+  }
 }

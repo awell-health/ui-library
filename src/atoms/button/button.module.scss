@@ -1,133 +1,140 @@
 @use '../../globalStyles';
 
 .awell_button {
-  --awell-button-primary-color: var(--awell-accent-color);
-  --awell-button-primary-text: var(--awell-text-on-accent-color, #fff);
-  --awell-button-primary--active: var(--awell-accent-color--light, #0065FF);
-  --awell-button-primary-color--active: var(--awell-accent-color--light, #0065FF);
-  --awell-button-primary-subtle: #e6edf9;
-  --awell-button-primary-bg: var(--primary-bg, #fff);
-  --awell-button-border-radius: var(--border-radius-default, 4px);
-  --awell-button-tertiary-background: var(--awell-neutralLight0);
-  --awell-button-tertiary-background--active: var(--awell-neutralLight40);
-  --awell-button-tertiary-color: var(--awell-neutralDark800);
-  --awell-button-tertiary-border: var(--awell-neutralDark800);
-  --awell-button-tertiary--disabled: var(--awell-neutralLight100);
+  /**
+    Primary button
+  **/
+  --awell-primary-button-background-color: var(--awell-accent-color);
+  --awell-primary-button-text-color: var(--awell-accent-text-color);
+  --awell-primary-button-focus-ring-color: var(--awell-accent-ring-color-buttons);
+  --awell-primary-button--hover-background-color: var(--awell-accent-hover-color);
+  --awell-primary-button--hover-text-color: var(--awell-accent-text-color);
 
-  text-align: center;
+  /**
+    Secondary button
+  **/
+  --awell-secondary-button-background-color: var(--awell-secondary-color);
+  --awell-secondary-button-text-color: var(--awell-secondary-text-color);
+  --awell-secondary-button-focus-ring-color: var(--awell-secondary-ring-color-buttons);
+  --awell-secondary-button--hover-background-color: var(--awell-secondary-hover-color);
+  --awell-secondary-button--hover-text-color: var(--awell-secondary-text-color);
+
+  /**
+    Tertiary button
+  **/
+  --awell-tertiary-button-background-color: #fff;
+  --awell-tertiary-button-border-color: var(--awell-slate300);
+  --awell-tertiary-button-text-color: var(--awell-slate700);
+  --awell-tertiary-button-focus-ring-color: var(--awell-slate400);
+  --awell-tertiary-button--hover-background-color: var(--awell-slate50);
+  --awell-tertiary-button--hover-text-color: var(--awell-slate700);
+
+  /**
+    Generic
+  **/
+  --awell-focus-ring-offset-color: #fff;
+  --awell-focus-ring-offset-width: 2px;
+  --awell-button-border-radius: var(--awell-border-radius-md);
+
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  font-weight: var(--awell-font-medium);
   border-radius: var(--awell-button-border-radius);
-  font-size: var(--awell-font-size-base);
-  padding: var(--awell-padding-all-base);
-  font-weight: 700;
+  text-align: center;
   cursor: pointer;
-  display: inline-block;
   text-decoration: none;
-  border: 2px solid;
+  box-shadow: var(--awell-shadow-sm);
+  padding: var(--awell-spacing-2) var(--awell-spacing-4);
+  font-size: var(--awell-font-size-base);
+  line-height: var(--awell-leading-6);
 
-  &:disabled {
-    cursor: not-allowed;
+  @media (min-width: 600px) {
+    padding: var(--awell-spacing-2) var(--awell-spacing-4);
+    font-size: var(--awell-font-size-sm);
+    line-height: var(--awell-leading-5);
   }
 
-  &.primary {
-    color: var(--awell-button-primary-text);
-    background-color: var(--awell-button-primary-color);
-    box-shadow: none;
-    border-color: var(--awell-button-primary-color);
+  /**
+    Generic focus style
+  **/
+  &:focus {
+    --awell-focus-ring-color: --awell-primary-button-focus-ring-color;
+    outline: var(--awell-focus-ring-offset-width) solid transparent;
+    outline-offset: var(--awell-focus-ring-offset-width);
+    box-shadow: 0 0 0 var(--awell-focus-ring-offset-width)
+        var(--awell-focus-ring-offset-color),
+      0 0 0 calc(2px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color),
+      0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
 
-    &:hover, &:focus {
-      color: var(--awell-button-primary-text);
-      background-color: var(--awell-button-primary--active);
-      border-color: var(--awell-button-primary--active);
+  &.w_full {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /** BUTTON VARIANTS **/
+  &.primary {
+    color: var(--awell-primary-button-text-color);
+    background-color: var(--awell-primary-button-background-color);
+
+    &:hover {
+      color: var(--awell-primary-button--hover-text-color);
+      background-color: var(--awell-primary-button--hover-background-color);
       text-decoration: none;
     }
 
-    &:active {
-      background-color: var(--awell-button-primary-color);
-      border-color: var(--awell-button-primary--active);
-      color: var(--awell-button-primary-text);
+    &:disabled {
+      color: var(--awell-slate400);
+      background-color: var(--awell-slate200);
     }
 
-    &:disabled {
-      color: #babec9;
-      background-color: #f6f6f6;
-      border-color: #f6f6f6;
+    &:focus {
+      --awell-focus-ring-color: var(--awell-primary-button-focus-ring-color);
     }
   }
 
   &.secondary {
-    color: var(--awell-button-primary-color);
-    border-color: var(--awell-button-primary-color);
-    background-color: var(--awell-button-primary-bg);
-    box-shadow: none;
+    color: var(--awell-secondary-button-text-color);
+    background-color: var(--awell-secondary-button-background-color);
 
-    &:hover, &:focus{
-      background-color: var(--awell-button-primary-subtle);
+    &:hover {
+      background-color: var(--awell-secondary-button--hover-background-color);
+      color: var(--awell-secondary-button--hover-text-color);
       text-decoration: none;
-    }
-
-    &:active {
-      background-color: var(--awell-button-primary-subtle);
-      color: var(--awell-button-primary-color, #004ac2);
     }
 
     &:disabled {
       color: #babec9;
       background-color: #fff;
+    }
+
+    &:focus {
+      --awell-focus-ring-color: var(--awell-secondary-button-focus-ring-color);
     }
   }
 
   &.tertiary {
-    color: var(--awell-button-tertiary-color);
-    background-color: var(--awell-button-tertiary-background);
-    border-color: var(--awell-button-tertiary-border);
-    box-shadow: none;
+    color: var(--awell-tertiary-button-text-color);
+    border-color: var(--awell-tertiary-button-border-color);
+    background-color: var(--awell-tertiary-button-background-color);
 
-    &:hover, &:focus {
-      background-color: var(--awell-button-tertiary-background--active);
+    &:hover {
+      background-color: var(--awell-tertiary-button--hover-background-color);
+      color: var(--awell-tertiary-button--hover-text-color);
       text-decoration: none;
     }
 
-    &:active {
-      background-color: var(--awell-button-tertiary-background--active);
-    }
-
-    &:disabled {
-      background-color: var(--awell-button-tertiary--disabled);
+    &:focus {
+      --awell-focus-ring-color: var(--awell-tertiary-button-focus-ring-color);
     }
   }
 
-  &.text {
-    color: var(--awell-button-primary-color, #004ac2);
-    background-color: #fff;
-    border-color: #fff;
-    box-shadow: none;
-
-    &:hover, &:focus {
-      background-color: var(--awell-button-primary-subtle, #eceaff);
-      border-color: var(--awell-button-primary-subtle, #eceaff);
-    }
-
-    &:active {
-      border-color: var(--awell-button-primary-subtle, #eceaff);
-    }
-
-    &:disabled {
-      color: #babec9;
-      background-color: #fff;
-      border: none;
-    }
-  }
-
-  &.counter {
-    border: none;
-    background-color: #f6f6f6;
-    font-size: 30px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    justify-content: space-around;
+  /*
+    GLOBAL DISABLED STYLES
+  */
+  &:disabled {
+    cursor: not-allowed;
   }
 }
