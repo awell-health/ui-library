@@ -6,14 +6,6 @@ import image from '../../assets/link.svg'
 import { ThemeProvider } from '../../atoms'
 import { messageFixture } from '../../constants/messageFixture'
 
-const defaultContent = [
-  { type: 'p', children: [{ text: 'italic', italic: true }] },
-  { type: 'p', children: [{ text: 'underline', underline: true }] },
-  {
-    type: 'p',
-    children: [{ text: 'strike through', strikethrough: true }],
-  },
-]
 const attachments = [
   {
     name: 'Attachment 1',
