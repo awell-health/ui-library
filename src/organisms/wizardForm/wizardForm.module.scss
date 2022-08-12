@@ -5,9 +5,7 @@
   --awell-activity-form-padding: var(--awell-activity-padding);
 
   display: flex;
-  height: calc(100vh - var(--awell-header-height));
   flex-direction: column;
-  justify-content: space-between;
   max-width: var(--awell-activity-form-max-width);
   padding: var(--awell-activity-form-padding);
   margin: 0 auto;
@@ -25,41 +23,10 @@
   }
 
   & .wizard_form {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-
-  @media screen and (min-width:768px){
-    margin: 0 auto;
-    padding-bottom: 64px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-   @media screen and (min-width:1440px){
-     justify-content: center;
-
-     & .wizard_form {
-       height: 50%;
-       display: flex;
-       flex-direction: column;
-       justify-content: center;
-     }
-   }
-
-   @media screen and (min-width:2560px){
-     justify-content: center;
-     padding: 0;
-
-     & .wizard_form {
-       height: 30%;
-       display: flex;
-       flex-direction: column;
-       justify-content: center;
-     }
-   }
 
   & .button_wrapper {
     display: flex;

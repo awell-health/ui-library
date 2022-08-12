@@ -221,13 +221,13 @@ export const Question = ({
         getValues={getValues}
       />
 
-      <div className={classes.error}>
-        {currentError && (
+      {currentError && (
+        <div className={classes.error}>
           <Text variant="textSmall" color="var(--awell-signalError100)">
             {currentError.error}
           </Text>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
