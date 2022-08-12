@@ -1,7 +1,9 @@
 import React, { createRef, useEffect, useState } from 'react'
-import DatePickerComponent from 'react-date-picker/dist/entry.nostyle'
+import Calendar from 'react-calendar'
+import { format } from 'date-fns'
 import './datePicker.scss'
-import { QuestionLabel } from '../questionLabel'
+import { InputField } from '../inputField'
+import { useClickOutsideNotifier } from '../../hooks/useClickOutsideNotifier'
 
 export interface DatePickerProps {
   onChange: (date: string) => void
@@ -26,28 +28,46 @@ export const DatePicker = ({
   onChange,
   value,
   mandatory,
+  ...props
 }: DatePickerProps): JSX.Element => {
   const wrapperRef = createRef<HTMLDivElement>()
+
   const [dateValue, setDateValue] = useState<Date>(value)
+  const [isDatePickerOpen, toggleDatePicker] = useState(false)
 
   useEffect(() => {
-    if (dateValue) {
-      onChange(dateValue.toLocaleDateString())
-    }
+    setDateValue(value)
+  }, [value])
+
+  useEffect(() => {
+    onChange(format(dateValue, 'yyyy-MM-dd'))
   }, [dateValue, onChange])
+
+  useClickOutsideNotifier({
+    ref: wrapperRef,
+    clickOutsideHandler: () => toggleDatePicker(false),
+  })
+
+  const handleChangeDate = (date: Date) => {
+    setDateValue(date)
+    toggleDatePicker(false)
+  }
 
   return (
     <div className={'awell_date_picker'} ref={wrapperRef}>
-      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
-      <DatePickerComponent
-        value={dateValue}
-        dayPlaceholder="dd"
-        monthPlaceholder="mm"
-        yearPlaceholder="yyyy"
-        openCalendarOnFocus
-        onChange={(date: Date) => setDateValue(date)}
-        clearIcon={null}
+      <InputField
+        {...props}
+        label={label}
+        id={id}
+        type="date"
+        value={format(dateValue, 'yyyy-MM-dd')}
+        onFocus={() => toggleDatePicker(true)}
+        onChange={(e) => setDateValue(new Date(e.target.value))}
+        mandatory={mandatory}
       />
+      {isDatePickerOpen && (
+        <Calendar onChange={handleChangeDate} value={dateValue} />
+      )}
     </div>
   )
 }
