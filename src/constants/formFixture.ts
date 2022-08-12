@@ -30,19 +30,40 @@ export const form: Form = {
       dataPointValueType: 'NUMBER',
       options: [
         {
-          id: 'IsunqUEdINiG',
-          value: 0,
+          id: '1',
           label: 'Option 1',
+          value: 0,
         },
         {
-          id: 'ReyaXYJpKwNy',
-          value: 1,
+          id: '2',
           label: 'Option 2',
+          value: 1,
         },
         {
-          id: 'mNgpZbOF-z78',
-          value: 2,
+          id: '3',
           label: 'Option 3',
+          value: 3,
+        },
+        {
+          id: '4',
+          label: 'Option 4',
+          value: 4,
+        },
+        {
+          id: '5',
+          label: 'Option 5',
+          value: 5,
+        },
+        {
+          id: '6',
+          label:
+            'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+          value: 6,
+        },
+        {
+          id: '7',
+          label: 'Option 7',
+          value: 7,
         },
       ],
       questionType: 'MULTIPLE_CHOICE',
