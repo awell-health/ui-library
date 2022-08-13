@@ -42,8 +42,9 @@ export const DatePicker = ({
       <DatePickerComponent
         value={dateValue}
         dayPlaceholder="dd"
-        monthPlaceholder="mm"
+        monthPlaceholder="MM"
         yearPlaceholder="yyyy"
+        format={'dd/MM/yyyy'}
         openCalendarOnFocus
         onChange={(date: Date) => setDateValue(date)}
         clearIcon={null}
