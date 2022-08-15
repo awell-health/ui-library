@@ -1,9 +1,7 @@
 import React, { createRef, useEffect, useState } from 'react'
-import Calendar from 'react-calendar'
-import { format } from 'date-fns'
+import DatePickerComponent from 'react-date-picker/dist/entry.nostyle'
 import './datePicker.scss'
-import { InputField } from '../inputField'
-import { useClickOutsideNotifier } from '../../hooks/useClickOutsideNotifier'
+import { QuestionLabel } from '../questionLabel'
 
 export interface DatePickerProps {
   onChange: (date: string) => void
@@ -28,46 +26,29 @@ export const DatePicker = ({
   onChange,
   value,
   mandatory,
-  ...props
 }: DatePickerProps): JSX.Element => {
   const wrapperRef = createRef<HTMLDivElement>()
-
   const [dateValue, setDateValue] = useState<Date>(value)
-  const [isDatePickerOpen, toggleDatePicker] = useState(false)
 
   useEffect(() => {
-    setDateValue(value)
-  }, [value])
-
-  useEffect(() => {
-    onChange(format(dateValue, 'yyyy-MM-dd'))
+    if (dateValue) {
+      onChange(dateValue.toLocaleDateString())
+    }
   }, [dateValue, onChange])
-
-  useClickOutsideNotifier({
-    ref: wrapperRef,
-    clickOutsideHandler: () => toggleDatePicker(false),
-  })
-
-  const handleChangeDate = (date: Date) => {
-    setDateValue(date)
-    toggleDatePicker(false)
-  }
 
   return (
     <div className={'awell_date_picker'} ref={wrapperRef}>
-      <InputField
-        {...props}
-        label={label}
-        id={id}
-        type="date"
-        value={format(dateValue, 'yyyy-MM-dd')}
-        onFocus={() => toggleDatePicker(true)}
-        onChange={(e) => setDateValue(new Date(e.target.value))}
-        mandatory={mandatory}
+      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      <DatePickerComponent
+        value={dateValue}
+        dayPlaceholder="dd"
+        monthPlaceholder="MM"
+        yearPlaceholder="yyyy"
+        format={'dd/MM/yyyy'}
+        openCalendarOnFocus
+        onChange={(date: Date) => setDateValue(date)}
+        clearIcon={null}
       />
-      {isDatePickerOpen && (
-        <Calendar onChange={handleChangeDate} value={dateValue} />
-      )}
     </div>
   )
 }
