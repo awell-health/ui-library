@@ -17,6 +17,6 @@ export default {
   },
 } as Meta
 
-export const Navbar: Story = ({ logo }: NavbarProps) => {
-  return <NavbarComponent logo={logo} />
+export const Navbar: Story = ({ logo, companyName }: NavbarProps) => {
+  return <NavbarComponent logo={logo} companyName={companyName} />
 }
