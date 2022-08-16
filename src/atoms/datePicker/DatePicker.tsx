@@ -2,6 +2,7 @@ import React, { createRef, useEffect, useState } from 'react'
 import DatePickerComponent from 'react-date-picker/dist/entry.nostyle'
 import './datePicker.scss'
 import { QuestionLabel } from '../questionLabel'
+import { format } from 'date-fns'
 
 export interface DatePickerProps {
   onChange: (date: string) => void
@@ -32,7 +33,11 @@ export const DatePicker = ({
 
   useEffect(() => {
     if (dateValue) {
-      onChange(dateValue.toLocaleDateString())
+      /**
+       * For date type inputs, value must be formatted in yyyy-MM-dd or empty
+       */
+      const formattedDate = format(dateValue, 'yyyy-MM-dd')
+      onChange(formattedDate)
     }
   }, [dateValue, onChange])
 
@@ -44,7 +49,7 @@ export const DatePicker = ({
         dayPlaceholder="dd"
         monthPlaceholder="MM"
         yearPlaceholder="yyyy"
-        format={'dd/MM/yyyy'}
+        format={'DD-MM-YY'}
         openCalendarOnFocus
         onChange={(date: Date) => setDateValue(date)}
         clearIcon={null}
