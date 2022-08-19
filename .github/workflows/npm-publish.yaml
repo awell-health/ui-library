@@ -19,6 +19,8 @@ jobs:
         run: yarn --frozen-lockfile
       - name: '🏗 Build package'
         run: yarn build
+      - name: 'Run unit tests'
+        run: yarn test
       - name: Prepare .npmrc
         run: cp .npmrc.template .npmrc
       - name: '🚀 Publish to npm'
