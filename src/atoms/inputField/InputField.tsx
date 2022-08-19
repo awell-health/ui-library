@@ -50,6 +50,7 @@ export const InputField = ({
         id={id}
         className={classes.awell_input_field}
         onChange={onChange}
+        data-testid={`input-${id}`}
       />
     </div>
   )
