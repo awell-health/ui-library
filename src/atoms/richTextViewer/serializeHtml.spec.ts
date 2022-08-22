@@ -90,7 +90,7 @@ const fixtures = [
   { type: 'p', children: [{ text: '' }] },
 ]
 
-const fixturesOutput = `<h2>title 2</h2><h2>title 3</h2><h2><span class="bold">bold</span></h2><h2><span class="bold italic">italicbold</span></h2><p><span class="italic">italic</span></p><p><span class="underline">underline</span></p><p><span class="strikethrough">strike through</span></p><p><span class="strikethrough underline">strike through underlined</span></p><p><span class="strikethrough underline"></span><a href="http://localhost:6006/?path=/docs/organisms-wizardform--wizard-form">http://localhost:6006/?path=/docs/organisms-wizardform--wizard-form</a></p><ul><li><span>bullet list</span></li><li><span><span class="bold">bullet list bold</span></span></li></ul><ol><li><span><span class="bold">number list bold</span></span></li><li><span>number list</span></li></ol><p></p><p></p><embed type="video/webm"`
+const fixturesOutput = `<h1>title 1</h1><h2>title 2</h2><h3>title 3</h3><h3><span class="bold">bold</span></h3><h3><span class="bold italic">italic and bold</span></h3><p><span class="italic">italic</span></p><p><span class="underline">underline</span></p><p><span class="strikethrough">strike through</span></p><p><span class="strikethrough underline">strike through underlined</span></p><p><a>http://localhost:6006/?path=/docs/organisms-wizardform--wizard-form</a></p><ul><li><lic>bullet list</lic></li><li><lic><span class="bold">bullet list bold</span></lic></li></ul><ol><li><lic><span class="bold">number list bold</span></lic></li><li><lic>number list</lic></li></ol><p></p><p></p><media_embed></media_embed><img></img><p></p>`
 
 it('Should correctly parse nodes to html string', () => {
   const rendered = serializeHtml(fixtures as unknown as Nodes)

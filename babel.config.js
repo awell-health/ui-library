@@ -21,7 +21,6 @@ module.exports = {
     '@babel/plugin-proposal-function-bind',
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-proposal-export-namespace-from',
-    ['babel-plugin-styled-components', { pure: true }],
     ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     ['@babel/plugin-proposal-private-methods', { loose: true }],
@@ -31,18 +30,7 @@ module.exports = {
   ],
   env: {
     test: {
-      presets: [
-        '@babel/preset-react',
-        '@babel/preset-typescript',
-        [
-          '@babel/preset-env',
-          {
-            useBuiltIns: 'entry',
-            corejs: '3.6',
-            targets: { node: 'current' },
-          },
-        ],
-      ],
+      plugins: ['@babel/plugin-transform-modules-commonjs'],
     },
     production: {
       plugins: [
