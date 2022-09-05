@@ -203,3 +203,52 @@ export const form: Form = {
     },
   ],
 }
+
+export const sliderQuestionForm: Form = {
+  id: 'Tzr2NafTxJfR',
+  title: 'Form with slider question',
+  key: 'formWithSliderQuestion',
+  questions: [
+    {
+      id: 'XAgYxu_kbDPj',
+      title: 'This is slider question',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'thisIsSliderQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'SLIDER',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+        slider: {
+          min: 0,
+          max: 10,
+          step_value: 1,
+          display_marks: false,
+          min_label: '',
+          max_label: '',
+          is_value_tooltip_on: false,
+          show_min_max_values: false,
+        },
+      },
+    },
+    {
+      id: '5KMcDYtoz0rr',
+      title: 'This is number question',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'thisIsNumberQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'NUMBER',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+  ],
+}

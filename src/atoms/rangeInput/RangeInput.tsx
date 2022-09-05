@@ -54,7 +54,7 @@ export const RangeInput = ({
       : 'transparent',
   } as React.CSSProperties
   return (
-    <div className={classes.input_wrapper}>
+    <div>
       <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
       <div className={classes.awell_range_input_wrapper} style={style}>
         <input
@@ -66,7 +66,6 @@ export const RangeInput = ({
           step={sliderConfig.step_value}
           className={classes.awell_range_input}
           onChange={onChange}
-          defaultValue={sliderConfig.min}
         />
       </div>
     </div>

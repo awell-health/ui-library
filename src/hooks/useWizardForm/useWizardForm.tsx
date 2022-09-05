@@ -52,14 +52,17 @@ const useWizardForm = ({
     const errorsWithoutCurrent = errors.filter(
       (err) => err.id !== currentQuestion?.id
     )
+
     setErrors(errorsWithoutCurrent)
     if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
       return false
     }
+    const isNotModified =
+      !formMethods.formState.dirtyFields[currentQuestion?.id]
 
     if (
       currentQuestion?.questionConfig?.mandatory &&
-      isEmpty(formMethods.getValues(currentQuestion.id))
+      (isEmpty(formMethods.getValues(currentQuestion.id)) || isNotModified)
     ) {
       const errorsWithoutCurrent = errors.filter(
         (err) => err.id !== currentQuestion.id
@@ -68,6 +71,7 @@ const useWizardForm = ({
         ...errorsWithoutCurrent,
         { id: currentQuestion.id, error: errorLabels.required },
       ])
+
       return true
     }
     return false
@@ -87,15 +91,17 @@ const useWizardForm = ({
     setCurrent(current - 1)
   }
 
+  const handleConvertAndSubmitForm = async (
+    formResponse: Record<string, AnswerValue>
+  ) => {
+    await onSubmit(convertToAwellInput(formResponse))
+  }
+
   const submitForm = () => {
     const hasErrors = handleCheckForErrors()
 
     if (!hasErrors) {
-      formMethods.handleSubmit(
-        async (formResponse: Record<string, AnswerValue>) => {
-          await onSubmit(convertToAwellInput(formResponse))
-        }
-      )()
+      formMethods.handleSubmit(handleConvertAndSubmitForm)()
     }
   }
 

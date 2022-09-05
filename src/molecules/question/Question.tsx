@@ -73,11 +73,7 @@ export const QuestionData = ({
         <Controller
           name={question.id}
           control={control}
-          defaultValue={[]}
-          rules={{
-            validate: () =>
-              config?.mandatory ? getValues(question.id).length > 0 : true,
-          }}
+          rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
             return (
               <SingleChoiceQuestion
@@ -152,7 +148,7 @@ export const QuestionData = ({
         <Controller
           name={question.id}
           control={control}
-          defaultValue=""
+          defaultValue={question.questionConfig?.slider?.min}
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
             return (
@@ -169,14 +165,16 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Date:
+      const dateVal = new Date()
       return (
         <Controller
           name={question.id}
           control={control}
-          defaultValue={format(new Date(), 'yyyy-MM-dd')}
+          defaultValue={format(dateVal, 'yyyy-MM-dd')}
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
-            const dateValue = value ? new Date(value) : new Date()
+            const dateValue = value ? new Date(value) : dateVal
+
             return (
               <DatePicker
                 label={question.title}
