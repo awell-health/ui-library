@@ -152,7 +152,7 @@ export const QuestionData = ({
         <Controller
           name={question.id}
           control={control}
-          defaultValue=""
+          defaultValue={question.questionConfig?.slider?.min}
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
             return (

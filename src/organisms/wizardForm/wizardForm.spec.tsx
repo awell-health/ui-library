@@ -3,7 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import { WizardForm as WizardFormComponent } from './WizardForm'
-import { form as formData } from '../../constants/formFixture'
+import {
+  form as formData,
+  sliderQuestionForm,
+} from '../../constants/formFixture'
 
 const props = {
   buttonLabels: {
@@ -138,6 +141,32 @@ describe('Wizard form', () => {
       expect(errorMessage).toBeInTheDocument()
     }
   )
+
+  it('Should show error message when user tries to skip required slider question', async () => {
+    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
+    render(
+      <WizardFormComponent
+        form={sliderQuestionForm}
+        buttonLabels={props.buttonLabels}
+        errorLabels={props.errorLabels}
+        onSubmit={() => null}
+        evaluateDisplayConditions={evaluateDisplayConditions}
+      />
+    )
+
+    // GO TO 1st question (slider, mandatory)
+    fireEvent.click(screen.getByRole('button'))
+
+    // Try to go to next question
+    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    //  check if error is present and page was not changes
+    const questionTitleAfterClick = await screen.findByText(
+      sliderQuestionForm.questions[0].title
+    )
+    const errorMessage = await screen.findByText(props.errorLabels.required)
+    expect(questionTitleAfterClick).toBeInTheDocument()
+    expect(errorMessage).toBeInTheDocument()
+  })
 })
 
 // TODO Should submit the form with proper payload
