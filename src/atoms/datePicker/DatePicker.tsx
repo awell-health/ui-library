@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react'
+import React, { createRef, useState } from 'react'
 import DatePickerComponent from 'react-date-picker/dist/entry.nostyle'
 import './datePicker.scss'
 import { QuestionLabel } from '../questionLabel'
@@ -14,7 +14,7 @@ export interface DatePickerProps {
    * sets id that is used to connect input with label
    */
   id: string
-  value: Date
+  value: Date | undefined
   /**
    * Is the question required?
    */
@@ -29,17 +29,16 @@ export const DatePicker = ({
   mandatory,
 }: DatePickerProps): JSX.Element => {
   const wrapperRef = createRef<HTMLDivElement>()
-  const [dateValue, setDateValue] = useState<Date>(value)
+  const [dateValue, setDateValue] = useState<Date | undefined>(value)
 
-  useEffect(() => {
-    if (dateValue) {
-      /**
-       * For date type inputs, value must be formatted in yyyy-MM-dd or empty
-       */
-      const formattedDate = format(dateValue, 'yyyy-MM-dd')
-      onChange(formattedDate)
-    }
-  }, [dateValue, onChange])
+  const handleDateChange = (date: Date) => {
+    setDateValue(date)
+    /**
+     * For date type inputs, value must be formatted in yyyy-MM-dd or empty
+     */
+    const formattedDate = format(date, 'yyyy-MM-dd')
+    onChange(formattedDate)
+  }
 
   return (
     <div className={'awell_date_picker'} ref={wrapperRef}>
@@ -51,7 +50,7 @@ export const DatePicker = ({
         yearPlaceholder="yyyy"
         format={'dd/MM/yyyy'}
         openCalendarOnFocus
-        onChange={(date: Date) => setDateValue(date)}
+        onChange={handleDateChange}
         clearIcon={null}
       />
     </div>

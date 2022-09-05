@@ -91,15 +91,17 @@ const useWizardForm = ({
     setCurrent(current - 1)
   }
 
+  const handleConvertAndSubmitForm = async (
+    formResponse: Record<string, AnswerValue>
+  ) => {
+    await onSubmit(convertToAwellInput(formResponse))
+  }
+
   const submitForm = () => {
     const hasErrors = handleCheckForErrors()
 
     if (!hasErrors) {
-      formMethods.handleSubmit(
-        async (formResponse: Record<string, AnswerValue>) => {
-          await onSubmit(convertToAwellInput(formResponse))
-        }
-      )()
+      formMethods.handleSubmit(handleConvertAndSubmitForm)()
     }
   }
 
