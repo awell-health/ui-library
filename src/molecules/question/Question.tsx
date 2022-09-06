@@ -165,15 +165,13 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Date:
-      const dateVal = new Date()
       return (
         <Controller
           name={question.id}
           control={control}
-          defaultValue={format(dateVal, 'yyyy-MM-dd')}
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
-            const dateValue = value ? new Date(value) : dateVal
+            const dateValue = value ? new Date(value) : null
 
             return (
               <DatePicker

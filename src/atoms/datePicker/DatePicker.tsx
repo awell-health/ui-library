@@ -5,7 +5,7 @@ import { QuestionLabel } from '../questionLabel'
 import { format } from 'date-fns'
 
 export interface DatePickerProps {
-  onChange: (date: string) => void
+  onChange: (date: string | null) => void
   /**
    * Corresponding question label
    */
@@ -14,7 +14,7 @@ export interface DatePickerProps {
    * sets id that is used to connect input with label
    */
   id: string
-  value: Date | undefined
+  value: Date | null
   /**
    * Is the question required?
    */
@@ -29,14 +29,11 @@ export const DatePicker = ({
   mandatory,
 }: DatePickerProps): JSX.Element => {
   const wrapperRef = createRef<HTMLDivElement>()
-  const [dateValue, setDateValue] = useState<Date | undefined>(value)
+  const [dateValue, setDateValue] = useState<Date | null>(value)
 
   const handleDateChange = (date: Date) => {
     setDateValue(date)
-    /**
-     * For date type inputs, value must be formatted in yyyy-MM-dd or empty
-     */
-    const formattedDate = format(date, 'yyyy-MM-dd')
+    const formattedDate = date ? format(date, 'yyyy-MM-dd') : null
     onChange(formattedDate)
   }
 
@@ -46,7 +43,7 @@ export const DatePicker = ({
       <DatePickerComponent
         value={dateValue}
         dayPlaceholder="dd"
-        monthPlaceholder="MM"
+        monthPlaceholder="mm"
         yearPlaceholder="yyyy"
         format={'dd/MM/yyyy'}
         openCalendarOnFocus
