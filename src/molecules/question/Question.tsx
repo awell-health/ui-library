@@ -169,7 +169,6 @@ export const QuestionData = ({
         <Controller
           name={question.id}
           control={control}
-          defaultValue={null}
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
             const dateValue = value ? new Date(value) : null
