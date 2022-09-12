@@ -41,6 +41,7 @@ const useWizardForm = ({
       evaluationResults
     ).filter((e) => e.visible)
     setVisibleQuestions(updatedQuestions)
+    return updatedQuestions
   }, [questions])
 
   useEffect(() => {
@@ -97,12 +98,19 @@ const useWizardForm = ({
     await onSubmit(convertToAwellInput(formResponse))
   }
 
-  const submitForm = () => {
-    const hasErrors = handleCheckForErrors()
-
-    if (!hasErrors) {
-      formMethods.handleSubmit(handleConvertAndSubmitForm)()
-    }
+  const submitForm = async () => {
+    await updateQuestionVisibility().then((updatedQuestions) => {
+      // check if there are new visible questions after evaluating rules
+      const doNextQuestionExist = current !== updatedQuestions.length - 1
+      if (doNextQuestionExist) {
+        return handleGoToNextQuestion()
+      }
+      // check if there are any errors
+      const hasErrors = handleCheckForErrors()
+      if (!hasErrors) {
+        formMethods.handleSubmit(handleConvertAndSubmitForm)()
+      }
+    })
   }
 
   return {
