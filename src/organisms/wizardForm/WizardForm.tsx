@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeadingMain, Button } from '../../atoms'
+import { HeadingMain, Button, ProgressIndicator } from '../../atoms'
 import classes from './wizardForm.module.scss'
 import { Question } from '../../molecules'
 import { useWizardForm } from '../../hooks/useWizardForm'
@@ -18,6 +18,7 @@ export const WizardForm = ({
     handleGoToPrevQuestion,
     formMethods: { control, getValues },
     currentQuestion,
+    percentageCompleted,
     errors,
     isFirstQuestion,
     isLastQuestion,
@@ -42,6 +43,9 @@ export const WizardForm = ({
   return (
     <div className={classes.awell_wizard_form}>
       <>
+        <div className={classes.form_progress}>
+          <ProgressIndicator percentageCompleted={percentageCompleted} />
+        </div>
         <div className={classes.wizard_form}>
           <Question
             question={currentQuestion}

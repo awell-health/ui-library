@@ -1,0 +1,21 @@
+@use '../../globalStyles';
+
+.progressBar {
+    --awell-progress-bar-background: var(--awell-secondary-color);
+    --awell-progress-bar-completed-bar-color: var(--awell-accent-color);
+    --awell-progress-bar-completed-text-color: var(--awell-accent-text-color);
+    background-color: var(--awell-progress-bar-background);
+    border-radius: 9999px;
+    width: 100%;
+    
+    .progressBar_completed {
+        border-radius: 9999px;
+        background-color: var(--awell-progress-bar-completed-bar-color);
+        color: var(--awell-progress-bar-completed-text-color);
+        line-height: 1;
+        font-weight: 500;
+        font-size: .75rem;
+        text-align: center;
+        padding: var(--spacing-O\.5);
+    }
+}

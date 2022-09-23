@@ -32,6 +32,7 @@ const useWizardForm = ({
   >([])
   const [errors, setErrors] = useState<Array<FormError>>([])
   const [current, setCurrent] = useState(-1)
+  const [percentageCompleted, setPercentageCompleted] = useState(0)
 
   const updateQuestionVisibility = useCallback(async () => {
     const formValuesInput = convertToAwellInput(formMethods.getValues())
@@ -43,6 +44,18 @@ const useWizardForm = ({
     setVisibleQuestions(updatedQuestions)
     return updatedQuestions
   }, [questions])
+
+  /**
+   * Compute percentage completed of the form every
+   * time we navigate between questions.
+   */
+  useEffect(() => {
+    const percentageCompleted = Math.round(
+      ((current + 1) / visibleQuestions.length) * 100
+    )
+
+    setPercentageCompleted(percentageCompleted)
+  }, [current])
 
   useEffect(() => {
     updateQuestionVisibility()
@@ -120,6 +133,7 @@ const useWizardForm = ({
     handleGoToPrevQuestion,
     formMethods,
     currentQuestion: visibleQuestions?.[current],
+    percentageCompleted,
     errors,
     isFirstQuestion: current === 0,
     isLastQuestion: current === visibleQuestions.length - 1,
