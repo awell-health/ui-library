@@ -10,6 +10,10 @@
   padding: var(--awell-activity-form-padding);
   margin: 0 auto;
 
+  & .form_progress {
+    margin-bottom: var(--awell-spacing-8)
+  }
+
   & .title {
     display: flex;
     flex-direction: column;
