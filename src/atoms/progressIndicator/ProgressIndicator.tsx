@@ -15,23 +15,19 @@ export const ProgressIndicator = ({
       ? 100
       : percentageCompleted
 
+  const style = {
+    '--awell-progress-bar-width': `${percentageCompletedNormalized + '%'}`,
+  } as React.CSSProperties
+
   return (
     <div className={classes.progressBar}>
-      <div
-        className={classes.progressBar_completed}
-        style={{
-          width: `${
-            percentageCompletedNormalized === 0
-              ? // Provide a minimum width when percentage is 0
-                '25px'
-              : percentageCompletedNormalized + '%'
-          }`,
-        }}
-      >
-        {percentageCompletedNormalized === 100
-          ? `🎉 ${percentageCompletedNormalized}%`
-          : `${percentageCompletedNormalized}%`}
-      </div>
+      {percentageCompletedNormalized !== 0 && (
+        <div className={classes.progressBar_completed} style={style}>
+          {percentageCompletedNormalized === 100
+            ? `🎉 ${percentageCompletedNormalized}%`
+            : `${percentageCompletedNormalized}%`}
+        </div>
+      )}
     </div>
   )
 }
