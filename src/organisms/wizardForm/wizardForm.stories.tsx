@@ -22,6 +22,7 @@ export default {
         prev: 'Prev',
         next: 'Next',
         submit: 'Submit',
+        start_form: 'Start form'
       },
     },
     errorLabels: {
