@@ -12,6 +12,7 @@ export { RichTextViewer } from './richTextViewer'
 export { MessageAttachment } from './messageAttachment'
 export { CircularSpinner, HorizontalSpinner } from './spinner'
 export { ThemeProvider } from './themeProvider'
+export { ProgressIndicator } from './progressIndicator'
 export {
   HeadingMain,
   HeadingSecondary,

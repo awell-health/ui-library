@@ -39,6 +39,7 @@ export interface FormSettingsContextInterface {
   handleGoToPrevQuestion: () => void
   formMethods: UseFormReturn
   currentQuestion: Question
+  percentageCompleted: number
   errors: Array<FormError>
   isFirstQuestion: boolean
   isLastQuestion: boolean
