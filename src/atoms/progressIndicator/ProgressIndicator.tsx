@@ -27,9 +27,7 @@ export const ProgressIndicator = ({
         <div className={classes.progressBar_completed} style={style}>
           {showPercentage && (
             <span>
-              {percentageCompletedNormalized === 100
-                ? `🎉 ${percentageCompletedNormalized}%`
-                : `${percentageCompletedNormalized}%`}
+              {percentageCompletedNormalized}%
             </span>
           )}
         </div>
