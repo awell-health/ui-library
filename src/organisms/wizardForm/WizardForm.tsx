@@ -35,7 +35,7 @@ export const WizardForm = ({
       <div className={classes.awell_wizard_form}>
         <div className={classes.title}>
           <HeadingMain variant="subHeadline">{form.title}</HeadingMain>
-          <Button onClick={handleGoToNextQuestion}>Start form</Button>
+          <Button onClick={handleGoToNextQuestion}>{buttonLabels.start_form}</Button>
         </div>
       </div>
     )

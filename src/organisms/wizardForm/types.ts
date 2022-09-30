@@ -8,6 +8,7 @@ type ButtonLabels = {
   prev: string
   next: string
   submit: string
+  start_form: string
 }
 
 export interface WizardFormProps {

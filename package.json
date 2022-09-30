@@ -7,7 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/awell-health/ui-library.git"
   },
-  "author": "awellHealth",
+  "author": {
+    "name": "awellHealth"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/awell-health/ui-library/issues"
@@ -34,7 +36,8 @@
     "storybook": "start-storybook -p 6006",
     "test:ci": "jest --silent --testLocationInResults --ci --all --coverage --json --outputFile=\"report.json\" --config=jest.config.json",
     "test": "jest --config=jest.config.js",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "chromatic": "chromatic --exit-zero-on-changes"
   },
   "peerDependencies": {
     "react": "^18.2.0",
@@ -107,6 +110,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "babel-plugin-transform-rename-import": "^2.3.0",
     "babel-plugin-transform-require-context": "^0.1.1",
+    "chromatic": "^6.10.1",
     "css-loader": "^6.7.1",
     "declaration-bundler-webpack-plugin": "^1.0.3",
     "eslint": "8.20.0",
@@ -172,5 +176,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "homepage": "https://github.com/awell-health/ui-library#readme",
+  "_id": "@awell_health/ui-library@0.0.34"
 }
