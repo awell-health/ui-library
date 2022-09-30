@@ -44,7 +44,7 @@ export const WizardForm = ({
     <div className={classes.awell_wizard_form}>
       <>
         <div className={classes.form_progress}>
-          <ProgressIndicator percentageCompleted={percentageCompleted} />
+          <ProgressIndicator percentageCompleted={percentageCompleted} showPercentage={false} />
         </div>
         <div className={classes.wizard_form}>
           <Question

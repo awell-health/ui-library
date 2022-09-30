@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
+  calculatePercentageCompleted,
   convertToAwellInput,
   getInitialValues,
   isEmpty,
@@ -50,11 +51,12 @@ const useWizardForm = ({
    * time we navigate between questions.
    */
   useEffect(() => {
-    const percentageCompleted = Math.round(
-      ((current + 1) / visibleQuestions.length) * 100
-    )
+    const percentageCompletedTemp = calculatePercentageCompleted({
+      currentQuestionId: visibleQuestions?.[current]?.id || '',
+      allQuestions: questions,
+    })
 
-    setPercentageCompleted(percentageCompleted)
+    setPercentageCompleted(percentageCompletedTemp)
   }, [current])
 
   useEffect(() => {

@@ -14,6 +14,10 @@ export default {
       control: 'number',
       defaultValue: 50,
     },
+    showPercentage: {
+      control: 'boolean',
+      defaultValue: true,
+    },
     accentColor: {
       control: { type: 'color' },
       defaultValue: '#004ac2',
@@ -34,10 +38,10 @@ export default {
 
 export const ProgressIndicator: Story<
   ProgressIndicatorProps & ThemeProviderProps
-> = ({ percentageCompleted, accentColor }) => {
+> = ({ percentageCompleted, showPercentage, accentColor }) => {
   return (
     <ThemeProvider accentColor={accentColor}>
-      <ProgressIndicatorComponent percentageCompleted={percentageCompleted} />
+      <ProgressIndicatorComponent percentageCompleted={percentageCompleted} showPercentage={showPercentage} />
     </ThemeProvider>
   )
 }

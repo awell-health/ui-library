@@ -3,10 +3,12 @@ import classes from './progressIndicator.module.scss'
 
 export interface ProgressIndicatorProps {
   percentageCompleted: number
+  showPercentage?: boolean
 }
 
 export const ProgressIndicator = ({
   percentageCompleted,
+  showPercentage = true,
 }: ProgressIndicatorProps): JSX.Element => {
   const percentageCompletedNormalized =
     percentageCompleted < 0
@@ -23,9 +25,11 @@ export const ProgressIndicator = ({
     <div className={classes.progressBar}>
       {percentageCompletedNormalized !== 0 && (
         <div className={classes.progressBar_completed} style={style}>
-          {percentageCompletedNormalized === 100
-            ? `🎉 ${percentageCompletedNormalized}%`
-            : `${percentageCompletedNormalized}%`}
+          {showPercentage && (
+            <span>
+              {percentageCompletedNormalized}%
+            </span>
+          )}
         </div>
       )}
     </div>
