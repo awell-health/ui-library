@@ -2,6 +2,7 @@ import React from 'react'
 import { serializeHtml } from './serializeHtml'
 import { Nodes } from '../../types'
 import classes from './richTextViewer.module.scss'
+import { sanitize } from 'dompurify'
 
 interface HTMLRichTextViewerProps {
   nodes: string
@@ -17,11 +18,12 @@ export const RichTextViewer = ({
   format,
 }: SLATEichTextViewerProps | HTMLRichTextViewerProps): JSX.Element => {
   const serializedHtml = format === 'SLATE' ? serializeHtml(nodes) : nodes
+  const purifiedMessage = sanitize(serializedHtml)
 
   return (
     <div
       className={classes.content}
-      dangerouslySetInnerHTML={{ __html: serializedHtml }}
+      dangerouslySetInnerHTML={{ __html: purifiedMessage }}
     />
   )
 }
