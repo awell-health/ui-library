@@ -10,6 +10,7 @@ import { QuestionLabel } from '../../atoms/questionLabel'
  * how to check if this will have a negative impact
  */
 export interface MultipleChoiceQuestionProps {
+  questionId: string
   label: string
   options: Array<Option>
   onChange: (newValue: Array<Option>) => void
@@ -21,6 +22,7 @@ export interface MultipleChoiceQuestionProps {
 }
 
 export const MultipleChoiceQuestion = ({
+  questionId,
   label,
   options = [],
   onChange,
@@ -57,6 +59,7 @@ export const MultipleChoiceQuestion = ({
             label={option.label}
             id={option.id}
             checked={checkedOptions.includes(option)}
+            name={questionId}
           />
         ))}
       </fieldset>

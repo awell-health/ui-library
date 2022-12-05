@@ -25,7 +25,7 @@ const props = {
 }
 
 describe('Wizard form', () => {
-  it('Should render initial form page with title and start button and evaluate display condition on init', async () => {
+  it('Should render the first question and evaluate display condition on init', async () => {
     const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
     render(
       <WizardFormComponent
@@ -37,14 +37,14 @@ describe('Wizard form', () => {
       />
     )
 
-    const title = await screen.findByText(formData.title)
+    const firstQuestionLabel = await screen.findByText(formData.questions[0].title)
 
     // Should evaluate display conditions once
     await waitFor(() =>
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(1)
     )
     // Form title should be present
-    expect(title).toBeInTheDocument()
+    expect(firstQuestionLabel).toBeInTheDocument()
   })
 
   it('Should properly navigate to next question', async () => {
@@ -72,6 +72,7 @@ describe('Wizard form', () => {
 
     expect(nextButton).toBeInTheDocument()
   })
+
   it('Should properly navigate to previous question', async () => {
     const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
     render(

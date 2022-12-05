@@ -16,19 +16,24 @@ export interface RadioButtonProps
    */
   id: string
   /**
-   * you can also set any attribute that is native to html button
+   * sets name for radio group
+   */
+  name: string
+  /**
+   * you can also set any attribute that is native to html radio input
    */
 }
 
 export const RadioButton = ({
   onChange,
   label,
+  name,
   ...props
 }: RadioButtonProps): JSX.Element => {
   return (
     <div className={classes.input_wrapper}>
       <div className={classes.radio_wrapper}>
-        <input {...props} name="radio-group" type="radio" onChange={onChange} />
+        <input {...props} name={name} type="radio" onChange={onChange} />
       </div>
       <div className={classes.label_wrapper}>
         <label htmlFor={props.id}>{label}</label>

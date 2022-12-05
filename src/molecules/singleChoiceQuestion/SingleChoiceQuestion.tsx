@@ -5,6 +5,7 @@ import { Option } from '../../types'
 import { QuestionLabel } from '../../atoms/questionLabel'
 
 export interface SingleChoiceQuestionProps {
+  questionId: string,
   label: string
   options: Array<Option>
   value: Option
@@ -16,6 +17,7 @@ export interface SingleChoiceQuestionProps {
 }
 
 export const SingleChoiceQuestion = ({
+  questionId,
   label,
   options,
   onChange,
@@ -43,6 +45,7 @@ export const SingleChoiceQuestion = ({
             id={option.id}
             key={option.id}
             checked={option.id === checkedOption.id}
+            name={questionId}
           />
         ))}
       </fieldset>

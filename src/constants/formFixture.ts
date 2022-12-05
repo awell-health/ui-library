@@ -6,23 +6,6 @@ export const form: Form = {
   key: 'exampleForm',
   questions: [
     {
-      id: 'fSN5BktQ6cOV',
-      title:
-        '[{"type":"p","children":[{"text":"This ","bold":true},{"text":"is","italic":true},{"text":" "},{"text":"rich text","strikethrough":true},{"text":" "},{"text":"description","underline":true}]}]',
-      form_id: 'Kzr2NafTxJfR',
-      key: 'typePChildrenTextThisBoldTrueTextIsItalicTrueTextTextRichTextStrikethroughTrueTextTextDescriptionUnderlineTrue',
-      dataPointValueType: null,
-      options: [],
-      questionType: 'NO_INPUT',
-      userQuestionType: 'DESCRIPTION',
-      rule_id: null,
-      questionConfig: {
-        recode_enabled: false,
-        mandatory: false,
-        slider: null,
-      },
-    },
-    {
       id: 'x5bgJqOltmK3',
       title: 'Single select question',
       form_id: 'Kzr2NafTxJfR',
@@ -125,6 +108,23 @@ export const form: Form = {
       questionConfig: {
         recode_enabled: false,
         mandatory: true,
+        slider: null,
+      },
+    },
+    {
+      id: 'fSN5BktQ6cOV',
+      title:
+        '[{"type":"p","children":[{"text":"This ","bold":true},{"text":"is","italic":true},{"text":" "},{"text":"rich text","strikethrough":true},{"text":" "},{"text":"description","underline":true}]}]',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'typePChildrenTextThisBoldTrueTextIsItalicTrueTextTextRichTextStrikethroughTrueTextTextDescriptionUnderlineTrue',
+      dataPointValueType: null,
+      options: [],
+      questionType: 'NO_INPUT',
+      userQuestionType: 'DESCRIPTION',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
         slider: null,
       },
     },
