@@ -8,8 +8,8 @@ export interface SingleChoiceQuestionProps {
   questionId: string,
   label: string
   options: Array<Option>
-  value: Option
-  onChange: (newValue: Option) => void
+  value: Option | null
+  onChange: (newValue: Option | null) => void
   /**
    * Is the question required?
    */
@@ -24,7 +24,7 @@ export const SingleChoiceQuestion = ({
   value,
   mandatory,
 }: SingleChoiceQuestionProps): JSX.Element => {
-  const [checkedOption, setCheckedOption] = useState<Option>(value)
+  const [checkedOption, setCheckedOption] = useState<Option | null>(value)
 
   useEffect(() => {
     onChange(checkedOption)
@@ -44,7 +44,7 @@ export const SingleChoiceQuestion = ({
             label={option.label}
             id={option.id}
             key={option.id}
-            checked={option.id === checkedOption.id}
+            checked={option.id === checkedOption?.id}
             name={questionId}
           />
         ))}
