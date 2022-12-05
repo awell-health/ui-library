@@ -5,8 +5,9 @@ import '@testing-library/jest-dom'
 import { WizardForm as WizardFormComponent } from './WizardForm'
 import {
   form as formData,
-  sliderQuestionForm,
-} from '../../constants/formFixture'
+  sliderQuestionForm
+} from './__testdata__/testFormFixture'
+import { act } from 'react-dom/test-utils'
 
 const props = {
   buttonLabels: {
@@ -24,6 +25,13 @@ const props = {
   },
 }
 
+/**
+ * Makes it more readable in the tests
+ */
+const firstQuestion = formData.questions[0]
+const secondQuestion = formData.questions[1]
+const thirdQuestion = formData.questions[2]
+
 describe('Wizard form', () => {
   it('Should render the first question and evaluate display condition on init', async () => {
     const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
@@ -37,7 +45,7 @@ describe('Wizard form', () => {
       />
     )
 
-    const firstQuestionLabel = await screen.findByText(formData.questions[0].title)
+    const firstQuestionLabel = await screen.findByText(firstQuestion.title)
 
     // Should evaluate display conditions once
     await waitFor(() =>
@@ -63,18 +71,23 @@ describe('Wizard form', () => {
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(1)
     )
 
-    fireEvent.click(screen.getByRole('button'))
+    fireEvent.click(await screen.findByText(props.buttonLabels.next))
 
     await waitFor(() =>
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(2)
     )
+
+    const secondQuestionLabel = await screen.findByText(secondQuestion.title)
+
     const nextButton = await screen.findByText(props.buttonLabels.next)
 
+    expect(secondQuestionLabel).toBeInTheDocument()
     expect(nextButton).toBeInTheDocument()
   })
 
   it('Should properly navigate to previous question', async () => {
     const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
+
     render(
       <WizardFormComponent
         form={formData}
@@ -84,16 +97,18 @@ describe('Wizard form', () => {
         evaluateDisplayConditions={evaluateDisplayConditions}
       />
     )
-    // GO to 1st question
-    fireEvent.click(screen.getByRole('button'))
 
+    // GO to 1st question
+    fireEvent.click(await screen.findByText(props.buttonLabels.next))
     // GO to 2nd question
     fireEvent.click(await screen.findByText(props.buttonLabels.next))
 
     // Answer mandatory question
     const radioOption = await screen.findByLabelText('Option 1')
     expect(radioOption).not.toBeChecked()
+
     fireEvent.click(radioOption)
+
     expect(radioOption).toBeChecked()
 
     // GO back to 1st question
@@ -105,8 +120,9 @@ describe('Wizard form', () => {
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(3)
     )
 
-    expect(await screen.findByText('description')).toBeInTheDocument()
+    expect(await screen.findByText(firstQuestion.title)).toBeInTheDocument()
   })
+
   it(
     'Should not navigate to next question when required question was not filled.' +
       ' Should show proper error to the user',
@@ -122,22 +138,21 @@ describe('Wizard form', () => {
         />
       )
 
-      // GO TO 1st question
-      fireEvent.click(screen.getByRole('button'))
-      // GO TO 2nd question (mandatory)
+      // GO TO 2nd question
       fireEvent.click(await screen.findByText(props.buttonLabels.next))
 
-      const questionTitle = await screen.findByText(formData.questions[1].title)
-      expect(questionTitle).toBeInTheDocument()
+      const secondQuestionTitle = await screen.findByText(secondQuestion.title)
+      expect(secondQuestionTitle).toBeInTheDocument()
 
-      // Try to go to next question
+      // Try to go to next (3rd) question
       fireEvent.click(await screen.findByText(props.buttonLabels.next))
 
-      //  check if error is present and page was not changes
+      //  check if error is present and page was not changed
       const questionTitleAfterClick = await screen.findByText(
-        formData.questions[1].title
+        secondQuestion.title
       )
       const errorMessage = await screen.findByText(props.errorLabels.required)
+
       expect(questionTitleAfterClick).toBeInTheDocument()
       expect(errorMessage).toBeInTheDocument()
     }
@@ -155,16 +170,15 @@ describe('Wizard form', () => {
       />
     )
 
-    // GO TO 1st question (slider, mandatory)
-    fireEvent.click(screen.getByRole('button'))
-
     // Try to go to next question
     fireEvent.click(await screen.findByText(props.buttonLabels.next))
+
     //  check if error is present and page was not changes
     const questionTitleAfterClick = await screen.findByText(
       sliderQuestionForm.questions[0].title
     )
     const errorMessage = await screen.findByText(props.errorLabels.required)
+
     expect(questionTitleAfterClick).toBeInTheDocument()
     expect(errorMessage).toBeInTheDocument()
   })
