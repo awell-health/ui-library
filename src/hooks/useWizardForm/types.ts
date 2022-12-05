@@ -43,5 +43,5 @@ export interface FormSettingsContextInterface {
   errors: Array<FormError>
   isFirstQuestion: boolean
   isLastQuestion: boolean
-  isEntryPage: boolean
+  isEvaluatingQuestionVisibility: boolean
 }

@@ -22,7 +22,7 @@ export const WizardForm = ({
     errors,
     isFirstQuestion,
     isLastQuestion,
-    isEntryPage,
+    isEvaluatingQuestionVisibility,
   } = useWizardForm({
     questions: form.questions,
     onSubmit,
@@ -30,49 +30,46 @@ export const WizardForm = ({
     errorLabels,
   })
 
-  if (isEntryPage) {
-    return (
-      <div className={classes.awell_wizard_form}>
-        <div className={classes.title}>
-          <HeadingMain variant="subHeadline">{form.title}</HeadingMain>
-          <Button onClick={handleGoToNextQuestion}>{buttonLabels.start_form}</Button>
-        </div>
-      </div>
-    )
-  }
   return (
     <div className={classes.awell_wizard_form}>
       <>
         <div className={classes.form_progress}>
-          <ProgressIndicator percentageCompleted={percentageCompleted} showPercentage={false} />
-        </div>
-        <div className={classes.wizard_form}>
-          <Question
-            question={currentQuestion}
-            control={control}
-            getValues={getValues}
-            key={currentQuestion.id}
-            errors={errors}
+          <ProgressIndicator
+            percentageCompleted={percentageCompleted}
+            showPercentage={false}
           />
         </div>
-        <div className={classes.button_wrapper}>
-          <div>
-            {!isFirstQuestion && (
-              <Button variant="tertiary" onClick={handleGoToPrevQuestion}>
-                {buttonLabels.prev}
-              </Button>
-            )}
-          </div>
-          {isLastQuestion ? (
-            <Button onClick={submitForm} type="submit">
-              {buttonLabels.submit}
-            </Button>
-          ) : (
-            <Button variant="secondary" onClick={handleGoToNextQuestion}>
-              {buttonLabels.next}
-            </Button>
-          )}
-        </div>
+        {!isEvaluatingQuestionVisibility && (
+          <>
+            <div className={classes.wizard_form}>
+              <Question
+                question={currentQuestion}
+                control={control}
+                getValues={getValues}
+                key={currentQuestion.id}
+                errors={errors}
+              />
+            </div>
+            <div className={classes.button_wrapper}>
+              <div>
+                {!isFirstQuestion && (
+                  <Button variant="tertiary" onClick={handleGoToPrevQuestion}>
+                    {buttonLabels.prev}
+                  </Button>
+                )}
+              </div>
+              {isLastQuestion ? (
+                <Button onClick={submitForm} type="submit">
+                  {buttonLabels.submit}
+                </Button>
+              ) : (
+                <Button variant="secondary" onClick={handleGoToNextQuestion}>
+                  {buttonLabels.next}
+                </Button>
+              )}
+            </div>
+          </>
+        )}
       </>
     </div>
   )
