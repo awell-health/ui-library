@@ -1,5 +1,10 @@
 import React from 'react'
-import { HeadingMain, Button, ProgressIndicator } from '../../atoms'
+import {
+  HeadingMain,
+  Button,
+  ProgressIndicator,
+  CircularSpinner,
+} from '../../atoms'
 import classes from './wizardForm.module.scss'
 import { Question } from '../../molecules'
 import { useWizardForm } from '../../hooks/useWizardForm'
@@ -39,7 +44,11 @@ export const WizardForm = ({
             showPercentage={false}
           />
         </div>
-        {!isEvaluatingQuestionVisibility && (
+        {isEvaluatingQuestionVisibility ? (
+          <div className={classes.loadingContainer}>
+            <CircularSpinner size="sm" />
+          </div>
+        ) : (
           <>
             <div className={classes.wizard_form}>
               <Question

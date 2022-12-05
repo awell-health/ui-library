@@ -38,6 +38,7 @@ export const QuestionData = ({
                   { id: `${question.id}-no`, value: 0, label: 'no' },
                 ]}
                 onChange={(data) => onChange(data)}
+                questionId={question.id}
                 value={value}
                 mandatory={question.questionConfig?.mandatory}
               />
@@ -61,6 +62,7 @@ export const QuestionData = ({
                 label={question.title}
                 options={question.options || []}
                 onChange={(data) => onChange(data)}
+                questionId={question.id}
                 values={value}
                 mandatory={question.questionConfig?.mandatory}
               />
@@ -80,6 +82,7 @@ export const QuestionData = ({
                 label={question.title}
                 options={question.options || []}
                 onChange={(data) => onChange(data)}
+                questionId={question.id}
                 value={value}
                 mandatory={question.questionConfig?.mandatory}
               />

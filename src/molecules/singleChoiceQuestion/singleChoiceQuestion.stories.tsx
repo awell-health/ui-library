@@ -96,6 +96,7 @@ export const SingleChoiceQuestion: Story<SingleChoiceQuestionProps> = ({
         onChange={onChange}
         value={value}
         mandatory={mandatory}
+        questionId='someId'
       />
     </ThemeProvider>
   )

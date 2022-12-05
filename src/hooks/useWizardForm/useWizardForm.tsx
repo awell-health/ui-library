@@ -46,6 +46,7 @@ const useWizardForm = ({
     ).filter((e) => e.visible)
     setVisibleQuestions(updatedQuestions)
     setIsEvaluatingQuestionVisibility(false)
+    
     return updatedQuestions
   }, [questions])
 

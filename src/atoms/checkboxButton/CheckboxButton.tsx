@@ -16,6 +16,10 @@ export interface CheckboxButtonProps
    */
   onChange: ChangeEventHandler<HTMLInputElement>
   /**
+   * sets name for checkbox group
+   */
+  name: string
+  /**
    * you can also set any attribute that is native to html button
    */
 }
@@ -23,6 +27,7 @@ export interface CheckboxButtonProps
 export const CheckboxButton = ({
   onChange,
   label,
+  name,
   ...props
 }: CheckboxButtonProps): JSX.Element => {
   return (
@@ -30,7 +35,7 @@ export const CheckboxButton = ({
       <div className={classes.checkbox_wrapper}>
         <input
           {...props}
-          name="checkbox-group"
+          name={name}
           type="checkbox"
           onChange={onChange}
         />
