@@ -32,10 +32,12 @@ const useWizardForm = ({
     Array<QuestionWithVisibility>
   >([])
   const [errors, setErrors] = useState<Array<FormError>>([])
-  const [current, setCurrent] = useState(-1)
+  const [current, setCurrent] = useState(0)
+  const [isEvaluatingQuestionVisibility, setIsEvaluatingQuestionVisibility] = useState(true)
   const [percentageCompleted, setPercentageCompleted] = useState(0)
 
   const updateQuestionVisibility = useCallback(async () => {
+    setIsEvaluatingQuestionVisibility(true)
     const formValuesInput = convertToAwellInput(formMethods.getValues())
     const evaluationResults = await evaluateDisplayConditions(formValuesInput)
     const updatedQuestions = updateVisibility(
@@ -43,6 +45,7 @@ const useWizardForm = ({
       evaluationResults
     ).filter((e) => e.visible)
     setVisibleQuestions(updatedQuestions)
+    setIsEvaluatingQuestionVisibility(false)
     return updatedQuestions
   }, [questions])
 
@@ -139,7 +142,7 @@ const useWizardForm = ({
     errors,
     isFirstQuestion: current === 0,
     isLastQuestion: current === visibleQuestions.length - 1,
-    isEntryPage: current === -1,
+    isEvaluatingQuestionVisibility
   }
 }
 
