@@ -4,15 +4,33 @@
   position: relative;
   width: 80px;
   height: 80px;
+  
+  &.size-base {
+    width: 80px;
+    height: 80px;
+    & div {
+      width: 64px;
+      height: 64px;
+      border-width: 8px;
+    }
+  }
+
+  &.size-sm {
+    width: 40px;
+    height: 40px;
+    & div {
+      width: 40px;
+      height: 40px;
+      border-width: 4px;
+    }
+  }
 
   & div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
     margin: 8px;
-    border: 8px solid var(--awell-spinner-color);
+    border: solid var(--awell-spinner-color);
     border-radius: 50%;
     animation: awell_circular_spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: var(--awell-spinner-color) transparent transparent transparent;

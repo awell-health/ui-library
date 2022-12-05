@@ -6,51 +6,15 @@ export const form: Form = {
   key: 'exampleForm',
   questions: [
     {
-      id: 'x5bgJqOltmK3',
-      title: 'Single select question - Not required',
+      id: 'fSN5BktQ6cOV',
+      title:
+        '[{"type":"p","children":[{"text":"This ","bold":true},{"text":"is","italic":true},{"text":" "},{"text":"rich text","strikethrough":true},{"text":" "},{"text":"description","underline":true}]}]',
       form_id: 'Kzr2NafTxJfR',
-      key: 'singleSelectQuestion',
-      dataPointValueType: 'NUMBER',
-      options: [
-        {
-          id: '1',
-          label: 'Option 1',
-          value: 0,
-        },
-        {
-          id: '2',
-          label: 'Option 2',
-          value: 1,
-        },
-        {
-          id: '3',
-          label: 'Option 3',
-          value: 3,
-        },
-        {
-          id: '4',
-          label: 'Option 4',
-          value: 4,
-        },
-        {
-          id: '5',
-          label: 'Option 5',
-          value: 5,
-        },
-        {
-          id: '6',
-          label:
-            'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
-          value: 6,
-        },
-        {
-          id: '7',
-          label: 'Option 7',
-          value: 7,
-        },
-      ],
-      questionType: 'MULTIPLE_CHOICE',
-      userQuestionType: 'MULTIPLE_CHOICE',
+      key: 'typePChildrenTextThisBoldTrueTextIsItalicTrueTextTextRichTextStrikethroughTrueTextTextDescriptionUnderlineTrue',
+      dataPointValueType: null,
+      options: [],
+      questionType: 'NO_INPUT',
+      userQuestionType: 'DESCRIPTION',
       rule_id: null,
       questionConfig: {
         recode_enabled: false,
@@ -60,7 +24,7 @@ export const form: Form = {
     },
     {
       id: 'x5bgJqOltmK3',
-      title: 'Single select question - required',
+      title: 'Single select question',
       form_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
       dataPointValueType: 'NUMBER',
@@ -165,23 +129,6 @@ export const form: Form = {
       },
     },
     {
-      id: 'fSN5BktQ6cOV',
-      title:
-        '[{"type":"p","children":[{"text":"This ","bold":true},{"text":"is","italic":true},{"text":" "},{"text":"rich text","strikethrough":true},{"text":" "},{"text":"description","underline":true}]}]',
-      form_id: 'Kzr2NafTxJfR',
-      key: 'typePChildrenTextThisBoldTrueTextIsItalicTrueTextTextRichTextStrikethroughTrueTextTextDescriptionUnderlineTrue',
-      dataPointValueType: null,
-      options: [],
-      questionType: 'NO_INPUT',
-      userQuestionType: 'DESCRIPTION',
-      rule_id: null,
-      questionConfig: {
-        recode_enabled: false,
-        mandatory: false,
-        slider: null,
-      },
-    },
-    {
       id: 'XAgYxu_kbDPj',
       title: 'This is slider question',
       form_id: 'Kzr2NafTxJfR',
@@ -247,6 +194,55 @@ export const form: Form = {
       options: [],
       questionType: 'INPUT',
       userQuestionType: 'LONG_TEXT',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+  ],
+}
+
+export const sliderQuestionForm: Form = {
+  id: 'Tzr2NafTxJfR',
+  title: 'Form with slider question',
+  key: 'formWithSliderQuestion',
+  questions: [
+    {
+      id: 'XAgYxu_kbDPj',
+      title: 'This is slider question',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'thisIsSliderQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'SLIDER',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+        slider: {
+          min: 0,
+          max: 10,
+          step_value: 1,
+          display_marks: false,
+          min_label: '',
+          max_label: '',
+          is_value_tooltip_on: false,
+          show_min_max_values: false,
+        },
+      },
+    },
+    {
+      id: '5KMcDYtoz0rr',
+      title: 'This is number question',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'thisIsNumberQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'NUMBER',
       rule_id: null,
       questionConfig: {
         recode_enabled: false,
