@@ -49,6 +49,7 @@ export const Checklist: FC<ChecklistProps> = ({
             label={item.label}
             id={item.id}
             disabled={readOnly}
+            name={`checklist-${title}`}
           />
         ))}
       </div>
