@@ -34,7 +34,7 @@ const useWizardForm = ({
   const [errors, setErrors] = useState<Array<FormError>>([])
   const [current, setCurrent] = useState(0)
   const [isEvaluatingQuestionVisibility, setIsEvaluatingQuestionVisibility] =
-    useState(true)
+    useState<boolean>(true)
   const [percentageCompleted, setPercentageCompleted] = useState(0)
 
   const updateQuestionVisibility = useCallback(async () => {
