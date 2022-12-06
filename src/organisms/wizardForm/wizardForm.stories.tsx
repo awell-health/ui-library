@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { WizardForm as WizardFormComponent } from '.'
-import { form as formData } from '../../constants/formFixture'
+import { form as formData } from './__testdata__/testFormFixture'
 import { ThemeProvider } from '../../atoms'
 
 export default {
@@ -22,7 +22,7 @@ export default {
         prev: 'Prev',
         next: 'Next',
         submit: 'Submit',
-        start_form: 'Start form'
+        start_form: 'Start form',
       },
     },
     errorLabels: {

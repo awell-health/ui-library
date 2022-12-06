@@ -367,3 +367,42 @@ export const sliderQuestionForm: Form = {
     },
   ],
 }
+
+export const dateQuestionForm: Form = {
+  id: 'Tzr2NafTxJfR',
+  title: 'Form with date question',
+  key: 'formWithDateQuestion',
+  questions: [
+    {
+      id: 'XAgYxu_kbDPj',
+      title: 'This is date question',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'thisIsDateQuestion',
+      dataPointValueType: 'DATE',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'DATE',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+      },
+    },
+    {
+      id: '5KMcDYtoz0rr',
+      title: 'This is number question',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'thisIsNumberQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'NUMBER',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+  ],
+}

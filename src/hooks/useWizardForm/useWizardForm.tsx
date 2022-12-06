@@ -33,7 +33,8 @@ const useWizardForm = ({
   >([])
   const [errors, setErrors] = useState<Array<FormError>>([])
   const [current, setCurrent] = useState(0)
-  const [isEvaluatingQuestionVisibility, setIsEvaluatingQuestionVisibility] = useState(true)
+  const [isEvaluatingQuestionVisibility, setIsEvaluatingQuestionVisibility] =
+    useState(true)
   const [percentageCompleted, setPercentageCompleted] = useState(0)
 
   const updateQuestionVisibility = useCallback(async () => {
@@ -46,7 +47,7 @@ const useWizardForm = ({
     ).filter((e) => e.visible)
     setVisibleQuestions(updatedQuestions)
     setIsEvaluatingQuestionVisibility(false)
-    
+
     return updatedQuestions
   }, [questions])
 
@@ -74,31 +75,55 @@ const useWizardForm = ({
     )
 
     setErrors(errorsWithoutCurrent)
+
+    /**
+     * Description question types can't have validation errors
+     */
     if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
       return false
     }
-    const isNotModified =
-      !formMethods.formState.dirtyFields[currentQuestion?.id]
+
+    /**
+     * See https://awellhealth.atlassian.net/browse/AST-4048
+     * Sliders are the only question type that have a default value which
+     * allows the user to press "next" and navigate to the next question even
+     * when they didn't touch the slider. However, when a slider question is required
+     * we want to make sure the user touches the slider to set a value.
+     */
+    let isSliderQuestionNotTouched = false
+
+    if (currentQuestion.userQuestionType === UserQuestionType.Slider) {
+      isSliderQuestionNotTouched =
+        !formMethods.formState.dirtyFields[currentQuestion?.id]
+    }
 
     if (
       currentQuestion?.questionConfig?.mandatory &&
-      (isEmpty(formMethods.getValues(currentQuestion.id)) || isNotModified)
+      (isEmpty(formMethods.getValues(currentQuestion.id)) ||
+        isSliderQuestionNotTouched)
     ) {
       const errorsWithoutCurrent = errors.filter(
         (err) => err.id !== currentQuestion.id
       )
+
+      const errorLabel = isSliderQuestionNotTouched
+        ? errorLabels.sliderNotTouched
+        : errorLabels.required
+
       setErrors([
         ...errorsWithoutCurrent,
-        { id: currentQuestion.id, error: errorLabels.required },
+        { id: currentQuestion.id, error: errorLabel },
       ])
 
       return true
     }
     return false
   }
+
   const handleGoToNextQuestion = async () => {
     await updateQuestionVisibility().finally(() => {
       const hasErrors = handleCheckForErrors()
+      console.log(hasErrors)
       if (!hasErrors) {
         setCurrent(current + 1)
       }
@@ -143,7 +168,7 @@ const useWizardForm = ({
     errors,
     isFirstQuestion: current === 0,
     isLastQuestion: current === visibleQuestions.length - 1,
-    isEvaluatingQuestionVisibility
+    isEvaluatingQuestionVisibility,
   }
 }
 
