@@ -20,6 +20,7 @@ export type QuestionRuleResult = {
 
 export type ErrorLabels = {
   required: string
+  sliderNotTouched: string
 }
 
 export type AnswerValue = string | number | number[]

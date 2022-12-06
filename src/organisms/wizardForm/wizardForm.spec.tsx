@@ -5,9 +5,10 @@ import '@testing-library/jest-dom'
 import { WizardForm as WizardFormComponent } from './WizardForm'
 import {
   form as formData,
-  sliderQuestionForm
+  sliderQuestionForm,
+  formWithTwoRequiredSingleSelectQuestions,
+  dateQuestionForm,
 } from './__testdata__/testFormFixture'
-import { act } from 'react-dom/test-utils'
 
 const props = {
   buttonLabels: {
@@ -17,6 +18,7 @@ const props = {
   },
   errorLabels: {
     required: 'Answer for this question is required',
+    sliderNotTouched: 'You did not move the slider',
   },
   evaluateDisplayConditionsTrue: () => {
     return Promise.all([]).then(function () {
@@ -123,40 +125,45 @@ describe('Wizard form', () => {
     expect(await screen.findByText(firstQuestion.title)).toBeInTheDocument()
   })
 
-  it(
-    'Should not navigate to next question when required question was not filled.' +
-      ' Should show proper error to the user',
-    async () => {
-      const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
-      render(
-        <WizardFormComponent
-          form={formData}
-          buttonLabels={props.buttonLabels}
-          errorLabels={props.errorLabels}
-          onSubmit={() => null}
-          evaluateDisplayConditions={evaluateDisplayConditions}
-        />
-      )
+  it('Should properly navigate between required questions', async () => {
+    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
+    render(
+      <WizardFormComponent
+        form={formWithTwoRequiredSingleSelectQuestions}
+        buttonLabels={props.buttonLabels}
+        errorLabels={props.errorLabels}
+        onSubmit={() => null}
+        evaluateDisplayConditions={evaluateDisplayConditions}
+      />
+    )
 
-      // GO TO 2nd question
-      fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    // Try going to 2nd question without answering the first, required question
+    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    const errorMessage = await screen.findByText(props.errorLabels.required)
+    const firstQuestionTitle = await screen.findByText(
+      formWithTwoRequiredSingleSelectQuestions.questions[0].title
+    )
+    expect(firstQuestionTitle).toBeInTheDocument()
+    // This should throw an error as the current question is not answered and is required
+    expect(errorMessage).toBeInTheDocument()
 
-      const secondQuestionTitle = await screen.findByText(secondQuestion.title)
-      expect(secondQuestionTitle).toBeInTheDocument()
+    // Answer the first question
+    const radioOption = await screen.findByLabelText(
+      'Answer the first required question'
+    )
+    expect(radioOption).not.toBeChecked()
+    fireEvent.click(radioOption)
+    expect(radioOption).toBeChecked()
 
-      // Try to go to next (3rd) question
-      fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    // Try going to 2nd question again
+    fireEvent.click(await screen.findByText(props.buttonLabels.next))
 
-      //  check if error is present and page was not changed
-      const questionTitleAfterClick = await screen.findByText(
-        secondQuestion.title
-      )
-      const errorMessage = await screen.findByText(props.errorLabels.required)
-
-      expect(questionTitleAfterClick).toBeInTheDocument()
-      expect(errorMessage).toBeInTheDocument()
-    }
-  )
+    // Now we should see the 2nd question
+    const secondQuestionTitle = await screen.findByText(
+      formWithTwoRequiredSingleSelectQuestions.questions[1].title
+    )
+    expect(secondQuestionTitle).toBeInTheDocument()
+  })
 
   it('Should show error message when user tries to skip required slider question', async () => {
     const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
@@ -173,9 +180,36 @@ describe('Wizard form', () => {
     // Try to go to next question
     fireEvent.click(await screen.findByText(props.buttonLabels.next))
 
-    //  check if error is present and page was not changes
+    // Check if error is present and page was not changed
     const questionTitleAfterClick = await screen.findByText(
       sliderQuestionForm.questions[0].title
+    )
+    const errorMessage = await screen.findByText(
+      props.errorLabels.sliderNotTouched
+    )
+
+    expect(questionTitleAfterClick).toBeInTheDocument()
+    expect(errorMessage).toBeInTheDocument()
+  })
+
+  it('Should show error message when user tries to skip required date question', async () => {
+    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
+    render(
+      <WizardFormComponent
+        form={dateQuestionForm}
+        buttonLabels={props.buttonLabels}
+        errorLabels={props.errorLabels}
+        onSubmit={() => null}
+        evaluateDisplayConditions={evaluateDisplayConditions}
+      />
+    )
+
+    // Try to go to next question
+    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+
+    //  check if error is present and page was not changes
+    const questionTitleAfterClick = await screen.findByText(
+      dateQuestionForm.questions[0].title
     )
     const errorMessage = await screen.findByText(props.errorLabels.required)
 

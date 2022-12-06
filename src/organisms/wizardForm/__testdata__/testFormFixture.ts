@@ -257,6 +257,68 @@ export const form: Form = {
   ],
 }
 
+export const formWithTwoRequiredSingleSelectQuestions: Form = {
+  id: 'Kzr2NafTxJfR',
+  title: 'Example form',
+  key: 'exampleForm',
+  questions: [
+    {
+      id: 'x5bgJqOltmK3',
+      title: 'Single select question #1',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'singleSelectQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [
+        {
+          id: '1',
+          label: 'Answer the first required question',
+          value: 0,
+        },
+        {
+          id: '2',
+          label: 'Option 2',
+          value: 1,
+        }
+      ],
+      questionType: 'MULTIPLE_CHOICE',
+      userQuestionType: 'MULTIPLE_CHOICE',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+        slider: null,
+      },
+    },
+    {
+      id: 'x5bgJqOltmK3',
+      title: 'Single select question #2',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'singleSelectQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [
+        {
+          id: '1',
+          label: 'Option 1',
+          value: 0,
+        },
+        {
+          id: '2',
+          label: 'Option 2',
+          value: 1,
+        }
+      ],
+      questionType: 'MULTIPLE_CHOICE',
+      userQuestionType: 'MULTIPLE_CHOICE',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+        slider: null,
+      },
+    },
+  ],
+}
+
 export const sliderQuestionForm: Form = {
   id: 'Tzr2NafTxJfR',
   title: 'Form with slider question',
@@ -285,6 +347,45 @@ export const sliderQuestionForm: Form = {
           is_value_tooltip_on: false,
           show_min_max_values: false,
         },
+      },
+    },
+    {
+      id: '5KMcDYtoz0rr',
+      title: 'This is number question',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'thisIsNumberQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'NUMBER',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+  ],
+}
+
+export const dateQuestionForm: Form = {
+  id: 'Tzr2NafTxJfR',
+  title: 'Form with date question',
+  key: 'formWithDateQuestion',
+  questions: [
+    {
+      id: 'XAgYxu_kbDPj',
+      title: 'This is date question',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'thisIsDateQuestion',
+      dataPointValueType: 'DATE',
+      options: [],
+      questionType: 'INPUT',
+      userQuestionType: 'DATE',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
       },
     },
     {
