@@ -5,7 +5,8 @@ import '@testing-library/jest-dom'
 import { WizardForm as WizardFormComponent } from './WizardForm'
 import {
   form as formData,
-  sliderQuestionForm
+  sliderQuestionForm,
+  formWithTwoRequiredSingleSelectQuestions
 } from './__testdata__/testFormFixture'
 import { act } from 'react-dom/test-utils'
 
@@ -124,13 +125,12 @@ describe('Wizard form', () => {
   })
 
   it(
-    'Should not navigate to next question when required question was not filled.' +
-      ' Should show proper error to the user',
+    'Should properly navigate between required questions',
     async () => {
       const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
       render(
         <WizardFormComponent
-          form={formData}
+          form={formWithTwoRequiredSingleSelectQuestions}
           buttonLabels={props.buttonLabels}
           errorLabels={props.errorLabels}
           onSubmit={() => null}
@@ -138,23 +138,26 @@ describe('Wizard form', () => {
         />
       )
 
-      // GO TO 2nd question
+      // Try going to 2nd question without answering the first, required question
       fireEvent.click(await screen.findByText(props.buttonLabels.next))
-
-      const secondQuestionTitle = await screen.findByText(secondQuestion.title)
-      expect(secondQuestionTitle).toBeInTheDocument()
-
-      // Try to go to next (3rd) question
-      fireEvent.click(await screen.findByText(props.buttonLabels.next))
-
-      //  check if error is present and page was not changed
-      const questionTitleAfterClick = await screen.findByText(
-        secondQuestion.title
-      )
       const errorMessage = await screen.findByText(props.errorLabels.required)
-
-      expect(questionTitleAfterClick).toBeInTheDocument()
+      const firstQuestionTitle = await screen.findByText(formWithTwoRequiredSingleSelectQuestions.questions[0].title)
+      expect(firstQuestionTitle).toBeInTheDocument()
+      // This should throw an error as the current question is not answered and is required
       expect(errorMessage).toBeInTheDocument()
+
+      // Answer the first question
+      const radioOption = await screen.findByLabelText('Answer the first required question')
+      expect(radioOption).not.toBeChecked()
+      fireEvent.click(radioOption)
+      expect(radioOption).toBeChecked()
+
+      // Try going to 2nd question again
+      fireEvent.click(await screen.findByText(props.buttonLabels.next))
+
+      // Now we should see the 2nd question
+      const secondQuestionTitle = await screen.findByText(formWithTwoRequiredSingleSelectQuestions.questions[1].title)
+      expect(secondQuestionTitle).toBeInTheDocument()
     }
   )
 

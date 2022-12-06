@@ -257,6 +257,68 @@ export const form: Form = {
   ],
 }
 
+export const formWithTwoRequiredSingleSelectQuestions: Form = {
+  id: 'Kzr2NafTxJfR',
+  title: 'Example form',
+  key: 'exampleForm',
+  questions: [
+    {
+      id: 'x5bgJqOltmK3',
+      title: 'Single select question #1',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'singleSelectQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [
+        {
+          id: '1',
+          label: 'Answer the first required question',
+          value: 0,
+        },
+        {
+          id: '2',
+          label: 'Option 2',
+          value: 1,
+        }
+      ],
+      questionType: 'MULTIPLE_CHOICE',
+      userQuestionType: 'MULTIPLE_CHOICE',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+        slider: null,
+      },
+    },
+    {
+      id: 'x5bgJqOltmK3',
+      title: 'Single select question #2',
+      form_id: 'Kzr2NafTxJfR',
+      key: 'singleSelectQuestion',
+      dataPointValueType: 'NUMBER',
+      options: [
+        {
+          id: '1',
+          label: 'Option 1',
+          value: 0,
+        },
+        {
+          id: '2',
+          label: 'Option 2',
+          value: 1,
+        }
+      ],
+      questionType: 'MULTIPLE_CHOICE',
+      userQuestionType: 'MULTIPLE_CHOICE',
+      rule_id: null,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+        slider: null,
+      },
+    },
+  ],
+}
+
 export const sliderQuestionForm: Form = {
   id: 'Tzr2NafTxJfR',
   title: 'Form with slider question',
