@@ -123,7 +123,7 @@ const useWizardForm = ({
   const handleGoToNextQuestion = async () => {
     await updateQuestionVisibility().finally(() => {
       const hasErrors = handleCheckForErrors()
-      console.log(hasErrors)
+      
       if (!hasErrors) {
         setCurrent(current + 1)
       }
