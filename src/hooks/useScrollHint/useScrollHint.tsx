@@ -18,9 +18,6 @@ export const useScrollHint = (): UseScrollHintHook => {
       Math.ceil(viewportHeight + window.scrollY) >=
       document.documentElement.scrollHeight
 
-    console.log(isDocumentHeightHigherThanViewportHeight)
-    console.log(hasUserScrolledToBottomOfDocument)
-
     if (
       isDocumentHeightHigherThanViewportHeight &&
       !hasUserScrolledToBottomOfDocument
