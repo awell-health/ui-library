@@ -1,0 +1,1 @@
+export { HostedPageLayout } from './HostedPageLayout'

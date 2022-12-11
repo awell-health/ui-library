@@ -1,40 +1,47 @@
-@use '../../globalStyles';
+@use '../../../globalStyles';
 
-.awell_checklist {
+
+:root {
   --awell-activity-checklist-max-width: var(--awell-activity-max-width);
   --awell-activity-checklist-padding: var(--awell-activity-padding);
+}
 
+.container {
   max-width: var(--awell-activity-checklist-max-width);
   padding: var(--awell-activity-checklist-padding);
+}
+
+.awell_checklist {
   margin: 0 auto;
+  padding-bottom: calc(var(--awell-footer-height) + 35px);
 
   & .title {
     display: flex;
-  };
+  }
 
   & .checklist {
     display: flex;
     flex-direction: column;
     padding-left: 4px;
-    > div {
+
+    >div {
       margin-top: var(--awell-spacing-5);
 
       @media (min-width: 600px) {
         margin-top: var(--awell-spacing-4);
       }
     }
-  };
+  }
 
   & .checkboxListFormControl {
     display: flex;
-  };
+  }
 
   & .button_wrapper {
     display: flex;
-    justify-content: center;
-    margin-top: var(--awell-spacing-8);
+    justify-content: flex-end;
+    height: 100%;
+    align-items: center;
+    width: 100%;
   }
 }
-
-
-

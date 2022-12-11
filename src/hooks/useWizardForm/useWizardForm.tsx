@@ -83,32 +83,15 @@ const useWizardForm = ({
       return false
     }
 
-    /**
-     * See https://awellhealth.atlassian.net/browse/AST-4048
-     * Sliders are the only question type that have a default value which
-     * allows the user to press "next" and navigate to the next question even
-     * when they didn't touch the slider. However, when a slider question is required
-     * we want to make sure the user touches the slider to set a value.
-     */
-    let isSliderQuestionNotTouched = false
-
-    if (currentQuestion.userQuestionType === UserQuestionType.Slider) {
-      isSliderQuestionNotTouched =
-        !formMethods.formState.dirtyFields[currentQuestion?.id]
-    }
-
     if (
       currentQuestion?.questionConfig?.mandatory &&
-      (isEmpty(formMethods.getValues(currentQuestion.id)) ||
-        isSliderQuestionNotTouched)
+      isEmpty(formMethods.getValues(currentQuestion.id))
     ) {
       const errorsWithoutCurrent = errors.filter(
         (err) => err.id !== currentQuestion.id
       )
 
-      const errorLabel = isSliderQuestionNotTouched
-        ? errorLabels.sliderNotTouched
-        : errorLabels.required
+      const errorLabel = errorLabels.required
 
       setErrors([
         ...errorsWithoutCurrent,
@@ -123,7 +106,7 @@ const useWizardForm = ({
   const handleGoToNextQuestion = async () => {
     await updateQuestionVisibility().finally(() => {
       const hasErrors = handleCheckForErrors()
-      
+
       if (!hasErrors) {
         setCurrent(current + 1)
       }
@@ -132,6 +115,7 @@ const useWizardForm = ({
       setCurrent(current + 1)
     }
   }
+
   const handleGoToPrevQuestion = () => {
     setCurrent(current - 1)
   }

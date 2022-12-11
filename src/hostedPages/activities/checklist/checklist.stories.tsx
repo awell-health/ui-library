@@ -1,7 +1,8 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { Checklist as ChecklistComponent, ChecklistProps } from '.'
-import { ThemeProvider } from '../../atoms'
+import { ThemeProvider } from '../../../atoms'
+import { HostedPageLayout } from '../../layouts/HostedPageLayout/HostedPageLayout'
 
 const checklistItems = [
   {
@@ -19,7 +20,7 @@ const checklistItems = [
 ]
 
 export default {
-  title: 'organisms/Checklist',
+  title: 'HostedPages/Activities/Checklist',
   component: ChecklistComponent,
   displayName: 'Checklist',
   argTypes: {
@@ -57,14 +58,18 @@ export const Checklist: Story<ChecklistProps> = ({
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <ChecklistComponent
-        title={title}
-        items={items}
-        onSubmit={onSubmit}
-        submitLabel={submitLabel}
-        disabled={disabled}
-        readOnly={readOnly}
-      />
+      <div style={{ minHeight: '90vh', position: 'relative' }}>
+        <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+          <ChecklistComponent
+            title={title}
+            items={items}
+            onSubmit={onSubmit}
+            submitLabel={submitLabel}
+            disabled={disabled}
+            readOnly={readOnly}
+          />
+        </HostedPageLayout>
+      </div>
     </ThemeProvider>
   )
 }

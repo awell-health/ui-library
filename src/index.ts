@@ -23,6 +23,7 @@ export {
   CircularSpinner,
   HorizontalSpinner,
   ThemeProvider,
+  ScrollIndicator,
 } from './atoms'
 
 export {
@@ -33,4 +34,4 @@ export {
   AttachmentList,
 } from './molecules'
 
-export { Checklist, WizardForm, Message } from './organisms'
+export { Checklist, WizardForm, Message, HostedPageLayout } from './hostedPages'

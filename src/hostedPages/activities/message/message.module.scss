@@ -1,16 +1,22 @@
-@use '../../globalStyles';
+@use '../../../globalStyles';
 
-.awell_message {
+:root {
   --awell-activity-message-max-width: var(--awell-activity-max-width);
   --awell-activity-message-padding: var(--awell-activity-padding);
+}
 
+.container {
+  max-width: var(--awell-activity-message-max-width);
+  padding: var(--awell-activity-message-padding);
+}
+
+.awell_message {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: var(--awell-activity-message-max-width);
-  padding: var(--awell-activity-message-padding);
   margin: 0 auto;
+  padding-bottom: calc(var(--awell-footer-height) + 35px);
 }
 
 .content {
@@ -40,15 +46,23 @@
     background-color: var(--awell-accent-color);
     height: 3px;
     border-radius: var(--awell-border-radius-lg);
-    
+
     @media (min-width: 600px) {
       margin-top: var(--awell-spacing-3);
     }
   }
-  
+
 }
 
 .attachmentList {
   margin-top: var(--awell-spacing-4);
+  width: 100%;
+}
+
+.button_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  align-items: center;
   width: 100%;
 }

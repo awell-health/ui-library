@@ -1,0 +1,31 @@
+@use '../../../../globalStyles';
+
+.close_button {
+  position: absolute;
+  right: 1.5rem;
+  top: 0.85rem;
+  cursor: pointer;
+  background: #fff;
+  border-radius: var(--awell-border-radius-md);
+  border: 1px solid var(--awell-neutralLight50);
+  display: flex;
+  padding: var(--awell-spacing-1\.5);
+
+  &:hover {
+    border-color: var(--awell-accent-color);
+
+    & .close_button_svg {
+      color: var(--awell-accent-color);
+    }
+  }
+
+  &:focus {
+    color: var(--awell-accent-color);
+  }
+
+  & .close_button_svg {
+    width: 20px;
+    height: 20px;
+    color: var(--awell-neutralLight50);
+  }
+}

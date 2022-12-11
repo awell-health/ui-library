@@ -1,0 +1,21 @@
+@use '../../globalStyles';
+
+.scroll_indicator_container {
+  background-color: var(--awell-secondary-color);
+  position: relative;
+  z-index: 999;
+  border-radius: 50%;
+  position: relative;
+  width: 36px;
+  height: 36px;
+
+  .scroll_indicator_svg {
+    width: 20px;
+    height: 20px;
+    color: var(--awell-secondary-text-color);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+}

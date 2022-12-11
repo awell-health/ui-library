@@ -1,8 +1,8 @@
 import {
   ErrorLabels,
   QuestionRuleResult,
-} from '../../hooks/useWizardForm/types'
-import { AnswerInput, Form } from '../../types'
+} from '../../../hooks/useWizardForm/types'
+import { AnswerInput, Form } from '../../../types'
 
 type ButtonLabels = {
   prev: string
