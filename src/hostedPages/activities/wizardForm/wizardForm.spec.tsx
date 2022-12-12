@@ -165,7 +165,7 @@ describe('Wizard form', () => {
     expect(secondQuestionTitle).toBeInTheDocument()
   })
 
-  it('Should show error message when user tries to skip required slider question', async () => {
+  it('Should not show an error message when user immediately presses next on slider question (because it has a default value)', async () => {
     const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
     render(
       <WizardFormComponent
@@ -180,16 +180,12 @@ describe('Wizard form', () => {
     // Try to go to next question
     fireEvent.click(await screen.findByText(props.buttonLabels.next))
 
-    // Check if error is present and page was not changed
-    const questionTitleAfterClick = await screen.findByText(
-      sliderQuestionForm.questions[0].title
-    )
-    const errorMessage = await screen.findByText(
-      props.errorLabels.sliderNotTouched
+    // Check if 2nd question is displayed
+    const secondQuestionTitle = await screen.findByText(
+      sliderQuestionForm.questions[1].title
     )
 
-    expect(questionTitleAfterClick).toBeInTheDocument()
-    expect(errorMessage).toBeInTheDocument()
+    expect(secondQuestionTitle).toBeInTheDocument()
   })
 
   it('Should show error message when user tries to skip required date question', async () => {

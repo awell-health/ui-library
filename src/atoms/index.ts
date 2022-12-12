@@ -13,6 +13,7 @@ export { MessageAttachment } from './messageAttachment'
 export { CircularSpinner, HorizontalSpinner } from './spinner'
 export { ThemeProvider } from './themeProvider'
 export { ProgressIndicator } from './progressIndicator'
+export { ScrollIndicator } from './scrollIndicator'
 export {
   HeadingMain,
   HeadingSecondary,

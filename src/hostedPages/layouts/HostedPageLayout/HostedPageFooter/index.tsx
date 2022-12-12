@@ -1,0 +1,1 @@
+export { HostedPageFooter } from './HostedPageFooter'

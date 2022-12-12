@@ -1,5 +1,7 @@
 import React, { FC, MouseEventHandler, useState } from 'react'
-import { Text, CheckboxButton, Button, QuestionLabel } from '../../atoms'
+import { Text, CheckboxButton, Button, QuestionLabel } from '../../../atoms'
+import { useScrollHint } from '../../../hooks/useScrollHint'
+import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import classes from './checklist.module.scss'
 
 export interface ChecklistItem {
@@ -25,6 +27,7 @@ export const Checklist: FC<ChecklistProps> = ({
   submitLabel,
 }) => {
   const [checkedItems, setCheckedItems] = useState(readOnly ? items : [])
+  const { showScrollHint } = useScrollHint()
 
   const handleChange = (item: ChecklistItem) => (checked: boolean) => {
     if (checked) {
@@ -37,7 +40,7 @@ export const Checklist: FC<ChecklistProps> = ({
   }
 
   return (
-    <div className={classes.awell_checklist}>
+    <div className={`${classes.awell_checklist} ${classes.container}`}>
       <div className={classes.title}>
         <QuestionLabel label={title} />
       </div>
@@ -53,16 +56,18 @@ export const Checklist: FC<ChecklistProps> = ({
           />
         ))}
       </div>
-      <div className={classes.button_wrapper}>
-        <Button
-          onClick={onSubmit}
-          disabled={
-            checkedItems.length !== items.length || readOnly || disabled
-          }
-        >
-          {submitLabel}
-        </Button>
-      </div>
+      <HostedPageFooter showScrollHint={showScrollHint}>
+        <div className={`${classes.button_wrapper} ${classes.container}`}>
+          <Button
+            onClick={onSubmit}
+            disabled={
+              checkedItems.length !== items.length || readOnly || disabled
+            }
+          >
+            {submitLabel}
+          </Button>
+        </div>
+      </HostedPageFooter>
     </div>
   )
 }

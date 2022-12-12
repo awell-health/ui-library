@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   HeadingMain,
   Button,
   ProgressIndicator,
   CircularSpinner,
-} from '../../atoms'
+} from '../../../atoms'
 import classes from './wizardForm.module.scss'
-import { Question } from '../../molecules'
-import { useWizardForm } from '../../hooks/useWizardForm'
+import { Question } from '../../../molecules'
+import { useWizardForm } from '../../../hooks/useWizardForm'
 import { WizardFormProps } from './types'
+import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
+import { useScrollHint } from '../../../hooks/useScrollHint'
 
 export const WizardForm = ({
   form,
@@ -35,8 +37,14 @@ export const WizardForm = ({
     errorLabels,
   })
 
+  const { showScrollHint, determineShowScrollHint } = useScrollHint()
+
+  useEffect(() => {
+    determineShowScrollHint()
+  }, [currentQuestion])
+
   return (
-    <div className={classes.awell_wizard_form}>
+    <div className={`${classes.awell_wizard_form} ${classes.container}`}>
       <>
         <div className={classes.form_progress}>
           <ProgressIndicator
@@ -59,24 +67,26 @@ export const WizardForm = ({
                 errors={errors}
               />
             </div>
-            <div className={classes.button_wrapper}>
-              <div>
-                {!isFirstQuestion && (
-                  <Button variant="tertiary" onClick={handleGoToPrevQuestion}>
-                    {buttonLabels.prev}
+            <HostedPageFooter showScrollHint={showScrollHint}>
+              <div className={`${classes.button_wrapper} ${classes.container}`}>
+                <div>
+                  {!isFirstQuestion && (
+                    <Button variant="tertiary" onClick={handleGoToPrevQuestion}>
+                      {buttonLabels.prev}
+                    </Button>
+                  )}
+                </div>
+                {isLastQuestion ? (
+                  <Button onClick={submitForm} type="submit">
+                    {buttonLabels.submit}
+                  </Button>
+                ) : (
+                  <Button variant="secondary" onClick={handleGoToNextQuestion}>
+                    {buttonLabels.next}
                   </Button>
                 )}
               </div>
-              {isLastQuestion ? (
-                <Button onClick={submitForm} type="submit">
-                  {buttonLabels.submit}
-                </Button>
-              ) : (
-                <Button variant="secondary" onClick={handleGoToNextQuestion}>
-                  {buttonLabels.next}
-                </Button>
-              )}
-            </div>
+            </HostedPageFooter>
           </>
         )}
       </>

@@ -2,9 +2,10 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Message as MessageComponent } from './Message'
 import { MessageProps, MessageAttachmentType } from './types'
-import image from '../../assets/link.svg'
-import { ThemeProvider } from '../../atoms'
-import { messageFixture } from '../../constants/messageFixture'
+import image from '../../../assets/link.svg'
+import { ThemeProvider } from '../../../atoms'
+import { messageFixture } from '../../../constants/messageFixture'
+import { HostedPageLayout } from '../../layouts/HostedPageLayout/HostedPageLayout'
 
 const attachments = [
   {
@@ -22,7 +23,7 @@ const attachments = [
 ]
 
 export default {
-  title: 'organisms/Message',
+  title: 'HostedPages/Activities/Message',
   component: MessageComponent,
   argTypes: {
     content: {
@@ -56,14 +57,20 @@ export const Message: Story<MessageProps> = ({
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <MessageComponent
-        content={content}
-        subject={subject}
-        format="SLATE"
-        attachments={attachments}
-        attachmentLabels={attachmentLabels}
-        attachmentIcon={<img src={image} alt="" />}
-      />
+      <div style={{ minHeight: '90vh', position: 'relative' }}>
+        <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+          <MessageComponent
+            content={content}
+            subject={subject}
+            format="SLATE"
+            attachments={attachments}
+            attachmentLabels={attachmentLabels}
+            attachmentIcon={<img src={image} alt="" />}
+            buttonLabels={{ readMessage: 'Done' }}
+            onMessageRead={() => alert('Message read!')}
+          />
+        </HostedPageLayout>
+      </div>
     </ThemeProvider>
   )
 }
