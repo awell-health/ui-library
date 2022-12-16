@@ -38,7 +38,11 @@ export const Message = ({
       </article>
       <HostedPageFooter showScrollHint={showScrollHint}>
         <div className={`${classes.button_wrapper} ${classes.container}`}>
-          <Button variant="secondary" onClick={onMessageRead}>
+          <Button
+            data-cy="markMessageAsReadButton"
+            variant="secondary"
+            onClick={onMessageRead}
+          >
             {buttonLabels.readMessage}
           </Button>
         </div>
