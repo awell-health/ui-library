@@ -71,17 +71,29 @@ export const WizardForm = ({
               <div className={`${classes.button_wrapper} ${classes.container}`}>
                 <div>
                   {!isFirstQuestion && (
-                    <Button variant="tertiary" onClick={handleGoToPrevQuestion}>
+                    <Button
+                      variant="tertiary"
+                      onClick={handleGoToPrevQuestion}
+                      data-cy="navigateToPrevQuestionButton"
+                    >
                       {buttonLabels.prev}
                     </Button>
                   )}
                 </div>
                 {isLastQuestion ? (
-                  <Button onClick={submitForm} type="submit">
+                  <Button
+                    onClick={submitForm}
+                    type="submit"
+                    data-cy="submitFormButton"
+                  >
                     {buttonLabels.submit}
                   </Button>
                 ) : (
-                  <Button variant="secondary" onClick={handleGoToNextQuestion}>
+                  <Button
+                    variant="secondary"
+                    onClick={handleGoToNextQuestion}
+                    data-cy="navigateToNextQuestionButton"
+                  >
                     {buttonLabels.next}
                   </Button>
                 )}

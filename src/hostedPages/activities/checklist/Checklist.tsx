@@ -63,6 +63,7 @@ export const Checklist: FC<ChecklistProps> = ({
             disabled={
               checkedItems.length !== items.length || readOnly || disabled
             }
+            data-cy="submitChecklistButton"
           >
             {submitLabel}
           </Button>
