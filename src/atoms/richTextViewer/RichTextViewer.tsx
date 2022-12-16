@@ -18,7 +18,8 @@ export const RichTextViewer = ({
   format,
 }: SLATEichTextViewerProps | HTMLRichTextViewerProps): JSX.Element => {
   const serializedHtml = format === 'SLATE' ? serializeHtml(nodes) : nodes
-  const purifiedMessage = sanitize(serializedHtml)
+  // See https://github.com/cure53/DOMPurify/issues/317
+  const purifiedMessage = sanitize(serializedHtml, { ADD_ATTR: ['target'] })
 
   return (
     <div

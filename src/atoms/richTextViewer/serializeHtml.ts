@@ -34,6 +34,18 @@ const serializeNode = (node: Node): string => {
     // @ts-expect-error: Not sure why typescript complains here, type is supposed
     // to be defined in Elements
     const type = node.type || 'div'
+
+    // @ts-expect-error: Not sure why typescript complains here, type is supposed
+    // to be defined in Elements
+    if (node.type === 'a') {
+      return `<${type} href="${
+        // @ts-expect-error
+        node?.url
+      }" target="_blank" rel="noopener noreferrer">${serializeHtml(
+        node.children
+      )}</${type}>`
+    }
+
     return `<${type}>${serializeHtml(node.children)}</${type}>`
   }
   return ''
