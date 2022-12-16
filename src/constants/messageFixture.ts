@@ -64,8 +64,8 @@ export const messageFixture = [
       { text: 'A link ' },
       {
         type: 'a',
-        url: 'https://google.be',
-        children: [{ text: 'https://google.be' }],
+        url: 'https://www.google.be',
+        children: [{ text: 'https://www.google.be' }],
       },
       { text: '' },
     ],
