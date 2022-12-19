@@ -3,7 +3,7 @@ export const messageFixture = [
     type: 'p',
     children: [
       {
-        text: 'Facere nihil velit ipsa. Soluta modi ex quidem. Voluptatem nihil nulla. Nesciunt aut quas quos libero at dolorem.',
+        text: 'Facere nihil velit ipsa Pneumonoultramicroscopicsilicovolcanoconiosis. Soluta modi ex quidem. Voluptatem nihil nulla. Nesciunt aut quas quos libero at dolorem.',
       },
     ],
   },
@@ -64,8 +64,12 @@ export const messageFixture = [
       { text: 'A link ' },
       {
         type: 'a',
-        url: 'https://www.google.be',
-        children: [{ text: 'https://www.google.be' }],
+        url: 'http://www.reallylong.link/rll/INa/yWPMHPUpUczBF_knimAQwuvMG_jyy3vgQHtiPA/vrtu482EW/',
+        children: [
+          {
+            text: 'http://www.reallylong.link/rll/INa/yWPMHPUpUczBF_knimAQwuvMG_jyy3vgQHtiPA/vrtu482EW/',
+          },
+        ],
       },
       { text: '' },
     ],
