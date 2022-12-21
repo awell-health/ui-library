@@ -33,7 +33,7 @@ describe('Range input', () => {
 
     const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
 
-    expect(dataList).toBeVisible()
+    expect(dataList).toBeDefined()
 
     expect(dataList).toContainHTML(
       `<option
@@ -79,7 +79,7 @@ describe('Range input', () => {
 
     const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
 
-    expect(dataList).toBeVisible()
+    expect(dataList).toBeDefined()
 
     expect(dataList).toContainHTML(
       `<option
@@ -118,6 +118,6 @@ describe('Range input', () => {
 
     const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
 
-    expect(dataList).toBeVisible()
+    expect(dataList).toBeDefined()
   })
 })
