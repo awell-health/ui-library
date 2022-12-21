@@ -71,10 +71,9 @@ export const RangeInput = ({
         />
         <datalist
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            marginTop: sliderConfig.show_min_max_values ? '36px' : '0px',
           }}
+          className={classes.awell_range_input_datalist}
           data-testid={`${id}-datalist`}
           id={`${id}-min-max-labels`}
         >
