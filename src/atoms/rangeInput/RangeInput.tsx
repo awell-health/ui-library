@@ -59,6 +59,7 @@ export const RangeInput = ({
       <div className={classes.awell_range_input_wrapper} style={style}>
         <input
           {...props}
+          data-testid={id}
           type="range"
           list={`${id}-min-max-labels`}
           id={id}
@@ -74,6 +75,7 @@ export const RangeInput = ({
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}
+          data-testid={`${id}-datalist`}
           id={`${id}-min-max-labels`}
         >
           <option
