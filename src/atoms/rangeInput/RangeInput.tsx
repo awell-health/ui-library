@@ -59,7 +59,9 @@ export const RangeInput = ({
       <div className={classes.awell_range_input_wrapper} style={style}>
         <input
           {...props}
+          data-testid={id}
           type="range"
+          list={`${id}-min-max-labels`}
           id={id}
           min={sliderConfig.min}
           max={sliderConfig.max}
@@ -67,6 +69,24 @@ export const RangeInput = ({
           className={classes.awell_range_input}
           onChange={onChange}
         />
+        <datalist
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+          data-testid={`${id}-datalist`}
+          id={`${id}-min-max-labels`}
+        >
+          <option
+            value={sliderConfig.min}
+            label={sliderConfig.min_label}
+          ></option>
+          <option
+            value={sliderConfig.max}
+            label={sliderConfig.max_label}
+          ></option>
+        </datalist>
       </div>
     </div>
   )
