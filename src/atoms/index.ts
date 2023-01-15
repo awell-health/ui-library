@@ -14,6 +14,7 @@ export { CircularSpinner, HorizontalSpinner } from './spinner'
 export { ThemeProvider } from './themeProvider'
 export { ProgressIndicator } from './progressIndicator'
 export { ScrollIndicator } from './scrollIndicator'
+export { Modal } from './modal'
 export {
   HeadingMain,
   HeadingSecondary,
