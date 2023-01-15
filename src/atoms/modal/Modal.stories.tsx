@@ -28,8 +28,8 @@ export const Modal: Story = () => {
       <Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
       <ModalComponent
         isOpen={isModalOpen}
-        title="Title"
-        description="Description"
+        title="Are you sure you want to cancel your session?"
+        description="There are still some activities for you to complete. If you cancel your session, you might also lose data you haven't submitted yet."
         icon="success"
         onConfirm={() => {
           alert('Handle confirm')
