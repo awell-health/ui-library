@@ -1,4 +1,4 @@
-@use '../../globalStyles';
+@use "../../globalStyles";
 
 .dialog {
   position: relative;
@@ -7,11 +7,11 @@
 
 .screen_overlay {
   position: fixed;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  opacity: .75;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.75;
   background-color: rgb(107 114 128);
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -20,12 +20,12 @@
 
 .modal_overlay {
   position: fixed;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 10;
-  overflow-y: aut;
+  overflow-y: auto;
 }
 
 .modal_wrapper {
@@ -79,7 +79,6 @@
 
 .close_button {
   border-radius: var(--awell-border-radius-md);
-  background: #fff;
   color: rgb(156 163 175);
   background: none;
   border: none;
@@ -176,7 +175,7 @@
 .modal_actions {
   margin-top: var(--awell-spacing-5);
 
-  &>* {
+  & > * {
     margin-top: var(--awell-spacing-2);
   }
 
@@ -189,7 +188,7 @@
     display: flex;
     flex-direction: row-reverse;
 
-    &>* {
+    & > * {
       margin-right: var(--awell-spacing-4);
       margin-top: 0;
     }

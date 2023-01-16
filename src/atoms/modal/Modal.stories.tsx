@@ -19,10 +19,6 @@ export default {
 export const Modal: Story = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-  }
-
   return (
     <ThemeProvider accentColor="#004ac2">
       <Button onClick={() => setIsModalOpen(true)}>Open modal</Button>

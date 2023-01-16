@@ -53,7 +53,7 @@ export const Modal: FC<ModalProps> = ({
                 <button
                   type="button"
                   className={classes.close_button}
-                  onClick={() => onClose()}
+                  onClick={onClose}
                 >
                   <span className={classes.sr_only}>Close</span>
                   <XMarkIcon
@@ -90,7 +90,7 @@ export const Modal: FC<ModalProps> = ({
                 {onConfirm && (
                   <Button
                     variant="primary"
-                    onClick={() => onConfirm()}
+                    onClick={onConfirm}
                     fullWidth={isMobile}
                   >
                     {buttonLabels?.confirm}
@@ -98,7 +98,7 @@ export const Modal: FC<ModalProps> = ({
                 )}
                 <Button
                   variant="tertiary"
-                  onClick={() => onClose()}
+                  onClick={onClose}
                   fullWidth={isMobile}
                 >
                   {buttonLabels?.cancel}
