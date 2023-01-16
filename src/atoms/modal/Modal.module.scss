@@ -81,6 +81,10 @@
   border-radius: var(--awell-border-radius-md);
   background: #fff;
   color: rgb(156 163 175);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 
   &:hover {
     color: rgb(107 114 128);
