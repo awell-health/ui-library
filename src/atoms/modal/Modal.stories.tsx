@@ -17,7 +17,7 @@ export default {
 } as Meta
 
 export const Modal: Story = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(true)
 
   return (
     <ThemeProvider accentColor="#004ac2">
