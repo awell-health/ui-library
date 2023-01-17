@@ -12,7 +12,7 @@
   bottom: 0;
   left: 0;
   opacity: 0.75;
-  background-color: rgb(107 114 128);
+  background-color: var(--awell-slate500);
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
@@ -79,14 +79,14 @@
 
 .close_button {
   border-radius: var(--awell-border-radius-md);
-  color: rgb(156 163 175);
+  color: var(--awell-slate400);
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
 
   &:hover {
-    color: rgb(107 114 128);
+    color: var(--awell-slate500);
   }
 }
 
@@ -161,21 +161,21 @@
   font-size: var(--awell-font-size-lg);
   line-height: 1.5rem;
   font-weight: var(--awell-font-medium);
-  color: rgb(17 24 39);
+  color: var(--awell-slate800);
   margin: 0;
 }
 
 .modal_content_text {
   margin-top: var(--awell-spacing-2);
   font-size: var(--awell-font-size-sm);
-  color: rgb(107 114 128);
+  color: var(--awell-slate500);
   line-height: var(--awell-leading-5);
 }
 
 .modal_actions {
   margin-top: var(--awell-spacing-5);
 
-  & > * {
+  &>* {
     margin-top: var(--awell-spacing-2);
   }
 
@@ -188,7 +188,7 @@
     display: flex;
     flex-direction: row-reverse;
 
-    & > * {
+    &>* {
       margin-right: var(--awell-spacing-4);
       margin-top: 0;
     }
