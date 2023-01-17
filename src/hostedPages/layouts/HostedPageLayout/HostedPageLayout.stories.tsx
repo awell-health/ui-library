@@ -22,9 +22,7 @@ export const HostedPageLayout: Story = () => {
     <ThemeProvider accentColor="#004ac2">
       <div style={{ minHeight: '100vh', position: 'relative' }}>
         <HostedPageLayoutComponent
-          onCloseHostedPage={() =>
-            alert('Stop session and redirect to cancel url')
-          }
+          onCloseHostedPage={() => alert('Handle close')}
         >
           <main style={{ textAlign: 'center' }}>
             <p>Content</p>

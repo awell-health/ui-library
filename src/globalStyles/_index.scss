@@ -43,7 +43,8 @@ body {
   border-radius: 100%;
 }
 
-[type=checkbox]:checked, [type=radio]:checked {
+[type=checkbox]:checked,
+[type=radio]:checked {
   border-color: transparent;
   background-color: currentColor;
   background-size: 100% 100%;
@@ -51,7 +52,10 @@ body {
   background-repeat: no-repeat;
 }
 
-[type=checkbox]:checked:focus, [type=checkbox]:checked:hover, [type=radio]:checked:focus, [type=radio]:checked:hover {
+[type=checkbox]:checked:focus,
+[type=checkbox]:checked:hover,
+[type=radio]:checked:focus,
+[type=radio]:checked:hover {
   border-color: transparent;
   background-color: currentColor;
 }
@@ -60,7 +64,8 @@ body {
   border-radius: 0;
 }
 
-[type=checkbox], [type=radio] {
+[type=checkbox],
+[type=radio] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
