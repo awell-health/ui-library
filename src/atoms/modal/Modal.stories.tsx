@@ -19,6 +19,14 @@ export default {
 export const Modal: Story = () => {
   const [isModalOpen, setIsModalOpen] = useState(true)
 
+  const onConfirm = () => {
+    alert('Handle confirm')
+  }
+
+  const onClose = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <ThemeProvider accentColor="#004ac2">
       <Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
@@ -26,12 +34,16 @@ export const Modal: Story = () => {
         isOpen={isModalOpen}
         title="Are you sure you want to cancel your session?"
         description="There are still some activities for you to complete. If you cancel your session, you might also lose data you haven't submitted yet."
-        icon="success"
-        onConfirm={() => {
-          alert('Handle confirm')
-        }}
-        onClose={() => setIsModalOpen(false)}
-        buttonLabels={{ confirm: 'Confirm', cancel: 'Cancel' }}
+        icon="warning"
+        onCloseModal={onClose}
+        buttons={[
+          <Button variant="primary" onClick={onConfirm}>
+            Yes, cancel session
+          </Button>,
+          <Button variant="tertiary" onClick={onClose}>
+            No
+          </Button>,
+        ]}
       />
     </ThemeProvider>
   )

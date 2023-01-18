@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, cloneElement } from 'react'
 import {
   ExclamationTriangleIcon,
   XMarkIcon,
@@ -6,29 +6,24 @@ import {
 } from '@heroicons/react/24/outline'
 
 import classes from './Modal.module.scss'
-import { Button } from '../button'
+import { Button, type ButtonProps } from '../button'
 
 export interface ModalProps {
   isOpen: boolean
   title: string
   description: string
-  onClose: () => void
-  onConfirm: () => void
+  onCloseModal: () => void
   icon?: 'success' | 'warning'
-  buttonLabels: {
-    cancel: string
-    confirm: string
-  }
+  buttons: Array<React.ReactElement<ButtonProps>>
 }
 
 export const Modal: FC<ModalProps> = ({
   isOpen,
   title,
   description,
-  onClose,
-  onConfirm,
+  onCloseModal,
   icon,
-  buttonLabels,
+  buttons,
 }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640)
 
@@ -53,7 +48,7 @@ export const Modal: FC<ModalProps> = ({
                 <button
                   type="button"
                   className={classes.close_button}
-                  onClick={onClose}
+                  onClick={onCloseModal}
                 >
                   <span className={classes.sr_only}>Close</span>
                   <XMarkIcon
@@ -87,22 +82,11 @@ export const Modal: FC<ModalProps> = ({
                 </div>
               </div>
               <div className={classes.modal_actions}>
-                {onConfirm && (
-                  <Button
-                    variant="primary"
-                    onClick={onConfirm}
-                    fullWidth={isMobile}
-                  >
-                    {buttonLabels?.confirm}
-                  </Button>
-                )}
-                <Button
-                  variant="tertiary"
-                  onClick={onClose}
-                  fullWidth={isMobile}
-                >
-                  {buttonLabels?.cancel}
-                </Button>
+                {buttons.map((button, index) => (
+                  <React.Fragment key={index}>
+                    {cloneElement(button, { fullWidth: isMobile })}
+                  </React.Fragment>
+                ))}
               </div>
             </div>
           </div>
