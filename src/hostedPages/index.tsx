@@ -1,4 +1,5 @@
 export { Checklist } from './activities/checklist'
 export { Message } from './activities/message'
 export { WizardForm } from './activities/wizardForm'
+export { CalDotcomActivity } from './activities/scheduling'
 export { HostedPageLayout } from './layouts/HostedPageLayout'

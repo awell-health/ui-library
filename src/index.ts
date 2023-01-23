@@ -24,7 +24,9 @@ export {
   HorizontalSpinner,
   ThemeProvider,
   ScrollIndicator,
-  Modal
+  Modal,
+  CalDotComScheduling,
+  type CalDotComBookingSuccessfulFunction,
 } from './atoms'
 
 export {

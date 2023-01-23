@@ -1,0 +1,30 @@
+@use '../../../../globalStyles';
+
+:root {
+  --awell-scheduling-activity-max-width: '75ch';
+  --awell-footer-activity-max-width: var(--awell-activity-max-width);
+  --awell-scheduling-activity-padding: var(--awell-activity-padding);
+}
+
+.calDotComActivity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: calc(var(--awell-footer-height) + 35px);
+  max-width: var(--awell-scheduling-activity-max-width);
+}
+
+.container {
+  padding: var(--awell-scheduling-activity-padding);
+}
+
+.button_wrapper {
+  max-width: var(--awell-footer-activity-max-width);
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  align-items: center;
+  width: 100%;
+}
