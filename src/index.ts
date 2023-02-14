@@ -24,7 +24,8 @@ export {
   HorizontalSpinner,
   ThemeProvider,
   ScrollIndicator,
-  Modal
+  Modal,
+  ProgressIndicator,
 } from './atoms'
 
 export {
