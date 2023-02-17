@@ -32,6 +32,7 @@ export interface FormSettingsContextProps {
   onSubmit: (response: Array<AnswerInput>) => Promise<void> | void
   questions: Array<Question>
   errorLabels: ErrorLabels
+  storedAnswers: Array<AnswerInput>
 }
 export interface FormSettingsContextInterface {
   updateQuestionVisibility: () => void

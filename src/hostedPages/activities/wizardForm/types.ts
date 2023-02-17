@@ -13,6 +13,7 @@ type ButtonLabels = {
 
 export interface WizardFormProps {
   form: Form
+  storedAnswers: Array<AnswerInput>
   buttonLabels: ButtonLabels
   errorLabels: ErrorLabels
   onSubmit: (response: Array<AnswerInput>) => void

@@ -21,9 +21,25 @@ const useWizardForm = ({
   evaluateDisplayConditions,
   onSubmit,
   errorLabels,
+  storedAnswers,
 }: FormSettingsContextProps): FormSettingsContextInterface => {
+
+  const initialValues = questions.reduce((acc, question) => {
+    const storedAnswer = storedAnswers?.find(
+      (answer) => answer.question_id === question.id
+    )
+
+    if (storedAnswer) {
+      return {
+        ...acc,
+        [question.id]: storedAnswer.value,
+      }
+    }
+    return acc
+  }, {})
+
   const formMethods = useForm({
-    defaultValues: getInitialValues(questions),
+    defaultValues: Boolean(initialValues) ? initialValues : getInitialValues(questions),
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
@@ -85,6 +101,7 @@ const useWizardForm = ({
 
     if (
       currentQuestion?.questionConfig?.mandatory &&
+      // @ts-expect-error getValues is typed as never
       isEmpty(formMethods.getValues(currentQuestion.id))
     ) {
       const errorsWithoutCurrent = errors.filter(
