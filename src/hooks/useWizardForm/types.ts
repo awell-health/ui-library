@@ -1,5 +1,5 @@
 import { UseFormReturn } from 'react-hook-form'
-import { AnswerInput, Question, FormError } from '../../types'
+import { AnswerInput, Question, FormError, Answer } from '../../types'
 
 export type { FormError, QuestionWithVisibility } from '../../types'
 export { QuestionType, UserQuestionType } from '../../types'
@@ -32,7 +32,8 @@ export interface FormSettingsContextProps {
   onSubmit: (response: Array<AnswerInput>) => Promise<void> | void
   questions: Array<Question>
   errorLabels: ErrorLabels
-  storedAnswers: Array<AnswerInput>
+  storedAnswers: string
+  onAnswersChange: (answers: Record<string, any>) => void
 }
 export interface FormSettingsContextInterface {
   updateQuestionVisibility: () => void

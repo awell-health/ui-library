@@ -4,11 +4,6 @@ import { CheckboxButton } from '../../atoms/checkboxButton'
 import { Option } from '../../types'
 import { QuestionLabel } from '../../atoms/questionLabel'
 
-/**
- * @TODO: Check if the type for onChange is correct. I think I changed it from
- * array of option values to array of AnswerOption (object), but I don't know
- * how to check if this will have a negative impact
- */
 export interface MultipleChoiceQuestionProps {
   questionId: string
   label: string
@@ -58,7 +53,7 @@ export const MultipleChoiceQuestion = ({
             onChange={(event) => handleSelectOption(event, option)}
             label={option.label}
             id={option.id}
-            checked={checkedOptions.includes(option)}
+            checked={checkedOptions.map((c) => c.value).includes(option.value)}
             name={questionId}
           />
         ))}

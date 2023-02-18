@@ -2,7 +2,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   calculatePercentageCompleted,
+  convertToAnswerFormat,
   convertToAwellInput,
+  convertToFormFormat,
   getInitialValues,
   isEmpty,
   updateVisibility,
@@ -22,24 +24,18 @@ const useWizardForm = ({
   onSubmit,
   errorLabels,
   storedAnswers,
+  onAnswersChange,
 }: FormSettingsContextProps): FormSettingsContextInterface => {
-
-  const initialValues = questions.reduce((acc, question) => {
-    const storedAnswer = storedAnswers?.find(
-      (answer) => answer.question_id === question.id
-    )
-
-    if (storedAnswer) {
-      return {
-        ...acc,
-        [question.id]: storedAnswer.value,
-      }
-    }
-    return acc
-  }, {})
-
+  let initialValues = {}
+  try {
+    initialValues = convertToFormFormat(storedAnswers, questions)
+  } catch (e) {
+    // do nothing, we can use the default value of initialValues
+  }
   const formMethods = useForm({
-    defaultValues: Boolean(initialValues) ? initialValues : getInitialValues(questions),
+    defaultValues: isEmpty(initialValues)
+      ? getInitialValues(questions)
+      : initialValues,
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
@@ -66,6 +62,14 @@ const useWizardForm = ({
 
     return updatedQuestions
   }, [questions])
+
+  useEffect(() => {
+    // If the form is not dirty, we don't need to update the stored answers
+    if (!formMethods.formState.isDirty) {
+      return
+    }
+    onAnswersChange(convertToAnswerFormat(formMethods.getValues()))
+  }, [formMethods.watch()])
 
   /**
    * Compute percentage completed of the form every
@@ -101,7 +105,7 @@ const useWizardForm = ({
 
     if (
       currentQuestion?.questionConfig?.mandatory &&
-      // @ts-expect-error getValues is typed as never
+      // @ts-expect-error - getValues is typed as never
       isEmpty(formMethods.getValues(currentQuestion.id))
     ) {
       const errorsWithoutCurrent = errors.filter(
