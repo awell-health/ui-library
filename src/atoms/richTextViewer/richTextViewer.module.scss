@@ -107,7 +107,15 @@
     font-weight: bold;
   }
 
+  .slate-bold {
+    font-weight: bold;
+  }
+
   .strikethrough {
+    text-decoration: line-through;
+  }
+
+  .slate-strikethrough {
     text-decoration: line-through;
   }
 
@@ -115,11 +123,23 @@
     text-decoration: underline;
   }
 
+  .slate-underline {
+    text-decoration: underline;
+  }
+
   .italic {
     font-style: italic;
   }
 
+  .slate-italic {
+    font-style: italic;
+  }
+
   .strikethrough.underline {
+    text-decoration: line-through underline;
+  }
+
+  .slate-strikethrough.slate-underline {
     text-decoration: line-through underline;
   }
 }

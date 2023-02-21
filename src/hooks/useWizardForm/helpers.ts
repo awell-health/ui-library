@@ -55,41 +55,19 @@ export const convertToAwellInput = (formResponse: any) => {
 }
 
 /**
- *
- * @param formResponse the form response in the format {question_id: value, ...}
- * @returns the form response in the format [{question_id, value}]
- */
-export const convertToAnswerFormat = (formResponse: Record<string, any>) => {
-  return Object.keys(formResponse).map((question_id) => ({
-    question_id,
-    value: formResponse[question_id],
-  }))
-}
-
-/**
- * Converts the answers to the format that the form expects
- * @param answersAsString the answers as a string
- * @param questions the questions in the form
+ * Converts the answer string to the format that the form expects
  * @returns the answers in the format that react hook form expects
- * @example
- * convertToFormFormat('{"question_1": "answer_1", "question_2": "2"}', [{id: "question_1"}, {id: "question_2"}])
- * => returns {question_1: "answer_1", question_2: "2"}
- *
  */
 export const convertToFormFormat = (answersAsString: string, questions: Array<Question>): Record<string, AnswerValue> => {
   if (questions == null || questions.length === 0 || isEmpty(answersAsString ?? '')) {
     return {}
   }
-  return JSON.parse(answersAsString).reduce((obj: any, item: AnswerInput) => {
-    const question = questions.find(({ id }) => id === item.question_id)
-    if (!question) {
-      return obj
-    }
-    return {
-      ...obj,
-      [item.question_id]: item.value,
-    }
-  }, {})
+  try {
+    return JSON.parse(answersAsString)
+  } catch (e) {
+    console.warn('Could not parse answers', e)
+    return {}
+  }
 }
 /**
  * Updates question visibility after rules evaluations

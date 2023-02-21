@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   calculatePercentageCompleted,
-  convertToAnswerFormat,
   convertToAwellInput,
   convertToFormFormat,
   getInitialValues,
@@ -68,7 +67,7 @@ const useWizardForm = ({
     if (!formMethods.formState.isDirty) {
       return
     }
-    onAnswersChange(convertToAnswerFormat(formMethods.getValues()))
+    onAnswersChange(formMethods.getValues())
   }, [formMethods.watch()])
 
   /**

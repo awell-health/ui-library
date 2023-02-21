@@ -189,7 +189,7 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Description:
-      return <Description nodes={question.title} />
+      return <Description content={question.title} />
     default:
       return <div>TO BE DONE</div>
   }
