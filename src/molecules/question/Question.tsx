@@ -11,8 +11,7 @@ import {
   Description,
 } from '../../atoms'
 import classes from './question.module.scss'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { format } from 'date-fns'
+import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 
 export const QuestionData = ({
