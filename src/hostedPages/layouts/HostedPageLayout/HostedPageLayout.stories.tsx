@@ -20,16 +20,14 @@ export default {
 export const HostedPageLayout: Story = () => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <div style={{ minHeight: '100vh', position: 'relative' }}>
-        <HostedPageLayoutComponent
-          onCloseHostedPage={() => alert('Handle close')}
-        >
-          <main style={{ textAlign: 'center' }}>
-            <p>Content</p>
-          </main>
-          <HostedPageFooter>Footer</HostedPageFooter>
-        </HostedPageLayoutComponent>
-      </div>
+      <HostedPageLayoutComponent
+        onCloseHostedPage={() => alert('Handle close')}
+      >
+        <main style={{ textAlign: 'center' }}>
+          <p>Content</p>
+        </main>
+        <HostedPageFooter>Footer</HostedPageFooter>
+      </HostedPageLayoutComponent>
     </ThemeProvider>
   )
 }

@@ -58,18 +58,16 @@ export const Checklist: Story<ChecklistProps> = ({
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <div style={{ minHeight: '90vh', position: 'relative' }}>
-        <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
-          <ChecklistComponent
-            title={title}
-            items={items}
-            onSubmit={onSubmit}
-            submitLabel={submitLabel}
-            disabled={disabled}
-            readOnly={readOnly}
-          />
-        </HostedPageLayout>
-      </div>
+      <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+        <ChecklistComponent
+          title={title}
+          items={items}
+          onSubmit={onSubmit}
+          submitLabel={submitLabel}
+          disabled={disabled}
+          readOnly={readOnly}
+        />
+      </HostedPageLayout>
     </ThemeProvider>
   )
 }
