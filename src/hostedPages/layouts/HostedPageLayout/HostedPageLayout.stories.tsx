@@ -8,13 +8,6 @@ export default {
   title: 'HostedPages/Layout/HostedPageLayout',
   component: HostedPageLayoutComponent,
   argTypes: {},
-  decorators: [
-    (StoryComponent) => (
-      <div style={{ minHeight: '100vh' }}>
-        <StoryComponent />
-      </div>
-    ),
-  ],
 } as Meta
 
 export const HostedPageLayout: Story = () => {
