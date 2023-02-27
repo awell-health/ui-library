@@ -7,7 +7,6 @@ interface UseScrollHintHook {
 
 export const useScrollHint = (): UseScrollHintHook => {
   const [showScrollHint, setShowScrollHint] = useState(false)
-  const [mainContentEl] = useState(document.getElementsByTagName('main')[0])
 
   const determineShowScrollHint = () => {
     const mainContentEl = document.getElementById(
