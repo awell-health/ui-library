@@ -1,17 +1,16 @@
 @use '../../../../globalStyles';
 
 .footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
   height: var(--awell-footer-height);
   background-color: var(--awell-neutralLight10);
   display: flex;
   justify-content: center;
+  position: relative;
+  padding: var(--awell-spacing-8) 0;
 
   & .scrollHint {
-    position: fixed;
+    position: absolute;
     bottom: var(--awell-footer-height);
     padding: var(--awell-spacing-4) 0;
     left: 0;
