@@ -5,6 +5,7 @@ import { AttachmentList } from '../../../molecules'
 import { MessageProps } from './types'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../hooks/useScrollHint'
+import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 
 export const Message = ({
   onMessageRead,
@@ -21,21 +22,26 @@ export const Message = ({
 
   return (
     <>
-      <article className={`${classes.awell_message} ${classes.container}`}>
-        <div className={classes.message_title}>{subject}</div>
-        <div className={classes.content}>
-          <RichTextViewer nodes={content} format={format} />
-        </div>
+      <main
+        id="ahp_main_content_with_scroll_hint"
+        className={layoutClasses.main_content}
+      >
+        <article className={`${classes.awell_message} ${classes.container}`}>
+          <div className={classes.message_title}>{subject}</div>
+          <div className={classes.content}>
+            <RichTextViewer nodes={content} format={format} />
+          </div>
 
-        <div className={classes.attachmentList}>
-          <AttachmentList
-            attachments={attachments}
-            icon={attachmentIcon}
-            labels={attachmentLabels}
-          />
-          {children}
-        </div>
-      </article>
+          <div className={classes.attachmentList}>
+            <AttachmentList
+              attachments={attachments}
+              icon={attachmentIcon}
+              labels={attachmentLabels}
+            />
+            {children}
+          </div>
+        </article>
+      </main>
       <HostedPageFooter showScrollHint={showScrollHint}>
         <div className={`${classes.button_wrapper} ${classes.container}`}>
           <Button

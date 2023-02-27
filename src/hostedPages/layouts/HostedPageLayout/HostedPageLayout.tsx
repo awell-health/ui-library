@@ -20,7 +20,7 @@ export const HostedPageLayout: FC<HostedPageLayoutProps> = ({
       <header>
         <Navbar logo={logo} />
       </header>
-      <main>{children}</main>
+      {children}
     </div>
   )
 }
