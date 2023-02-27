@@ -14,7 +14,7 @@ export const useScrollHint = (): UseScrollHintHook => {
     )
 
     if (mainContentEl) {
-      const isElementHeightHigherThanElementScrollHeight =
+      const isElementTotalHeightHigherThanElementVisibleHeight =
         mainContentEl.scrollHeight > mainContentEl.offsetHeight
 
       const hasUserScrolledToBottomOfEl =
@@ -22,7 +22,7 @@ export const useScrollHint = (): UseScrollHintHook => {
         mainContentEl.scrollHeight
 
       if (
-        isElementHeightHigherThanElementScrollHeight &&
+        isElementTotalHeightHigherThanElementVisibleHeight &&
         !hasUserScrolledToBottomOfEl
       ) {
         setShowScrollHint(true)
