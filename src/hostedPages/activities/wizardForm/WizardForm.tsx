@@ -8,7 +8,7 @@ import {
 import classes from './wizardForm.module.scss'
 import { Question } from '../../../molecules'
 import { useWizardForm } from '../../../hooks/useWizardForm'
-import { WizardFormProps } from './types'
+import { WizardFormProps } from '../../../types'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../hooks/useScrollHint'
 
