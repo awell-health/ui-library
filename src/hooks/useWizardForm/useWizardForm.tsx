@@ -25,12 +25,7 @@ const useWizardForm = ({
   storedAnswers,
   onAnswersChange,
 }: FormSettingsContextProps): FormSettingsContextInterface => {
-  let initialValues = {}
-  try {
-    initialValues = convertToFormFormat(storedAnswers, questions)
-  } catch (e) {
-    // do nothing, we can use the default value of initialValues
-  }
+  const initialValues = convertToFormFormat(storedAnswers, questions)
   const formMethods = useForm({
     defaultValues: isEmpty(initialValues)
       ? getInitialValues(questions)
@@ -67,7 +62,7 @@ const useWizardForm = ({
     if (!formMethods.formState.isDirty) {
       return
     }
-    onAnswersChange(formMethods.getValues())
+    onAnswersChange(JSON.stringify(formMethods.getValues()) ?? '{}')
   }, [formMethods.watch()])
 
   /**
@@ -104,7 +99,6 @@ const useWizardForm = ({
 
     if (
       currentQuestion?.questionConfig?.mandatory &&
-      // @ts-expect-error - getValues is typed as never
       isEmpty(formMethods.getValues(currentQuestion.id))
     ) {
       const errorsWithoutCurrent = errors.filter(

@@ -14,7 +14,7 @@ type ButtonLabels = {
 export interface WizardFormProps {
   form: Form
   storedAnswers: string
-  onAnswersChange: (answers: Record<string, any>) => void
+  onAnswersChange: (answers: string) => void
   buttonLabels: ButtonLabels
   errorLabels: ErrorLabels
   onSubmit: (response: Array<AnswerInput>) => void

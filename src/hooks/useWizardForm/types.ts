@@ -33,7 +33,7 @@ export interface FormSettingsContextProps {
   questions: Array<Question>
   errorLabels: ErrorLabels
   storedAnswers: string
-  onAnswersChange: (answers: Record<string, any>) => void
+  onAnswersChange: (answers: string) => void
 }
 export interface FormSettingsContextInterface {
   updateQuestionVisibility: () => void
