@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  HeadingMain,
-  Button,
-  ProgressIndicator,
-  CircularSpinner,
-} from '../../../atoms'
+import { Button, ProgressIndicator, CircularSpinner } from '../../../atoms'
 import classes from './wizardForm.module.scss'
 import { Question } from '../../../molecules'
 import { useWizardForm } from '../../../hooks/useWizardForm'

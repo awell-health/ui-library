@@ -58,8 +58,8 @@ export const convertToAwellInput = (formResponse: any) => {
  * Converts the answer string to the format that the form expects
  * @returns the answers in the format that react hook form expects
  */
-export const convertToFormFormat = (answersAsString: string, questions: Array<Question>): Record<string, AnswerValue> => {
-  if (questions == null || isEmpty(answersAsString ?? '')) {
+export const convertToFormFormat = (answersAsString: string | undefined, questions: Array<Question>): Record<string, AnswerValue> => {
+  if (questions == null || answersAsString === undefined || isEmpty(answersAsString)) {
     return {}
   }
   try {
