@@ -4,6 +4,7 @@ import {
   UserQuestionType,
   QuestionWithVisibility,
   SliderQuestionConfig,
+  AnswerInput,
 } from '../../types'
 import { AnswerValue, QuestionRuleResult } from './types'
 
@@ -52,6 +53,22 @@ export const convertToAwellInput = (formResponse: any) => {
     value: getValue(formResponse[question_id]),
   }))
 }
+
+/**
+ * Converts the answer string to the format that the form expects
+ * @returns the answers in the format that react hook form expects
+ */
+export const convertToFormFormat = (answersAsString: string, questions: Array<Question>): Record<string, AnswerValue> => {
+  if (questions == null || isEmpty(answersAsString ?? '')) {
+    return {}
+  }
+  try {
+    return JSON.parse(answersAsString)
+  } catch (e) {
+    console.warn('Could not parse answers', e)
+    return {}
+  }
+}
 /**
  * Updates question visibility after rules evaluations
  */
@@ -85,7 +102,7 @@ export const isEmpty = (value: any) => {
  * 1 visibile question. This mean you cannot calculate the percentage by dividing the current
  * question position by the number of visible questions as it might be that additional questions will load
  * when display logic is evaluated.
- * 
+ *
  * Progress is therefore better determined by looking at the index of the current question in relation
  * to the total number of questions.
  *

@@ -11,17 +11,17 @@ export default {
   title: 'atoms/Description',
   component: DescriptionComponent,
   argTypes: {
-    nodes: {
+    content: {
       control: 'text',
       defaultValue: JSON.stringify(descriptionFixture, null, 2),
     },
   },
 } as Meta
 
-export const Description: Story<DescriptionProps> = ({ nodes }) => {
+export const Description: Story<DescriptionProps> = ({ content }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <DescriptionComponent nodes={nodes} />
+      <DescriptionComponent content={content} />
     </ThemeProvider>
   )
 }

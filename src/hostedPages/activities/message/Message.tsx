@@ -5,6 +5,7 @@ import { AttachmentList } from '../../../molecules'
 import { MessageProps } from './types'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../hooks/useScrollHint'
+import { generatePureHtml } from '../../../atoms/richTextViewer/serializeHtml'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 
 export const Message = ({
@@ -12,13 +13,13 @@ export const Message = ({
   content,
   subject,
   children,
-  format,
   attachmentIcon,
   attachmentLabels,
   attachments,
   buttonLabels,
 }: MessageProps): JSX.Element => {
   const { showScrollHint } = useScrollHint()
+  const cleanContent = generatePureHtml(content)
 
   return (
     <>
@@ -29,9 +30,8 @@ export const Message = ({
         <article className={`${classes.awell_message} ${classes.container}`}>
           <div className={classes.message_title}>{subject}</div>
           <div className={classes.content}>
-            <RichTextViewer nodes={content} format={format} />
+            <RichTextViewer content={cleanContent} />
           </div>
-
           <div className={classes.attachmentList}>
             <AttachmentList
               attachments={attachments}

@@ -19,6 +19,8 @@ export const WizardForm = ({
   buttonLabels,
   evaluateDisplayConditions,
   errorLabels,
+  storedAnswers,
+  onAnswersChange,
 }: WizardFormProps) => {
   const {
     submitForm,
@@ -36,6 +38,8 @@ export const WizardForm = ({
     onSubmit,
     evaluateDisplayConditions,
     errorLabels,
+    storedAnswers,
+    onAnswersChange,
   })
 
   const { showScrollHint, determineShowScrollHint } = useScrollHint()

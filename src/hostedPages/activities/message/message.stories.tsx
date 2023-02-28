@@ -61,7 +61,6 @@ export const Message: Story<MessageProps> = ({
         <MessageComponent
           content={content}
           subject={subject}
-          format="SLATE"
           attachments={attachments}
           attachmentLabels={attachmentLabels}
           attachmentIcon={<img src={image} alt="" />}

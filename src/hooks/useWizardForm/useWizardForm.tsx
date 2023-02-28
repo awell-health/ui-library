@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import {
   calculatePercentageCompleted,
   convertToAwellInput,
+  convertToFormFormat,
   getInitialValues,
   isEmpty,
   updateVisibility,
@@ -21,9 +22,14 @@ const useWizardForm = ({
   evaluateDisplayConditions,
   onSubmit,
   errorLabels,
+  storedAnswers,
+  onAnswersChange,
 }: FormSettingsContextProps): FormSettingsContextInterface => {
+  const initialValues = convertToFormFormat(storedAnswers, questions)
   const formMethods = useForm({
-    defaultValues: getInitialValues(questions),
+    defaultValues: isEmpty(initialValues)
+      ? getInitialValues(questions)
+      : initialValues,
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
@@ -50,6 +56,14 @@ const useWizardForm = ({
 
     return updatedQuestions
   }, [questions])
+
+  useEffect(() => {
+    // If the form is not dirty, we don't need to update the stored answers
+    if (!formMethods.formState.isDirty) {
+      return
+    }
+    onAnswersChange(JSON.stringify(formMethods.getValues()) ?? '{}')
+  }, [formMethods.watch()])
 
   /**
    * Compute percentage completed of the form every

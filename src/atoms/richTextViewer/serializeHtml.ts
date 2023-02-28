@@ -1,3 +1,4 @@
+import { sanitize } from 'dompurify'
 import escapeHtml from 'escape-html'
 import { Nodes, Node, isText, isElement } from '../../types'
 import richTextClasses from './richTextViewer.module.scss'
@@ -51,7 +52,24 @@ const serializeNode = (node: Node): string => {
   return ''
 }
 
-export const serializeHtml = (nodes: Nodes | string) => {
+export const serializeHtml = (nodes: Nodes | string): string => {
   const nodesArray = Array.isArray(nodes) ? nodes : (JSON.parse(nodes) as Nodes)
   return nodesArray.map((node) => serializeNode(node)).join('')
 }
+
+export const generatePureHtml = (content: Nodes | string): string => {
+  let isSlate = true
+  try {
+    Array.isArray(content) ? content : JSON.parse(content)
+  } catch (e) {
+    isSlate = false
+  }
+  // See https://github.com/cure53/DOMPurify/issues/317
+  const purifiedMessage = sanitize(
+    isSlate ? serializeHtml(content) : (content as string),
+    { ADD_ATTR: ['target'] }
+  )
+  return purifiedMessage
+}
+
+
