@@ -21,6 +21,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     '--awell-secondary-hover-color': opacityColor(accentColor, 0.3),
     '--awell-secondary-ring-color-inputs': accentColor,
     '--awell-secondary-ring-color-buttons': accentColor,
+    height: '100%',
   } as React.CSSProperties
   return <div style={style}>{children}</div>
 }

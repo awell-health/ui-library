@@ -57,19 +57,17 @@ export const Message: Story<MessageProps> = ({
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <div style={{ minHeight: '90vh', position: 'relative' }}>
-        <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
-          <MessageComponent
-            content={content}
-            subject={subject}
-            attachments={attachments}
-            attachmentLabels={attachmentLabels}
-            attachmentIcon={<img src={image} alt="" />}
-            buttonLabels={{ readMessage: 'Done' }}
-            onMessageRead={() => alert('Message read!')}
-          />
-        </HostedPageLayout>
-      </div>
+      <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+        <MessageComponent
+          content={content}
+          subject={subject}
+          attachments={attachments}
+          attachmentLabels={attachmentLabels}
+          attachmentIcon={<img src={image} alt="" />}
+          buttonLabels={{ readMessage: 'Done' }}
+          onMessageRead={() => alert('Message read!')}
+        />
+      </HostedPageLayout>
     </ThemeProvider>
   )
 }
