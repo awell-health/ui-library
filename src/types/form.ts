@@ -17,6 +17,8 @@ export interface WizardFormProps {
   buttonLabels: ButtonLabels
   errorLabels: ErrorLabels
   onSubmit: (response: Array<AnswerInput>) => void
+  storedAnswers: string
+  onAnswersChange: (answers: string) => void
   evaluateDisplayConditions: (
     response: Array<AnswerInput>
   ) => Promise<Array<QuestionRuleResult>>
