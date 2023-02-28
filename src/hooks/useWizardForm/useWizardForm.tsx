@@ -59,7 +59,7 @@ const useWizardForm = ({
 
   useEffect(() => {
     // If the form is not dirty, we don't need to update the stored answers
-    if (!formMethods.formState.isDirty) {
+    if (!formMethods.formState.isDirty || !onAnswersChange) {
       return
     }
     onAnswersChange(JSON.stringify(formMethods.getValues()) ?? '{}')
