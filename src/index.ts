@@ -36,4 +36,14 @@ export {
   AttachmentList,
 } from './molecules'
 
-export { Checklist, WizardForm, Message, HostedPageLayout } from './hostedPages'
+export {
+  Checklist,
+  WizardForm,
+  Message,
+  HostedPageLayout,
+  CloseButton,
+} from './hostedPages'
+
+export { useClickOutsideNotifier, useScrollHint, useWizardForm } from './hooks'
+
+export type { WizardFormProps } from './types'

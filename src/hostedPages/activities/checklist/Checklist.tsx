@@ -3,6 +3,7 @@ import { Text, CheckboxButton, Button, QuestionLabel } from '../../../atoms'
 import { useScrollHint } from '../../../hooks/useScrollHint'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import classes from './checklist.module.scss'
+import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 
 export interface ChecklistItem {
   id: string
@@ -40,22 +41,29 @@ export const Checklist: FC<ChecklistProps> = ({
   }
 
   return (
-    <div className={`${classes.awell_checklist} ${classes.container}`}>
-      <div className={classes.title}>
-        <QuestionLabel label={title} />
-      </div>
-      <div className={classes.checklist}>
-        {items.map((item) => (
-          <CheckboxButton
-            key={item.id}
-            onChange={(event) => handleChange(item)(event.target.checked)}
-            label={item.label}
-            id={item.id}
-            disabled={readOnly}
-            name={`checklist-${title}`}
-          />
-        ))}
-      </div>
+    <>
+      <main
+        id="ahp_main_content_with_scroll_hint"
+        className={layoutClasses.main_content}
+      >
+        <div className={`${classes.awell_checklist} ${classes.container}`}>
+          <div className={classes.title}>
+            <QuestionLabel label={title} />
+          </div>
+          <div className={classes.checklist}>
+            {items.map((item) => (
+              <CheckboxButton
+                key={item.id}
+                onChange={(event) => handleChange(item)(event.target.checked)}
+                label={item.label}
+                id={item.id}
+                disabled={readOnly}
+                name={`checklist-${title}`}
+              />
+            ))}
+          </div>
+        </div>
+      </main>
       <HostedPageFooter showScrollHint={showScrollHint}>
         <div className={`${classes.button_wrapper} ${classes.container}`}>
           <Button
@@ -69,6 +77,6 @@ export const Checklist: FC<ChecklistProps> = ({
           </Button>
         </div>
       </HostedPageFooter>
-    </div>
+    </>
   )
 }

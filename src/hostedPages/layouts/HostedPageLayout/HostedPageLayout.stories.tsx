@@ -1,35 +1,26 @@
-import { Meta, Story } from '@storybook/react/types-6-0'
+import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { HostedPageLayout as HostedPageLayoutComponent } from './HostedPageLayout'
 import { ThemeProvider } from '../../../atoms'
 import { HostedPageFooter } from './HostedPageFooter'
-
+import classes from './hostedPageLayout.module.scss'
 export default {
   title: 'HostedPages/Layout/HostedPageLayout',
   component: HostedPageLayoutComponent,
   argTypes: {},
-  decorators: [
-    (StoryComponent) => (
-      <div style={{ minHeight: '100vh' }}>
-        <StoryComponent />
-      </div>
-    ),
-  ],
-} as Meta
+}
 
 export const HostedPageLayout: Story = () => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <div style={{ minHeight: '100vh', position: 'relative' }}>
-        <HostedPageLayoutComponent
-          onCloseHostedPage={() => alert('Handle close')}
-        >
-          <main style={{ textAlign: 'center' }}>
-            <p>Content</p>
-          </main>
-          <HostedPageFooter>Footer</HostedPageFooter>
-        </HostedPageLayoutComponent>
-      </div>
+      <HostedPageLayoutComponent
+        onCloseHostedPage={() => alert('Handle close')}
+      >
+        <main className={classes.main_content} style={{ textAlign: 'center' }}>
+          <p>Content</p>
+        </main>
+        <HostedPageFooter>Footer</HostedPageFooter>
+      </HostedPageLayoutComponent>
     </ThemeProvider>
   )
 }

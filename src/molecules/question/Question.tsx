@@ -12,7 +12,6 @@ import {
 } from '../../atoms'
 import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
-import { format } from 'date-fns'
 import { QuestionDataProps, QuestionProps } from './types'
 
 export const QuestionData = ({
@@ -194,7 +193,7 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Description:
-      return <Description nodes={question.title} />
+      return <Description content={question.title} />
     default:
       return <div>TO BE DONE</div>
   }
