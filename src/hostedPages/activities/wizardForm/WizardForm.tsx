@@ -18,6 +18,7 @@ export const WizardForm = ({
   buttonLabels,
   evaluateDisplayConditions,
   errorLabels,
+  questionLabels,
 }: WizardFormProps) => {
   const {
     submitForm,
@@ -65,6 +66,7 @@ export const WizardForm = ({
                 getValues={getValues}
                 key={currentQuestion.id}
                 errors={errors}
+                labels={questionLabels}
               />
             </div>
             <HostedPageFooter showScrollHint={showScrollHint}>

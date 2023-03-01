@@ -19,6 +19,7 @@ export const QuestionData = ({
   question,
   control,
   getValues,
+  labels,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
   switch (question.userQuestionType) {
@@ -34,8 +35,12 @@ export const QuestionData = ({
               <SingleChoiceQuestion
                 label={question.title}
                 options={[
-                  { id: `${question.id}-yes`, value: 1, label: 'yes' },
-                  { id: `${question.id}-no`, value: 0, label: 'no' },
+                  {
+                    id: `${question.id}-yes`,
+                    value: 1,
+                    label: labels.yes_label,
+                  },
+                  { id: `${question.id}-no`, value: 0, label: labels.no_label },
                 ]}
                 onChange={(data) => onChange(data)}
                 questionId={question.id}
@@ -200,6 +205,10 @@ export const Question = ({
   control,
   getValues,
   errors,
+  labels = {
+    yes_label: 'Yes',
+    no_label: 'No',
+  },
 }: QuestionProps): JSX.Element => {
   const [isVisible, setVisible] = useState(0)
   const style = { '--awell-question-opacity': isVisible } as React.CSSProperties
@@ -218,6 +227,7 @@ export const Question = ({
         question={question}
         control={control}
         getValues={getValues}
+        labels={labels}
       />
 
       {currentError && (
