@@ -14,6 +14,7 @@ export const WizardForm = ({
   buttonLabels,
   evaluateDisplayConditions,
   errorLabels,
+  questionLabels,
   storedAnswers,
   onAnswersChange,
 }: WizardFormProps) => {
@@ -68,6 +69,7 @@ export const WizardForm = ({
                 getValues={getValues}
                 key={currentQuestion.id}
                 errors={errors}
+                labels={questionLabels}
               />
             </div>
           )}
