@@ -1,5 +1,6 @@
 import { ErrorLabels, QuestionRuleResult } from '../hooks/useWizardForm/types'
 import { AnswerInput, Form } from '.'
+import { QuestionLabels } from '../molecules/question/types'
 
 export type { Form } from '../types/generated/types-orchestration'
 
@@ -14,6 +15,7 @@ type ButtonLabels = {
 
 export interface WizardFormProps {
   form: Form
+  questionLabels?: QuestionLabels
   buttonLabels: ButtonLabels
   errorLabels: ErrorLabels
   onSubmit: (response: Array<AnswerInput>) => void
