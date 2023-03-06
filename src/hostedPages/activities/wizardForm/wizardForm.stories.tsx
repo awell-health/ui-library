@@ -31,6 +31,7 @@ export default {
       defaultValue: {
         required: 'Answer for this question is required',
         sliderNotTouched: 'Slider is not touched',
+        invalidPhoneNumber: 'Please enter a valid phone number',
       },
     },
   },

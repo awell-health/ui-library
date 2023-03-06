@@ -13039,6 +13039,11 @@ react-inspector@^5.1.0:
     is-dom "^1.0.0"
     prop-types "^15.0.0"
 
+react-international-phone@^1.8.8:
+  version "1.8.8"
+  resolved "https://registry.yarnpkg.com/react-international-phone/-/react-international-phone-1.8.8.tgz#428d400e769128d7fdc643f28dfb0abff122fe8c"
+  integrity sha512-bUd5lso5u7eSGf/aJV9lAoWWNo99++xk0pvNx4C/2BhBUqXLEM8fke4YdhpteEhrRI9tJBrUY/XMdwh6wTKNpg==
+
 react-is@17.0.2, react-is@^17.0.1:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"

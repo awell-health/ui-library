@@ -13,6 +13,8 @@ import {
 import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
+import { PhoneInputField } from '../../atoms/phoneInputField'
+import { useValidate } from '../../hooks/useValidate'
 
 export const QuestionData = ({
   question,
@@ -21,6 +23,7 @@ export const QuestionData = ({
   labels,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
+  const { isValidE164Number } = useValidate()
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
       return (
@@ -146,6 +149,32 @@ export const QuestionData = ({
               id={question.id}
               value={value}
               mandatory={question.questionConfig?.mandatory}
+            />
+          )}
+        />
+      )
+    case UserQuestionType.Telephone:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue=""
+          rules={{
+            required: config?.mandatory, validate: (value) => {
+              if (value === '' && !config?.mandatory) {
+                return true
+              }
+              return isValidE164Number(value)
+            }
+          }}
+          render={({ field: { onChange, value } }) => (
+            <PhoneInputField
+              onChange={(e) => onChange(e.target.value)}
+              label={question.title}
+              id={question.id}
+              value={value}
+              mandatory={question.questionConfig?.mandatory}
+              placeholder='+447700900000'
             />
           )}
         />
