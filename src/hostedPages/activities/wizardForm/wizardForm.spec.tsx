@@ -19,6 +19,7 @@ const props = {
   errorLabels: {
     required: 'Answer for this question is required',
     sliderNotTouched: 'You did not move the slider',
+    invalidPhoneNumber: 'Please enter a valid phone number',
   },
   evaluateDisplayConditionsTrue: () => {
     return Promise.all([]).then(function () {

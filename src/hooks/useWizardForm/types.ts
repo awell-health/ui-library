@@ -1,5 +1,5 @@
 import { UseFormReturn } from 'react-hook-form'
-import { AnswerInput, Question, FormError, Answer } from '../../types'
+import { AnswerInput, Question, FormError } from '../../types'
 
 export type { FormError, QuestionWithVisibility } from '../../types'
 export { QuestionType, UserQuestionType } from '../../types'
@@ -21,6 +21,7 @@ export type QuestionRuleResult = {
 export type ErrorLabels = {
   required: string
   sliderNotTouched: string
+  invalidPhoneNumber: string
 }
 
 export type AnswerValue = string | number | number[]

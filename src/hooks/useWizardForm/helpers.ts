@@ -4,7 +4,6 @@ import {
   UserQuestionType,
   QuestionWithVisibility,
   SliderQuestionConfig,
-  AnswerInput,
 } from '../../types'
 import { AnswerValue, QuestionRuleResult } from './types'
 
