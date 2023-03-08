@@ -5,13 +5,14 @@ import React, {
 } from 'react'
 import classes from './phoneInputField.module.scss'
 import { QuestionLabel } from '../questionLabel'
-import 'react-international-phone/style.css';
+import 'react-international-phone/style.css'
 import {
   CountrySelector,
   usePhoneInput,
-} from 'react-international-phone';
-import { getDefaultCountries } from './helpers';
-import { useValidate } from '../../hooks/useValidate';
+  CountryIso2,
+} from 'react-international-phone'
+import { getDefaultCountries } from './helpers'
+import { ParsedCountry } from 'react-international-phone/build/types'
 
 export interface PhoneInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
@@ -39,6 +40,21 @@ export interface PhoneInputFieldProps extends InputHTMLAttributes<HTMLInputEleme
    * The value of the input
    */
   value: string
+
+  /**
+   * The initial country shown on input load
+   */
+  initialCountry?: CountryIso2
+
+  /**
+   * The list of available countries to choose from
+   */
+  availableCountries?: CountryIso2 | Array<CountryIso2>
+
+  /**
+   * Placeholder phone number
+   */
+  placeholder?: string
 }
 
 export const PhoneInputField = ({
@@ -48,28 +64,39 @@ export const PhoneInputField = ({
   type,
   mandatory,
   value,
+  placeholder,
+  initialCountry = 'us',
+  availableCountries,
   ...props
 }: PhoneInputFieldProps): JSX.Element => {
-  const { isPossibleE164Number } = useValidate()
+  const countries = getDefaultCountries(availableCountries)
   const { phone, handlePhoneValueChange, inputRef, country, setCountry } =
     usePhoneInput({
-      initialCountry: 'us',
-      value: value,
+      initialCountry,
+      value,
       hideSpaceAfterDialCode: true,
-      countries: getDefaultCountries(),
-    });
+      countries,
+    })
 
+
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    handlePhoneValueChange(e)
+    onChange(e)
+  }
+
+  const handleCountrySelect: ((country: ParsedCountry) => void) = ({ iso2 }) => {
+    setCountry(iso2)
+    onChange({ target: { value: phone } } as any)
+  }
 
   return (
     <div className={classes.awell_input_field_wrapper}>
       <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
       <div className={classes.awell_phone_input_field_container}>
         <CountrySelector
+          countries={countries}
           selectedCountry={country}
-          onSelect={({ iso2 }) => {
-            setCountry(iso2)
-            onChange({ target: { value: phone } } as any)
-          }}
+          onSelect={handleCountrySelect}
           buttonStyle={{
             // to match awell input field style
             border: 0,
@@ -84,13 +111,8 @@ export const PhoneInputField = ({
           id={id}
           ref={inputRef}
           className={classes.awell_input_field}
-          onChange={(e) => {
-            if (isPossibleE164Number(e.target.value)) {
-
-              handlePhoneValueChange(e);
-              onChange(e);
-            }
-          }}
+          placeholder={placeholder}
+          onChange={handleInputChange}
           value={phone}
           data-testid={`input-${id}`}
         />
@@ -98,3 +120,5 @@ export const PhoneInputField = ({
     </div>
   )
 }
+
+PhoneInputField.displayName = 'PhoneInputField'

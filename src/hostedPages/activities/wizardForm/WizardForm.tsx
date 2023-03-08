@@ -15,6 +15,7 @@ export const WizardForm = ({
   evaluateDisplayConditions,
   errorLabels,
   questionLabels,
+  questionTypeConfig = {},
   storedAnswers,
   onAnswersChange,
 }: WizardFormProps) => {
@@ -70,6 +71,7 @@ export const WizardForm = ({
                 key={currentQuestion.id}
                 errors={errors}
                 labels={questionLabels}
+                  questionTypeConfig={questionTypeConfig}
               />
             </div>
           )}

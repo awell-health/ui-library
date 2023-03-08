@@ -1,5 +1,5 @@
 import { UseFormReturn } from 'react-hook-form'
-import { AnswerInput, Question, FormError, Answer } from '../../types'
+import { AnswerInput, Question, FormError } from '../../types'
 
 export type { FormError, QuestionWithVisibility } from '../../types'
 export { QuestionType, UserQuestionType } from '../../types'

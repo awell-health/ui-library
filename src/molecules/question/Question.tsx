@@ -21,6 +21,7 @@ export const QuestionData = ({
   control,
   getValues,
   labels,
+  questionTypeConfig
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
   const { isValidE164Number } = useValidate()
@@ -154,6 +155,7 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Telephone:
+      const { availableCountries, initialCountry, placeholder } = questionTypeConfig?.TELEPHONE ?? {}
       return (
         <Controller
           name={question.id}
@@ -174,7 +176,9 @@ export const QuestionData = ({
               id={question.id}
               value={value}
               mandatory={question.questionConfig?.mandatory}
-              placeholder='+447700900000'
+              availableCountries={availableCountries}
+              initialCountry={initialCountry}
+              placeholder={placeholder}
             />
           )}
         />
@@ -233,6 +237,7 @@ export const Question = ({
   control,
   getValues,
   errors,
+  questionTypeConfig,
   labels = {
     yes_label: 'Yes',
     no_label: 'No',
@@ -256,6 +261,7 @@ export const Question = ({
         control={control}
         getValues={getValues}
         labels={labels}
+        questionTypeConfig={questionTypeConfig}
       />
 
       {currentError && (
