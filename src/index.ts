@@ -25,6 +25,8 @@ export {
   ThemeProvider,
   ScrollIndicator,
   Modal,
+  CalDotComScheduling,
+  type CalDotComBookingSuccessfulFunction,
   ProgressIndicator,
 } from './atoms'
 

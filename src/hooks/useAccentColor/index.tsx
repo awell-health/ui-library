@@ -1,0 +1,1 @@
+export { useAccentColor } from './useAccentColor'
