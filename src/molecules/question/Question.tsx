@@ -21,8 +21,8 @@ export const QuestionData = ({
   control,
   getValues,
   labels,
-}: // questionTypeConfig,
-QuestionDataProps): JSX.Element => {
+  questionTypeConfig,
+}: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
   const { isValidE164Number } = useValidate()
   switch (question.userQuestionType) {
@@ -154,35 +154,37 @@ QuestionDataProps): JSX.Element => {
           )}
         />
       )
-    // case UserQuestionType.Telephone:
-    //   const { availableCountries, initialCountry, placeholder } = questionTypeConfig?.TELEPHONE ?? {}
-    //   return (
-    //     <Controller
-    //       name={question.id}
-    //       control={control}
-    //       defaultValue=""
-    //       rules={{
-    //         required: config?.mandatory, validate: (value) => {
-    //           if (value === '' && !config?.mandatory) {
-    //             return true
-    //           }
-    //           return isValidE164Number(value)
-    //         }
-    //       }}
-    //       render={({ field: { onChange, value } }) => (
-    //         <PhoneInputField
-    //           onChange={(e) => onChange(e.target.value)}
-    //           label={question.title}
-    //           id={question.id}
-    //           value={value}
-    //           mandatory={question.questionConfig?.mandatory}
-    //           availableCountries={availableCountries}
-    //           initialCountry={initialCountry}
-    //           placeholder={placeholder}
-    //         />
-    //       )}
-    //     />
-    //   )
+    case UserQuestionType.Telephone:
+      const { availableCountries, initialCountry, placeholder } =
+        questionTypeConfig?.TELEPHONE ?? {}
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue=""
+          rules={{
+            required: config?.mandatory,
+            validate: (value) => {
+              if (value === '' && !config?.mandatory) {
+                return true
+              }
+              return isValidE164Number(value)
+            },
+          }}
+          render={({ field: { onChange, value } }) => (
+            <PhoneInputField
+              onChange={(e) => onChange(e.target.value)}
+              label={question.title}
+              id={question.id}
+              value={value}
+              mandatory={question.questionConfig?.mandatory}
+              availableCountries={availableCountries}
+              initialCountry={initialCountry}
+              placeholder={placeholder}
+            />
+          )}
+        />
+      )
     case UserQuestionType.Slider:
       return (
         <Controller

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-// import { useValidate } from '../useValidate'
+import { useValidate } from '../useValidate'
 import {
   calculatePercentageCompleted,
   convertToAwellInput,
@@ -27,7 +27,7 @@ const useWizardForm = ({
   onAnswersChange,
 }: FormSettingsContextProps): FormSettingsContextInterface => {
   const initialValues = convertToFormFormat(storedAnswers, questions)
-  // const { isPossibleE164Number } = useValidate()
+  const { isPossibleE164Number } = useValidate()
   const formMethods = useForm({
     defaultValues: isEmpty(initialValues)
       ? getInitialValues(questions)
@@ -99,21 +99,21 @@ const useWizardForm = ({
       return false
     }
 
-    // if (currentQuestion?.userQuestionType === UserQuestionType.Telephone) {
-    //   const value = formMethods.getValues(currentQuestion.id)
-    //   const isE164Number = isPossibleE164Number(value as string)
+    if (currentQuestion?.userQuestionType === UserQuestionType.Telephone) {
+      const value = formMethods.getValues(currentQuestion.id)
+      const isE164Number = isPossibleE164Number(value as string)
 
-    //   if (!isE164Number) {
-    //     const errorLabel = errorLabels.invalidPhoneNumber
+      if (!isE164Number) {
+        const errorLabel = errorLabels.invalidPhoneNumber
 
-    //     setErrors([
-    //       ...errorsWithoutCurrent,
-    //       { id: currentQuestion.id, error: errorLabel },
-    //     ])
+        setErrors([
+          ...errorsWithoutCurrent,
+          { id: currentQuestion.id, error: errorLabel },
+        ])
 
-    //     return true
-    //   }
-    // }
+        return true
+      }
+    }
 
     if (
       currentQuestion?.questionConfig?.mandatory &&
