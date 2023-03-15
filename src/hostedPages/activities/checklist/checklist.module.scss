@@ -13,7 +13,6 @@
 
 .awell_checklist {
   margin: 0 auto;
-  padding-bottom: calc(var(--awell-footer-height) + 35px);
 
   & .title {
     display: flex;
@@ -36,12 +35,12 @@
   & .checkboxListFormControl {
     display: flex;
   }
+}
 
-  & .button_wrapper {
-    display: flex;
-    justify-content: flex-end;
-    height: 100%;
-    align-items: center;
-    width: 100%;
-  }
+.button_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  align-items: center;
+  width: 100%;
 }

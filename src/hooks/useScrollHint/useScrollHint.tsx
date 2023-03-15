@@ -9,20 +9,26 @@ export const useScrollHint = (): UseScrollHintHook => {
   const [showScrollHint, setShowScrollHint] = useState(false)
 
   const determineShowScrollHint = () => {
-    const viewportHeight = window.innerHeight
-    const documentHeight = window.document.body.offsetHeight
+    const mainContentEl = document.getElementById(
+      'ahp_main_content_with_scroll_hint'
+    )
 
-    const isDocumentHeightHigherThanViewportHeight =
-      documentHeight > viewportHeight
-    const hasUserScrolledToBottomOfDocument =
-      Math.ceil(viewportHeight + window.scrollY) >=
-      document.documentElement.scrollHeight
+    if (mainContentEl) {
+      const isElementTotalHeightHigherThanElementVisibleHeight =
+        mainContentEl.scrollHeight > mainContentEl.offsetHeight
 
-    if (
-      isDocumentHeightHigherThanViewportHeight &&
-      !hasUserScrolledToBottomOfDocument
-    ) {
-      setShowScrollHint(true)
+      const hasUserScrolledToBottomOfEl =
+        Math.ceil(mainContentEl.scrollTop + mainContentEl.offsetHeight) >=
+        mainContentEl.scrollHeight
+
+      if (
+        isElementTotalHeightHigherThanElementVisibleHeight &&
+        !hasUserScrolledToBottomOfEl
+      ) {
+        setShowScrollHint(true)
+      } else {
+        setShowScrollHint(false)
+      }
     } else {
       setShowScrollHint(false)
     }
@@ -35,11 +41,19 @@ export const useScrollHint = (): UseScrollHintHook => {
   useEffect(() => {
     determineShowScrollHint()
 
+    const mainContentEl = document.getElementById(
+      'ahp_main_content_with_scroll_hint'
+    )
+
     window.addEventListener('resize', determineShowScrollHint)
-    window.addEventListener('scroll', determineShowScrollHint)
+    if (mainContentEl) {
+      mainContentEl.addEventListener('scroll', determineShowScrollHint)
+    }
     return () => {
       window.removeEventListener('resize', determineShowScrollHint)
-      window.removeEventListener('scroll', determineShowScrollHint)
+      if (mainContentEl) {
+        mainContentEl.removeEventListener('scroll', determineShowScrollHint)
+      }
     }
   }, [])
 

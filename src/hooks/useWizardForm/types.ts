@@ -21,6 +21,7 @@ export type QuestionRuleResult = {
 export type ErrorLabels = {
   required: string
   sliderNotTouched: string
+  invalidPhoneNumber: string
 }
 
 export type AnswerValue = string | number | number[]
@@ -32,6 +33,8 @@ export interface FormSettingsContextProps {
   onSubmit: (response: Array<AnswerInput>) => Promise<void> | void
   questions: Array<Question>
   errorLabels: ErrorLabels
+  storedAnswers?: string
+  onAnswersChange?: (answers: string) => void
 }
 export interface FormSettingsContextInterface {
   updateQuestionVisibility: () => void

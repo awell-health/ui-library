@@ -31,6 +31,7 @@ export default {
       defaultValue: {
         required: 'Answer for this question is required',
         sliderNotTouched: 'Slider is not touched',
+        invalidPhoneNumber: 'Please enter a valid phone number',
       },
     },
   },
@@ -44,21 +45,19 @@ export const WizardForm: Story = ({
 }) => {
   return (
     <ThemeProvider accentColor="#004ac2">
-      <div style={{ minHeight: '90vh', position: 'relative' }}>
-        <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
-          <WizardFormComponent
-            form={form}
-            buttonLabels={buttonLabels}
-            errorLabels={errorLabels}
-            onSubmit={onSubmit}
-            evaluateDisplayConditions={() => {
-              return Promise.all([]).then(function () {
-                return []
-              })
-            }}
-          />
-        </HostedPageLayout>
-      </div>
+      <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+        <WizardFormComponent
+          form={form}
+          buttonLabels={buttonLabels}
+          errorLabels={errorLabels}
+          onSubmit={onSubmit}
+          evaluateDisplayConditions={() => {
+            return Promise.all([]).then(function () {
+              return []
+            })
+          }}
+        />
+      </HostedPageLayout>
     </ThemeProvider>
   )
 }

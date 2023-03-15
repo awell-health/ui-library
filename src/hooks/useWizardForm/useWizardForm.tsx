@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useValidate } from '../useValidate'
 import {
   calculatePercentageCompleted,
   convertToAwellInput,
+  convertToFormFormat,
   getInitialValues,
   isEmpty,
   updateVisibility,
@@ -21,9 +23,15 @@ const useWizardForm = ({
   evaluateDisplayConditions,
   onSubmit,
   errorLabels,
+  storedAnswers,
+  onAnswersChange,
 }: FormSettingsContextProps): FormSettingsContextInterface => {
+  const initialValues = convertToFormFormat(storedAnswers, questions)
+  const { isPossibleE164Number } = useValidate()
   const formMethods = useForm({
-    defaultValues: getInitialValues(questions),
+    defaultValues: isEmpty(initialValues)
+      ? getInitialValues(questions)
+      : initialValues,
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
@@ -50,6 +58,14 @@ const useWizardForm = ({
 
     return updatedQuestions
   }, [questions])
+
+  useEffect(() => {
+    // If the form is not dirty, we don't need to update the stored answers
+    if (!formMethods.formState.isDirty || !onAnswersChange) {
+      return
+    }
+    onAnswersChange(JSON.stringify(formMethods.getValues()) ?? '{}')
+  }, [formMethods.watch()])
 
   /**
    * Compute percentage completed of the form every
@@ -81,6 +97,22 @@ const useWizardForm = ({
      */
     if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
       return false
+    }
+
+    if (currentQuestion?.userQuestionType === UserQuestionType.Telephone) {
+      const value = formMethods.getValues(currentQuestion.id)
+      const isE164Number = isPossibleE164Number(value as string)
+
+      if (!isE164Number) {
+        const errorLabel = errorLabels.invalidPhoneNumber
+
+        setErrors([
+          ...errorsWithoutCurrent,
+          { id: currentQuestion.id, error: errorLabel },
+        ])
+
+        return true
+      }
     }
 
     if (

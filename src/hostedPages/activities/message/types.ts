@@ -8,7 +8,6 @@ export interface MessageProps {
   content: string
   subject: string
   children?: React.ReactNode
-  format: 'SLATE' | 'HTML'
   attachments: Array<MessageAttachment>
   attachmentIcon: React.ReactNode
   attachmentLabels: AttachmentLabels
