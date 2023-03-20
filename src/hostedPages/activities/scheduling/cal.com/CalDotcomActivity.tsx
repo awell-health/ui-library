@@ -5,6 +5,7 @@ import { CalDotComActivityProps } from './types'
 import { HostedPageFooter } from '../../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../../hooks/useScrollHint'
 import { CalDotComScheduling } from '../../../../atoms'
+import layoutClasses from '../../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 
 export const CalDotcomActivity = ({
   calLink,
@@ -15,13 +16,18 @@ export const CalDotcomActivity = ({
 
   return (
     <>
-      <div className={`${classes.container} ${classes.calDotComActivity}`}>
-        <CalDotComScheduling
-          calLink={calLink}
-          onBookingSuccessful={onBookingSuccessful}
-          hideEventTypeDetails={hideEventTypeDetails}
-        />
-      </div>
+      <main
+        id="ahp_main_content_with_scroll_hint"
+        className={layoutClasses.main_content}
+      >
+        <div className={`${classes.container} ${classes.calDotComActivity}`}>
+          <CalDotComScheduling
+            calLink={calLink}
+            onBookingSuccessful={onBookingSuccessful}
+            hideEventTypeDetails={hideEventTypeDetails}
+          />
+        </div>
+      </main>
       <HostedPageFooter showScrollHint={showScrollHint}>
         <div className={`${classes.button_wrapper} ${classes.container}`}>
           <Button

@@ -1,47 +1,59 @@
-# ui-library
+# UI-library
 
 UI components to be used for integrating with Awell Health products.
 
-#### Preview components in storybook
+## Preview components in storybook
+
 `yarn storybook`
 
 ## Develop on local with [yalc](https://github.com/wclr/yalc)
 
-#### Install
+### Install
+
 `yarn global add yalc`
 
-#### Build (in ui-library)
+### Build (in ui-library)
+
 `yarn build`
 
 Note: before running the build commmand, you need to update the version in `package.json` manually. You can chose any version you like, it just need to make sense and be a different version than it was.
 
-#### Publish (in ui-library)
+### Publish (in ui-library)
+
 `yalc publish`
 
-#### Use in other project
+### Use in other project
+
 `yalc add <package-name>`
 
+## How to use it in your project
 
-# How to use it in your project 
+### Import styles in root directory
 
-#### Import styles in root directory
 ```
  import '@awell_health/ui-library/dist/index.css'
 ```
 
-#### Use components
+### Use ThemeProvider
+
+Make sure to wrap the application with the `ThemeProvider`. This will make sure all styles are properly loaded.
+
+### Use components
+
 ```
  import { WizardForm } from '@awell_health/ui-library'
-  
+
  (...)
- return <WizardForm (...) />  
+ return <WizardForm (...) />
 
 ```
 
-# Possible known issues
-## Empty SCSS file
+## Possible known issues
 
-#### Following error:
+### Empty SCSS file
+
+#### Following error
+
 ```
 [!] (plugin rollup-plugin-sass) TypeError: Cannot read properties of undefined (reading 'then')
 src/atoms/message/message.module.scss
@@ -51,5 +63,6 @@ at transform (/Users/katarzynamarciniszyn/Desktop/ui-library/node_modules/rollup
 at ModuleLoader.addModuleSource (/Users/katarzynamarciniszyn/Desktop/ui-library/node_modules/rollup/dist/shared/rollup.js:22267:30)
 ```
 
-#### Solution:
+#### Solution
+
 Fill up the file with css or remove it.

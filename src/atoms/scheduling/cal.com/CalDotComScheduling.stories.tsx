@@ -36,7 +36,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -49,13 +51,11 @@ export const CalDotComScheduling: Story<CalDotComSchedulingProps> = ({
   metadata,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <CalDotComSchedulingComponent
-        calLink={calLink}
-        onBookingSuccessful={onBookingSuccessful}
-        hideEventTypeDetails={hideEventTypeDetails}
-        metadata={metadata}
-      />
-    </ThemeProvider>
+    <CalDotComSchedulingComponent
+      calLink={calLink}
+      onBookingSuccessful={onBookingSuccessful}
+      hideEventTypeDetails={hideEventTypeDetails}
+      metadata={metadata}
+    />
   )
 }

@@ -41,7 +41,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -55,15 +57,13 @@ export const RangeInput: Story<RangeInputProps> = ({
   mandatory,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <RangeInputComponent
-        label={label}
-        onChange={onChange}
-        id={id}
-        sliderConfig={sliderConfig}
-        mandatory={mandatory}
-      />
-    </ThemeProvider>
+    <RangeInputComponent
+      label={label}
+      onChange={onChange}
+      id={id}
+      sliderConfig={sliderConfig}
+      mandatory={mandatory}
+    />
   )
 }
 

@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { getTextColor, opacityColor, shadeColor } from './helpers'
+import classes from './themeProvider.module.scss'
 
 export interface ThemeProviderProps {
   children: React.ReactNode | string
@@ -23,5 +24,9 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     '--awell-secondary-ring-color-buttons': accentColor,
     height: '100%',
   } as React.CSSProperties
-  return <div style={style}>{children}</div>
+  return (
+    <div className={classes.awell_themeProvider} style={style}>
+      {children}
+    </div>
+  )
 }

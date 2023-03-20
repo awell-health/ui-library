@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { QuestionLabel as QuestionLabelComponent, QuestionLabelProps } from '.'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Question Label',
@@ -23,7 +24,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
