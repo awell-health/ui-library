@@ -44,6 +44,13 @@ export default {
       defaultValue: attachments,
     },
   },
+  decorators: [
+    (StoryComponent) => (
+      <ThemeProvider accentColor="#004ac2">
+        <StoryComponent />
+      </ThemeProvider>
+    ),
+  ],
 } as Meta
 
 export const MessageAttachment: Story<AttachmentListProps> = ({
@@ -51,13 +58,11 @@ export const MessageAttachment: Story<AttachmentListProps> = ({
   attachments,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <AttachmentListComponent
-        attachments={attachments}
-        labels={labels}
-        icon={<img src={image} alt="" />}
-      />
-    </ThemeProvider>
+    <AttachmentListComponent
+      attachments={attachments}
+      labels={labels}
+      icon={<img src={image} alt="" />}
+    />
   )
 }
 

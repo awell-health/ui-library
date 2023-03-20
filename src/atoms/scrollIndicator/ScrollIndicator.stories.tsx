@@ -9,17 +9,13 @@ export default {
   argTypes: {},
   decorators: [
     (StoryComponent) => (
-      <div>
+      <ThemeProvider accentColor="#004ac2">
         <StoryComponent />
-      </div>
+      </ThemeProvider>
     ),
   ],
 } as Meta
 
 export const ScrollIndicator: Story = () => {
-  return (
-    <ThemeProvider accentColor="#004ac2">
-      <ScrollIndicatorComponent />
-    </ThemeProvider>
-  )
+  return <ScrollIndicatorComponent />
 }

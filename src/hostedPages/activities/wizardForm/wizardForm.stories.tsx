@@ -1,10 +1,10 @@
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { Meta, Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { WizardForm as WizardFormComponent } from '.'
 import { form } from './__testdata__/testFormFixture'
+import { HostedPageLayout } from '../../layouts/HostedPageLayout'
 import { ThemeProvider } from '../../../atoms'
-import { HostedPageLayout } from '../../layouts/HostedPageLayout/HostedPageLayout'
 
 export default {
   title: 'HostedPages/Activities/WizardForm',
@@ -35,7 +35,14 @@ export default {
       },
     },
   },
-}
+  decorators: [
+    (StoryComponent) => (
+      <ThemeProvider accentColor="#004ac2">
+        <StoryComponent />
+      </ThemeProvider>
+    ),
+  ],
+} as Meta
 
 export const WizardForm: Story = ({
   onSubmit,
@@ -44,21 +51,19 @@ export const WizardForm: Story = ({
   errorLabels,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
-        <WizardFormComponent
-          form={form}
-          buttonLabels={buttonLabels}
-          errorLabels={errorLabels}
-          onSubmit={onSubmit}
-          evaluateDisplayConditions={() => {
-            return Promise.all([]).then(function () {
-              return []
-            })
-          }}
-        />
-      </HostedPageLayout>
-    </ThemeProvider>
+    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+      <WizardFormComponent
+        form={form}
+        buttonLabels={buttonLabels}
+        errorLabels={errorLabels}
+        onSubmit={onSubmit}
+        evaluateDisplayConditions={() => {
+          return Promise.all([]).then(function () {
+            return []
+          })
+        }}
+      />
+    </HostedPageLayout>
   )
 }
 

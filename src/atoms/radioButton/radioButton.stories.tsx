@@ -24,7 +24,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -36,9 +38,12 @@ export const RadioButton: Story<RadioButtonProps> = ({
   onChange,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <RadioButtonComponent label={label} onChange={onChange} id={id} />
-    </ThemeProvider>
+    <RadioButtonComponent
+      name="Some name"
+      label={label}
+      onChange={onChange}
+      id={id}
+    />
   )
 }
 

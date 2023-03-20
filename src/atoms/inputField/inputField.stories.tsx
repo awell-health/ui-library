@@ -34,7 +34,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -49,16 +51,14 @@ export const InputField: Story<InputFieldProps> = ({
   mandatory,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <InputFieldComponent
-        type={type}
-        label={label}
-        onChange={onChange}
-        onClick={onClick}
-        id={id}
-        mandatory={mandatory}
-      />
-    </ThemeProvider>
+    <InputFieldComponent
+      type={type}
+      label={label}
+      onChange={onChange}
+      onClick={onClick}
+      id={id}
+      mandatory={mandatory}
+    />
   )
 }
 

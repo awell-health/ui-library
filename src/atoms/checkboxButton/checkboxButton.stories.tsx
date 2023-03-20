@@ -27,7 +27,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -39,9 +41,12 @@ export const CheckboxButton: Story<CheckboxButtonProps> = ({
   onChange,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <CheckboxButtonComponent label={label} onChange={onChange} id={id} />
-    </ThemeProvider>
+    <CheckboxButtonComponent
+      name="Some name"
+      label={label}
+      onChange={onChange}
+      id={id}
+    />
   )
 }
 

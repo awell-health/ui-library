@@ -26,6 +26,19 @@ export default {
     },
     onChange: { action: 'changed' },
   },
+  decorators: [
+    (StoryComponent) => (
+      <div
+        style={{
+          padding: '1em',
+        }}
+      >
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
+      </div>
+    ),
+  ],
 } as Meta
 
 export const DatePicker: Story<DatePickerProps> = ({
@@ -36,22 +49,12 @@ export const DatePicker: Story<DatePickerProps> = ({
   mandatory,
 }) => {
   return (
-    <form>
-      <div
-        style={{
-          padding: '1em',
-        }}
-      >
-        <ThemeProvider accentColor="#004ac2">
-          <DatePickerComponent
-            label={label}
-            mandatory={mandatory}
-            id={id}
-            onChange={onChange}
-            value={value}
-          />
-        </ThemeProvider>
-      </div>
-    </form>
+    <DatePickerComponent
+      label={label}
+      mandatory={mandatory}
+      id={id}
+      onChange={onChange}
+      value={value}
+    />
   )
 }
