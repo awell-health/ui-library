@@ -19,6 +19,7 @@ const getComponentForSelected = (type: string) => {
     case 'radioButton':
       return (
         <RadioButton
+          name="Some name"
           onChange={() => null}
           label="Radio button label"
           id={'btn'}
@@ -27,6 +28,7 @@ const getComponentForSelected = (type: string) => {
     case 'checkboxButton':
       return (
         <CheckboxButton
+          name="Some name"
           label="Checkbox button label"
           id={'id'}
           onChange={() => null}

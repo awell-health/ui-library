@@ -2,6 +2,7 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { Logo as LogoComponent, LogoProps } from '.'
 import awellHealthLogo from './../../assets/logo.svg'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Logo',
@@ -19,7 +20,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],

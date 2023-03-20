@@ -24,6 +24,13 @@ export default {
       defaultValue: 'Download',
     },
   },
+  decorators: [
+    (StoryComponent) => (
+      <ThemeProvider accentColor="#004ac2">
+        <StoryComponent />
+      </ThemeProvider>
+    ),
+  ],
 } as Meta
 
 export const MessageAttachment: Story<MessageAttachmentProps> = ({
@@ -32,11 +39,9 @@ export const MessageAttachment: Story<MessageAttachmentProps> = ({
   label,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <MessageAttachmentComponent name={name} url={url} label={label}>
-        <img src={image} alt="" />
-      </MessageAttachmentComponent>
-    </ThemeProvider>
+    <MessageAttachmentComponent name={name} url={url} label={label}>
+      <img src={image} alt="" />
+    </MessageAttachmentComponent>
   )
 }
 

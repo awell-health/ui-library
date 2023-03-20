@@ -1,5 +1,5 @@
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { Meta, Story } from '@storybook/react/types-6-0'
 import { Checklist as ChecklistComponent, ChecklistProps } from '.'
 import { ThemeProvider } from '../../../atoms'
 import { HostedPageLayout } from '../../layouts/HostedPageLayout/HostedPageLayout'
@@ -46,7 +46,14 @@ export default {
     },
     onSubmit: { action: 'submitted' },
   },
-}
+  decorators: [
+    (StoryComponent) => (
+      <ThemeProvider accentColor="#004ac2">
+        <StoryComponent />
+      </ThemeProvider>
+    ),
+  ],
+} as Meta
 
 export const Checklist: Story<ChecklistProps> = ({
   onSubmit,
@@ -57,18 +64,16 @@ export const Checklist: Story<ChecklistProps> = ({
   readOnly,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
-        <ChecklistComponent
-          title={title}
-          items={items}
-          onSubmit={onSubmit}
-          submitLabel={submitLabel}
-          disabled={disabled}
-          readOnly={readOnly}
-        />
-      </HostedPageLayout>
-    </ThemeProvider>
+    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+      <ChecklistComponent
+        title={title}
+        items={items}
+        onSubmit={onSubmit}
+        submitLabel={submitLabel}
+        disabled={disabled}
+        readOnly={readOnly}
+      />
+    </HostedPageLayout>
   )
 }
 

@@ -29,7 +29,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -42,15 +44,9 @@ export const Button: Story<ButtonProps> = ({
   onClick,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <ButtonComponent
-        fullWidth={fullWidth}
-        variant={variant}
-        onClick={onClick}
-      >
-        {children}
-      </ButtonComponent>
-    </ThemeProvider>
+    <ButtonComponent fullWidth={fullWidth} variant={variant} onClick={onClick}>
+      {children}
+    </ButtonComponent>
   )
 }
 

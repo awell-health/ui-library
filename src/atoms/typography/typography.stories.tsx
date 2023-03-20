@@ -2,6 +2,7 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { HeadlineVariants, ParagraphsVariants } from './types'
 import { Text, TypographyProps } from '.'
+import { ThemeProvider } from '../themeProvider'
 
 export default {
   title: 'Atoms/Typography',
@@ -32,11 +33,13 @@ export default {
     (StoryComponent) => (
       <div
         style={{
-          padding: '1em',
+          padding: '2em',
           width: 'fit-content',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -44,18 +47,8 @@ export default {
 
 export const Typography: Story<TypographyProps> = ({ variant }) => {
   return (
-    <div
-      style={{
-        padding: '0 16px',
-        fontSize: '18px',
-        fontFamily: 'Roboto',
-      }}
-    >
-      <div style={{ padding: '32px', margin: '0 auto' }}>
-        <Text variant={variant as ParagraphsVariants | HeadlineVariants}>
-          Variant {variant}
-        </Text>
-      </div>
-    </div>
+    <Text variant={variant as ParagraphsVariants | HeadlineVariants}>
+      Variant {variant}
+    </Text>
   )
 }

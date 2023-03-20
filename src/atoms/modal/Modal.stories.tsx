@@ -9,9 +9,9 @@ export default {
   argTypes: {},
   decorators: [
     (StoryComponent) => (
-      <div>
+      <ThemeProvider accentColor="#004ac2">
         <StoryComponent />
-      </div>
+      </ThemeProvider>
     ),
   ],
 } as Meta
@@ -28,8 +28,10 @@ export const Modal: Story = () => {
   }
 
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
+    <>
+      <div style={{ padding: '1em' }}>
+        <Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
+      </div>
       <ModalComponent
         isOpen={isModalOpen}
         title="Are you sure you want to cancel your session?"
@@ -45,6 +47,6 @@ export const Modal: Story = () => {
           </Button>,
         ]}
       />
-    </ThemeProvider>
+    </>
   )
 }

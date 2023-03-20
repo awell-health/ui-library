@@ -28,7 +28,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -42,15 +44,13 @@ export const LongTextField: Story<LongTextFieldProps> = ({
   mandatory,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <LongTextFieldComponent
-        label={label}
-        onChange={onChange}
-        id={id}
-        value={value}
-        mandatory={mandatory}
-      />
-    </ThemeProvider>
+    <LongTextFieldComponent
+      label={label}
+      onChange={onChange}
+      id={id}
+      value={value}
+      mandatory={mandatory}
+    />
   )
 }
 

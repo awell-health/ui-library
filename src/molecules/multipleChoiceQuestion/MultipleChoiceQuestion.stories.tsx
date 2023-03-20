@@ -74,7 +74,9 @@ export default {
           width: 'fit-content',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -88,14 +90,13 @@ export const MultipleChoiceQuestion: Story<MultipleChoiceQuestionProps> = ({
   mandatory,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <MultipleChoiceQuestionComponent
-        label={label}
-        options={options}
-        onChange={onChange}
-        values={values}
-        mandatory={mandatory}
-      />
-    </ThemeProvider>
+    <MultipleChoiceQuestionComponent
+      questionId="Some id"
+      label={label}
+      options={options}
+      onChange={onChange}
+      values={values}
+      mandatory={mandatory}
+    />
   )
 }

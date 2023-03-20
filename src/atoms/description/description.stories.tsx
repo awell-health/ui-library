@@ -16,12 +16,17 @@ export default {
       defaultValue: JSON.stringify(descriptionFixture, null, 2),
     },
   },
+  decorators: [
+    (StoryComponent) => (
+      <div style={{ padding: '2em' }}>
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
+      </div>
+    ),
+  ],
 } as Meta
 
 export const Description: Story<DescriptionProps> = ({ content }) => {
-  return (
-    <ThemeProvider accentColor="#004ac2">
-      <DescriptionComponent content={content} />
-    </ThemeProvider>
-  )
+  return <DescriptionComponent content={content} />
 }
