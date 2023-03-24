@@ -178,7 +178,7 @@ export const MultipleSelectPrefilled: Story<SelectProps> = ({
           mandatory={mandatory}
           options={options}
           optionsShown={optionsShown}
-          value={[options[0].value, options[1].value]}
+          value={[options[0], options[1]]}
         />
       </div>
     </ThemeProvider>
