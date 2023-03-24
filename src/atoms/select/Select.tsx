@@ -47,7 +47,7 @@ export interface SelectProps
   /**
    * Value of the select (if it is controlled)
    */
-  value?: Array<number> | number
+  value?: Array<Option> | number
 }
 
 export const Select = ({
@@ -67,9 +67,7 @@ export const Select = ({
   // depending on whether the select is single or multiple type
   const getInitialValue = (): Array<Option> => {
     if (type === 'multiple') {
-      return options.filter(
-        (option) => (value as Array<number>)?.includes(option.value) ?? false
-      )
+      return value as Array<Option>
     }
     if (type === 'single') {
       return [

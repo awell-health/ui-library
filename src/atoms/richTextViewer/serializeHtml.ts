@@ -1,4 +1,4 @@
-import { sanitize } from 'dompurify'
+import DOMPurify, { sanitize } from 'dompurify'
 import escapeHtml from 'escape-html'
 import { Nodes, Node, isText, isElement } from '../../types'
 import richTextClasses from './richTextViewer.module.scss'
@@ -64,10 +64,25 @@ export const generatePureHtml = (content: Nodes | string): string => {
   } catch (e) {
     isSlate = false
   }
+
+  DOMPurify.addHook('uponSanitizeElement', (node, data) => {
+    if (data.tagName === 'iframe') {
+      const src = node.getAttribute('src') ?? ''
+      const isYoutube = src.startsWith('https://www.youtube.com/embed/')
+      const isVimeo = src.startsWith('https://player.vimeo.com/video/')
+      if (!isYoutube && !isVimeo) {
+        return node.parentNode?.removeChild(node)
+      }
+    }
+  })
+
   // See https://github.com/cure53/DOMPurify/issues/317
   const purifiedMessage = sanitize(
     isSlate ? serializeHtml(content) : (content as string),
-    { ADD_ATTR: ['target'] }
+    {
+      ADD_TAGS: ['iframe'],
+      ADD_ATTR: ['target', 'allow', 'allowfullscreen', 'frameborder', 'scrolling'],
+    }
   )
   return purifiedMessage
 }

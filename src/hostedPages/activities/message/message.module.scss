@@ -16,6 +16,15 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+
+  .slate-MediaEmbedElement-input {
+    display: none;
+  }
+
+  .slate-MediaEmbedElement-iframe {
+    width: 100%;
+    min-height: 300px;
+  }
 }
 
 .content {

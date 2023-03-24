@@ -3,4 +3,15 @@
 .awell_description_wrapper {
   display: flex;
   flex-direction: column;
+
+  .slate-MediaEmbedElement-input {
+    display: none;
+  }
+
+  .slate-MediaEmbedElement-iframe {
+    width: 100%;
+    min-height: 300px;
+  }
+
 }
+
