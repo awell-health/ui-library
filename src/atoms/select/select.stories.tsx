@@ -85,6 +85,42 @@ SingleSelect.parameters = {
   },
 }
 
+export const SingleSelectPrefilled: Story<SelectProps> = ({
+  label,
+  id,
+  onChange,
+  onClick,
+  mandatory,
+  options,
+  optionsShown,
+}) => {
+  return (
+    <ThemeProvider accentColor="#004ac2">
+      <div style={{ width: '50%' }}>
+        <SelectComponent
+          type="single"
+          label={label}
+          onChange={onChange}
+          onClick={onClick}
+          id={id}
+          mandatory={mandatory}
+          options={options}
+          optionsShown={optionsShown}
+          value={options[0].value}
+        />
+      </div>
+    </ThemeProvider>
+  )
+}
+
+SingleSelectPrefilled.parameters = {
+  docs: {
+    source: {
+      type: 'code',
+    },
+  },
+}
+
 export const MultipleSelect: Story<SelectProps> = ({
   label,
   id,
@@ -113,6 +149,43 @@ export const MultipleSelect: Story<SelectProps> = ({
 }
 
 MultipleSelect.parameters = {
+  docs: {
+    source: {
+      type: 'code',
+    },
+  },
+}
+
+export const MultipleSelectPrefilled: Story<SelectProps> = ({
+  label,
+  id,
+  onChange,
+  onClick,
+  mandatory,
+  options,
+  optionsShown,
+  value,
+}) => {
+  return (
+    <ThemeProvider accentColor="#004ac2">
+      <div style={{ width: '50%' }}>
+        <SelectComponent
+          type="multiple"
+          label={label}
+          onChange={onChange}
+          onClick={onClick}
+          id={id}
+          mandatory={mandatory}
+          options={options}
+          optionsShown={optionsShown}
+          value={[options[0].value, options[1].value]}
+        />
+      </div>
+    </ThemeProvider>
+  )
+}
+
+MultipleSelectPrefilled.parameters = {
   docs: {
     source: {
       type: 'code',

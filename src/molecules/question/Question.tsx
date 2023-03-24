@@ -9,6 +9,7 @@ import {
   RangeInput,
   DatePicker,
   Description,
+  Select,
 } from '../../atoms'
 import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
@@ -48,7 +49,7 @@ QuestionDataProps): JSX.Element => {
                 onChange={(data) => onChange(data)}
                 questionId={question.id}
                 value={value}
-                mandatory={question.questionConfig?.mandatory}
+                mandatory={config?.mandatory}
               />
             )
           }}
@@ -65,14 +66,28 @@ QuestionDataProps): JSX.Element => {
               config?.mandatory ? getValues(question.id).length > 0 : true,
           }}
           render={({ field: { onChange, value } }) => {
+            if (config?.use_select === true) {
+              return (
+                <Select
+                  id={question.id}
+                  value={value}
+                  label={question.title}
+                  onChange={(data) => onChange(data)}
+                  type="multiple"
+                  options={question.options ?? []}
+                  mandatory={config?.mandatory}
+                />
+              )
+            }
+
             return (
               <MultipleChoiceQuestion
                 label={question.title}
-                options={question.options || []}
+                options={question.options ?? []}
                 onChange={(data) => onChange(data)}
                 questionId={question.id}
                 values={value}
-                mandatory={question.questionConfig?.mandatory}
+                mandatory={config?.mandatory}
               />
             )
           }}
@@ -85,6 +100,20 @@ QuestionDataProps): JSX.Element => {
           control={control}
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
+            if (config?.use_select === true) {
+              return (
+                <Select
+                  id={question.id}
+                  value={value}
+                  label={question.title}
+                  onChange={(data) => onChange(data)}
+                  type="single"
+                  options={question.options ?? []}
+                  mandatory={config?.mandatory}
+                />
+              )
+            }
+
             return (
               <SingleChoiceQuestion
                 label={question.title}
@@ -92,7 +121,7 @@ QuestionDataProps): JSX.Element => {
                 onChange={(data) => onChange(data)}
                 questionId={question.id}
                 value={value}
-                mandatory={question.questionConfig?.mandatory}
+                mandatory={config?.mandatory}
               />
             )
           }}
@@ -111,7 +140,7 @@ QuestionDataProps): JSX.Element => {
               label={question.title}
               id={question.id}
               value={value}
-              mandatory={question.questionConfig?.mandatory}
+              mandatory={config?.mandatory}
             />
           )}
         />
@@ -130,7 +159,7 @@ QuestionDataProps): JSX.Element => {
               label={question.title}
               id={question.id}
               value={value}
-              mandatory={question.questionConfig?.mandatory}
+              mandatory={config?.mandatory}
             />
           )}
         />
@@ -149,7 +178,7 @@ QuestionDataProps): JSX.Element => {
               label={question.title}
               id={question.id}
               value={value}
-              mandatory={question.questionConfig?.mandatory}
+              mandatory={config?.mandatory}
             />
           )}
         />
@@ -175,7 +204,7 @@ QuestionDataProps): JSX.Element => {
     //           label={question.title}
     //           id={question.id}
     //           value={value}
-    //           mandatory={question.questionConfig?.mandatory}
+    //           mandatory={config?.mandatory}
     //           availableCountries={availableCountries}
     //           initialCountry={initialCountry}
     //           placeholder={placeholder}
@@ -188,7 +217,7 @@ QuestionDataProps): JSX.Element => {
         <Controller
           name={question.id}
           control={control}
-          defaultValue={question.questionConfig?.slider?.min}
+          defaultValue={config?.slider?.min}
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
             return (
@@ -198,7 +227,7 @@ QuestionDataProps): JSX.Element => {
                 id={question.id}
                 sliderConfig={(config as SliderQuestionConfig)?.slider}
                 value={value}
-                mandatory={question.questionConfig?.mandatory}
+                mandatory={config?.mandatory}
               />
             )
           }}
@@ -219,7 +248,7 @@ QuestionDataProps): JSX.Element => {
                 onChange={(data) => onChange(data)}
                 id={question.id}
                 value={dateValue}
-                mandatory={question.questionConfig?.mandatory}
+                mandatory={config?.mandatory}
               />
             )
           }}
