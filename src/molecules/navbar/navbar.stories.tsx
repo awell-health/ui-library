@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { Navbar as NavbarComponent, type NavbarProps } from './Navbar'
+import { ThemeProvider } from '../../atoms'
 
 export default {
   title: 'Molecules/Navbar',
@@ -15,6 +16,13 @@ export default {
       defaultValue: 'Awell Health',
     },
   },
+  decorators: [
+    (StoryComponent) => (
+      <ThemeProvider accentColor="#004ac2">
+        <StoryComponent />
+      </ThemeProvider>
+    ),
+  ],
 } as Meta
 
 export const Navbar: Story = ({ logo, companyName }: NavbarProps) => {

@@ -1,33 +1,34 @@
-export { QuestionLabel } from './questionLabel'
 export { Button } from './button'
-export { CheckboxButton } from './checkboxButton'
-export { DatePicker } from './datePicker'
-export { Description } from './description'
-export { InputField } from './inputField'
-export { Logo } from './logo'
-export { LongTextField } from './longTextField'
-export { RadioButton } from './radioButton'
-export { RangeInput } from './rangeInput'
-export { RichTextViewer } from './richTextViewer'
-export { MessageAttachment } from './messageAttachment'
-export { CircularSpinner, HorizontalSpinner } from './spinner'
-export { ThemeProvider } from './themeProvider'
-export { ProgressIndicator } from './progressIndicator'
-export { ScrollIndicator } from './scrollIndicator'
-export { Modal } from './modal'
-export {
-  HeadingMain,
-  HeadingSecondary,
-  HeadingTertiary,
-  SubHeading,
-  Heading5,
-  Heading6,
-  Text,
-  InlineText,
-  ExternalLink,
-  InnerText,
-} from './typography'
 export {
   CalDotComScheduling,
   type CalDotComBookingSuccessfulFunction,
 } from './scheduling'
+export { CheckboxButton } from './checkboxButton'
+export { CircularSpinner, HorizontalSpinner } from './spinner'
+export { DatePicker } from './datePicker'
+export { Description } from './description'
+export {
+  ExternalLink,
+  Heading5,
+  Heading6,
+  HeadingMain,
+  HeadingSecondary,
+  HeadingTertiary,
+  InlineText,
+  InnerText,
+  SubHeading,
+  Text,
+} from './typography'
+export { InputField } from './inputField'
+export { Logo } from './logo'
+export { LongTextField } from './longTextField'
+export { MessageAttachment } from './messageAttachment'
+export { Modal } from './modal'
+export { ProgressIndicator } from './progressIndicator'
+export { QuestionLabel } from './questionLabel'
+export { RadioButton } from './radioButton'
+export { RangeInput } from './rangeInput'
+export { RichTextViewer } from './richTextViewer'
+export { ScrollIndicator } from './scrollIndicator'
+export { Select } from './select'
+export { ThemeProvider } from './themeProvider'

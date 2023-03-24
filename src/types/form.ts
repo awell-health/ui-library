@@ -35,6 +35,7 @@ export interface WizardFormProps {
 export interface QuestionConfigByType {
   [UserQuestionType.Telephone]?: {
     availableCountries?: Array<CountryIso2> | CountryIso2
+    initialCountry?: CountryIso2
     fixedCountry?: CountryIso2
     placeholder?: string
   }

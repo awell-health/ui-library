@@ -75,7 +75,9 @@ export default {
           width: 'fit-content',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -89,15 +91,13 @@ export const SingleChoiceQuestion: Story<SingleChoiceQuestionProps> = ({
   mandatory,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <SingleChoiceQuestionComponent
-        label={label}
-        options={options}
-        onChange={onChange}
-        value={value}
-        mandatory={mandatory}
-        questionId='someId'
-      />
-    </ThemeProvider>
+    <SingleChoiceQuestionComponent
+      label={label}
+      options={options}
+      onChange={onChange}
+      value={value}
+      mandatory={mandatory}
+      questionId="someId"
+    />
   )
 }

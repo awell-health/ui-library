@@ -18,6 +18,13 @@ export default {
       defaultValue: false,
     },
   },
+  decorators: [
+    (StoryComponent) => (
+      <ThemeProvider accentColor="#004ac2">
+        <StoryComponent />
+      </ThemeProvider>
+    ),
+  ],
 } as Meta
 
 export const CalDotComActivity: Story<CalDotComActivityProps> = ({
@@ -25,16 +32,12 @@ export const CalDotComActivity: Story<CalDotComActivityProps> = ({
   hideEventTypeDetails,
 }) => {
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <div style={{ minHeight: '90vh', position: 'relative' }}>
-        <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
-          <CalDotcomActivityComponent
-            calLink={calLink}
-            onBookingSuccessful={() => alert('hey')}
-            hideEventTypeDetails={hideEventTypeDetails}
-          />
-        </HostedPageLayout>
-      </div>
-    </ThemeProvider>
+    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+      <CalDotcomActivityComponent
+        calLink={calLink}
+        onBookingSuccessful={() => alert('hey')}
+        hideEventTypeDetails={hideEventTypeDetails}
+      />
+    </HostedPageLayout>
   )
 }

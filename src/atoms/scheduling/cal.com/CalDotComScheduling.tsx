@@ -42,12 +42,13 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
           // `confirmed`: whether confirmation from organizer is pending or not
           // `eventType`: Object for Event Type that has been booked
           // `date`: date of Event
-          const { confirmed, eventType, date } = data
+          const { confirmed, eventType, date, booking } = data
 
           onBookingSuccessful({
             confirmed,
             eventType: eventType,
             date,
+            booking
           })
         },
       })

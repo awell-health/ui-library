@@ -1,6 +1,9 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
-import { PhoneInputField as PhoneInputFieldComponent, PhoneInputFieldProps } from './PhoneInputField'
+import {
+  PhoneInputField as PhoneInputFieldComponent,
+  PhoneInputFieldProps,
+} from './PhoneInputField'
 import { useValidate } from '../../hooks/useValidate'
 import { ThemeProvider } from '../themeProvider'
 
@@ -34,8 +37,20 @@ export default {
     },
     availableCountries: {
       control: 'array',
-      defaultValue: ['gb', 'us', 'fr', 'de', 'es', 'it', 'nl', 'be', 'ca', 'au', 'nz'],
-    }
+      defaultValue: [
+        'gb',
+        'us',
+        'fr',
+        'de',
+        'es',
+        'it',
+        'nl',
+        'be',
+        'ca',
+        'au',
+        'nz',
+      ],
+    },
   },
   decorators: [
     (StoryComponent) => (
@@ -44,7 +59,9 @@ export default {
           padding: '1em',
         }}
       >
-        <StoryComponent />
+        <ThemeProvider accentColor="#004ac2">
+          <StoryComponent />
+        </ThemeProvider>
       </div>
     ),
   ],
@@ -57,14 +74,15 @@ export const PhoneInputField: Story<PhoneInputFieldProps> = ({
   mandatory,
   value,
 }) => {
-  const { isPossibleE164Number, validatePhoneNumber, isValidE164Number } = useValidate()
+  const { isPossibleE164Number, validatePhoneNumber, isValidE164Number } =
+    useValidate()
   const [phoneValue, setPhoneValue] = React.useState<string>(value)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e)
-      setPhoneValue(e.target.value)
+    onChange(e)
+    setPhoneValue(e.target.value)
   }
   return (
-    <ThemeProvider accentColor="#004ac2">
+    <>
       <PhoneInputFieldComponent
         label={label}
         onChange={handleChange}
@@ -76,11 +94,18 @@ export const PhoneInputField: Story<PhoneInputFieldProps> = ({
         <p>{`Value: ${phoneValue}`}</p>
         <p>{`Possible? ${isPossibleE164Number(phoneValue)}`}</p>
         <p>{`Valid? ${isValidE164Number(phoneValue)}`}</p>
-        <p>{`Country? ${validatePhoneNumber(phoneValue).country?.name ?? ''}`}</p>
-        <p>{`Dial Code? ${validatePhoneNumber(phoneValue).country?.dialCode ?? ''}`}</p>
-        <p>{`Area Codes? ${validatePhoneNumber(phoneValue).country?.areaCodes?.join(', ') ?? 'N/A'}`}</p>
+        <p>{`Country? ${
+          validatePhoneNumber(phoneValue).country?.name ?? ''
+        }`}</p>
+        <p>{`Dial Code? ${
+          validatePhoneNumber(phoneValue).country?.dialCode ?? ''
+        }`}</p>
+        <p>{`Area Codes? ${
+          validatePhoneNumber(phoneValue).country?.areaCodes?.join(', ') ??
+          'N/A'
+        }`}</p>
       </div>
-    </ThemeProvider>
+    </>
   )
 }
 
@@ -100,7 +125,8 @@ export const FixedCountriesPhoneInputField: Story<PhoneInputFieldProps> = ({
   value,
   initialCountry = 'gb',
 }) => {
-  const { isPossibleE164Number, validatePhoneNumber, isValidE164Number } = useValidate()
+  const { isPossibleE164Number, validatePhoneNumber, isValidE164Number } =
+    useValidate()
   const [phoneValue, setPhoneValue] = React.useState<string>(value)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e)
@@ -120,10 +146,24 @@ export const FixedCountriesPhoneInputField: Story<PhoneInputFieldProps> = ({
       <div>
         <p>{`Value: ${phoneValue}`}</p>
         <p>{`Possible? ${isPossibleE164Number(phoneValue)}`}</p>
-        <p>{`Valid and within available countries? ${isValidE164Number(phoneValue, availableCountries)}`}</p>
-        <p>{`Country? ${validatePhoneNumber(phoneValue, availableCountries).country?.name ?? ''}`}</p>
-        <p>{`Dial Code? ${validatePhoneNumber(phoneValue, availableCountries).country?.dialCode ?? ''}`}</p>
-        <p>{`Area Codes? ${validatePhoneNumber(phoneValue, availableCountries).country?.areaCodes?.join(', ') ?? 'N/A'}`}</p>
+        <p>{`Valid and within available countries? ${isValidE164Number(
+          phoneValue,
+          availableCountries
+        )}`}</p>
+        <p>{`Country? ${
+          validatePhoneNumber(phoneValue, availableCountries).country?.name ??
+          ''
+        }`}</p>
+        <p>{`Dial Code? ${
+          validatePhoneNumber(phoneValue, availableCountries).country
+            ?.dialCode ?? ''
+        }`}</p>
+        <p>{`Area Codes? ${
+          validatePhoneNumber(
+            phoneValue,
+            availableCountries
+          ).country?.areaCodes?.join(', ') ?? 'N/A'
+        }`}</p>
       </div>
     </ThemeProvider>
   )
