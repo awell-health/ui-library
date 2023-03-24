@@ -70,7 +70,7 @@ QuestionDataProps): JSX.Element => {
               return (
                 <Select
                   id={question.id}
-                  value={value}
+                  value={[value.toString()]}
                   label={question.title}
                   onChange={(data) => onChange(data)}
                   type="multiple"

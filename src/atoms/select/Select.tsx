@@ -15,7 +15,7 @@ export interface SelectOption {
 }
 
 export interface SelectProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
   /**
    * you can also set any attribute that is native to html button
    */
@@ -48,6 +48,10 @@ export interface SelectProps
    * Number of options to show in dropdown
    */
   optionsShown?: number
+  /**
+   * Value of the select (if it is controlled)
+   */
+  value?: Array<number>
 }
 
 export const Select = ({
@@ -58,10 +62,13 @@ export const Select = ({
   mandatory,
   options,
   optionsShown = 4,
+  value,
   ...props
 }: SelectProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState<SelectOption[]>([])
+  const [selected, setSelected] = useState<SelectOption[]>(
+    options.filter((option) => value?.includes(option.value))
+  )
   const selectWrapperRef = useRef<HTMLDivElement | null>(null)
 
   const handleClickOutside = useCallback(
