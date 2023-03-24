@@ -106,7 +106,7 @@ export const SingleSelectPrefilled: Story<SelectProps> = ({
           mandatory={mandatory}
           options={options}
           optionsShown={optionsShown}
-          value={[options[0].value]}
+          value={options[0].value}
         />
       </div>
     </ThemeProvider>

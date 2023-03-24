@@ -71,7 +71,7 @@ export const WizardForm = ({
                 key={currentQuestion.id}
                 errors={errors}
                 labels={questionLabels}
-                  questionTypeConfig={questionTypeConfig}
+                questionTypeConfig={questionTypeConfig}
               />
             </div>
           )}

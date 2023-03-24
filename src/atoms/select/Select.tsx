@@ -51,7 +51,7 @@ export interface SelectProps
   /**
    * Value of the select (if it is controlled)
    */
-  value?: Array<number>
+  value?: Array<number> | number
 }
 
 export const Select = ({
@@ -66,9 +66,28 @@ export const Select = ({
   ...props
 }: SelectProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState<SelectOption[]>(
-    options.filter((option) => value?.includes(option.value))
+
+  // the incoming value may be an array of numbers or a number, corresponding to an option value,
+  // depending on whether the select is single or multiple type
+  const getInitialValue = (): Array<SelectOption> => {
+    if (type === 'multiple') {
+      return options.filter(
+        (option) => (value as Array<number>)?.includes(option.value) ?? false
+      )
+    }
+    if (type === 'single') {
+      return [
+        options.find((option) => (value as number) === option.value) ??
+          undefined,
+      ].filter((option) => option !== undefined) as Array<SelectOption>
+    }
+    return []
+  }
+
+  const [selected, setSelected] = useState<Array<SelectOption>>(
+    getInitialValue()
   )
+
   const selectWrapperRef = useRef<HTMLDivElement | null>(null)
 
   const handleClickOutside = useCallback(
@@ -161,6 +180,7 @@ export const Select = ({
                   <input
                     type="checkbox"
                     id={`checkbox-${option.value}`}
+                    className={classes.checkbox_input}
                     checked={selected.some(
                       (item) => item.value === option.value
                     )}

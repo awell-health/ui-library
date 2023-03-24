@@ -84,3 +84,18 @@
 .checkbox {
   margin-right: 8px;
 }
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  &:checked ~ .checkbox {
+    background-color: var(--awell-accent-color);
+    border-color: var(--awell-accent-color);
+  }
+  &:checked ~ .checkbox:after {
+    display: block;
+  }
+}
