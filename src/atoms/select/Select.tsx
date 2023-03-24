@@ -8,11 +8,7 @@ import React, {
 } from 'react'
 import classes from './select.module.scss'
 import { QuestionLabel } from '../questionLabel'
-
-export interface SelectOption {
-  label: string
-  value: number
-}
+import { type Option } from './types'
 
 export interface SelectProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
@@ -31,7 +27,7 @@ export interface SelectProps
   /**
    * change event handler
    */
-  onChange: (value: number | number[]) => void
+  onChange: (value: number | Array<Option>) => void
   /**
    * click event handler
    */
@@ -43,7 +39,7 @@ export interface SelectProps
   /**
    * Options for the select
    */
-  options: SelectOption[]
+  options: Array<Option>
   /**
    * Number of options to show in dropdown
    */
@@ -69,7 +65,7 @@ export const Select = ({
 
   // the incoming value may be an array of numbers or a number, corresponding to an option value,
   // depending on whether the select is single or multiple type
-  const getInitialValue = (): Array<SelectOption> => {
+  const getInitialValue = (): Array<Option> => {
     if (type === 'multiple') {
       return options.filter(
         (option) => (value as Array<number>)?.includes(option.value) ?? false
@@ -79,14 +75,12 @@ export const Select = ({
       return [
         options.find((option) => (value as number) === option.value) ??
           undefined,
-      ].filter((option) => option !== undefined) as Array<SelectOption>
+      ].filter((option) => option !== undefined) as Array<Option>
     }
     return []
   }
 
-  const [selected, setSelected] = useState<Array<SelectOption>>(
-    getInitialValue()
-  )
+  const [selected, setSelected] = useState<Array<Option>>(getInitialValue())
 
   const selectWrapperRef = useRef<HTMLDivElement | null>(null)
 
@@ -119,7 +113,7 @@ export const Select = ({
   }, [isOpen])
 
   const handleSelect = useCallback(
-    (event: React.MouseEvent, option: SelectOption): void => {
+    (event: React.MouseEvent, option: Option): void => {
       if (type === 'single') {
         setSelected([option])
         onChange(option.value)
@@ -127,7 +121,7 @@ export const Select = ({
       } else {
         event.stopPropagation()
         const isSelected = selected.some((item) => item.value === option.value)
-        let updatedSelected: SelectOption[]
+        let updatedSelected: Option[]
 
         if (isSelected) {
           updatedSelected = selected
@@ -140,8 +134,7 @@ export const Select = ({
         }
 
         setSelected(updatedSelected)
-        const selectedValues = updatedSelected.map((item) => item.value)
-        onChange(selectedValues)
+        onChange(updatedSelected)
       }
     },
     [selected, type, onChange]
