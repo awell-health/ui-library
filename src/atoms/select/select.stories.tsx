@@ -141,6 +141,7 @@ export const MultipleSelect: Story<SelectProps> = ({
           id={id}
           mandatory={mandatory}
           options={options}
+          value={[]}
           optionsShown={optionsShown}
         />
       </div>
