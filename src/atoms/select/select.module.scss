@@ -75,10 +75,10 @@
   font-size: var(--awell-font-size-base);
   line-height: var(--awell-leading-5);
   color: var(--awell-slate900);
-}
 
-.option:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 }
 
 .checkbox {
@@ -98,4 +98,18 @@
   &:checked ~ .checkbox:after {
     display: block;
   }
+}
+
+.no_options {
+  padding: 12px 16px;
+  font-size: var(--awell-font-size-base);
+  line-height: var(--awell-leading-5);
+  color: var(--awell-slate900);
+}
+
+.error {
+  color: var(--awell-signalError100);
+  font-size: var(--awell-font-size-sm);
+  line-height: var(--awell-leading-4);
+  margin-top: var(--awell-spacing-1);
 }

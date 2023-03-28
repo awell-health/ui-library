@@ -1,7 +1,8 @@
 import { Meta, Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { Select as SelectComponent, SelectProps } from './Select'
-import { ThemeProvider } from '../themeProvider'
+import { ThemeProvider } from '../../atoms'
+import { type Option } from './types'
 
 export default {
   title: 'Atoms/Select',
@@ -11,9 +12,13 @@ export default {
       control: 'number',
       defaultValue: 4,
     },
-    label: {
-      control: 'text',
-      defaultValue: 'Name',
+    labels: {
+      control: 'object',
+      defaultValue: {
+        questionLabel: 'Name',
+        searchPlaceholder: 'Type to search',
+        noOptions: 'No options',
+      },
     },
     id: {
       control: 'text',
@@ -21,59 +26,65 @@ export default {
     },
     mandatory: {
       control: 'boolean',
-      defaultValue: false,
+      defaultValue: true,
     },
     onChange: { action: 'change' },
     onClick: { action: 'click' },
     options: {
       control: 'array',
       defaultValue: [
-        { label: 'Option 1', value: 1 },
-        { label: 'Option 2', value: 2 },
-        { label: 'Option 3', value: 3 },
-        { label: 'Option 4', value: 4 },
-        { label: 'Option 5', value: 5 },
-        { label: 'Option 6', value: 6 },
+        { label: 'First Option', value: 0 },
+        { label: 'Second Option', value: 1 },
+        { label: 'Third Option', value: 2 },
+        { label: 'Fourth Option', value: 3 },
+        { label: 'Fifth Option', value: 4 },
+        { label: 'Sixth Option', value: 5 },
       ],
     },
   },
   decorators: [
     (StoryComponent) => (
-      <div
-        style={{
-          padding: '1em',
-        }}
-      >
-        <StoryComponent />
-      </div>
+      <ThemeProvider accentColor="#004ac2">
+        <div
+          style={{
+            padding: '1em',
+            width: '50%',
+          }}
+        >
+          <StoryComponent />
+        </div>
+      </ThemeProvider>
     ),
   ],
 } as Meta
 
 export const SingleSelect: Story<SelectProps> = ({
-  label,
   id,
   onChange,
   onClick,
   mandatory,
   options,
   optionsShown,
+  labels,
 }) => {
+  const [value, setValue] = React.useState<number>()
+  const handleChange = (value: Array<Option> | number) => {
+    setValue(value as number)
+    onChange(value)
+  }
+
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <div style={{ width: '50%' }}>
-        <SelectComponent
-          type="single"
-          label={label}
-          onChange={onChange}
-          onClick={onClick}
-          id={id}
-          mandatory={mandatory}
-          options={options}
-          optionsShown={optionsShown}
-        />
-      </div>
-    </ThemeProvider>
+    <SelectComponent
+      type="single"
+      labels={labels}
+      onChange={handleChange}
+      onClick={onClick}
+      id={id}
+      mandatory={mandatory}
+      options={options}
+      optionsShown={optionsShown}
+      value={value}
+    />
   )
 }
 
@@ -86,30 +97,32 @@ SingleSelect.parameters = {
 }
 
 export const SingleSelectPrefilled: Story<SelectProps> = ({
-  label,
   id,
   onChange,
   onClick,
   mandatory,
   options,
   optionsShown,
+  labels,
 }) => {
+  const [value, setValue] = React.useState<number>(options[0].value)
+  const handleChange = (value: Array<Option> | number) => {
+    setValue(value as number)
+    onChange(value)
+  }
+
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <div style={{ width: '50%' }}>
-        <SelectComponent
-          type="single"
-          label={label}
-          onChange={onChange}
-          onClick={onClick}
-          id={id}
-          mandatory={mandatory}
-          options={options}
-          optionsShown={optionsShown}
-          value={options[0].value}
-        />
-      </div>
-    </ThemeProvider>
+    <SelectComponent
+      type="single"
+      labels={labels}
+      onChange={handleChange}
+      onClick={onClick}
+      id={id}
+      mandatory={mandatory}
+      options={options}
+      optionsShown={optionsShown}
+      value={value}
+    />
   )
 }
 
@@ -122,29 +135,32 @@ SingleSelectPrefilled.parameters = {
 }
 
 export const MultipleSelect: Story<SelectProps> = ({
-  label,
   id,
   onChange,
   onClick,
   mandatory,
   options,
   optionsShown,
+  labels,
 }) => {
+  const [value, setValue] = React.useState<Array<Option>>()
+  const handleChange = (value: Array<Option> | number) => {
+    setValue(value as Array<Option>)
+    onChange(value)
+  }
+
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <div style={{ width: '50%' }}>
-        <SelectComponent
-          type="multiple"
-          label={label}
-          onChange={onChange}
-          onClick={onClick}
-          id={id}
-          mandatory={mandatory}
-          options={options}
-          optionsShown={optionsShown}
-        />
-      </div>
-    </ThemeProvider>
+    <SelectComponent
+      type="multiple"
+      labels={labels}
+      onChange={handleChange}
+      onClick={onClick}
+      id={id}
+      mandatory={mandatory}
+      options={options}
+      optionsShown={optionsShown}
+      value={value}
+    />
   )
 }
 
@@ -157,31 +173,35 @@ MultipleSelect.parameters = {
 }
 
 export const MultipleSelectPrefilled: Story<SelectProps> = ({
-  label,
   id,
   onChange,
   onClick,
   mandatory,
   options,
   optionsShown,
-  value,
+  labels,
 }) => {
+  const [value, setValue] = React.useState<Array<Option>>([
+    options[0],
+    options[1],
+  ])
+  const handleChange = (value: Array<Option> | number) => {
+    setValue(value as Array<Option>)
+    onChange(value)
+  }
+
   return (
-    <ThemeProvider accentColor="#004ac2">
-      <div style={{ width: '50%' }}>
-        <SelectComponent
-          type="multiple"
-          label={label}
-          onChange={onChange}
-          onClick={onClick}
-          id={id}
-          mandatory={mandatory}
-          options={options}
-          optionsShown={optionsShown}
-          value={[options[0], options[1]]}
-        />
-      </div>
-    </ThemeProvider>
+    <SelectComponent
+      type="multiple"
+      labels={labels}
+      onChange={handleChange}
+      onClick={onClick}
+      id={id}
+      mandatory={mandatory}
+      options={options}
+      optionsShown={optionsShown}
+      value={value}
+    />
   )
 }
 

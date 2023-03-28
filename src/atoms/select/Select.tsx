@@ -17,10 +17,6 @@ export interface SelectProps
    */
   type: 'single' | 'multiple'
   /**
-   * sets label of the button
-   */
-  label: string
-  /**
    * sets id that is used to connect input with label
    */
   id: string
@@ -47,13 +43,22 @@ export interface SelectProps
   /**
    * Value of the select (if it is controlled)
    */
-  value?: Array<Option> | number
+  value: Array<Option> | number | undefined
+  /**
+   * Labels for the select
+   */
+  labels: {
+    questionLabel?: string
+    searchPlaceholder?: string
+    noOptions?: string
+    customError?: string
+  }
 }
 
 export const Select = ({
   onChange,
   id,
-  label,
+  labels,
   type,
   mandatory,
   options,
@@ -62,10 +67,15 @@ export const Select = ({
   ...props
 }: SelectProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
+  const [filteredOptions, setFilteredOptions] = useState<Array<Option>>(options)
+  const [searchValue, setSearchValue] = useState('')
 
   // the incoming value may be an array of numbers or a number, corresponding to an option value,
   // depending on whether the select is single or multiple type
   const getInitialValue = (): Array<Option> => {
+    if (value === undefined) {
+      return []
+    }
     if (type === 'multiple') {
       return value as Array<Option>
     }
@@ -79,8 +89,21 @@ export const Select = ({
   }
 
   const [selected, setSelected] = useState<Array<Option>>(getInitialValue())
-
   const selectWrapperRef = useRef<HTMLDivElement | null>(null)
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputText = event.target.value.toLowerCase()
+    if (inputText === '') {
+      setSearchValue('')
+      setFilteredOptions(options)
+      return
+    }
+    setSearchValue(inputText)
+    const updatedFilteredOptions = options.filter((option) =>
+      option.label.toLowerCase().includes(inputText)
+    )
+    setFilteredOptions(updatedFilteredOptions)
+  }
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
@@ -138,20 +161,49 @@ export const Select = ({
     [selected, type, onChange]
   )
 
-  const displayValue = selected.map((item) => item.label).join(', ')
+  const getDisplayValue = (): string => {
+    if (isOpen) {
+      return searchValue
+    }
+
+    if (type === 'single') {
+      return selected[0]?.label ?? ''
+    }
+
+    if (type === 'multiple') {
+      return selected.length > 0
+        ? selected.map((option) => option.label).join(', ')
+        : ''
+    }
+
+    return ''
+  }
+
+  const handleResetSearch = useCallback(() => {
+    setSearchValue('')
+    setFilteredOptions(options)
+  }, [options])
 
   return (
     <div className={classes.select_wrapper} ref={selectWrapperRef}>
-      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      {labels?.questionLabel !== undefined && (
+        <QuestionLabel
+          htmlFor={id}
+          label={labels.questionLabel}
+          mandatory={mandatory}
+        />
+      )}
       <div className={classes.select} onClick={toggleDropdown}>
         <input
           {...props}
           type="text"
           id={id}
-          value={displayValue}
-          readOnly
+          value={getDisplayValue()}
+          placeholder={labels?.searchPlaceholder ?? ''}
           className={classes.select_input}
           data-testid={`input-${id}`}
+          onChange={handleInputChange}
+          onClick={handleResetSearch}
         />
         <div
           className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${
@@ -160,7 +212,10 @@ export const Select = ({
           style={{ maxHeight: `${optionsShown * 50}px` }}
         >
           <div className={classes.more_indicator} />
-          {options.map((option) => (
+          {filteredOptions.length === 0 && (
+            <div className={classes.no_options}>No options found</div>
+          )}
+          {filteredOptions.map((option) => (
             <div
               key={option.value}
               className={classes.option}
@@ -172,9 +227,10 @@ export const Select = ({
                     type="checkbox"
                     id={`checkbox-${option.value}`}
                     className={classes.checkbox_input}
-                    checked={selected.some(
+                    checked={selected?.some(
                       (item) => item.value === option.value
                     )}
+                    readOnly
                   />
                   <label htmlFor={`checkbox-${option.value}`} />
                 </div>
@@ -184,6 +240,9 @@ export const Select = ({
           ))}
         </div>
       </div>
+      {labels?.customError && (
+        <div className={classes.error}>{labels.customError}</div>
+      )}
     </div>
   )
 }
