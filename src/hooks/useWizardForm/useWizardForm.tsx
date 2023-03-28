@@ -136,7 +136,18 @@ const useWizardForm = ({
   }
 
   const handleGoToNextQuestion = async () => {
-    await updateQuestionVisibility().finally(() => {
+    await updateQuestionVisibility().then((updatedQuestions) => {
+      // check if there are no new visible questions after evaluating rules
+      const doNextQuestionExist = current !== updatedQuestions.length - 1
+      if (!doNextQuestionExist) {
+        // check if there are any errors
+        const hasErrors = handleCheckForErrors()
+        // if there are no errors, submit the form
+        if (!hasErrors) {
+          formMethods.handleSubmit(handleConvertAndSubmitForm)()
+        }
+        return
+      }
       const hasErrors = handleCheckForErrors()
 
       if (!hasErrors) {
