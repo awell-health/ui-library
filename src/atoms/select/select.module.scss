@@ -32,6 +32,11 @@
     color: #eee;
     cursor: not-allowed;
   }
+
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .dropdown {
@@ -42,7 +47,7 @@
   display: block;
   position: absolute;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  top: 100%;
+  top: 101%;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -69,6 +74,7 @@
 
 .option {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
   cursor: pointer;
@@ -83,6 +89,8 @@
 
 .checkbox {
   margin-right: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .checkbox-input {
@@ -112,4 +120,20 @@
   font-size: var(--awell-font-size-sm);
   line-height: var(--awell-leading-4);
   margin-top: var(--awell-spacing-1);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--awell-accent-color);
+  color: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: var(--awell-font-size-sm);
+  line-height: 1;
+  position: absolute;
+  right: 8px;
+  bottom: 10px;
 }

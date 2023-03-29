@@ -8,6 +8,10 @@ export default {
   title: 'Atoms/Select',
   component: SelectComponent,
   argTypes: {
+    type: {
+      control: 'select',
+      options: ['single', 'multiple'],
+    },
     optionsShown: {
       control: 'number',
       defaultValue: 4,
@@ -20,26 +24,34 @@ export default {
         noOptions: 'No options',
       },
     },
-    id: {
-      control: 'text',
-      defaultValue: 'input-field-story-id',
-    },
     mandatory: {
       control: 'boolean',
       defaultValue: true,
+    },
+    showCount: {
+      control: 'boolean',
+      defaultValue: true,
+    },
+    displayMaxLength: {
+      control: 'number',
+      defaultValue: 15,
     },
     onChange: { action: 'change' },
     onClick: { action: 'click' },
     options: {
       control: 'array',
       defaultValue: [
-        { label: 'First Option', value: 0 },
-        { label: 'Second Option', value: 1 },
-        { label: 'Third Option', value: 2 },
-        { label: 'Fourth Option', value: 3 },
-        { label: 'Fifth Option', value: 4 },
-        { label: 'Sixth Option', value: 5 },
+        { label: 'No known allergies', value: 0 },
+        { label: 'Taking prescription medication', value: 1 },
+        { label: 'History of heart disease', value: 2 },
+        { label: 'Regular exercise routine', value: 3 },
+        { label: 'Following a balanced diet', value: 4 },
+        { label: 'Experiencing chronic pain', value: 5 },
       ],
+    },
+    filtering: {
+      control: 'boolean',
+      defaultValue: true,
     },
   },
   decorators: [
@@ -66,6 +78,7 @@ export const SingleSelect: Story<SelectProps> = ({
   options,
   optionsShown,
   labels,
+  filtering,
 }) => {
   const [value, setValue] = React.useState<number>()
   const handleChange = (value: Array<Option> | number) => {
@@ -84,6 +97,7 @@ export const SingleSelect: Story<SelectProps> = ({
       options={options}
       optionsShown={optionsShown}
       value={value}
+      filtering={filtering}
     />
   )
 }
@@ -104,6 +118,7 @@ export const SingleSelectPrefilled: Story<SelectProps> = ({
   options,
   optionsShown,
   labels,
+  filtering,
 }) => {
   const [value, setValue] = React.useState<number>(options[0].value)
   const handleChange = (value: Array<Option> | number) => {
@@ -122,6 +137,7 @@ export const SingleSelectPrefilled: Story<SelectProps> = ({
       options={options}
       optionsShown={optionsShown}
       value={value}
+      filtering={filtering}
     />
   )
 }
@@ -142,6 +158,9 @@ export const MultipleSelect: Story<SelectProps> = ({
   options,
   optionsShown,
   labels,
+  showCount,
+  displayMaxLength,
+  filtering,
 }) => {
   const [value, setValue] = React.useState<Array<Option>>()
   const handleChange = (value: Array<Option> | number) => {
@@ -160,6 +179,9 @@ export const MultipleSelect: Story<SelectProps> = ({
       options={options}
       optionsShown={optionsShown}
       value={value}
+      showCount={showCount}
+      displayMaxLength={displayMaxLength}
+      filtering={filtering}
     />
   )
 }
@@ -180,10 +202,14 @@ export const MultipleSelectPrefilled: Story<SelectProps> = ({
   options,
   optionsShown,
   labels,
+  showCount,
+  displayMaxLength,
+  filtering,
 }) => {
   const [value, setValue] = React.useState<Array<Option>>([
     options[0],
     options[1],
+    options[5],
   ])
   const handleChange = (value: Array<Option> | number) => {
     setValue(value as Array<Option>)
@@ -201,11 +227,147 @@ export const MultipleSelectPrefilled: Story<SelectProps> = ({
       options={options}
       optionsShown={optionsShown}
       value={value}
+      showCount={showCount}
+      displayMaxLength={displayMaxLength}
+      filtering={filtering}
     />
   )
 }
 
 MultipleSelectPrefilled.parameters = {
+  docs: {
+    source: {
+      type: 'code',
+    },
+  },
+}
+
+export const SingleSelectNoFiltering: Story<SelectProps> = ({
+  id,
+  onChange,
+  onClick,
+  mandatory,
+  options,
+  optionsShown,
+  labels,
+  showCount,
+  displayMaxLength,
+}) => {
+  const [value, setValue] = React.useState<number>()
+  const [valueFilled, setValueFilled] = React.useState<number>(1)
+  const handleChange = (value: Array<Option> | number) => {
+    setValue(value as number)
+    onChange(value)
+  }
+  const handleFilledChange = (value: Array<Option> | number) => {
+    setValueFilled(value as number)
+    onChange(value)
+  }
+
+  return (
+    <>
+      <SelectComponent
+        type="single"
+        labels={labels}
+        onChange={handleChange}
+        onClick={onClick}
+        id={id}
+        mandatory={mandatory}
+        options={options}
+        optionsShown={optionsShown}
+        value={value}
+        showCount={showCount}
+        displayMaxLength={displayMaxLength}
+        filtering={false}
+      />
+      <br />
+      <SelectComponent
+        type="single"
+        labels={labels}
+        onChange={handleFilledChange}
+        onClick={onClick}
+        id={id}
+        mandatory={mandatory}
+        options={options}
+        optionsShown={optionsShown}
+        value={valueFilled}
+        showCount={showCount}
+        displayMaxLength={displayMaxLength}
+        filtering={false}
+      />
+    </>
+  )
+}
+
+SingleSelectNoFiltering.parameters = {
+  docs: {
+    source: {
+      type: 'code',
+    },
+  },
+}
+export const MultipleSelectNoFiltering: Story<SelectProps> = ({
+  id,
+  onChange,
+  onClick,
+  mandatory,
+  options,
+  optionsShown,
+  labels,
+  showCount,
+  displayMaxLength,
+}) => {
+  const [value, setValue] = React.useState<Array<Option>>()
+  const [valueFilled, setValueFilled] = React.useState<Array<Option>>([
+    options[0],
+    options[1],
+    options[5],
+  ])
+  const handleChange = (value: Array<Option> | number) => {
+    setValue(value as Array<Option>)
+    onChange(value)
+  }
+  const handleFilledChange = (value: Array<Option> | number) => {
+    setValueFilled(value as Array<Option>)
+    onChange(value)
+  }
+
+  return (
+    <>
+      <SelectComponent
+        type="multiple"
+        labels={labels}
+        onChange={handleChange}
+        onClick={onClick}
+        id={id}
+        mandatory={mandatory}
+        options={options}
+        optionsShown={optionsShown}
+        value={value}
+        showCount={showCount}
+        displayMaxLength={displayMaxLength}
+        filtering={false}
+      />
+      <br />
+      <SelectComponent
+        type="multiple"
+        labels={labels}
+        onChange={handleFilledChange}
+        onClick={onClick}
+        id={id}
+        mandatory={mandatory}
+        options={options}
+        optionsShown={optionsShown}
+        value={valueFilled}
+        showCount={showCount}
+        displayMaxLength={displayMaxLength}
+        filtering={false}
+      />
+    </>
+  )
+}
+
+MultipleSelectNoFiltering.parameters = {
   docs: {
     source: {
       type: 'code',

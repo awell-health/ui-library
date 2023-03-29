@@ -53,6 +53,30 @@ export interface SelectProps
     noOptions?: string
     customError?: string
   }
+  /**
+   * Show the number of selected options in the select as a badge (only for 'multiple' type select)
+   */
+  showCount?: boolean
+  /**
+   * Max length of the label to be displayed in the select (only for 'multiple' type select)
+   */
+  displayMaxLength?: number | null
+
+  /**
+   * Enable filtering of options in the dropdown (e.g. autocomplete behaviour)
+   */
+  filtering?: boolean
+}
+
+const truncateLabel = (label: string, maxLength: number | null = 15) => {
+  if (maxLength === null) {
+    return label
+  }
+
+  if (label.length > maxLength) {
+    return `${label.slice(0, maxLength)}...`
+  }
+  return label
 }
 
 export const Select = ({
@@ -63,7 +87,10 @@ export const Select = ({
   mandatory,
   options,
   optionsShown = 4,
+  showCount = false,
+  displayMaxLength = 15,
   value,
+  filtering = false,
   ...props
 }: SelectProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
@@ -172,7 +199,9 @@ export const Select = ({
 
     if (type === 'multiple') {
       return selected.length > 0
-        ? selected.map((option) => option.label).join(', ')
+        ? selected
+            .map((option) => truncateLabel(option.label, displayMaxLength))
+            .join(', ')
         : ''
     }
 
@@ -199,19 +228,24 @@ export const Select = ({
           type="text"
           id={id}
           value={getDisplayValue()}
-          placeholder={labels?.searchPlaceholder ?? ''}
-          className={classes.select_input}
+          placeholder={filtering ? labels?.searchPlaceholder ?? '' : ''}
+          className={`${classes.select_input} ${
+            filtering ? '' : classes.pointer
+          }`}
           data-testid={`input-${id}`}
-          onChange={handleInputChange}
-          onClick={handleResetSearch}
+          onChange={filtering ? handleInputChange : () => {}}
+          onClick={filtering ? handleResetSearch : () => {}}
+          readOnly={!filtering}
         />
+        {type === 'multiple' && selected.length > 0 && showCount && (
+          <div className={classes.badge}>{selected.length}</div>
+        )}
         <div
           className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${
             options.length > optionsShown ? classes.dropdown_scroll : ''
           }`}
           style={{ maxHeight: `${optionsShown * 50}px` }}
         >
-          <div className={classes.more_indicator} />
           {filteredOptions.length === 0 && (
             <div className={classes.no_options}>No options found</div>
           )}
@@ -221,6 +255,7 @@ export const Select = ({
               className={classes.option}
               onClick={(event) => handleSelect(event, option)}
             >
+              {option.label}
               {type === 'multiple' && (
                 <div className={classes.checkbox}>
                   <input
@@ -235,7 +270,6 @@ export const Select = ({
                   <label htmlFor={`checkbox-${option.value}`} />
                 </div>
               )}
-              {option.label}
             </div>
           ))}
         </div>
