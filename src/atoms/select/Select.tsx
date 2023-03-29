@@ -109,7 +109,7 @@ export const Select = ({
     if (type === 'single') {
       return [
         options.find((option) => (value as number) === option.value) ??
-          undefined,
+        undefined,
       ].filter((option) => option !== undefined) as Array<Option>
     }
     return []
@@ -200,8 +200,8 @@ export const Select = ({
     if (type === 'multiple') {
       return selected.length > 0
         ? selected
-            .map((option) => truncateLabel(option.label, displayMaxLength))
-            .join(', ')
+          .map((option) => truncateLabel(option.label, displayMaxLength))
+          .join(', ')
         : ''
     }
 
@@ -222,28 +222,29 @@ export const Select = ({
           mandatory={mandatory}
         />
       )}
-      <div className={classes.select} onClick={toggleDropdown}>
+      <div className={classes.select_input_wrapper} onClick={toggleDropdown}>
         <input
           {...props}
           type="text"
           id={id}
           value={getDisplayValue()}
           placeholder={filtering ? labels?.searchPlaceholder ?? '' : ''}
-          className={`${classes.select_input} ${
-            filtering ? '' : classes.pointer
-          }`}
+          className={`${classes.select_input} ${filtering ? '' : classes.pointer
+            }`}
           data-testid={`input-${id}`}
-          onChange={filtering ? handleInputChange : () => {}}
-          onClick={filtering ? handleResetSearch : () => {}}
+          onChange={filtering ? handleInputChange : () => { }}
+          onClick={filtering ? handleResetSearch : () => { }}
           readOnly={!filtering}
         />
         {type === 'multiple' && selected.length > 0 && showCount && (
           <div className={classes.badge}>{selected.length}</div>
         )}
         <div
-          className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${
-            options.length > optionsShown ? classes.dropdown_scroll : ''
-          }`}
+          className={`${classes.chevron} ${isOpen ? `${classes.open}` : ''}`}
+        />
+        <div
+          className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${options.length > optionsShown ? classes.dropdown_scroll : ''
+            }`}
           style={{ maxHeight: `${optionsShown * 50}px` }}
         >
           {filteredOptions.length === 0 && (
@@ -261,7 +262,6 @@ export const Select = ({
                   <input
                     type="checkbox"
                     id={`checkbox-${option.value}`}
-                    className={classes.checkbox_input}
                     checked={selected?.some(
                       (item) => item.value === option.value
                     )}
