@@ -1,9 +1,7 @@
 name: '🧨 Publish Package to npmjs'
 on:
-  create:
-    ref_type: tag
-    tags:
-      - "v*"
+  release:
+    types: [released]
   workflow_dispatch:
 jobs:
   build:
@@ -31,12 +29,3 @@ jobs:
           yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-      - name: '🕊️ Create release'
-        uses: actions/create-release@v3
-        if: startsWith(github.ref, 'refs/tags/v')
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ steps.release_notes.outputs.release_notes }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
