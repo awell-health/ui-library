@@ -136,13 +136,19 @@ const useWizardForm = ({
   }
 
   const handleGoToNextQuestion = async () => {
-    await updateQuestionVisibility().finally(() => {
-      const hasErrors = handleCheckForErrors()
-
-      if (!hasErrors) {
+    const hasErrors = handleCheckForErrors()
+    if (!hasErrors) {
+      try {
+        const updatedQuestions = await updateQuestionVisibility()
+        const isLastVisibleQuestion = current === updatedQuestions.length - 1
+        if (isLastVisibleQuestion) {
+          formMethods.handleSubmit(handleConvertAndSubmitForm)()
+          return
+        }
+      } finally {
         setCurrent(current + 1)
       }
-    })
+    }
     if (current === -1) {
       setCurrent(current + 1)
     }
