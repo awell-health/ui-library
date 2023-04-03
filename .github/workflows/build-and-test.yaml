@@ -1,4 +1,4 @@
-name: Codegen, Lint and Test
+name: "🧪 Codegen, Lint and Test"
 
 on:
   push:

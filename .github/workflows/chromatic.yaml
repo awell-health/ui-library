@@ -1,7 +1,7 @@
 # .github/workflows/chromatic.yml
 
 # Workflow name
-name: "Chromatic"
+name: "🏳️‍🌈 Chromatic"
 
 # Event for the workflow
 on: push
@@ -11,9 +11,19 @@ jobs:
   chromatic-deployment:
     # Operating System
     runs-on: ubuntu-latest
+    env:
+      cache-name: cache-node-modules
     # Job steps
     steps:
       - uses: actions/checkout@v1
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.cache-name }}-
+            ${{ runner.os }}-
       - name: Install dependencies
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow

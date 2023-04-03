@@ -43,6 +43,11 @@ autolabeler:
       - '/fix\/.+/'
     title:
       - "/fix/i"
+  - label: "bug"
+    branch:
+      - '/bug\/.+/'
+    title:
+      - "/bug/i"
   - label: "feature"
     branch:
       - '/feat\/.+/'
@@ -53,6 +58,21 @@ autolabeler:
       - '/chore\/.+/'
     title:
       - "/chore/i"
+  - label: "ci"
+    branch:
+      - '/ci\/.+/'
+    title:
+      - "/ci/i"
+  - label: "test"
+    branch:
+      - '/test\/.+/'
+    title:
+      - "/test/i"
+  - label: "refactor"
+    branch:
+      - '/refactor\/.+/'
+    title:
+      - "/refactor/i"
   - label: "breaking"
     body:
       - "/breaking change/i"
