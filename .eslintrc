@@ -12,23 +12,37 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "parserOptions": {
-    "ecmaFeatures": { "legacyDecorators": true, "jsx": true },
+    "ecmaFeatures": {
+      "legacyDecorators": true,
+      "jsx": true
+    },
     "ecmaVersion": 2020,
     "project": "./tsconfig.json"
   },
   "settings": {
-    "react": { "version": "detect" },
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "alias": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ],
         "map": [
-          ["src", "./src"]
+          [
+            "src",
+            "./src"
+          ]
         ]
       }
     }
@@ -40,9 +54,21 @@
     "@typescript-eslint/no-explicit-any": 1,
     "import/no-unresolved": [
       "error",
-      { "ignore": ["storybook"] }
+      {
+        "ignore": [
+          "storybook"
+        ]
+      }
     ],
-    "react/jsx-filename-extension": [2, { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
     "import/no-extraneous-dependencies": [
       "error",
       {
