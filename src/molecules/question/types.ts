@@ -5,6 +5,10 @@ import { QuestionConfigByType } from '../../types/form'
 export interface QuestionLabels {
   yes_label: string
   no_label: string
+  select?: {
+    search_placeholder: string
+    no_options: string
+  }
 }
 
 export interface QuestionDataProps {
