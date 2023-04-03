@@ -1,4 +1,4 @@
-name: '🚀 Deploy Storybook to Github Pages'
+name: "🚀 Deploy Storybook to Github Pages"
 on:
   push:
     branches:
@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch to deploy'
+        description: "Branch to deploy"
         required: true
-        default: 'main'
+        default: "main"
 jobs:
   build-and-deploy:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.

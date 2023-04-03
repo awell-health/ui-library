@@ -1,71 +1,71 @@
-name-template: 'v$RESOLVED_VERSION 🌈'
-tag-template: 'v$RESOLVED_VERSION'
+name-template: "v$RESOLVED_VERSION 🌈"
+tag-template: "v$RESOLVED_VERSION"
 categories:
-  - title: '🔨 Breaking Changes'
+  - title: "🔨 Breaking Changes"
     labels:
-      - 'breaking'
-  - title: '🚀 Features'
+      - "breaking"
+  - title: "🚀 Features"
     labels:
-      - 'feat'
-      - 'feature'
-      - 'enhancement'
-      - 'improvement'
-  - title: '🐛 Bug Fixes'
+      - "feat"
+      - "feature"
+      - "enhancement"
+      - "improvement"
+  - title: "🐛 Bug Fixes"
     labels:
-      - 'fix'
-      - 'bugfix'
-      - 'bug'
-      - 'hotfix'
-  - title: '🧰 Maintenance'
-    labels: 
-      - 'chore'
-      - 'refactor'
-      - 'style'
-      - 'test'
-      - 'docs'
-      - 'ci'
-      - 'perf'
-      - 'build'
-      - 'revert'
-      - 'release'
-      - 'wip'
-      - 'cleanup'
-  - title: '📝 Documentation'
+      - "fix"
+      - "bugfix"
+      - "bug"
+      - "hotfix"
+  - title: "🧰 Maintenance"
     labels:
-      - 'docs'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+      - "chore"
+      - "refactor"
+      - "style"
+      - "test"
+      - "docs"
+      - "ci"
+      - "perf"
+      - "build"
+      - "revert"
+      - "release"
+      - "wip"
+      - "cleanup"
+  - title: "📝 Documentation"
+    labels:
+      - "docs"
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 exclude-labels:
-  - 'skip-changelog'
+  - "skip-changelog"
 autolabeler:
-  - label: 'bug'
+  - label: "bug"
     branch:
       - '/fix\/.+/'
     title:
-      - '/fix/i'
-  - label: 'feature'
+      - "/fix/i"
+  - label: "feature"
     branch:
       - '/feat\/.+/'
     title:
-      - '/feat/i'
-  - label: 'chore'
+      - "/feat/i"
+  - label: "chore"
     branch:
       - '/chore\/.+/'
     title:
-      - '/chore/i'
-  - label: 'breaking'
+      - "/chore/i"
+  - label: "breaking"
     body:
-      - '/breaking change/i'
+      - "/breaking change/i"
 version-resolver:
   major:
     labels:
-      - 'major'
+      - "major"
   minor:
     labels:
-      - 'minor'
+      - "minor"
   patch:
     labels:
-      - 'patch'
+      - "patch"
   default: patch
 template: |
   ## Changes

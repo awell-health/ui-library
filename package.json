@@ -1,6 +1,6 @@
 {
   "name": "@awell_health/ui-library",
-  "version": "0.0.64",
+  "version": "0.1.2",
   "private": false,
   "description": "UI components to integrate with Awell Health",
   "repository": {
@@ -185,5 +185,5 @@
   },
   "readme": "ERROR: No README data found!",
   "homepage": "https://github.com/awell-health/ui-library#readme",
-  "_id": "@awell_health/ui-library@0.0.34"
+  "_id": "@awell_health/ui-library@0.1.1"
 }
