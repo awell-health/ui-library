@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, {
   InputHTMLAttributes,
   MouseEventHandler,
@@ -109,7 +111,7 @@ export const Select = ({
     if (type === 'single') {
       return [
         options.find((option) => (value as number) === option.value) ??
-        undefined,
+          undefined,
       ].filter((option) => option !== undefined) as Array<Option>
     }
     return []
@@ -161,7 +163,7 @@ export const Select = ({
   }, [isOpen])
 
   const handleSelect = useCallback(
-    (event: React.MouseEvent, option: Option): void => {
+    (event: React.MouseEvent | React.KeyboardEvent, option: Option): void => {
       if (type === 'single') {
         setSelected([option])
         onChange(option.value)
@@ -200,13 +202,80 @@ export const Select = ({
     if (type === 'multiple') {
       return selected.length > 0
         ? selected
-          .map((option) => truncateLabel(option.label, displayMaxLength))
-          .join(', ')
+            .map((option) => truncateLabel(option.label, displayMaxLength))
+            .join(', ')
         : ''
     }
 
     return ''
   }
+
+  const handleKeyDownOnOption = useCallback(
+    (event: React.KeyboardEvent, option: Option) => {
+      if (event.code === 'Space') {
+        event.preventDefault()
+        handleSelect(event, option)
+      }
+      if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        const index = filteredOptions.findIndex(
+          (item) => item.value === option.value
+        )
+        console.log({ index })
+        if (index > 0) {
+          const previousOption = filteredOptions[index - 1]
+          const previousOptionElement = document.getElementById(
+            `option-${previousOption.value}`
+          )
+          console.log({ previousOptionElement })
+
+          if (previousOptionElement) {
+            previousOptionElement.focus()
+          }
+        }
+      }
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        const index = filteredOptions.findIndex(
+          (item) => item.value === option.value
+        )
+        if (index < filteredOptions.length - 1) {
+          const nextOption = filteredOptions[index + 1]
+          const nextOptionElement = document.getElementById(
+            `option-${nextOption.value}`
+          )
+          if (nextOptionElement) {
+            nextOptionElement.focus()
+          }
+        }
+      }
+    },
+    [filteredOptions, handleSelect]
+  )
+
+  const handleKeyUpOnOption = useCallback(
+    (event: React.KeyboardEvent, option: Option) => {
+      if (event.key === 'Enter') {
+        handleSelect(event, option)
+      }
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    },
+    [handleSelect]
+  )
+
+  const handleKeyUpOnInput = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        toggleDropdown()
+      }
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    },
+    [toggleDropdown]
+  )
 
   const handleResetSearch = useCallback(() => {
     setSearchValue('')
@@ -229,12 +298,14 @@ export const Select = ({
           id={id}
           value={getDisplayValue()}
           placeholder={filtering ? labels?.searchPlaceholder ?? '' : ''}
-          className={`${classes.select_input} ${filtering ? '' : classes.pointer
-            }`}
+          className={`${classes.select_input} ${
+            filtering ? '' : classes.pointer
+          }`}
           data-testid={`input-${id}`}
-          onChange={filtering ? handleInputChange : () => { }}
-          onClick={filtering ? handleResetSearch : () => { }}
+          onChange={filtering ? handleInputChange : () => null}
+          onClick={filtering ? handleResetSearch : () => null}
           readOnly={!filtering}
+          onKeyUp={handleKeyUpOnInput}
         />
         {type === 'multiple' && selected.length > 0 && showCount && (
           <div className={classes.badge}>{selected.length}</div>
@@ -243,9 +314,11 @@ export const Select = ({
           className={`${classes.chevron} ${isOpen ? `${classes.open}` : ''}`}
         />
         <div
-          className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${options.length > optionsShown ? classes.dropdown_scroll : ''
-            }`}
+          className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${
+            options.length > optionsShown ? classes.dropdown_scroll : ''
+          }`}
           style={{ maxHeight: `${optionsShown * 50}px` }}
+          role="listbox"
         >
           {filteredOptions.length === 0 && (
             <div className={classes.no_options}>No options found</div>
@@ -254,7 +327,12 @@ export const Select = ({
             <div
               key={option.value}
               className={classes.option}
+              id={`option-${option.value}`}
               onClick={(event) => handleSelect(event, option)}
+              onKeyUp={(e) => handleKeyUpOnOption(e, option)}
+              onKeyDown={(e) => handleKeyDownOnOption(e, option)}
+              role="button"
+              tabIndex={0}
             >
               {option.label}
               {type === 'multiple' && (
@@ -266,8 +344,8 @@ export const Select = ({
                       (item) => item.value === option.value
                     )}
                     readOnly
+                    tabIndex={-1}
                   />
-                  <label htmlFor={`checkbox-${option.value}`} />
                 </div>
               )}
             </div>
