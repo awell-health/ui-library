@@ -24,11 +24,24 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
+      # Drafts your next Release notes as Pull Requests are merged into "main"
       - uses: release-drafter/release-drafter@v5
-        # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
         with:
           config-name: release-drafter-config.yaml
           disable-autolabeler: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Update package.json version to match the release draft version
+      - name: Update package.json version
+        run: |
+          draft_version=$(cat .release-drafter/next-version)
+          echo "Updating package.json to version ${draft_version}..."
+          sed -i.bak "s/\"version\": \".*\"/\"version\": \"${draft_version}\"/" package.json
+          rm package.json.bak
+
+      # Commit the updated package.json and push the changes to the repository
+      - name: Commit and push package.json changes
+        run: |
+          git add package.json
+          git commit -m "Update package.json version to ${draft_version}"
+          git push origin HEAD:${{ github.head_ref }}
