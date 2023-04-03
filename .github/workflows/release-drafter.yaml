@@ -36,14 +36,18 @@ jobs:
       # Update package.json version to match the release draft version
       - name: Update package.json version
         run: |
-          draft_version=$(cat .release-drafter/next-version)
-          current_version=$(grep -oP '(?<="version": ")[^"]+' package.json)
-          if [ "$draft_version" != "$current_version" ]; then
-            echo "Updating package.json to version ${draft_version}..."
-            sed -i.bak "s/\"version\": \".*\"/\"version\": \"${draft_version}\"/" package.json
-            rm package.json.bak
+          if test -f .release-drafter/next-version; then
+            draft_version=$(cat .release-drafter/next-version)
+            current_version=$(grep -oP '(?<="version": ")[^"]+' package.json)
+            if [ "$draft_version" != "$current_version" ]; then
+              echo "Updating package.json to version ${draft_version}..."
+              sed -i.bak "s/\"version\": \".*\"/\"version\": \"${draft_version}\"/" package.json
+              rm package.json.bak
+            else
+              echo "Package.json version already matches next release draft version"
+            fi
           else
-            echo "Package.json version already matches next release draft version"
+            echo ".release-drafter/next-version file not found, skipping package.json update"
           fi
 
       # Commit the updated package.json and push the changes to the repository
