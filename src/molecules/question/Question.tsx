@@ -71,7 +71,11 @@ export const QuestionData = ({
                 <Select
                   id={question.id}
                   value={value}
-                  label={question.title}
+                  labels={{
+                    questionLabel: question.title,
+                    searchPlaceholder: labels.select?.search_placeholder,
+                    noOptions: labels.select?.no_options,
+                  }}
                   onChange={(data) => onChange(data)}
                   type="multiple"
                   options={question.options ?? []}
@@ -105,7 +109,11 @@ export const QuestionData = ({
                 <Select
                   id={question.id}
                   value={value}
-                  label={question.title}
+                  labels={{
+                    questionLabel: question.title,
+                    searchPlaceholder: labels.select?.search_placeholder,
+                    noOptions: labels.select?.no_options,
+                  }}
                   onChange={(data) => onChange(data)}
                   type="single"
                   options={question.options ?? []}
