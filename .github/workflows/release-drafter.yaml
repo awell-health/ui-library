@@ -22,6 +22,8 @@ jobs:
       # write permission is required for autolabeler
       # otherwise, read permission is required at least
       pull-requests: write
+    outputs:
+      next-version: ${{ steps.release-drafter.outputs.next-version }}
     runs-on: ubuntu-latest
     steps:
       # Drafts your next Release notes as Pull Requests are merged into "main"
@@ -35,9 +37,14 @@ jobs:
       - name: Update package.json version
         run: |
           draft_version=$(cat .release-drafter/next-version)
-          echo "Updating package.json to version ${draft_version}..."
-          sed -i.bak "s/\"version\": \".*\"/\"version\": \"${draft_version}\"/" package.json
-          rm package.json.bak
+          current_version=$(grep -oP '(?<="version": ")[^"]+' package.json)
+          if [ "$draft_version" != "$current_version" ]; then
+            echo "Updating package.json to version ${draft_version}..."
+            sed -i.bak "s/\"version\": \".*\"/\"version\": \"${draft_version}\"/" package.json
+            rm package.json.bak
+          else
+            echo "Package.json version already matches next release draft version"
+          fi
 
       # Commit the updated package.json and push the changes to the repository
       - name: Commit and push package.json changes
