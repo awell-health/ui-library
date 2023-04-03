@@ -50,6 +50,11 @@ export const WizardForm: Story = ({
   buttonLabels,
   errorLabels,
 }) => {
+  const [answers, setAnswers] = React.useState<string>('')
+  const handleAnswersChange = (answers: string) => {
+    setAnswers(answers)
+  }
+
   return (
     <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
       <WizardFormComponent
@@ -57,7 +62,24 @@ export const WizardForm: Story = ({
         buttonLabels={buttonLabels}
         errorLabels={errorLabels}
         onSubmit={onSubmit}
-        evaluateDisplayConditions={() => {
+        storedAnswers={answers}
+        onAnswersChange={handleAnswersChange}
+        key={form.id}
+        questionTypeConfig={{
+          TELEPHONE: {
+            initialCountry: 'gb',
+            placeholder: '+447810123456',
+          },
+        }}
+        questionLabels={{
+          no_label: 'No',
+          yes_label: 'Yes',
+          select: {
+            no_options: 'No options',
+            search_placeholder: 'Search',
+          },
+        }}
+        evaluateDisplayConditions={async () => {
           return Promise.all([]).then(function () {
             return []
           })

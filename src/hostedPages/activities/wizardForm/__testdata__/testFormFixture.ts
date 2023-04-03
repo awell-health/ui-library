@@ -1,5 +1,9 @@
 import { Form } from '../../../../types'
-import { DataPointValueType, QuestionType, UserQuestionType } from '../../../../types/question'
+import {
+  DataPointValueType,
+  QuestionType,
+  UserQuestionType,
+} from '../../../../types/question'
 
 export const form: Form = {
   id: 'Kzr2NafTxJfR',
@@ -311,6 +315,116 @@ export const form: Form = {
         recode_enabled: false,
         mandatory: false,
         slider: null,
+      },
+    },
+    {
+      id: 'HyIaUksdgDcXwR',
+      title: 'This is a phone number question',
+      definition_id: 'Kzr2NafsaaTxJfR',
+      key: 'thisIsPhoneNumberQuestion',
+      dataPointValueType: DataPointValueType.Telephone,
+      options: [
+        {
+          id: 'ZT6yN64opulL',
+          value: 0,
+          label: 'Option 1',
+        },
+        {
+          id: 'RqYicEXp0agy',
+          value: 1,
+          label: 'Option 2',
+        },
+        {
+          id: 'd_uA9ldC6L8_',
+          value: 2,
+          label: 'Option 3',
+        },
+        {
+          id: 'ZkhlOC3DfSOF',
+          value: 3,
+          label: 'Option 4',
+        },
+      ],
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Telephone,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+    {
+      id: 'HyIaUasadkgDcXwR',
+      title: 'This is multiple select question - with Select input',
+      definition_id: 'Kzr2NafsaaTxJfR',
+      key: 'thisIsMultipleSelectQuestionWithSelectInput',
+      dataPointValueType: DataPointValueType.NumbersArray,
+      options: [
+        {
+          id: 'ZT6yN64opulL',
+          value: 0,
+          label: 'Option 1',
+        },
+        {
+          id: 'RqYicEXp0agy',
+          value: 1,
+          label: 'Option 2',
+        },
+        {
+          id: 'd_uA9ldC6L8_',
+          value: 2,
+          label: 'Option 3',
+        },
+        {
+          id: 'ZkhlOC3DfSOF',
+          value: 3,
+          label: 'Option 4',
+        },
+      ],
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleSelect,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+        use_select: true,
+      },
+    },
+    {
+      id: 'HyIaUkgDczxXwR',
+      title: 'This is multiple choice question - with Select input',
+      definition_id: 'Kzr2NasfTxJfR',
+      key: 'thisIsMultipleChoiceQuestionWithSelectInput',
+      dataPointValueType: DataPointValueType.Number,
+      options: [
+        {
+          id: 'ZT6yN64opulL',
+          value: 0,
+          label: 'Option 1',
+        },
+        {
+          id: 'RqYicEXp0agy',
+          value: 1,
+          label: 'Option 2',
+        },
+        {
+          id: 'd_uA9ldC6L8_',
+          value: 2,
+          label: 'Option 3',
+        },
+        {
+          id: 'ZkhlOC3DfSOF',
+          value: 3,
+          label: 'Option 4',
+        },
+      ],
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+        use_select: true,
       },
     },
   ],

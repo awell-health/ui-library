@@ -80,6 +80,8 @@ export const QuestionData = ({
                   type="multiple"
                   options={question.options ?? []}
                   mandatory={config?.mandatory}
+                  showCount
+                  filtering
                 />
               )
             }
@@ -118,6 +120,8 @@ export const QuestionData = ({
                   type="single"
                   options={question.options ?? []}
                   mandatory={config?.mandatory}
+                  showCount
+                  filtering
                 />
               )
             }
@@ -192,6 +196,7 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Telephone:
+      // eslint-disable-next-line no-case-declarations
       const {
         availableCountries,
         // TODO: setting this to gb as default for now
@@ -271,7 +276,7 @@ export const QuestionData = ({
     case UserQuestionType.Description:
       return <Description content={question.title} />
     default:
-      return <div>TO BE DONE</div>
+      return <div>Question Type Not Implemented</div>
   }
 }
 
