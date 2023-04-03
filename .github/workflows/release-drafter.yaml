@@ -48,6 +48,7 @@ jobs:
             fi
           else
             echo ".release-drafter/next-version file not found, skipping package.json update"
+            exit 0
           fi
 
       # Commit the updated package.json and push the changes to the repository
