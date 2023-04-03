@@ -318,6 +318,7 @@ export const Select = ({
             options.length > optionsShown ? classes.dropdown_scroll : ''
           }`}
           style={{ maxHeight: `${optionsShown * 50}px` }}
+          role="listbox"
         >
           {filteredOptions.length === 0 && (
             <div className={classes.no_options}>No options found</div>
