@@ -211,6 +211,10 @@ export const QuestionData = ({
           rules={{
             required: config?.mandatory,
             validate: (value) => {
+              // if the field is not mandatory and the value is not empty, validate the number
+              if (value !== '' && !config?.mandatory) {
+                return isValidE164Number(value)
+              }
               if (value === '' && !config?.mandatory) {
                 return true
               }
