@@ -3,6 +3,7 @@ name: Codegen, Lint and Test
 on:
   push:
     branches:
+      - "*"
       - "!main"
 
 jobs:
