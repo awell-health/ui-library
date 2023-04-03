@@ -1,4 +1,4 @@
-name: '🧨 Publish Package to npmjs'
+name: "🧨 Publish Package to npmjs"
 on:
   release:
     types: [released]
@@ -11,17 +11,17 @@ jobs:
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-      - name: '📦 Installing dependencies'
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+      - name: "📦 Installing dependencies"
         run: yarn --frozen-lockfile
-      - name: '🏗 Build package'
+      - name: "🏗 Build package"
         run: yarn build
-      - name: '📏 Run unit tests'
+      - name: "📏 Run unit tests"
         run: yarn test
-      - name: '🧳 Prepare .npmrc'
+      - name: "🧳 Prepare .npmrc"
         run: cp .npmrc.template .npmrc
-      - name: '🚀 Publish to npm'
+      - name: "🚀 Publish to npm"
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')

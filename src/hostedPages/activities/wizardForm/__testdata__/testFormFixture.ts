@@ -1,16 +1,19 @@
 import { Form } from '../../../../types'
+import { DataPointValueType, QuestionType, UserQuestionType } from '../../../../types/question'
 
 export const form: Form = {
   id: 'Kzr2NafTxJfR',
   title: 'Example form',
   key: 'exampleForm',
+  definition_id: '',
+  release_id: '',
   questions: [
     {
       id: 'x5bgJqOltmK3',
       title: 'Single select question - Not required',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [
         {
           id: '1',
@@ -114,9 +117,8 @@ export const form: Form = {
           value: 20,
         },
       ],
-      questionType: 'MULTIPLE_CHOICE',
-      userQuestionType: 'MULTIPLE_CHOICE',
-      rule_id: null,
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
       questionConfig: {
         recode_enabled: false,
         mandatory: false,
@@ -126,9 +128,9 @@ export const form: Form = {
     {
       id: 'x5bgJqOltmK3',
       title: 'Single select question - required',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [
         {
           id: '1',
@@ -167,9 +169,8 @@ export const form: Form = {
           value: 7,
         },
       ],
-      questionType: 'MULTIPLE_CHOICE',
-      userQuestionType: 'MULTIPLE_CHOICE',
-      rule_id: null,
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
       questionConfig: {
         recode_enabled: false,
         mandatory: true,
@@ -179,9 +180,9 @@ export const form: Form = {
     {
       id: 'HyIaUkgDcXwR',
       title: 'This is multiple select question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsMultipleSelectQuestion',
-      dataPointValueType: 'NUMBERS_ARRAY',
+      dataPointValueType: DataPointValueType.NumbersArray,
       options: [
         {
           id: 'ZT6yN64opulL',
@@ -204,9 +205,8 @@ export const form: Form = {
           label: 'Option 4',
         },
       ],
-      questionType: 'MULTIPLE_CHOICE',
-      userQuestionType: 'MULTIPLE_SELECT',
-      rule_id: null,
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleSelect,
       questionConfig: {
         recode_enabled: false,
         mandatory: false,
@@ -216,13 +216,12 @@ export const form: Form = {
     {
       id: 'VkL1vrscT5MV',
       title: 'This is yes or no question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsYesOrNoQuestion',
-      dataPointValueType: 'BOOLEAN',
+      dataPointValueType: DataPointValueType.Boolean,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'YES_NO',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.YesNo,
       questionConfig: {
         recode_enabled: false,
         mandatory: true,
@@ -233,13 +232,12 @@ export const form: Form = {
       id: 'fSN5BktQ6cOV',
       title:
         '[{"type":"p","children":[{"text":"This ","bold":true},{"text":"is","italic":true},{"text":" "},{"text":"rich text","strikethrough":true},{"text":" "},{"text":"description","underline":true}]}]',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'typePChildrenTextThisBoldTrueTextIsItalicTrueTextTextRichTextStrikethroughTrueTextTextDescriptionUnderlineTrue',
       dataPointValueType: null,
       options: [],
-      questionType: 'NO_INPUT',
-      userQuestionType: 'DESCRIPTION',
-      rule_id: null,
+      questionType: QuestionType.NoInput,
+      userQuestionType: UserQuestionType.Description,
       questionConfig: {
         recode_enabled: false,
         mandatory: false,
@@ -249,13 +247,12 @@ export const form: Form = {
     {
       id: 'XAgYxu_kbDPj',
       title: 'This is slider question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsSliderQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'SLIDER',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Slider,
       questionConfig: {
         recode_enabled: false,
         mandatory: true,
@@ -274,13 +271,12 @@ export const form: Form = {
     {
       id: '5KMcDYtoz0rr',
       title: 'This is number question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsNumberQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'NUMBER',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Number,
       questionConfig: {
         recode_enabled: false,
         mandatory: false,
@@ -290,13 +286,12 @@ export const form: Form = {
     {
       id: 'U99uUQ_Jp5Jb',
       title: 'This is short text question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsShortTextQuestion',
-      dataPointValueType: 'STRING',
+      dataPointValueType: DataPointValueType.String,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'SHORT_TEXT',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.ShortText,
       questionConfig: {
         recode_enabled: false,
         mandatory: false,
@@ -306,13 +301,12 @@ export const form: Form = {
     {
       id: '6mv3n9HaXFTU',
       title: 'This is long text question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsLongTextQuestion',
-      dataPointValueType: 'STRING',
+      dataPointValueType: DataPointValueType.String,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'LONG_TEXT',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.LongText,
       questionConfig: {
         recode_enabled: false,
         mandatory: false,
@@ -326,13 +320,15 @@ export const formWithTwoRequiredSingleSelectQuestions: Form = {
   id: 'Kzr2NafTxJfR',
   title: 'Example form',
   key: 'exampleForm',
+  definition_id: '',
+  release_id: '',
   questions: [
     {
       id: 'x5bgJqOltmK3',
       title: 'Single select question #1',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [
         {
           id: '1',
@@ -345,9 +341,8 @@ export const formWithTwoRequiredSingleSelectQuestions: Form = {
           value: 1,
         },
       ],
-      questionType: 'MULTIPLE_CHOICE',
-      userQuestionType: 'MULTIPLE_CHOICE',
-      rule_id: null,
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
       questionConfig: {
         recode_enabled: false,
         mandatory: true,
@@ -357,9 +352,9 @@ export const formWithTwoRequiredSingleSelectQuestions: Form = {
     {
       id: 'x5bgJqOltmK3',
       title: 'Single select question #2',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [
         {
           id: '1',
@@ -372,9 +367,8 @@ export const formWithTwoRequiredSingleSelectQuestions: Form = {
           value: 1,
         },
       ],
-      questionType: 'MULTIPLE_CHOICE',
-      userQuestionType: 'MULTIPLE_CHOICE',
-      rule_id: null,
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
       questionConfig: {
         recode_enabled: false,
         mandatory: true,
@@ -388,17 +382,18 @@ export const sliderQuestionForm: Form = {
   id: 'Tzr2NafTxJfR',
   title: 'Form with slider question',
   key: 'formWithSliderQuestion',
+  definition_id: '',
+  release_id: '',
   questions: [
     {
       id: 'XAgYxu_kbDPj',
       title: 'This is slider question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsSliderQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'SLIDER',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Slider,
       questionConfig: {
         recode_enabled: false,
         mandatory: true,
@@ -417,13 +412,12 @@ export const sliderQuestionForm: Form = {
     {
       id: '5KMcDYtoz0rr',
       title: 'This is number question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsNumberQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'NUMBER',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Number,
       questionConfig: {
         recode_enabled: false,
         mandatory: false,
@@ -437,17 +431,18 @@ export const dateQuestionForm: Form = {
   id: 'Tzr2NafTxJfR',
   title: 'Form with date question',
   key: 'formWithDateQuestion',
+  definition_id: '',
+  release_id: '',
   questions: [
     {
       id: 'XAgYxu_kbDPj',
       title: 'This is date question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsDateQuestion',
-      dataPointValueType: 'DATE',
+      dataPointValueType: DataPointValueType.Date,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'DATE',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Date,
       questionConfig: {
         recode_enabled: false,
         mandatory: true,
@@ -456,13 +451,12 @@ export const dateQuestionForm: Form = {
     {
       id: '5KMcDYtoz0rr',
       title: 'This is number question',
-      form_id: 'Kzr2NafTxJfR',
+      definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsNumberQuestion',
-      dataPointValueType: 'NUMBER',
+      dataPointValueType: DataPointValueType.Number,
       options: [],
-      questionType: 'INPUT',
-      userQuestionType: 'NUMBER',
-      rule_id: null,
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Number,
       questionConfig: {
         recode_enabled: false,
         mandatory: false,

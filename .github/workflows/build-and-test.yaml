@@ -1,0 +1,26 @@
+name: Codegen, Lint and Test
+
+on:
+  push:
+    branches:
+      - "*"
+      - "!main"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: 👷‍♀️ Install dependencies
+        run: yarn install
+      - name: 📝 Codegen
+        run: yarn codegen
+      - name: 🧪 Run tests
+        run: yarn test
+      - name: 👓 Run lint on changed files
+        run: |
+          git fetch --prune
+          git diff --name-only HEAD $(git merge-base HEAD origin/${{ github.head_ref }}) | grep -E '\.(js|jsx|ts|tsx)$' | xargs yarn lint:js:file

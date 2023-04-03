@@ -154,8 +154,18 @@ const useWizardForm = ({
     }
   }
 
-  const handleGoToPrevQuestion = () => {
-    setCurrent(current - 1)
+  const handleGoToPrevQuestion = async () => {
+    const isFirstVisibleQuestion = current === 0
+    try {
+      await updateQuestionVisibility()
+      if (isFirstVisibleQuestion) {
+        return
+      }
+    } finally {
+      if (!isFirstVisibleQuestion) {
+        setCurrent(current - 1)
+      }
+    }
   }
 
   const handleConvertAndSubmitForm = async (

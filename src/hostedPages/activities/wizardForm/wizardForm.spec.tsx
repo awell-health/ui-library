@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import { WizardForm as WizardFormComponent } from './WizardForm'
@@ -9,6 +9,8 @@ import {
   formWithTwoRequiredSingleSelectQuestions,
   dateQuestionForm,
 } from './__testdata__/testFormFixture'
+import { AnswerInput, Form } from '../../../types'
+import { QuestionRuleResult } from '../../../hooks/useWizardForm/types'
 
 const props = {
   buttonLabels: {
@@ -33,20 +35,51 @@ const props = {
  */
 const firstQuestion = formData.questions[0]
 const secondQuestion = formData.questions[1]
-const thirdQuestion = formData.questions[2]
+// const thirdQuestion = formData.questions[2]
+const { buttonLabels, errorLabels } = props
+
+const renderWizardFormComponent = (
+  form: Form,
+  evaluateDisplayConditions: (
+    response: AnswerInput[]
+  ) => Promise<QuestionRuleResult[]>
+) => {
+  render(
+    <WizardFormComponent
+      form={form}
+      buttonLabels={buttonLabels}
+      errorLabels={errorLabels}
+      onSubmit={() => null}
+      evaluateDisplayConditions={evaluateDisplayConditions}
+    />
+  )
+}
+
+const clickNextButton = async () => {
+  const nextButton = await screen.findByText(buttonLabels.next)
+  await act(async () => {
+    fireEvent.click(nextButton)
+  })
+}
+
+const clickPrevButton = async () => {
+  const prevButton = await screen.findByText(buttonLabels.prev)
+  await act(async () => {
+    fireEvent.click(prevButton)
+  })
+}
 
 describe('Wizard form', () => {
+  let evaluateDisplayConditions: (
+    response: AnswerInput[]
+  ) => Promise<QuestionRuleResult[]>
+
+  beforeEach(() => {
+    evaluateDisplayConditions = jest.fn().mockResolvedValue([])
+  })
+
   it('Should render the first question and evaluate display condition on init', async () => {
-    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
-    render(
-      <WizardFormComponent
-        form={formData}
-        buttonLabels={props.buttonLabels}
-        errorLabels={props.errorLabels}
-        onSubmit={() => null}
-        evaluateDisplayConditions={evaluateDisplayConditions}
-      />
-    )
+    renderWizardFormComponent(formData, evaluateDisplayConditions)
 
     const firstQuestionLabel = await screen.findByText(firstQuestion.title)
 
@@ -59,22 +92,13 @@ describe('Wizard form', () => {
   })
 
   it('Should properly navigate to next question', async () => {
-    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
-    render(
-      <WizardFormComponent
-        form={formData}
-        buttonLabels={props.buttonLabels}
-        errorLabels={props.errorLabels}
-        onSubmit={() => null}
-        evaluateDisplayConditions={evaluateDisplayConditions}
-      />
-    )
+    renderWizardFormComponent(formData, evaluateDisplayConditions)
 
     await waitFor(() =>
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(1)
     )
 
-    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    await clickNextButton()
 
     await waitFor(() =>
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(2)
@@ -89,22 +113,13 @@ describe('Wizard form', () => {
   })
 
   it('Should properly navigate to previous question', async () => {
-    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
-
-    render(
-      <WizardFormComponent
-        form={formData}
-        buttonLabels={props.buttonLabels}
-        errorLabels={props.errorLabels}
-        onSubmit={() => null}
-        evaluateDisplayConditions={evaluateDisplayConditions}
-      />
-    )
+    renderWizardFormComponent(formData, evaluateDisplayConditions)
 
     // GO to 1st question
-    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    await clickNextButton()
+
     // GO to 2nd question
-    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    await clickNextButton()
 
     // Answer mandatory question
     const radioOption = await screen.findByLabelText('Option 1')
@@ -115,31 +130,28 @@ describe('Wizard form', () => {
     expect(radioOption).toBeChecked()
 
     // GO back to 1st question
-    fireEvent.click(await screen.findByText(props.buttonLabels.prev))
+    await clickPrevButton()
+
+    // Wait for the state updates to complete
+    await waitFor(() =>
+      expect(screen.getByText(firstQuestion.title)).toBeInTheDocument()
+    )
 
     // Check if evaluate visibility conditions were called each time user
     // navigates to NEXT question + 1 on init
     await waitFor(() =>
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(3)
     )
-
-    expect(await screen.findByText(firstQuestion.title)).toBeInTheDocument()
   })
 
   it('Should properly navigate between required questions', async () => {
-    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
-    render(
-      <WizardFormComponent
-        form={formWithTwoRequiredSingleSelectQuestions}
-        buttonLabels={props.buttonLabels}
-        errorLabels={props.errorLabels}
-        onSubmit={() => null}
-        evaluateDisplayConditions={evaluateDisplayConditions}
-      />
+    renderWizardFormComponent(
+      formWithTwoRequiredSingleSelectQuestions,
+      evaluateDisplayConditions
     )
 
     // Try going to 2nd question without answering the first, required question
-    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    await clickNextButton()
     const errorMessage = await screen.findByText(props.errorLabels.required)
     const firstQuestionTitle = await screen.findByText(
       formWithTwoRequiredSingleSelectQuestions.questions[0].title
@@ -157,7 +169,7 @@ describe('Wizard form', () => {
     expect(radioOption).toBeChecked()
 
     // Try going to 2nd question again
-    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    await clickNextButton()
 
     // Now we should see the 2nd question
     const secondQuestionTitle = await screen.findByText(
@@ -167,19 +179,10 @@ describe('Wizard form', () => {
   })
 
   it('Should not show an error message when user immediately presses next on slider question (because it has a default value)', async () => {
-    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
-    render(
-      <WizardFormComponent
-        form={sliderQuestionForm}
-        buttonLabels={props.buttonLabels}
-        errorLabels={props.errorLabels}
-        onSubmit={() => null}
-        evaluateDisplayConditions={evaluateDisplayConditions}
-      />
-    )
+    renderWizardFormComponent(sliderQuestionForm, evaluateDisplayConditions)
 
     // Try to go to next question
-    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    await clickNextButton()
 
     // Check if 2nd question is displayed
     const secondQuestionTitle = await screen.findByText(
@@ -190,19 +193,10 @@ describe('Wizard form', () => {
   })
 
   it('Should show error message when user tries to skip required date question', async () => {
-    const evaluateDisplayConditions = jest.fn().mockResolvedValue([])
-    render(
-      <WizardFormComponent
-        form={dateQuestionForm}
-        buttonLabels={props.buttonLabels}
-        errorLabels={props.errorLabels}
-        onSubmit={() => null}
-        evaluateDisplayConditions={evaluateDisplayConditions}
-      />
-    )
+    renderWizardFormComponent(dateQuestionForm, evaluateDisplayConditions)
 
     // Try to go to next question
-    fireEvent.click(await screen.findByText(props.buttonLabels.next))
+    await clickNextButton()
 
     //  check if error is present and page was not changes
     const questionTitleAfterClick = await screen.findByText(
