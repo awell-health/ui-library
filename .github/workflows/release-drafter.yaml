@@ -22,13 +22,42 @@ jobs:
       # write permission is required for autolabeler
       # otherwise, read permission is required at least
       pull-requests: write
+    outputs:
+      next-version: ${{ steps.release-drafter.outputs.next-version }}
     runs-on: ubuntu-latest
     steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
+      # Drafts your next Release notes as Pull Requests are merged into "main"
       - uses: release-drafter/release-drafter@v5
-        # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
         with:
           config-name: release-drafter-config.yaml
           disable-autolabeler: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Update package.json version to match the release draft version
+      - name: Update package.json version
+        run: |
+          if test -f .release-drafter/next-version; then
+            draft_version=$(cat .release-drafter/next-version)
+            current_version=$(grep -oP '(?<="version": ")[^"]+' package.json)
+            if [ "$draft_version" != "$current_version" ]; then
+              echo "Updating package.json to version ${draft_version}..."
+              sed -i.bak "s/\"version\": \".*\"/\"version\": \"${draft_version}\"/" package.json
+              rm package.json.bak
+            else
+              echo "Package.json version already matches next release draft version"
+            fi
+          else
+            echo ".release-drafter/next-version file not found, skipping package.json update"
+            exit 0
+          fi
+
+      # Commit the updated package.json and push the changes to the repository
+      - name: Commit and push package.json changes
+        run: |
+          if test -f .release-drafter/next-version; then
+            git add package.json
+            git commit -m "Update package.json version to ${draft_version}"
+            git push origin HEAD:${{ github.head_ref }}
+          else
+            echo ".release-drafter/next-version file not found, skipping package.json update"
+          fi
