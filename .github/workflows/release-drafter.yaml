@@ -54,6 +54,10 @@ jobs:
       # Commit the updated package.json and push the changes to the repository
       - name: Commit and push package.json changes
         run: |
-          git add package.json
-          git commit -m "Update package.json version to ${draft_version}"
-          git push origin HEAD:${{ github.head_ref }}
+          if test -f .release-drafter/next-version; then
+            git add package.json
+            git commit -m "Update package.json version to ${draft_version}"
+            git push origin HEAD:${{ github.head_ref }}
+          else
+            echo ".release-drafter/next-version file not found, skipping package.json update"
+          fi
