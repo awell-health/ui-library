@@ -263,7 +263,7 @@ export const QuestionData = ({
               <InputField
                 type="date"
                 label={question.title}
-                onChange={(data) => onChange(data)}
+                onChange={(event) => onChange(event.target.value)}
                 id={question.id}
                 value={value}
                 mandatory={config?.mandatory}
