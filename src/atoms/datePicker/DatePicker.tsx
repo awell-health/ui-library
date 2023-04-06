@@ -21,6 +21,9 @@ export interface DatePickerProps {
   mandatory?: boolean
 }
 
+/**
+ * @deprecated use InputField with type 'date' instead
+ */
 export const DatePicker = ({
   id,
   label,
@@ -36,6 +39,10 @@ export const DatePicker = ({
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : null
     onChange(formattedDate)
   }
+
+  console.warn(
+    'DatePicker is deprecated and will be removed in a future release. Please use InputField instead'
+  )
 
   return (
     <div className={'awell_date_picker'} ref={wrapperRef}>

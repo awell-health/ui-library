@@ -218,6 +218,21 @@ export const form: Form = {
       },
     },
     {
+      id: 'VkL1vrscT5sdMV',
+      title: 'This is date question',
+      definition_id: 'Kzar2NafTxJfR',
+      key: 'thisIsDateQuestion',
+      dataPointValueType: DataPointValueType.Date,
+      options: [],
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Date,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+    {
       id: 'VkL1vrscT5MV',
       title: 'This is yes or no question',
       definition_id: 'Kzr2NafTxJfR',
