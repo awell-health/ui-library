@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { getTextColor, opacityColor, shadeColor } from './helpers'
+import { getTextColor, opacityColor } from './helpers'
 import classes from './themeProvider.module.scss'
 
 export interface ThemeProviderProps {

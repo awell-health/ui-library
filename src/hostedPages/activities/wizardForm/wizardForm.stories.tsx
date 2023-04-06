@@ -79,7 +79,8 @@ export const WizardForm: Story = ({
             search_placeholder: 'Search',
           },
         }}
-        evaluateDisplayConditions={async () => {
+        evaluateDisplayConditions={async (response) => {
+          action('evaluateDisplayConditions')(response)
           return Promise.all([]).then(function () {
             return []
           })

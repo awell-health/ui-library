@@ -259,14 +259,13 @@ export const QuestionData = ({
           control={control}
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
-            const dateValue = value ? new Date(value) : null
-
             return (
-              <DatePicker
+              <InputField
+                type="date"
                 label={question.title}
                 onChange={(data) => onChange(data)}
                 id={question.id}
-                value={dateValue}
+                value={value}
                 mandatory={config?.mandatory}
               />
             )
