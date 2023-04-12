@@ -64,7 +64,10 @@ export const Checklist: Story<ChecklistProps> = ({
   readOnly,
 }) => {
   return (
-    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+    <HostedPageLayout
+      onCloseHostedPage={() => alert('Stop session')}
+      companyName={'Awell Health'}
+    >
       <ChecklistComponent
         title={title}
         items={items}

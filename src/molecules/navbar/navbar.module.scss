@@ -1,8 +1,13 @@
-@use '../../globalStyles';
+@use "../../globalStyles";
 
 .awell_navbar {
   padding: var(--awell-spacing-8) 0 var(--awell-spacing-16) 0;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  // media query for mobile and height less than 500px
+  @media (max-height: 500px) {
+    padding: var(--awell-spacing-8) 0 var(--awell-spacing-2) 0;
+  }
 }

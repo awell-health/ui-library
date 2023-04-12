@@ -3,7 +3,7 @@ export const messageFixture = [
     type: 'p',
     children: [
       {
-        text: 'Facere nihil velit ipsa Pneumonoultramicroscopicsilicovolcanoconiosis. Soluta modi ex quidem. Voluptatem nihil nulla. Nesciunt aut quas quos libero at dolorem.',
+        text: 'Facere nihil velit ipsa Pneumonoultrami croscopicsilicovo lcanoconiosis. Soluta modi ex quidem. Voluptatem nihil nulla. Nesciunt aut quas quos libero at dolorem.',
       },
     ],
   },

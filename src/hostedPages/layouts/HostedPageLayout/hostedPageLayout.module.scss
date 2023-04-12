@@ -1,4 +1,4 @@
-@use '../../../globalStyles';
+@use "../../../globalStyles";
 
 .layout_container {
   position: relative;
@@ -13,4 +13,8 @@
   flex: auto;
   overflow-y: auto;
   margin-bottom: 68px;
+
+  @media (max-height: 500px) {
+    margin-bottom: var(--awell-spacing-4);
+  }
 }

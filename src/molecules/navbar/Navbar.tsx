@@ -9,12 +9,20 @@ export interface NavbarProps {
 }
 
 export const Navbar = ({ companyName, logo }: NavbarProps): JSX.Element => {
-  // is mobile and device height is reduced by a keyboard
+  const [windowSize, setWindowSize] = React.useState([0, 0])
   const isMobileAndKeyboardOpen = () => {
-    const isTablet = window.innerWidth < 768
-    const isKeyboardOpen = window.innerHeight < 500
-    return isTablet && isKeyboardOpen
+    const isKeyboardOpen = windowSize[1] < 500
+    return isKeyboardOpen
   }
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight])
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [window.innerHeight])
 
   return (
     <div className={classes.awell_navbar}>
