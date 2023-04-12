@@ -43,6 +43,7 @@ export const LongTextField = ({
         rows={DEFAULT_ROWS}
         className={classes.awell_long_text_field}
         onChange={onChange}
+        dir="ltr"
       />
     </div>
   )

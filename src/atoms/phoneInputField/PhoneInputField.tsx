@@ -14,7 +14,8 @@ import {
 import { getDefaultCountries } from './helpers'
 import { ParsedCountry } from 'react-international-phone/build/types'
 
-export interface PhoneInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface PhoneInputFieldProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * sets label of the button
    */
@@ -78,13 +79,12 @@ export const PhoneInputField = ({
       countries,
     })
 
-
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     handlePhoneValueChange(e)
     onChange(e)
   }
 
-  const handleCountrySelect: ((country: ParsedCountry) => void) = ({ iso2 }) => {
+  const handleCountrySelect: (country: ParsedCountry) => void = ({ iso2 }) => {
     setCountry(iso2)
     onChange({ target: { value: phone } } as any)
   }
@@ -107,7 +107,7 @@ export const PhoneInputField = ({
         />
         <input
           {...props}
-          type='tel'
+          type="tel"
           id={id}
           ref={inputRef}
           className={classes.awell_input_field}
@@ -115,6 +115,7 @@ export const PhoneInputField = ({
           onChange={handleInputChange}
           value={phone}
           data-testid={`input-${id}`}
+          dir="ltr"
         />
       </div>
     </div>
