@@ -306,6 +306,7 @@ export const Select = ({
           onClick={filtering ? handleResetSearch : () => null}
           readOnly={!filtering}
           onKeyUp={handleKeyUpOnInput}
+          dir="ltr"
         />
         {type === 'multiple' && selected.length > 0 && showCount && (
           <div className={classes.badge}>{selected.length}</div>
