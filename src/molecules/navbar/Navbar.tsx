@@ -12,7 +12,12 @@ export const Navbar = ({ companyName, logo }: NavbarProps): JSX.Element => {
   const [innerHeight, setInnerHeight] = React.useState(window.innerWidth)
   const originalHeight = useRef(window.innerHeight)
 
-  const isVirtualKeyboardOpen = innerHeight < originalHeight.current * 0.8 // 80% of the original height
+  // When a virtual keyboard is opened on mobile devices, the window.innerHeight
+  // is reduced by at least 20% of the original height. There is no non-experimental
+  // way (see https://developer.mozilla.org/en-US/docs/Web/API/VirtualKeyboard_API)
+  // to detect a virtual keyboard, so we are using a heuristic to determine if
+  // the height is reduced by a keyboard or not.
+  const isHeightReduced = innerHeight < originalHeight.current * 0.8 // 80% of the original height
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -27,15 +32,10 @@ export const Navbar = ({ companyName, logo }: NavbarProps): JSX.Element => {
   return (
     <div
       className={`${classes.awell_navbar} ${
-        isVirtualKeyboardOpen ? classes.awell_navbar_keyboard_open : ''
+        isHeightReduced ? classes.awell_navbar_keyboard_open : ''
       }`}
     >
-      {/* don't show the logo if the device is tablet and the height is reduced by a keyboard */}
-      {isVirtualKeyboardOpen ? (
-        <></>
-      ) : (
-        <Logo logo={logo} companyName={companyName} />
-      )}
+      {isHeightReduced ? <></> : <Logo logo={logo} companyName={companyName} />}
     </div>
   )
 }
