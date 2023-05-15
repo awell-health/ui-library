@@ -53,6 +53,62 @@ export const RangeInput = ({
       ? 'var(--awell-neutralLight50)'
       : 'transparent',
   } as React.CSSProperties
+
+  const [internalValue, setInternalValue] = React.useState<string>('-')
+  const [tooltipPosition, setTooltipPosition] = React.useState({
+    left: 0,
+    top: 0,
+  })
+  const tooltipRef = React.useRef<HTMLDivElement>(null)
+
+  const renderValueTooltip = (
+    value: string,
+    left: number,
+    top: number
+  ): JSX.Element | null => {
+    return (
+      <div ref={tooltipRef} className={classes.tooltip} style={{ left, top }}>
+        {value}
+      </div>
+    )
+  }
+
+  const handleValueChange: ChangeEventHandler<HTMLInputElement> = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setInternalValue(event.target.value)
+    onChange(event)
+  }
+
+  React.useEffect(() => {
+    const MIDPOINT_PERECENTAGE = 0.5 // 50%
+    const THUMB_WIDTH = 16 // px
+    const TOP_POSITION_ADJUSTMENT = 82 // px
+    if (sliderConfig.is_value_tooltip_on && tooltipRef.current) {
+      const input = tooltipRef.current.closest(
+        `.${classes.awell_range_input_wrapper}`
+      ) as HTMLElement
+      if (input) {
+        const inputWidth = input.clientWidth
+        const range = sliderConfig.max - sliderConfig.min
+        const percentage = (parseInt(internalValue) - sliderConfig.min) / range
+        const thumbPosition =
+          (isNaN(percentage) ? MIDPOINT_PERECENTAGE : percentage) *
+          (inputWidth - THUMB_WIDTH)
+        const tooltipLeft = input.offsetLeft + thumbPosition - THUMB_WIDTH / 2
+        setTooltipPosition({
+          left: tooltipLeft,
+          top: input.offsetTop - TOP_POSITION_ADJUSTMENT,
+        })
+      }
+    }
+  }, [
+    internalValue,
+    sliderConfig.is_value_tooltip_on,
+    sliderConfig.max,
+    sliderConfig.min,
+  ])
+
   return (
     <div>
       <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
@@ -67,7 +123,7 @@ export const RangeInput = ({
           max={sliderConfig.max}
           step={sliderConfig.step_value}
           className={classes.awell_range_input}
-          onChange={onChange}
+          onChange={handleValueChange}
         />
         <datalist
           style={{
@@ -86,6 +142,12 @@ export const RangeInput = ({
             label={sliderConfig.max_label}
           ></option>
         </datalist>
+        {sliderConfig.is_value_tooltip_on &&
+          renderValueTooltip(
+            internalValue,
+            tooltipPosition.left,
+            tooltipPosition.top
+          )}
       </div>
     </div>
   )

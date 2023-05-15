@@ -160,4 +160,14 @@
     display: flex;
     justify-content: space-between;
   }
+
+  & .tooltip {
+    position: absolute;
+    background-color: var(--awell-secondary-color);
+    color: var(--awell-secondary-text-color);
+    padding: var(--awell-spacing-1) var(--awell-spacing-2);
+    font-size: var(--awell-font-size-sm);
+    border-radius: var(--awell-spacing-2);
+    transform: translateX(-50%);
+  }
 }
