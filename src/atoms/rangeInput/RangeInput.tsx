@@ -83,7 +83,7 @@ export const RangeInput = ({
   React.useEffect(() => {
     const MIDPOINT_PERECENTAGE = 0.5 // 50%
     const THUMB_WIDTH = 16 // px
-    const TOP_POSITION_ADJUSTMENT = 82 // px
+    const TOP_POSITION_ADJUSTMENT = 86 // px
     if (sliderConfig.is_value_tooltip_on && tooltipRef.current) {
       const input = tooltipRef.current.closest(
         `.${classes.awell_range_input_wrapper}`
