@@ -56,10 +56,7 @@ export const WizardForm: Story = ({
   }
 
   return (
-    <HostedPageLayout
-      onCloseHostedPage={() => alert('Stop session')}
-      companyName={'Awell Health'}
-    >
+    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
       <WizardFormComponent
         form={form}
         buttonLabels={buttonLabels}

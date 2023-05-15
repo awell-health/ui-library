@@ -32,10 +32,7 @@ export const CalDotComActivity: Story<CalDotComActivityProps> = ({
   hideEventTypeDetails,
 }) => {
   return (
-    <HostedPageLayout
-      onCloseHostedPage={() => alert('Stop session')}
-      companyName={'Awell Health'}
-    >
+    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
       <CalDotcomActivityComponent
         calLink={calLink}
         onBookingSuccessful={() => alert('hey')}

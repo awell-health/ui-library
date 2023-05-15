@@ -20,10 +20,7 @@ export default {
 
 export const HostedPageLayout: Story = () => {
   return (
-    <HostedPageLayoutComponent
-      onCloseHostedPage={() => alert('Handle close')}
-      companyName={'Awell Health'}
-    >
+    <HostedPageLayoutComponent onCloseHostedPage={() => alert('Handle close')}>
       <main className={classes.main_content} style={{ textAlign: 'center' }}>
         <p>Content</p>
         <p>Content</p>

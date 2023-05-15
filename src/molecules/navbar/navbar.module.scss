@@ -5,9 +5,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  // media query for mobile and height less than 500px
-  @media (max-height: 500px) {
-    padding: var(--awell-spacing-8) 0 var(--awell-spacing-2) 0;
-  }
 }
+
+.awell_navbar_keyboard_open {
+  padding: var(--awell-spacing-2) 0 var(--awell-spacing-2) 0;
+}
+

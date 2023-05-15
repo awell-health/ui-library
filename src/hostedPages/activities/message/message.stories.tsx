@@ -63,10 +63,7 @@ export const Message: Story<MessageProps> = ({
   attachments,
 }) => {
   return (
-    <HostedPageLayout
-      onCloseHostedPage={() => alert('Stop session')}
-      companyName={'Awell Health'}
-    >
+    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
       <MessageComponent
         content={content}
         subject={subject}
