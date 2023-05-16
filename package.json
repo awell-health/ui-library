@@ -45,7 +45,10 @@
   },
   "dependencies": {
     "@calcom/embed-react": "^1.0.10",
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.10.0",
     "@heroicons/react": "^2.0.13",
+    "cloudinary-core": "^2.13.0",
     "date-fns": "^2.29.1",
     "dompurify": "^2.4.0",
     "escape-html": "^1.0.3",
