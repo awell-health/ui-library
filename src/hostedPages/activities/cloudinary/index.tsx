@@ -1,0 +1,1 @@
+export { CloudinaryExtension } from './CloudinaryExtension'
