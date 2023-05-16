@@ -19,7 +19,7 @@ export const useScrollHint = (): UseScrollHintHook => {
 
       const hasUserScrolledToBottomOfEl =
         Math.ceil(mainContentEl.scrollTop + mainContentEl.offsetHeight) >=
-        mainContentEl.scrollHeight
+        mainContentEl.scrollHeight - 5 // 5 is a buffer to account for rounding errors
 
       if (
         isElementTotalHeightHigherThanElementVisibleHeight &&

@@ -23,6 +23,20 @@ export const HostedPageLayout: Story = () => {
     <HostedPageLayoutComponent onCloseHostedPage={() => alert('Handle close')}>
       <main className={classes.main_content} style={{ textAlign: 'center' }}>
         <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
       </main>
       <HostedPageFooter>Footer</HostedPageFooter>
     </HostedPageLayoutComponent>

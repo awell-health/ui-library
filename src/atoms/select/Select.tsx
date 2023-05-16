@@ -221,13 +221,11 @@ export const Select = ({
         const index = filteredOptions.findIndex(
           (item) => item.value === option.value
         )
-        console.log({ index })
         if (index > 0) {
           const previousOption = filteredOptions[index - 1]
           const previousOptionElement = document.getElementById(
             `option-${previousOption.value}`
           )
-          console.log({ previousOptionElement })
 
           if (previousOptionElement) {
             previousOptionElement.focus()
