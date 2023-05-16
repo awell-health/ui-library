@@ -17,18 +17,18 @@ export default {
     },
     mandatory: {
       control: 'boolean',
-      defaultValue: false,
+      defaultValue: true,
     },
     sliderConfig: {
       defaultValue: {
         min: 0,
         max: 100,
         step_value: 1,
-        display_marks: false,
+        display_marks: true,
         min_label: 'small',
         max_label: 'big',
-        is_value_tooltip_on: false,
-        show_min_max_values: false,
+        is_value_tooltip_on: true,
+        show_min_max_values: true,
       },
       control: 'object',
     },
