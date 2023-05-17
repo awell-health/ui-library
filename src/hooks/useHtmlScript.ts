@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 type UseScript = (url: string) => { isLoaded: boolean }
 
 /**
- * Loads HTML script asynchronously with hook instead of putting it inside <script> tag in HTML
+ * Loads HTML script asynchronously with hook and dynamically add/remove it to/from DOM, instead of putting it manually inside <script> tag in HTML
  */
-export const useScript: UseScript = (url: string) => {
+export const useHtmlScript: UseScript = (url: string) => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {

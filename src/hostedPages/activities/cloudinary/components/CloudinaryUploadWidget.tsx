@@ -1,32 +1,39 @@
 import React, { useMemo } from 'react'
 import { Button } from '../../../../atoms'
-import { useScript } from '../../../../hooks'
+import { useHtmlScript } from '../../../../hooks'
 
-import { openUploadWidget } from '../utils/CloudinaryService'
-import { UploadWidgetOptions } from '../utils/types'
+import { createUploadWidget } from '../utils'
+import { UploadWidgetOptions } from '../types'
 
 interface CloudinaryUploadWidgetProps extends UploadWidgetOptions {
-  onFileUpload: (publicId: string) => void
+  onFileUpload: (params: { publicId: string; url: string }) => void
+  text: {
+    uploadButton: string
+  }
 }
 
 export const CloudinaryUploadWidget = ({
   onFileUpload: onFileUpload,
+  text,
   ...widgetOptions
 }: CloudinaryUploadWidgetProps) => {
-  const { isLoaded } = useScript(
+  const { isLoaded } = useHtmlScript(
     'https://widget.cloudinary.com/v2.0/global/all.js'
   )
 
   const widget = useMemo(() => {
     return isLoaded
-      ? openUploadWidget(
+      ? createUploadWidget(
           {
             ...widgetOptions,
             sources: ['local'],
           },
-          function (error: unknown, result: Record<string, unknown>) {
+          function (error: unknown, result: Record<string, any>) {
             if (!error && result?.event === 'success') {
-              onFileUpload((result?.info as any)?.public_id)
+              onFileUpload({
+                publicId: result?.info?.public_id,
+                url: result?.info?.url,
+              })
             }
           }
         )
@@ -39,7 +46,7 @@ export const CloudinaryUploadWidget = ({
 
   return (
     <Button onClick={uploadFileWidget} disabled={!isLoaded}>
-      Upload File
+      {text.uploadButton}
     </Button>
   )
 }

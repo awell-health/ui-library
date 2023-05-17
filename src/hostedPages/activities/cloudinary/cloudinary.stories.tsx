@@ -3,11 +3,12 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import { CloudinaryExtensionProps } from './types'
 import { ThemeProvider } from '../../../atoms'
 import { HostedPageLayout } from '../../layouts/HostedPageLayout/HostedPageLayout'
-import { CloudinaryExtension } from './CloudinaryExtension'
+import { CloudinaryUpload as CloudinaryUploadComponent } from './CloudinaryUpload'
+import image from '../../../assets/link.svg'
 
 export default {
-  title: 'HostedPages/Activities/Cloudinary',
-  component: CloudinaryExtension,
+  title: 'HostedPages/Activities/Cloudinary/CloudinaryUpload',
+  component: CloudinaryUploadComponent,
   argTypes: {
     cloudName: {
       control: 'text',
@@ -39,7 +40,7 @@ export default {
   ],
 } as Meta
 
-export const Cloudinary: Story<CloudinaryExtensionProps> = ({
+export const CloudinaryUpload: Story<CloudinaryExtensionProps> = ({
   cloudName,
   uploadPreset,
   folder,
@@ -48,19 +49,37 @@ export const Cloudinary: Story<CloudinaryExtensionProps> = ({
 }) => {
   return (
     <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
-      <CloudinaryExtension
+      <CloudinaryUploadComponent
         cloudName={cloudName}
         uploadPreset={uploadPreset}
         context={context}
         folder={folder}
         tags={tags}
         onFinish={(files) => alert(`Image uploaded ${files}`)}
+        text={{
+          subject: 'Upload files',
+          attachmentIcon: <img src={image} alt="" />,
+          attachmentLabels: {
+            file: 'View file',
+            video: 'Open video',
+            link: 'Open link',
+          },
+          attachmentLabel: (index) => `Attachment ${index + 1}`,
+          fileCountHeader: (count) =>
+            count > 1
+              ? `You have uploaded ${count} file${count > 1 ? 's.' : '.'}`
+              : 'You have not uploaded any files yet.',
+          buttonLabels: {
+            upload: 'Upload files',
+            done: 'Done',
+          },
+        }}
       />
     </HostedPageLayout>
   )
 }
 
-Cloudinary.parameters = {
+CloudinaryUpload.parameters = {
   docs: {
     source: {
       type: 'code',

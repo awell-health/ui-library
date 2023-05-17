@@ -1,1 +1,1 @@
-export { CloudinaryExtension } from './CloudinaryExtension'
+export { CloudinaryUpload } from './CloudinaryUpload'
