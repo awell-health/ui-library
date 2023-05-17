@@ -12,15 +12,15 @@ export default {
   argTypes: {
     cloudName: {
       control: 'text',
-      defaultValue: 'dip5c2e0n',
+      defaultValue: '',
     },
     uploadPreset: {
       control: 'text',
-      defaultValue: 'mufwljl2',
+      defaultValue: '',
     },
     folder: {
       control: 'text',
-      defaultValue: 'awell',
+      defaultValue: '',
     },
     context: {
       control: 'object',
@@ -64,9 +64,8 @@ export const CloudinaryUpload: Story<CloudinaryExtensionProps> = ({
             video: 'Open video',
             link: 'Open link',
           },
-          attachmentLabel: (index) => `Attachment ${index + 1}`,
           fileCountHeader: (count) =>
-            count > 1
+            count > 0
               ? `You have uploaded ${count} file${count > 1 ? 's.' : '.'}`
               : 'You have not uploaded any files yet.',
           buttonLabels: {

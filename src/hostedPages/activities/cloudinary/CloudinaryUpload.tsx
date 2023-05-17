@@ -29,13 +29,13 @@ export const CloudinaryUpload: FC<CloudinaryExtensionProps> = ({
 
   const attachments: MessageAttachment[] = useMemo(
     () =>
-      uploadedFilesList.map(({ url }, index) => ({
+      uploadedFilesList.map(({ url, original_filename }, index) => ({
         id: `url-${index}`,
         url,
         type: MessageAttachmentType.File,
-        name: text.attachmentLabel(index),
+        name: original_filename,
       })),
-    [text, uploadedFilesList]
+    [uploadedFilesList]
   )
 
   const onImageUploadHandler: OnFileUpload = useCallback((data) => {

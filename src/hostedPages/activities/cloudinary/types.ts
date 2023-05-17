@@ -6,7 +6,11 @@ import {
 
 export { MessageAttachment, MessageAttachmentType }
 
-export type UploadData = { publicId: string; url: string }
+export type UploadData = {
+  publicId: string
+  url: string
+  original_filename: string
+}
 export type OnFileUpload = (data: UploadData) => void
 
 export interface CloudinaryExtensionProps {
@@ -19,7 +23,6 @@ export interface CloudinaryExtensionProps {
   text: {
     subject: string
     fileCountHeader: (count: number) => string
-    attachmentLabel: (index: number) => string
     attachmentIcon: React.ReactNode
     attachmentLabels: AttachmentLabels
     buttonLabels: {

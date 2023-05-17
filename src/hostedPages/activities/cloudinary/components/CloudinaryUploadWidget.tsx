@@ -3,10 +3,10 @@ import { Button } from '../../../../atoms'
 import { useHtmlScript } from '../../../../hooks'
 
 import { createUploadWidget } from '../utils'
-import { UploadWidgetOptions } from '../types'
+import { UploadData, UploadWidgetOptions } from '../types'
 
 interface CloudinaryUploadWidgetProps extends UploadWidgetOptions {
-  onFileUpload: (params: { publicId: string; url: string }) => void
+  onFileUpload: (params: UploadData) => void
   text: {
     uploadButton: string
   }
@@ -33,6 +33,7 @@ export const CloudinaryUploadWidget = ({
               onFileUpload({
                 publicId: result?.info?.public_id,
                 url: result?.info?.url,
+                original_filename: result?.info?.original_filename,
               })
             }
           }

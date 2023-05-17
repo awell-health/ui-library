@@ -1,13 +1,13 @@
 @use '../../../globalStyles';
 
 :root {
-  --awell-activity-message-max-width: var(--awell-activity-max-width);
-  --awell-activity-message-padding: var(--awell-activity-padding);
+  --awell-activity-cloudinary-max-width: var(--awell-activity-max-width);
+  --awell-activity-cloudinary-padding: var(--awell-activity-padding);
 }
 
 .container {
-  max-width: var(--awell-activity-message-max-width);
-  padding: var(--awell-activity-message-padding);
+  max-width: var(--awell-activity-cloudinary-max-width);
+  padding: var(--awell-activity-cloudinary-padding);
 }
 
 .awell_cloudinary,
