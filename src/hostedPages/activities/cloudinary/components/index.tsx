@@ -1,0 +1,1 @@
+export { CloudinaryUploadWidget } from './CloudinaryUploadWidget'

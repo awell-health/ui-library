@@ -1,6 +1,6 @@
 {
   "name": "@awell_health/ui-library",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": false,
   "description": "UI components to integrate with Awell Health",
   "repository": {
@@ -46,6 +46,7 @@
   "dependencies": {
     "@calcom/embed-react": "^1.0.10",
     "@heroicons/react": "^2.0.13",
+    "cloudinary-core": "^2.13.0",
     "date-fns": "^2.29.1",
     "dompurify": "^2.4.0",
     "escape-html": "^1.0.3",
