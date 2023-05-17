@@ -44,6 +44,7 @@ export {
   Message,
   HostedPageLayout,
   CloseButton,
+  CloudinaryUpload,
 } from './hostedPages'
 
 export { useClickOutsideNotifier, useScrollHint, useWizardForm } from './hooks'
