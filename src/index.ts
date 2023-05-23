@@ -49,4 +49,4 @@ export {
 
 export { useClickOutsideNotifier, useScrollHint, useWizardForm } from './hooks'
 
-export type { WizardFormProps } from './types'
+export * from './types'
