@@ -67,7 +67,12 @@ export const RangeInput = ({
     top: number
   ): JSX.Element | null => {
     return (
-      <div ref={tooltipRef} className={classes.tooltip} style={{ left, top }}>
+      <div
+        ref={tooltipRef}
+        id="tooltip"
+        className={classes.tooltip}
+        style={{ left, top }}
+      >
         {value}
       </div>
     )
@@ -83,7 +88,7 @@ export const RangeInput = ({
   React.useEffect(() => {
     const MIDPOINT_PERECENTAGE = 0.5 // 50%
     const THUMB_WIDTH = 16 // px
-    const TOP_POSITION_ADJUSTMENT = 86 // px
+    const TOP_POSITION_ADJUSTMENT = -22 // px
     if (sliderConfig.is_value_tooltip_on && tooltipRef.current) {
       const input = tooltipRef.current.closest(
         `.${classes.awell_range_input_wrapper}`
@@ -95,10 +100,11 @@ export const RangeInput = ({
         const thumbPosition =
           (isNaN(percentage) ? MIDPOINT_PERECENTAGE : percentage) *
           (inputWidth - THUMB_WIDTH)
-        const tooltipLeft = input.offsetLeft + thumbPosition - THUMB_WIDTH / 2
+        const tooltipLeft = thumbPosition + THUMB_WIDTH / 2
+        const tooltipTop = TOP_POSITION_ADJUSTMENT
         setTooltipPosition({
           left: tooltipLeft,
-          top: input.offsetTop - TOP_POSITION_ADJUSTMENT,
+          top: tooltipTop,
         })
       }
     }
