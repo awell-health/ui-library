@@ -6,7 +6,7 @@ import classes from './hostedPageLayout.module.scss'
 export interface HostedPageLayoutProps {
   children: React.ReactNode | string
   onCloseHostedPage: () => void
-  logo?: string
+  logo?: JSX.Element | string
 }
 
 export const HostedPageLayout: FC<HostedPageLayoutProps> = ({

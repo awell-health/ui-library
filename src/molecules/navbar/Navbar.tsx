@@ -4,7 +4,7 @@ import { Logo } from '../../atoms/logo'
 
 export interface NavbarProps {
   companyName?: string
-  logo?: string
+  logo?: JSX.Element | string
   children?: ReactElement
 }
 
