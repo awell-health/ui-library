@@ -81,8 +81,12 @@ export const RangeInput = ({
   const handleValueChange: ChangeEventHandler<HTMLInputElement> = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setInternalValue(event.target.value)
-    onChange(event)
+    const newValue = event.target.value
+    // check if newValue is a stringified valid number
+    if (!isNaN(parseInt(newValue))) {
+      setInternalValue(newValue)
+      onChange(event)
+    }
   }
 
   React.useEffect(() => {

@@ -8,4 +8,10 @@
     height: var(--awell-font-size-base);
     margin-top: var(--awell-spacing-4);
   }
+
+  // for slider errors we want to push them lower than the default error
+  // as there may be ticks marks and min/max labels below the slider input
+  & .slider_error {
+    margin-top: var(--awell-spacing-16);
+  }
 }

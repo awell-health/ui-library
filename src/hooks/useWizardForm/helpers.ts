@@ -11,8 +11,10 @@ export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
     case UserQuestionType.MultipleSelect:
       return []
-    case UserQuestionType.Slider:
-      return (question.questionConfig as SliderQuestionConfig)?.slider?.min ?? 0
+    // TODO: REMOVE -- we don't need this anymore if slider no longer has a default value
+    // on submission, we send '' to the backend if the slider is not touched
+    // case UserQuestionType.Slider:
+    //   return (question.questionConfig as SliderQuestionConfig)?.slider?.min ?? 0
     default:
       return ''
   }
@@ -57,8 +59,15 @@ export const convertToAwellInput = (formResponse: any) => {
  * Converts the answer string to the format that the form expects
  * @returns the answers in the format that react hook form expects
  */
-export const convertToFormFormat = (answersAsString: string | undefined, questions: Array<Question>): Record<string, AnswerValue> => {
-  if (questions == null || answersAsString === undefined || isEmpty(answersAsString)) {
+export const convertToFormFormat = (
+  answersAsString: string | undefined,
+  questions: Array<Question>
+): Record<string, AnswerValue> => {
+  if (
+    questions == null ||
+    answersAsString === undefined ||
+    isEmpty(answersAsString)
+  ) {
     return {}
   }
   try {
@@ -132,7 +141,7 @@ export const calculatePercentageCompleted = ({
    * Return 0 if question cannot be found.
    * Should theoretically never happen.
    */
-  if(currentQuestionIndex === -1) {
+  if (currentQuestionIndex === -1) {
     return 0
   }
 

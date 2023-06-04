@@ -33,6 +33,7 @@ export default {
       control: 'object',
     },
     onChange: { action: 'change' },
+    onChangeValue: { action: 'changeValue' },
   },
   decorators: [
     (StoryComponent) => (
@@ -55,15 +56,29 @@ export const RangeInput: Story<RangeInputProps> = ({
   sliderConfig,
   onChange,
   mandatory,
+  ...props
 }) => {
+  const [value, setValue] = React.useState<number>()
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setValue(Number(e.target.value))
+    // @ts-expect-error show new value in Actions tab
+    props.onChangeValue(Number(e.target.value))
+    onChange(e)
+  }
   return (
-    <RangeInputComponent
-      label={label}
-      onChange={onChange}
-      id={id}
-      sliderConfig={sliderConfig}
-      mandatory={mandatory}
-    />
+    <>
+      <RangeInputComponent
+        label={label}
+        onChange={handleChange}
+        id={id}
+        sliderConfig={sliderConfig}
+        mandatory={mandatory}
+      />
+      <div style={{ marginTop: 80 }}>
+        <hr />
+        <span>Value: {value === undefined ? 'undefined' : value}</span>
+      </div>
+    </>
   )
 }
 
