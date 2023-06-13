@@ -379,3 +379,5 @@ npm-debug.log
 /storybook-static
 report.json
 .npmrc
+.yalc
+yalc.lock

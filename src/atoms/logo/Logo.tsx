@@ -8,12 +8,16 @@ export interface LogoProps {
    * when image is not loading correctly and for users who use assistive technologies
    */
   companyName?: string
-  logo?: string
+  logo?: JSX.Element | string
 }
 
 export const Logo = ({
   companyName = 'Awell Health',
   logo = awellLogo,
 }: LogoProps): JSX.Element => {
-  return <img className={classes.awell_logo} alt={companyName} src={logo} />
+  return logo && typeof logo !== 'string' ? (
+    logo
+  ) : (
+    <img className={classes.awell_logo} alt={companyName} src={logo} />
+  )
 }

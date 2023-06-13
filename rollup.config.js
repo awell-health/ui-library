@@ -1,3 +1,4 @@
+import path from 'path'
 import { DEFAULT_EXTENSIONS } from '@babel/core'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
@@ -32,6 +33,20 @@ export default {
       extract: true,
       autoModules: true,
       use: ['sass'],
+      modules: {
+        // custom css class name for easy external styling
+        generateScopedName: (className, filepath, css) => {
+          const filename = path.basename(filepath)
+
+          // ! assumption: css, scss files -> alter regex if more stylesheets are required in this repository
+          const nameWithoutExtension = filename.replace(
+            /(\.module)?\.s?css/,
+            ''
+          )
+
+          return `awell__${nameWithoutExtension}_${className}`
+        },
+      },
     }),
     ts2({
       tsconfigOverride: {
