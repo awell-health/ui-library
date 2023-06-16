@@ -1,5 +1,4 @@
-import React from 'react'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import classes from './CloseButton.module.scss'
 
 interface CloseButtonProps {
@@ -8,7 +7,12 @@ interface CloseButtonProps {
 
 export const CloseButton: FC<CloseButtonProps> = ({ onClose }) => {
   return (
-    <button type="button" onClick={onClose} className={classes.close_button}>
+    <button
+      type="button"
+      onClick={onClose}
+      className={classes.close_button}
+      id="awell_close_button"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
