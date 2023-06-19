@@ -52,9 +52,15 @@ export const RangeInput = ({
     '--awell-thick-color': sliderConfig.display_marks
       ? 'var(--awell-neutralLight50)'
       : 'transparent',
+    position: 'relative',
   } as React.CSSProperties
 
-  const [internalValue, setInternalValue] = React.useState<string>('-')
+  const hasInitialValue = props.value !== undefined
+
+  const [internalValue, setInternalValue] = React.useState<string>(
+    hasInitialValue ? (props.value as string) : ''
+  )
+  const [touched, setTouched] = React.useState<boolean>(hasInitialValue)
   const [tooltipPosition, setTooltipPosition] = React.useState({
     left: 0,
     top: 0,
@@ -64,14 +70,15 @@ export const RangeInput = ({
   const renderValueTooltip = (
     value: string,
     left: number,
-    top: number
+    top: number,
+    touched = false
   ): JSX.Element | null => {
     return (
       <div
         ref={tooltipRef}
         id="tooltip"
         className={classes.tooltip}
-        style={{ left, top }}
+        style={{ left, top, display: touched ? 'block' : 'none' }}
       >
         {value}
       </div>
@@ -81,6 +88,7 @@ export const RangeInput = ({
   const handleValueChange: ChangeEventHandler<HTMLInputElement> = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
+    setTouched(true)
     setInternalValue(event.target.value)
     onChange(event)
   }
@@ -88,8 +96,12 @@ export const RangeInput = ({
   React.useEffect(() => {
     const MIDPOINT_PERECENTAGE = 0.5 // 50%
     const THUMB_WIDTH = 16 // px
-    const TOP_POSITION_ADJUSTMENT = -22 // px
-    if (sliderConfig.is_value_tooltip_on && tooltipRef.current) {
+    const TOP_POSITION_ADJUSTMENT = -28 // px
+    if (
+      touched === true &&
+      sliderConfig.is_value_tooltip_on &&
+      tooltipRef.current
+    ) {
       const input = tooltipRef.current.closest(
         `.${classes.awell_range_input_wrapper}`
       ) as HTMLElement
@@ -113,6 +125,7 @@ export const RangeInput = ({
     sliderConfig.is_value_tooltip_on,
     sliderConfig.max,
     sliderConfig.min,
+    touched,
   ])
 
   return (
@@ -130,6 +143,7 @@ export const RangeInput = ({
           step={sliderConfig.step_value}
           className={classes.awell_range_input}
           onChange={handleValueChange}
+          onFocus={() => setTouched(true)}
         />
         <datalist
           style={{
@@ -152,7 +166,8 @@ export const RangeInput = ({
           renderValueTooltip(
             internalValue,
             tooltipPosition.left,
-            tooltipPosition.top
+            tooltipPosition.top,
+            touched
           )}
       </div>
     </div>
