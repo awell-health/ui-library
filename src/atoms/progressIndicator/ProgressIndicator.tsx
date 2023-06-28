@@ -8,7 +8,7 @@ export interface ProgressIndicatorProps {
 
 export const ProgressIndicator = ({
   percentageCompleted,
-  showPercentage = true,
+  showPercentage = false,
 }: ProgressIndicatorProps): JSX.Element => {
   const percentageCompletedNormalized =
     percentageCompleted < 0
@@ -26,7 +26,7 @@ export const ProgressIndicator = ({
       {percentageCompletedNormalized !== 0 && (
         <div className={classes.progressBar_completed} style={style}>
           {showPercentage && (
-            <span>
+            <span id="awell_progress_percentage">
               {percentageCompletedNormalized}%
             </span>
           )}
