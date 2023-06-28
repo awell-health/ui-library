@@ -13,7 +13,7 @@ export const form: Form = {
   release_id: '',
   questions: [
     {
-      id: 'x5bgJqOltmK3',
+      id: 'x5bgJqsOltmK3',
       title: 'Single select question - Not required',
       definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',

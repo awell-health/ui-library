@@ -56,7 +56,10 @@ export const WizardForm: Story = ({
   }
 
   return (
-    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+    <HostedPageLayout
+      onCloseHostedPage={() => alert('Stop session')}
+      hideCloseButton
+    >
       <WizardFormComponent
         form={form}
         buttonLabels={buttonLabels}
@@ -82,7 +85,19 @@ export const WizardForm: Story = ({
         evaluateDisplayConditions={async (response) => {
           action('evaluateDisplayConditions')(response)
           return Promise.all([]).then(function () {
-            return []
+            const numberQ = response.find(
+              // this is the 9th question in ./__testdata__/testFormFixture.ts
+              (r) => r.question_id === '5KMcDYtoz0rr'
+            )
+            // the 9th (short text) question's visibility depends on the answer
+            // of the number question (just prior, 8th) being greater than 10
+            return [
+              {
+                question_id: 'U99uUQ_Jp5Jb',
+                rule_id: '',
+                satisfied: Number(numberQ?.value ?? '0') > 10,
+              },
+            ]
           })
         }}
       />

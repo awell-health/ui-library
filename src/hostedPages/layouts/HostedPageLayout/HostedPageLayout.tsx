@@ -7,16 +7,18 @@ export interface HostedPageLayoutProps {
   children: React.ReactNode | string
   onCloseHostedPage: () => void
   logo?: JSX.Element | string
+  hideCloseButton?: boolean
 }
 
 export const HostedPageLayout: FC<HostedPageLayoutProps> = ({
   children,
   onCloseHostedPage,
   logo,
+  hideCloseButton = false,
 }) => {
   return (
     <div className={classes.layout_container}>
-      <CloseButton onClose={onCloseHostedPage} />
+      {!hideCloseButton && <CloseButton onClose={onCloseHostedPage} />}
       <header>
         <Navbar logo={logo} />
       </header>
