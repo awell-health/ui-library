@@ -4,11 +4,11 @@ import classes from './questionLabel.module.scss'
 export interface QuestionLabelProps
   extends LabelHTMLAttributes<HTMLLabelElement> {
   /**
-   * sets label of the button
+   * Label of the question
    */
   label: string
   /**
-   * is the quesiton mandatory?
+   * Is the question mandatory?
    */
   mandatory?: boolean
 }
@@ -18,11 +18,10 @@ export const QuestionLabel = ({
   mandatory = false,
   ...props
 }: QuestionLabelProps): JSX.Element => {
-  const DEFAULT_ROWS = 4
-  // eslint-disable-next-line jsx-a11y/label-has-associated-control
   return (
     <label {...props} className={classes.label}>
-      {label} {mandatory && <span className={classes.asterix}>*</span>}
+      <span>{label}</span>{' '}
+      {mandatory && <span className={classes.asterix}>*</span>}
     </label>
   )
 }

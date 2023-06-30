@@ -7,7 +7,6 @@ import {
   InputField,
   Text,
   RangeInput,
-  DatePicker,
   Description,
   Select,
 } from '../../atoms'

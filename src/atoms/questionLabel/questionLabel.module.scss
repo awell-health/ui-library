@@ -1,14 +1,12 @@
 .label {
   margin-bottom: var(--awell-spacing-1);
-  font-size: var(--awell-font-size-xl);
+  font-size: var(--awell-font-size-lg);
   font-weight: var(--awell-font-medium);
   color: rgb(55 65 81);
   display: block;
   line-height: var(--awell-leading-relaxed);
-
-  @media (min-width: 600px) {
-    font-size: var(--awell-font-size-lg);
-  }
+  // respect newline characters
+  white-space: pre-wrap;
 }
 
 .asterix {

@@ -87,6 +87,7 @@
     "@storybook/addon-interactions": "^6.5.9",
     "@storybook/addon-links": "^6.5.9",
     "@storybook/addon-storysource": "^6.5.16",
+    "@storybook/addon-viewport": "^7.0.24",
     "@storybook/builder-webpack5": "^6.5.9",
     "@storybook/components": "^6.3.12",
     "@storybook/core-events": "^6.3.12",
@@ -184,7 +185,6 @@
       "last 1 safari version"
     ]
   },
-  "readme": "ERROR: No README data found!",
   "homepage": "https://github.com/awell-health/ui-library#readme",
-  "_id": "@awell_health/ui-library@0.1.1"
+  "_id": "@awell_health/ui-library@0.1.11"
 }

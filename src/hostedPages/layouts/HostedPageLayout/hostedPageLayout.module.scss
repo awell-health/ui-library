@@ -13,6 +13,7 @@
   flex: auto;
   overflow-y: auto;
   margin-bottom: 68px;
+  padding: var(--awell-spacing-4);
 
   @media (max-height: 500px) {
     margin-bottom: var(--awell-spacing-4);

@@ -5,9 +5,10 @@ import { WizardForm as WizardFormComponent } from '.'
 import { form } from './__testdata__/testFormFixture'
 import { HostedPageLayout } from '../../layouts/HostedPageLayout'
 import { ThemeProvider } from '../../../atoms'
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport/preview'
 
 export default {
-  title: 'HostedPages/Activities/WizardForm',
+  title: 'HostedPages/Activities',
   component: WizardFormComponent,
   displayName: 'WizardForm',
 
@@ -104,5 +105,67 @@ WizardForm.parameters = {
     source: {
       type: 'code',
     },
+  },
+}
+
+export const WizardFormMobile: Story = ({
+  onSubmit,
+  form,
+  buttonLabels,
+  errorLabels,
+}) => {
+  const [answers, setAnswers] = React.useState<string>('')
+  const handleAnswersChange = (answers: string) => {
+    setAnswers(answers)
+  }
+
+  return (
+    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+      <WizardFormComponent
+        form={form}
+        buttonLabels={buttonLabels}
+        errorLabels={errorLabels}
+        onSubmit={onSubmit}
+        storedAnswers={answers}
+        onAnswersChange={handleAnswersChange}
+        key={form.id}
+        questionTypeConfig={{
+          TELEPHONE: {
+            initialCountry: 'gb',
+            placeholder: '+447810123456',
+          },
+        }}
+        questionLabels={{
+          no_label: 'No',
+          yes_label: 'Yes',
+          select: {
+            no_options: 'No options',
+            search_placeholder: 'Search',
+          },
+        }}
+        evaluateDisplayConditions={async (response) => {
+          action('evaluateDisplayConditions')(response)
+          return Promise.all([]).then(function () {
+            return []
+          })
+        }}
+      />
+    </HostedPageLayout>
+  )
+}
+
+WizardFormMobile.args = {
+  labels: {
+    title: 'My WizardForm',
+    buttonSubmit: 'Submit',
+    buttonCompleted: 'Submitted',
+  },
+  onSubmit: action('submitted'),
+}
+
+WizardFormMobile.parameters = {
+  viewport: {
+    viewports: INITIAL_VIEWPORTS,
+    defaultViewport: 'iphone6',
   },
 }
