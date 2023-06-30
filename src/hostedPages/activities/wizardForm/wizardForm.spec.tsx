@@ -35,7 +35,9 @@ const props = {
  */
 const firstQuestion = formData.questions[0]
 const secondQuestion = formData.questions[1]
-// const thirdQuestion = formData.questions[2]
+// normalize labels by stripping out all newline characters
+const normalizedFirstQuestionTitle = firstQuestion.title.replace('\n\n', ' ')
+const normalizedSecondQuestionTitle = secondQuestion.title.replace('\n\n', ' ')
 const { buttonLabels, errorLabels } = props
 
 const renderWizardFormComponent = (
@@ -44,15 +46,17 @@ const renderWizardFormComponent = (
     response: AnswerInput[]
   ) => Promise<QuestionRuleResult[]>
 ) => {
-  render(
-    <WizardFormComponent
-      form={form}
-      buttonLabels={buttonLabels}
-      errorLabels={errorLabels}
-      onSubmit={() => null}
-      evaluateDisplayConditions={evaluateDisplayConditions}
-    />
-  )
+  act(() => {
+    render(
+      <WizardFormComponent
+        form={form}
+        buttonLabels={buttonLabels}
+        errorLabels={errorLabels}
+        onSubmit={() => null}
+        evaluateDisplayConditions={evaluateDisplayConditions}
+      />
+    )
+  })
 }
 
 const clickNextButton = async () => {
@@ -81,7 +85,9 @@ describe('Wizard form', () => {
   it('Should render the first question and evaluate display condition on init', async () => {
     renderWizardFormComponent(formData, evaluateDisplayConditions)
 
-    const firstQuestionLabel = await screen.findByText(firstQuestion.title)
+    const firstQuestionLabel = await screen.findByText(
+      normalizedFirstQuestionTitle
+    )
 
     // Should evaluate display conditions once
     await waitFor(() =>
@@ -104,7 +110,9 @@ describe('Wizard form', () => {
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(2)
     )
 
-    const secondQuestionLabel = await screen.findByText(secondQuestion.title)
+    const secondQuestionLabel = await screen.findByText(
+      normalizedSecondQuestionTitle
+    )
 
     const nextButton = await screen.findByText(props.buttonLabels.next)
 
@@ -125,7 +133,9 @@ describe('Wizard form', () => {
     const radioOption = await screen.findByLabelText('Option 1')
     expect(radioOption).not.toBeChecked()
 
-    fireEvent.click(radioOption)
+    await act(async () => {
+      fireEvent.click(radioOption)
+    })
 
     expect(radioOption).toBeChecked()
 
@@ -134,7 +144,7 @@ describe('Wizard form', () => {
 
     // Wait for the state updates to complete
     await waitFor(() =>
-      expect(screen.getByText(firstQuestion.title)).toBeInTheDocument()
+      expect(screen.getByText(normalizedFirstQuestionTitle)).toBeInTheDocument()
     )
 
     // Check if evaluate visibility conditions were called each time user
@@ -165,7 +175,9 @@ describe('Wizard form', () => {
       'Answer the first required question'
     )
     expect(radioOption).not.toBeChecked()
-    fireEvent.click(radioOption)
+    await act(async () => {
+      fireEvent.click(radioOption)
+    })
     expect(radioOption).toBeChecked()
 
     // Try going to 2nd question again
