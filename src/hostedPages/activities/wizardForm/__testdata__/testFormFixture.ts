@@ -14,7 +14,7 @@ export const form: Form = {
   questions: [
     {
       id: 'x5bgJqsOltmK3',
-      title: 'Single select question - Not required',
+      title: 'Single select question\n\n(Not required)',
       definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
       dataPointValueType: DataPointValueType.Number,
@@ -55,7 +55,7 @@ export const form: Form = {
     },
     {
       id: 'x5bgJqOltmK3',
-      title: 'Single select question - required',
+      title: 'Single select question\n\n(Required)',
       definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
       dataPointValueType: DataPointValueType.Number,
