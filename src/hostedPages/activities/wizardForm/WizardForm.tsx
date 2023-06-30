@@ -53,10 +53,7 @@ export const WizardForm = ({
       >
         <div className={`${classes.awell_wizard_form} ${classes.container}`}>
           <div className={classes.form_progress}>
-            <ProgressIndicator
-              percentageCompleted={percentageCompleted}
-              showPercentage={false}
-            />
+            <ProgressIndicator percentageCompleted={percentageCompleted} />
           </div>
           {isEvaluatingQuestionVisibility ? (
             <div className={classes.loadingContainer}>

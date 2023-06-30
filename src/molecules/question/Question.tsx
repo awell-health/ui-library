@@ -207,32 +207,6 @@ export const QuestionData = ({
           name={question.id}
           control={control}
           defaultValue=""
-          rules={{
-            required: config?.mandatory,
-            validate: (value) => {
-              // four scenarios based on value string and mandatory boolean
-              // 1. value is empty and mandatory is true (return false)
-              // 2. value is empty and mandatory is false (return true)
-              // 3. value is not empty and mandatory is true (validate the number)
-              // 4. value is not empty and mandatory is false (validate the number)
-
-              // covers scenario 1
-              if (value === '' && config?.mandatory === true) {
-                return false
-              }
-              // covers scenarios 3 and 4
-              if (value !== '') {
-                try {
-                  return isValidE164Number(value)
-                } catch (error) {
-                  console.error(error)
-                  return false
-                }
-              }
-              // covers scenario 2
-              return true
-            },
-          }}
           render={({ field: { onChange, value } }) => (
             <PhoneInputField
               onChange={(e) => onChange(e.target.value)}

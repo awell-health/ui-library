@@ -16,7 +16,7 @@ export default {
     },
     showPercentage: {
       control: 'boolean',
-      defaultValue: true,
+      defaultValue: false,
     },
   },
   decorators: [

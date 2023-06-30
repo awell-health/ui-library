@@ -27,7 +27,7 @@ const useWizardForm = ({
   onAnswersChange,
 }: FormSettingsContextProps): FormSettingsContextInterface => {
   const initialValues = convertToFormFormat(storedAnswers, questions)
-  const { isPossibleE164Number } = useValidate()
+  const { isValidE164Number } = useValidate()
   const formMethods = useForm({
     defaultValues: isEmpty(initialValues)
       ? getInitialValues(questions)
@@ -78,7 +78,7 @@ const useWizardForm = ({
     })
 
     setPercentageCompleted(percentageCompletedTemp)
-  }, [current])
+  }, [current, visibleQuestions])
 
   useEffect(() => {
     updateQuestionVisibility()
@@ -92,46 +92,52 @@ const useWizardForm = ({
 
     setErrors(errorsWithoutCurrent)
 
-    /**
-     * Description question types can't have validation errors
-     */
+    // For description question types, don't validate
     if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
       return false
     }
 
-    if (currentQuestion?.userQuestionType === UserQuestionType.Telephone) {
-      const value = formMethods.getValues(currentQuestion.id)
-      const isE164Number = isPossibleE164Number(value as string)
+    const isQuestionMandatory = currentQuestion?.questionConfig?.mandatory
+    const valueOfCurrentQuestion = formMethods.getValues(currentQuestion?.id)
 
-      if (!isE164Number) {
-        const errorLabel = errorLabels.invalidPhoneNumber
-
-        setErrors([
-          ...errorsWithoutCurrent,
-          { id: currentQuestion.id, error: errorLabel },
-        ])
-
-        return true
-      }
-    }
-
-    if (
-      currentQuestion?.questionConfig?.mandatory &&
-      isEmpty(formMethods.getValues(currentQuestion.id))
-    ) {
+    // For all question types, validate mandatory answers
+    if (isQuestionMandatory && isEmpty(valueOfCurrentQuestion)) {
       const errorsWithoutCurrent = errors.filter(
         (err) => err.id !== currentQuestion.id
       )
 
-      const errorLabel = errorLabels.required
-
       setErrors([
         ...errorsWithoutCurrent,
-        { id: currentQuestion.id, error: errorLabel },
+        { id: currentQuestion.id, error: errorLabels.required },
       ])
 
       return true
     }
+
+    // For telephone question types, validate phone number
+    if (currentQuestion?.userQuestionType === UserQuestionType.Telephone) {
+      if (valueOfCurrentQuestion !== '') {
+        const errorLabel = errorLabels.invalidPhoneNumber
+        try {
+          const isValid = isValidE164Number(valueOfCurrentQuestion as string)
+          if (!isValid) {
+            setErrors([
+              ...errorsWithoutCurrent,
+              { id: currentQuestion.id, error: errorLabel },
+            ])
+            return true
+          }
+        } catch (error) {
+          setErrors([
+            ...errorsWithoutCurrent,
+            { id: currentQuestion.id, error: errorLabel },
+          ])
+          return true
+        }
+      }
+    }
+
+    // in all other cases, there are no errors
     return false
   }
 
