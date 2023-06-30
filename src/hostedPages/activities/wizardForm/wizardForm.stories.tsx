@@ -135,7 +135,10 @@ export const WizardFormMobile: Story = ({
   }
 
   return (
-    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+    <HostedPageLayout
+      onCloseHostedPage={() => alert('Stop session')}
+      hideCloseButton
+    >
       <WizardFormComponent
         form={form}
         buttonLabels={buttonLabels}
