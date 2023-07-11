@@ -41,6 +41,21 @@ export const WizardForm = ({
 
   const { showScrollHint, determineShowScrollHint } = useScrollHint()
 
+  /**
+   * For certain questions like Single Select or Boolean questions,
+   * we don't want the user to click on the answer first and then
+   * on the 'next' button. Instead, we just submit the answer when
+   * user clicks on one of the options and move to the next question.
+   *
+   * Except for last question, there user will have to click on submit
+   * button explicitly.
+   */
+  const submitAndMoveToNextQuestion = () => {
+    if (!isLastQuestion) {
+      handleGoToNextQuestion()
+    }
+  }
+
   useEffect(() => {
     determineShowScrollHint()
   }, [currentQuestion])
@@ -69,6 +84,7 @@ export const WizardForm = ({
                 errors={errors}
                 labels={questionLabels}
                 questionTypeConfig={questionTypeConfig}
+                submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
               />
             </div>
           )}

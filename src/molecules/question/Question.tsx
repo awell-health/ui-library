@@ -22,9 +22,20 @@ export const QuestionData = ({
   getValues,
   labels,
   questionTypeConfig,
+  submitAndMoveToNextQuestion = () => {},
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
   const { isValidE164Number } = useValidate()
+
+  const shouldAutoProgress = (): boolean => {
+    if (question.userQuestionType) {
+      return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
+        question.userQuestionType
+      )
+    }
+    return false
+  }
+
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
       return (
@@ -45,7 +56,12 @@ export const QuestionData = ({
                   },
                   { id: `${question.id}-no`, value: 0, label: labels.no_label },
                 ]}
-                onChange={(data) => onChange(data)}
+                onChange={(data) => {
+                  onChange(data)
+                  if (value !== data && shouldAutoProgress()) {
+                    submitAndMoveToNextQuestion()
+                  }
+                }}
                 questionId={question.id}
                 value={value}
                 mandatory={config?.mandatory}
@@ -115,7 +131,12 @@ export const QuestionData = ({
                     searchPlaceholder: labels.select?.search_placeholder,
                     noOptions: labels.select?.no_options,
                   }}
-                  onChange={(data) => onChange(data)}
+                  onChange={(data) => {
+                    onChange(data)
+                    if (value !== data && shouldAutoProgress()) {
+                      submitAndMoveToNextQuestion()
+                    }
+                  }}
                   type="single"
                   options={question.options ?? []}
                   mandatory={config?.mandatory}
@@ -129,7 +150,12 @@ export const QuestionData = ({
               <SingleChoiceQuestion
                 label={question.title}
                 options={question.options || []}
-                onChange={(data) => onChange(data)}
+                onChange={(data) => {
+                  onChange(data)
+                  if (value !== data && shouldAutoProgress()) {
+                    submitAndMoveToNextQuestion()
+                  }
+                }}
                 questionId={question.id}
                 value={value}
                 mandatory={config?.mandatory}
@@ -279,6 +305,7 @@ export const Question = ({
     yes_label: 'Yes',
     no_label: 'No',
   },
+  submitAndMoveToNextQuestion,
 }: QuestionProps): JSX.Element => {
   const [isVisible, setVisible] = useState(0)
   const style = { '--awell-question-opacity': isVisible } as React.CSSProperties
@@ -299,6 +326,7 @@ export const Question = ({
         getValues={getValues}
         labels={labels}
         questionTypeConfig={questionTypeConfig}
+        submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
       />
 
       {currentError && (
