@@ -46,10 +46,12 @@ export const WizardForm = ({
    * we don't want the user to click on the answer first and then
    * on the 'next' button. Instead, we just submit the answer when
    * user clicks on one of the options and move to the next question.
+   *
+   * Except for last question, there user will have to click on submit
+   * button explicitly.
    */
   const submitAndMoveToNextQuestion = () => {
     if (!isLastQuestion) {
-      console.log('MOVING TO NEXT QUESTION')
       handleGoToNextQuestion()
     }
   }
