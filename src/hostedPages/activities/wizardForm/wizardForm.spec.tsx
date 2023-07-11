@@ -134,10 +134,14 @@ describe('Wizard form', () => {
     expect(radioOption).not.toBeChecked()
 
     await act(async () => {
+      // clicking on a select option moves to next question
       fireEvent.click(radioOption)
     })
 
     expect(radioOption).toBeChecked()
+
+    // GO back to 2nd question
+    await clickPrevButton()
 
     // GO back to 1st question
     await clickPrevButton()
@@ -150,7 +154,7 @@ describe('Wizard form', () => {
     // Check if evaluate visibility conditions were called each time user
     // navigates to NEXT question + 1 on init
     await waitFor(() =>
-      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(3)
+      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(5)
     )
   })
 
@@ -176,9 +180,13 @@ describe('Wizard form', () => {
     )
     expect(radioOption).not.toBeChecked()
     await act(async () => {
+      // clicking on a select option moves to next question
       fireEvent.click(radioOption)
     })
     expect(radioOption).toBeChecked()
+
+    // GO back to 1st question
+    await clickPrevButton()
 
     // Try going to 2nd question again
     await clickNextButton()
