@@ -3,7 +3,7 @@ import { Button, ProgressIndicator, CircularSpinner } from '../../../atoms'
 import classes from './wizardForm.module.scss'
 import { Question } from '../../../molecules'
 import { useWizardForm } from '../../../hooks/useWizardForm'
-import { WizardFormProps } from '../../../types'
+import { UserQuestionType, WizardFormProps } from '../../../types'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
@@ -59,6 +59,24 @@ export const WizardForm = ({
   useEffect(() => {
     determineShowScrollHint()
   }, [currentQuestion])
+
+  const isQuestionSkippable = () => {
+    if (!currentQuestion.userQuestionType) {
+      return false
+    }
+
+    const shouldQuestionAutoProgress = [
+      UserQuestionType.YesNo,
+      UserQuestionType.MultipleChoice,
+    ].includes(currentQuestion.userQuestionType)
+
+    const isNotRequiredQuestion = !currentQuestion.questionConfig?.mandatory
+    const hasNoAnswerValue = getValues()[currentQuestion.id] === ''
+
+    return (
+      shouldQuestionAutoProgress && isNotRequiredQuestion && hasNoAnswerValue
+    )
+  }
 
   return (
     <>
@@ -118,7 +136,7 @@ export const WizardForm = ({
                 onClick={handleGoToNextQuestion}
                 data-cy="navigateToNextQuestionButton"
               >
-                {buttonLabels.next}
+                {isQuestionSkippable() ? buttonLabels.skip : buttonLabels.next}
               </Button>
             )}
           </div>

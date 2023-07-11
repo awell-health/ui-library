@@ -25,6 +25,7 @@ export default {
         next: 'Next',
         submit: 'Submit',
         start_form: 'Start form',
+        skip: 'Skip',
       },
     },
     errorLabels: {

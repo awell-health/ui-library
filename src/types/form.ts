@@ -16,6 +16,7 @@ type ButtonLabels = {
   next: string
   submit: string
   start_form?: string
+  skip?: string
 }
 
 export interface WizardFormProps {

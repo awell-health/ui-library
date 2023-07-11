@@ -17,6 +17,7 @@ const props = {
     prev: 'Prev',
     next: 'Next',
     submit: 'Submit',
+    skip: 'Skip',
   },
   errorLabels: {
     required: 'Answer for this question is required',
