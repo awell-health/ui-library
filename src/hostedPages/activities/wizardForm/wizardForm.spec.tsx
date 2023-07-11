@@ -67,6 +67,13 @@ const clickNextButton = async () => {
   })
 }
 
+const clickSkipButton = async () => {
+  const skipButton = await screen.findByText(buttonLabels.skip)
+  await act(async () => {
+    fireEvent.click(skipButton)
+  })
+}
+
 const clickPrevButton = async () => {
   const prevButton = await screen.findByText(buttonLabels.prev)
   await act(async () => {
@@ -105,7 +112,7 @@ describe('Wizard form', () => {
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(1)
     )
 
-    await clickNextButton()
+    await clickSkipButton()
 
     await waitFor(() =>
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(2)
@@ -125,7 +132,7 @@ describe('Wizard form', () => {
     renderWizardFormComponent(formData, evaluateDisplayConditions)
 
     // GO to 1st question
-    await clickNextButton()
+    await clickSkipButton()
 
     // GO to 2nd question
     await clickNextButton()
@@ -135,8 +142,12 @@ describe('Wizard form', () => {
     expect(radioOption).not.toBeChecked()
 
     await act(async () => {
+      // clicking on option will move to next question (3rd question)
       fireEvent.click(radioOption)
     })
+
+    // GO to 2nd question
+    await clickPrevButton()
 
     expect(radioOption).toBeChecked()
 
@@ -151,7 +162,7 @@ describe('Wizard form', () => {
     // Check if evaluate visibility conditions were called each time user
     // navigates to NEXT question + 1 on init
     await waitFor(() =>
-      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(3)
+      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(5)
     )
   })
 
@@ -180,6 +191,9 @@ describe('Wizard form', () => {
       fireEvent.click(radioOption)
     })
     expect(radioOption).toBeChecked()
+
+    // GO back to 1st question
+    await clickPrevButton()
 
     // Try going to 2nd question again
     await clickNextButton()
