@@ -36,10 +36,6 @@ export const QuestionData = ({
     return false
   }
 
-  const isEmpty = (val: any) => {
-    return val === undefined || val === null || val === ''
-  }
-
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
       return (
