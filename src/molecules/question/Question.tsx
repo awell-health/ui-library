@@ -173,6 +173,8 @@ export const QuestionData = ({
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => (
             <LongTextField
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
               onChange={(e) => onChange(e.target.value)}
               label={question.title}
               id={question.id}
@@ -191,6 +193,8 @@ export const QuestionData = ({
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => (
             <InputField
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
               type="number"
               onChange={(e) => onChange(e.target.value)}
               label={question.title}
@@ -210,6 +214,8 @@ export const QuestionData = ({
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => (
             <InputField
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
               type="text"
               onChange={(e) => onChange(e.target.value)}
               label={question.title}
@@ -235,6 +241,8 @@ export const QuestionData = ({
           defaultValue=""
           render={({ field: { onChange, value } }) => (
             <PhoneInputField
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
               onChange={(e) => onChange(e.target.value)}
               label={question.title}
               id={question.id}
@@ -277,6 +285,8 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             return (
               <InputField
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus
                 type="date"
                 label={question.title}
                 onChange={(event) => onChange(event.target.value)}
