@@ -70,7 +70,8 @@ export const WizardForm = ({
           <div className={classes.form_progress}>
             <ProgressIndicator percentageCompleted={percentageCompleted} />
           </div>
-          {isEvaluatingQuestionVisibility ? (
+          {isEvaluatingQuestionVisibility ||
+          currentQuestion?.id === undefined ? (
             <div className={classes.loadingContainer}>
               <CircularSpinner size="sm" />
             </div>
