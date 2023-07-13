@@ -8,6 +8,7 @@ import {
   sliderQuestionForm,
   formWithTwoRequiredSingleSelectQuestions,
   dateQuestionForm,
+  formHavingOneQuestionHiddenWithDisplayCondition,
 } from './__testdata__/testFormFixture'
 import { AnswerInput, Form } from '../../../types'
 import { QuestionRuleResult } from '../../../hooks/useWizardForm/types'
@@ -63,6 +64,13 @@ const clickNextButton = async () => {
   const nextButton = await screen.findByText(buttonLabels.next)
   await act(async () => {
     fireEvent.click(nextButton)
+  })
+}
+
+const clickSubmitButton = async () => {
+  const submitButton = await screen.findByText(buttonLabels.submit)
+  await act(async () => {
+    fireEvent.click(submitButton)
   })
 }
 
@@ -226,6 +234,84 @@ describe('Wizard form', () => {
 
     expect(questionTitleAfterClick).toBeInTheDocument()
     expect(errorMessage).toBeInTheDocument()
+  })
+
+  const evaluateDisplayConditionsForCarInput = (
+    response: AnswerInput[]
+  ): Promise<QuestionRuleResult[]> => {
+    const carQuestionAnswer = response.find(
+      (r) => r.question_id === 'VkL1vrscT5MV'
+    )
+    // hide the last question initially
+    if (!carQuestionAnswer) {
+      return Promise.resolve([
+        {
+          question_id: 'x5bgJqsOltmK3',
+          satisfied: false,
+          rule_id: 'some_rule_id',
+        },
+      ])
+    }
+
+    const { value: answer } = carQuestionAnswer
+
+    // only show the last question when answer of first question is "yes"
+    if (answer === '1') {
+      return Promise.resolve([
+        {
+          question_id: 'x5bgJqsOltmK3',
+          satisfied: true,
+          rule_id: 'some_rule_id',
+        },
+      ])
+    }
+
+    // hide the last question when answer of first question is "no"
+    return Promise.resolve([
+      {
+        question_id: 'x5bgJqsOltmK3',
+        satisfied: false,
+        rule_id: 'some_rule_id',
+      },
+    ])
+  }
+
+  it('Should not navigate back to a question hidden because of display conditions', async () => {
+    renderWizardFormComponent(
+      formHavingOneQuestionHiddenWithDisplayCondition,
+      evaluateDisplayConditionsForCarInput
+    )
+
+    // Answer mandatory question
+    const radioOption = await screen.findByLabelText('Yes')
+    expect(radioOption).not.toBeChecked()
+
+    await act(async () => {
+      fireEvent.click(radioOption)
+    })
+
+    // GO to next question
+    await clickSubmitButton()
+
+    // Answer mandatory question
+    const carTypeOption = await screen.findByLabelText('Sedan')
+    expect(carTypeOption).not.toBeChecked()
+
+    await act(async () => {
+      fireEvent.click(carTypeOption)
+    })
+
+    await clickPrevButton()
+
+    const doYouHaveCarOption = await screen.findByLabelText('No')
+    expect(doYouHaveCarOption).not.toBeChecked()
+
+    await act(async () => {
+      fireEvent.click(doYouHaveCarOption)
+    })
+
+    // this should not crash
+    await clickNextButton()
   })
 })
 

@@ -507,3 +507,69 @@ export const dateQuestionForm: Form = {
     },
   ],
 }
+
+export const formHavingOneQuestionHiddenWithDisplayCondition: Form = {
+  id: 'Kzr2NafASiwq',
+  title: 'Example Car form',
+  key: 'exampleCarForm',
+  definition_id: '',
+  release_id: '',
+  questions: [
+    {
+      id: 'VkL1vrscT5MV',
+      title: 'Do you have a car',
+      definition_id: 'Kzr2NafTxJfR',
+      key: 'doYouHaveACar',
+      dataPointValueType: DataPointValueType.Boolean,
+      options: [],
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.YesNo,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+        slider: null,
+      },
+    },
+    {
+      id: 'x5bgJqsOltmK3',
+      title: 'Which type of car is it?',
+      definition_id: 'Kzr2NafTxJfR',
+      key: 'selectCarType',
+      dataPointValueType: DataPointValueType.Number,
+      options: [
+        {
+          id: '1',
+          label: 'Sedan',
+          value: 0,
+        },
+        {
+          id: '2',
+          label: 'Hatchback',
+          value: 1,
+        },
+        {
+          id: '3',
+          label: 'SUV',
+          value: 3,
+        },
+        {
+          id: '4',
+          label: 'C-SUV',
+          value: 4,
+        },
+        {
+          id: '5',
+          label: 'Truck',
+          value: 5,
+        },
+      ],
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+  ],
+}
