@@ -17,6 +17,7 @@ export interface QuestionDataProps {
   getValues: UseFormGetValues<any>
   labels: QuestionLabels
   questionTypeConfig: QuestionConfigByType
+  inputAutoFocus?: boolean
   submitAndMoveToNextQuestion?: () => void
 }
 export interface QuestionProps {
@@ -26,5 +27,6 @@ export interface QuestionProps {
   errors: Array<FormError>
   labels?: QuestionLabels
   questionTypeConfig: QuestionConfigByType
+  inputAutoFocus?: boolean
   submitAndMoveToNextQuestion?: () => void
 }

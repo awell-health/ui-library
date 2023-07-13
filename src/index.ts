@@ -40,7 +40,7 @@ export {
 
 export {
   Checklist,
-  WizardForm,
+  ConversationalForm,
   Message,
   HostedPageLayout,
   CloseButton,

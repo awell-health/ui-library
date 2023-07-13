@@ -22,6 +22,7 @@ export const QuestionData = ({
   getValues,
   labels,
   questionTypeConfig,
+  inputAutoFocus = false,
   submitAndMoveToNextQuestion = () => {},
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
@@ -174,7 +175,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <LongTextField
               // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
+              autoFocus={inputAutoFocus}
               onChange={(e) => onChange(e.target.value)}
               label={question.title}
               id={question.id}
@@ -194,7 +195,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <InputField
               // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
+              autoFocus={inputAutoFocus}
               type="number"
               onChange={(e) => onChange(e.target.value)}
               label={question.title}
@@ -215,7 +216,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <InputField
               // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
+              autoFocus={inputAutoFocus}
               type="text"
               onChange={(e) => onChange(e.target.value)}
               label={question.title}
@@ -242,7 +243,7 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <PhoneInputField
               // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
+              autoFocus={inputAutoFocus}
               onChange={(e) => onChange(e.target.value)}
               label={question.title}
               id={question.id}
@@ -286,7 +287,7 @@ export const QuestionData = ({
             return (
               <InputField
                 // eslint-disable-next-line jsx-a11y/no-autofocus
-                autoFocus
+                autoFocus={inputAutoFocus}
                 type="date"
                 label={question.title}
                 onChange={(event) => onChange(event.target.value)}
@@ -315,6 +316,7 @@ export const Question = ({
     yes_label: 'Yes',
     no_label: 'No',
   },
+  inputAutoFocus = false,
   submitAndMoveToNextQuestion,
 }: QuestionProps): JSX.Element => {
   const [isVisible, setVisible] = useState(0)
@@ -335,6 +337,7 @@ export const Question = ({
         control={control}
         getValues={getValues}
         labels={labels}
+        inputAutoFocus={inputAutoFocus}
         questionTypeConfig={questionTypeConfig}
         submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
       />
