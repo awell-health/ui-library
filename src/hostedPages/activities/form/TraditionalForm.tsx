@@ -3,8 +3,8 @@ import { Button, CircularSpinner } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useWizardForm } from '../../../hooks/useWizardForm'
-import { WizardFormProps } from '../../../types'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
+import { FormProps } from '../../../types/form'
 
 export const TraditionalForm = ({
   form,
@@ -15,7 +15,7 @@ export const TraditionalForm = ({
   questionTypeConfig = {},
   storedAnswers,
   onAnswersChange,
-}: WizardFormProps) => {
+}: FormProps) => {
   const {
     submitForm,
     formMethods: { control, getValues },
@@ -34,8 +34,7 @@ export const TraditionalForm = ({
     <>
       <main
         id="ahp_main_content_with_scroll_hint"
-        className={`${layoutClasses.main_content} traditional_form`}
-        style={{ marginBottom: 0 }}
+        className={`${layoutClasses.main_content} ${classes.traditional_form}`}
       >
         <div className={`${classes.container}`}>
           {isEvaluatingQuestionVisibility ? (
@@ -44,12 +43,11 @@ export const TraditionalForm = ({
             </div>
           ) : (
             <div>
-              <div className="flex flex-col space-y-8">
+              <div>
                 {form.questions.map((visibleQuestion) => (
                   <div
                     key={visibleQuestion.id}
-                    className="row mb-4"
-                    style={{ marginBottom: 60 }}
+                    className={classes.traditional_form_question}
                   >
                     <Question
                       question={visibleQuestion}
@@ -65,18 +63,17 @@ export const TraditionalForm = ({
               </div>
             </div>
           )}
-          {!isEvaluatingQuestionVisibility && (
-            <div className="traditional-form-button-container">
-              <Button
-                onClick={submitForm}
-                type="submit"
-                data-cy="submitFormButton"
-                className="right-aligned-button"
-              >
-                {buttonLabels.submit}
-              </Button>
-            </div>
-          )}
+          <div className="traditional-form-button-container">
+            <Button
+              disabled={isEvaluatingQuestionVisibility}
+              onClick={submitForm}
+              type="submit"
+              data-cy="submitFormButton"
+              className="right-aligned-button"
+            >
+              {buttonLabels.submit}
+            </Button>
+          </div>
         </div>
       </main>
     </>

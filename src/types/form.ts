@@ -18,7 +18,7 @@ type ButtonLabels = {
   start_form?: string
 }
 
-export interface WizardFormProps {
+export interface FormProps {
   form: Form
   questionLabels?: QuestionLabels
   buttonLabels: ButtonLabels

@@ -4,7 +4,7 @@ import '@testing-library/jest-dom'
 
 import { ConversationalForm as WizardFormComponent } from './ConversationalForm'
 import {
-  form as formData,
+  conversationalForm as formData,
   sliderQuestionForm,
   formWithTwoRequiredSingleSelectQuestions,
   dateQuestionForm,

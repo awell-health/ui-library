@@ -3,10 +3,10 @@ import { Button, ProgressIndicator, CircularSpinner } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useWizardForm } from '../../../hooks/useWizardForm'
-import { WizardFormProps } from '../../../types'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
+import { FormProps } from '../../../types/form'
 
 export const ConversationalForm = ({
   form,
@@ -18,7 +18,7 @@ export const ConversationalForm = ({
   questionTypeConfig = {},
   storedAnswers,
   onAnswersChange,
-}: WizardFormProps) => {
+}: FormProps) => {
   const {
     submitForm,
     handleGoToNextQuestion,
