@@ -16,6 +16,7 @@ export const TraditionalForm = ({
   storedAnswers,
   onAnswersChange,
 }: FormProps) => {
+  // TODO: this form should use its own hook since it has a different behaviour of Conversational Form
   const {
     submitForm,
     formMethods: { control, getValues },
