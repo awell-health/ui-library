@@ -64,13 +64,13 @@ export const TraditionalForm = ({
               </div>
             </div>
           )}
-          <div className="traditional-form-button-container">
+          <div className={`${classes.button_wrapper}`}>
+            <div></div>
             <Button
               disabled={isEvaluatingQuestionVisibility}
               onClick={submitForm}
               type="submit"
               data-cy="submitFormButton"
-              className="right-aligned-button"
             >
               {buttonLabels.submit}
             </Button>
