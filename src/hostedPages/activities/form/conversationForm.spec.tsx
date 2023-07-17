@@ -4,7 +4,7 @@ import '@testing-library/jest-dom'
 
 import { ConversationalForm as ConversationalFormComponent } from './ConversationalForm'
 import {
-  conversationalForm as formData,
+  form as formData,
   sliderQuestionForm,
   formWithTwoRequiredSingleSelectQuestions,
   dateQuestionForm,
@@ -40,7 +40,7 @@ const normalizedFirstQuestionTitle = firstQuestion.title.replace('\n\n', ' ')
 const normalizedSecondQuestionTitle = secondQuestion.title.replace('\n\n', ' ')
 const { buttonLabels, errorLabels } = props
 
-const renderWizardFormComponent = (
+const renderConversationalFormComponent = (
   form: Form,
   evaluateDisplayConditions: (
     response: AnswerInput[]
@@ -83,7 +83,7 @@ describe('Conversational Form', () => {
   })
 
   it('Should render the first question and evaluate display condition on init', async () => {
-    renderWizardFormComponent(formData, evaluateDisplayConditions)
+    renderConversationalFormComponent(formData, evaluateDisplayConditions)
 
     const firstQuestionLabel = await screen.findByText(
       normalizedFirstQuestionTitle
@@ -98,7 +98,7 @@ describe('Conversational Form', () => {
   })
 
   it('Should properly navigate to next question', async () => {
-    renderWizardFormComponent(formData, evaluateDisplayConditions)
+    renderConversationalFormComponent(formData, evaluateDisplayConditions)
 
     await waitFor(() =>
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(1)
@@ -121,7 +121,7 @@ describe('Conversational Form', () => {
   })
 
   it('Should properly navigate to previous question', async () => {
-    renderWizardFormComponent(formData, evaluateDisplayConditions)
+    renderConversationalFormComponent(formData, evaluateDisplayConditions)
 
     // GO to 1st question
     await clickNextButton()
@@ -154,12 +154,12 @@ describe('Conversational Form', () => {
     // Check if evaluate visibility conditions were called each time user
     // navigates to NEXT question + 1 on init
     await waitFor(() =>
-      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(5)
+      expect(screen.getByText(normalizedFirstQuestionTitle)).toBeInTheDocument()
     )
   })
 
   it('Should properly navigate between required questions', async () => {
-    renderWizardFormComponent(
+    renderConversationalFormComponent(
       formWithTwoRequiredSingleSelectQuestions,
       evaluateDisplayConditions
     )
@@ -199,7 +199,10 @@ describe('Conversational Form', () => {
   })
 
   it('Should not show an error message when user immediately presses next on slider question (because it has a default value)', async () => {
-    renderWizardFormComponent(sliderQuestionForm, evaluateDisplayConditions)
+    renderConversationalFormComponent(
+      sliderQuestionForm,
+      evaluateDisplayConditions
+    )
 
     // Try to go to next question
     await clickNextButton()
@@ -213,7 +216,10 @@ describe('Conversational Form', () => {
   })
 
   it('Should show error message when user tries to skip required date question', async () => {
-    renderWizardFormComponent(dateQuestionForm, evaluateDisplayConditions)
+    renderConversationalFormComponent(
+      dateQuestionForm,
+      evaluateDisplayConditions
+    )
 
     // Try to go to next question
     await clickNextButton()

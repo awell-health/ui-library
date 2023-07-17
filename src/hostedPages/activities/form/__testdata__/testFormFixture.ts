@@ -5,7 +5,7 @@ import {
   UserQuestionType,
 } from '../../../../types/question'
 
-export const conversationalForm: Form = {
+export const form: Form = {
   id: 'Kzr2NafTxJfR',
   title: 'Example form',
   key: 'exampleForm',

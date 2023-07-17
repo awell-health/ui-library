@@ -3,11 +3,10 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { ConversationalForm as ConversationalFormComponent } from '.'
 import { TraditionalForm as TraditionalFormComponent } from './TraditionalForm'
-import { conversationalForm } from './__testdata__/testFormFixture'
+import { form } from './__testdata__/testFormFixture'
 import { HostedPageLayout } from '../../layouts/HostedPageLayout'
 import { ThemeProvider } from '../../../atoms'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport/preview'
-import classes from './form.module.scss'
 
 export default {
   title: 'HostedPages/Activities',
@@ -18,7 +17,7 @@ export default {
     onSubmit: { action: 'submitted' },
     form: {
       control: 'object',
-      defaultValue: conversationalForm,
+      defaultValue: form,
     },
     buttonLabels: {
       control: 'object',

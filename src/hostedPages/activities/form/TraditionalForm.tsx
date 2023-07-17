@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, CircularSpinner } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
