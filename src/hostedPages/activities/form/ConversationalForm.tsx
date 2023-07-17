@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { Button, ProgressIndicator, CircularSpinner } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
-import { useWizardForm } from '../../../hooks/useWizardForm'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
+import { useConversationalForm } from '../../../hooks'
 
 export const ConversationalForm = ({
   form,
@@ -30,7 +30,7 @@ export const ConversationalForm = ({
     isFirstQuestion,
     isLastQuestion,
     isEvaluatingQuestionVisibility,
-  } = useWizardForm({
+  } = useConversationalForm({
     questions: form.questions,
     onSubmit,
     evaluateDisplayConditions,

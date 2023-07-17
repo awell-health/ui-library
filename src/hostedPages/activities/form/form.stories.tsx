@@ -60,10 +60,7 @@ const MyStory: Story = ({
   errorLabels,
 }) => {
   const [answers, setAnswers] = React.useState<string>('')
-  console.log(displayMode)
-
   const isConversationalMode = displayMode == 'conversational'
-  console.log(isConversationalMode)
 
   const handleAnswersChange = (answers: string) => {
     setAnswers(answers)

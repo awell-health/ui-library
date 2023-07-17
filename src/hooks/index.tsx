@@ -1,5 +1,5 @@
 export { useClickOutsideNotifier } from './useClickOutsideNotifier'
 export { useScrollHint } from './useScrollHint'
-export { useWizardForm } from './useWizardForm'
+export { useConversationalForm, useTraditionalForm } from './useForm'
 export { useValidate } from './useValidate'
 export { useHtmlScript } from './useHtmlScript'

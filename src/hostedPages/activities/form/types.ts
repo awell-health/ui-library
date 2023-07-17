@@ -1,7 +1,4 @@
-import {
-  ErrorLabels,
-  QuestionRuleResult,
-} from '../../../hooks/useWizardForm/types'
+import { ErrorLabels, QuestionRuleResult } from '../../../hooks/useForm/types'
 import { QuestionLabels } from '../../../molecules/question/types'
 import { AnswerInput, Form } from '../../../types'
 

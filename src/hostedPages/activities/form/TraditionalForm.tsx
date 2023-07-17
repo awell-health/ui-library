@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, CircularSpinner } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
-import { useWizardForm } from '../../../hooks/useWizardForm'
+import { useTraditionalForm } from '../../../hooks/useForm'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 
@@ -16,13 +16,13 @@ export const TraditionalForm = ({
   storedAnswers,
   onAnswersChange,
 }: FormProps) => {
-  // TODO: this form should use its own hook since it has a different behaviour of Conversational Form
   const {
+    updateQuestionVisibility,
     submitForm,
     formMethods: { control, getValues },
     errors,
-    isEvaluatingQuestionVisibility,
-  } = useWizardForm({
+    questionWithVisiblity,
+  } = useTraditionalForm({
     questions: form.questions,
     onSubmit,
     evaluateDisplayConditions,
@@ -38,36 +38,38 @@ export const TraditionalForm = ({
         className={`${layoutClasses.main_content} ${classes.traditional_form}`}
       >
         <div className={`${classes.container}`}>
-          {isEvaluatingQuestionVisibility ? (
+          {!questionWithVisiblity ? (
             <div className={classes.loadingContainer}>
               <CircularSpinner size="sm" />
             </div>
           ) : (
             <div>
               <div>
-                {form.questions.map((visibleQuestion) => (
-                  <div
-                    key={visibleQuestion.id}
-                    className={classes.traditional_form_question}
-                  >
-                    <Question
-                      question={visibleQuestion}
-                      control={control}
-                      getValues={getValues}
+                {questionWithVisiblity
+                  .filter((vb) => vb.visible)
+                  .map((visibleQuestion) => (
+                    <div
                       key={visibleQuestion.id}
-                      errors={errors}
-                      inputAutoFocus={false}
-                      questionTypeConfig={questionTypeConfig}
-                    />
-                  </div>
-                ))}
+                      className={classes.traditional_form_question}
+                    >
+                      <Question
+                        question={visibleQuestion}
+                        control={control}
+                        getValues={getValues}
+                        key={visibleQuestion.id}
+                        errors={errors}
+                        inputAutoFocus={false}
+                        questionTypeConfig={questionTypeConfig}
+                        onAnswerChange={updateQuestionVisibility}
+                      />
+                    </div>
+                  ))}
               </div>
             </div>
           )}
           <div className={`${classes.button_wrapper}`}>
             <div></div>
             <Button
-              disabled={isEvaluatingQuestionVisibility}
               onClick={submitForm}
               type="submit"
               data-cy="submitFormButton"

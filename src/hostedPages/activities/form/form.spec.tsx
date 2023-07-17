@@ -10,7 +10,7 @@ import {
   dateQuestionForm,
 } from './__testdata__/testFormFixture'
 import { AnswerInput, Form } from '../../../types'
-import { QuestionRuleResult } from '../../../hooks/useWizardForm/types'
+import { QuestionRuleResult } from '../../../hooks/useForm/types'
 
 const props = {
   buttonLabels: {
