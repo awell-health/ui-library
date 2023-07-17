@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CircularSpinner } from '../../../atoms'
+import { Button, CircularSpinner, Text } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useTraditionalForm } from '../../../hooks/useForm'
@@ -22,6 +22,7 @@ export const TraditionalForm = ({
     formMethods: { control, getValues },
     errors,
     questionWithVisiblity,
+    formHasErrors,
   } = useTraditionalForm({
     questions: form.questions,
     onSubmit,
@@ -30,6 +31,8 @@ export const TraditionalForm = ({
     storedAnswers,
     onAnswersChange,
   })
+
+  console.log(formHasErrors)
 
   return (
     <>
@@ -68,6 +71,13 @@ export const TraditionalForm = ({
             </div>
           )}
           <div className={`${classes.button_wrapper}`}>
+            {formHasErrors && (
+              <div className={classes.error}>
+                <Text variant="textSmall" color="var(--awell-signalError100)">
+                  {errorLabels.formHasErrors}
+                </Text>
+              </div>
+            )}
             <div></div>
             <Button
               onClick={submitForm}

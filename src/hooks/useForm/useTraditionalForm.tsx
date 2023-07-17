@@ -38,6 +38,8 @@ const useTraditionalForm = ({
     Array<QuestionWithVisibility>
   >([])
   const [errors, setErrors] = useState<Array<FormError>>([])
+  const [formHasErrors, setFormHasErrors] = useState<boolean>(false)
+
   const { isValidE164Number } = useValidate()
 
   const updateQuestionVisibility = useCallback(async () => {
@@ -77,7 +79,10 @@ const useTraditionalForm = ({
     )
     setErrors(errors)
     if (errors.length == 0) {
+      setFormHasErrors(false)
       formMethods.handleSubmit(handleConvertAndSubmitForm)()
+    } else {
+      setFormHasErrors(true)
     }
   }
 
@@ -87,6 +92,7 @@ const useTraditionalForm = ({
     formMethods,
     errors,
     questionWithVisiblity: visibleQuestions,
+    formHasErrors,
   }
 }
 

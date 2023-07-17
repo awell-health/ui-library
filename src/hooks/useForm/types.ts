@@ -27,6 +27,7 @@ export type ErrorLabels = {
   required: string
   sliderNotTouched: string
   invalidPhoneNumber: string
+  formHasErrors: string
 }
 
 export type AnswerValue = string | number | number[]
@@ -61,4 +62,5 @@ export interface TraditionalFormContext {
   formMethods: UseFormReturn
   errors: Array<FormError>
   questionWithVisiblity: Array<QuestionWithVisibility>
+  formHasErrors: boolean
 }
