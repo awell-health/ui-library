@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-import { ConversationalForm as WizardFormComponent } from './ConversationalForm'
+import { ConversationalForm as ConversationalFormComponent } from './ConversationalForm'
 import {
   conversationalForm as formData,
   sliderQuestionForm,
@@ -48,7 +48,7 @@ const renderWizardFormComponent = (
 ) => {
   act(() => {
     render(
-      <WizardFormComponent
+      <ConversationalFormComponent
         form={form}
         buttonLabels={buttonLabels}
         errorLabels={errorLabels}
@@ -73,7 +73,7 @@ const clickPrevButton = async () => {
   })
 }
 
-describe('Wizard form', () => {
+describe('Conversational Form', () => {
   let evaluateDisplayConditions: (
     response: AnswerInput[]
   ) => Promise<QuestionRuleResult[]>

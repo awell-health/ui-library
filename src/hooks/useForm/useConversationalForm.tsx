@@ -97,7 +97,7 @@ const useConversationalForm = ({
       isValidE164Number
     )
     setErrors([...errorsWithoutCurrent, ...existingErrors])
-    return errors.length > 0
+    return existingErrors.length > 0
   }
 
   const handleGoToNextQuestion = async () => {
