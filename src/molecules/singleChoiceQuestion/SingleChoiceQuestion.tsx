@@ -68,7 +68,7 @@ export const SingleChoiceQuestion = ({
               option.id === checkedOption?.id &&
               showFlickerOnSelected
                 ? classes.animate_flicker
-                : null
+                : ''
             }
           />
         ))}
