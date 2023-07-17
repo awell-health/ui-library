@@ -32,8 +32,6 @@ export const TraditionalForm = ({
     onAnswersChange,
   })
 
-  console.log(formHasErrors)
-
   return (
     <>
       <main
