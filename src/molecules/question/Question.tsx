@@ -15,6 +15,8 @@ import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 
+const AUTO_PROGRESS_DELAY = 750 // 750 milliseconds
+
 export const QuestionData = ({
   question,
   control,
@@ -58,16 +60,18 @@ export const QuestionData = ({
                 ]}
                 onChange={(data) => {
                   onChange(data)
-                  if (value !== data) {
+                  if (value !== data && shouldAutoProgress()) {
                     onAnswerChange()
-                    if (shouldAutoProgress()) {
-                      submitAndMoveToNextQuestion()
-                    }
+                    setTimeout(
+                      () => submitAndMoveToNextQuestion(),
+                      AUTO_PROGRESS_DELAY
+                    )
                   }
                 }}
                 questionId={question.id}
                 value={value}
                 mandatory={config?.mandatory}
+                showFlickerOnSelected={shouldAutoProgress()}
               />
             )
           }}
@@ -146,12 +150,7 @@ export const QuestionData = ({
                   }}
                   onChange={(data) => {
                     onChange(data)
-                    if (value !== data) {
-                      onAnswerChange()
-                      if (shouldAutoProgress()) {
-                        submitAndMoveToNextQuestion()
-                      }
-                    }
+                    onAnswerChange()
                   }}
                   type="single"
                   options={question.options ?? []}
@@ -168,13 +167,16 @@ export const QuestionData = ({
                 options={question.options || []}
                 onChange={(data) => {
                   onChange(data)
-                  if (value !== data) {
+
+                  if (value !== data && shouldAutoProgress()) {
                     onAnswerChange()
-                    if (shouldAutoProgress()) {
-                      submitAndMoveToNextQuestion()
-                    }
+                    setTimeout(
+                      () => submitAndMoveToNextQuestion(),
+                      AUTO_PROGRESS_DELAY
+                    )
                   }
                 }}
+                showFlickerOnSelected={shouldAutoProgress()}
                 questionId={question.id}
                 value={value}
                 mandatory={config?.mandatory}

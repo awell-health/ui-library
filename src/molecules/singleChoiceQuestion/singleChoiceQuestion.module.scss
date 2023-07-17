@@ -6,6 +6,56 @@
   padding: 0;
 }
 
+@keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.animate_flicker {
+  -webkit-animation: flickerAnimation 0.4s infinite;
+  -moz-animation: flickerAnimation 0.4s infinite;
+  -o-animation: flickerAnimation 0.4s infinite;
+  animation: flickerAnimation 0.4s infinite;
+}
 .awell_single_choice_question > div {
   margin-top: var(--awell-spacing-5);
 
