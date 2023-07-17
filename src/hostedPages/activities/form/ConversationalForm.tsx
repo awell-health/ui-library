@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { Button, ProgressIndicator, CircularSpinner } from '../../../atoms'
 import classes from './form.module.scss'
-import { Question } from '../../../molecules'
+import { Question as QuestionComponent } from '../../../molecules'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 import { useConversationalForm } from '../../../hooks'
+import { Question, UserQuestionType } from '../../../types'
 
 export const ConversationalForm = ({
   form,
@@ -60,6 +61,15 @@ export const ConversationalForm = ({
     determineShowScrollHint()
   }, [currentQuestion])
 
+  const shouldAutoProgress = (question: Question): boolean => {
+    if (question.userQuestionType) {
+      return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
+        question.userQuestionType
+      )
+    }
+    return false
+  }
+
   return (
     <>
       <main
@@ -77,7 +87,7 @@ export const ConversationalForm = ({
             </div>
           ) : (
             <div className={classes.wizard_form}>
-              <Question
+              <QuestionComponent
                 question={currentQuestion}
                 control={control}
                 getValues={getValues}
@@ -87,6 +97,7 @@ export const ConversationalForm = ({
                 questionTypeConfig={questionTypeConfig}
                 submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
                 inputAutoFocus={true}
+                shouldAutoProgress={shouldAutoProgress}
               />
             </div>
           )}

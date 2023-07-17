@@ -26,17 +26,9 @@ export const QuestionData = ({
   inputAutoFocus = false,
   submitAndMoveToNextQuestion = () => {},
   onAnswerChange = () => {},
+  shouldAutoProgress = (_) => false,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
-
-  const shouldAutoProgress = (): boolean => {
-    if (question.userQuestionType) {
-      return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
-        question.userQuestionType
-      )
-    }
-    return false
-  }
 
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
@@ -60,7 +52,7 @@ export const QuestionData = ({
                 ]}
                 onChange={(data) => {
                   onChange(data)
-                  if (value !== data && shouldAutoProgress()) {
+                  if (value !== data) {
                     onAnswerChange()
                     setTimeout(
                       () => submitAndMoveToNextQuestion(),
@@ -71,7 +63,7 @@ export const QuestionData = ({
                 questionId={question.id}
                 value={value}
                 mandatory={config?.mandatory}
-                showFlickerOnSelected={shouldAutoProgress()}
+                showFlickerOnSelected={shouldAutoProgress(question)}
               />
             )
           }}
@@ -168,15 +160,17 @@ export const QuestionData = ({
                 onChange={(data) => {
                   onChange(data)
 
-                  if (value !== data && shouldAutoProgress()) {
+                  if (value !== data) {
                     onAnswerChange()
-                    setTimeout(
-                      () => submitAndMoveToNextQuestion(),
-                      AUTO_PROGRESS_DELAY
-                    )
+                    if (shouldAutoProgress(question)) {
+                      setTimeout(
+                        () => submitAndMoveToNextQuestion(),
+                        AUTO_PROGRESS_DELAY
+                      )
+                    }
                   }
                 }}
-                showFlickerOnSelected={shouldAutoProgress()}
+                showFlickerOnSelected={shouldAutoProgress(question)}
                 questionId={question.id}
                 value={value}
                 mandatory={config?.mandatory}
@@ -357,6 +351,7 @@ export const Question = ({
   inputAutoFocus = false,
   submitAndMoveToNextQuestion,
   onAnswerChange,
+  shouldAutoProgress,
 }: QuestionProps): JSX.Element => {
   const [isVisible, setVisible] = useState(0)
   const style = { '--awell-question-opacity': isVisible } as React.CSSProperties
@@ -380,6 +375,7 @@ export const Question = ({
         questionTypeConfig={questionTypeConfig}
         submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
         onAnswerChange={onAnswerChange}
+        shouldAutoProgress={shouldAutoProgress}
       />
 
       {currentError && (

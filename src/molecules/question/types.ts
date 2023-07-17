@@ -20,6 +20,7 @@ export interface QuestionDataProps {
   inputAutoFocus?: boolean
   submitAndMoveToNextQuestion?: () => void
   onAnswerChange?: () => void
+  shouldAutoProgress?: (question: Question) => boolean
 }
 export interface QuestionProps {
   question: Question
@@ -31,4 +32,5 @@ export interface QuestionProps {
   inputAutoFocus?: boolean
   submitAndMoveToNextQuestion?: () => void
   onAnswerChange?: () => void
+  shouldAutoProgress?: (question: Question) => boolean
 }
