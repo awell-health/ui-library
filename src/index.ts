@@ -40,6 +40,8 @@ export {
 
 export {
   Checklist,
+  ConversationalForm,
+  TraditionalForm,
   WizardForm,
   Message,
   HostedPageLayout,
@@ -47,6 +49,11 @@ export {
   CloudinaryUpload,
 } from './hostedPages'
 
-export { useClickOutsideNotifier, useScrollHint, useWizardForm } from './hooks'
+export {
+  useClickOutsideNotifier,
+  useScrollHint,
+  useConversationalForm,
+  useTraditionalForm,
+} from './hooks'
 
 export * from './types'

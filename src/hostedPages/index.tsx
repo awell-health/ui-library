@@ -1,5 +1,6 @@
 export { Checklist } from './activities/checklist'
 export { Message } from './activities/message'
+export { ConversationalForm, TraditionalForm } from './activities/form'
 export { WizardForm } from './activities/wizardForm'
 export { CalDotcomActivity } from './activities/scheduling'
 export { CloudinaryUpload } from './activities/cloudinary'

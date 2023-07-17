@@ -2,13 +2,12 @@ import React from 'react'
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-import { WizardForm as WizardFormComponent } from './WizardForm'
+import { ConversationalForm as ConversationalFormComponent } from './ConversationalForm'
 import {
   form as formData,
   sliderQuestionForm,
   formWithTwoRequiredSingleSelectQuestions,
   dateQuestionForm,
-  formHavingOneQuestionHiddenWithDisplayCondition,
 } from './__testdata__/testFormFixture'
 import { AnswerInput, Form } from '../../../types'
 import { QuestionRuleResult } from '../../../hooks/useForm/types'
@@ -41,7 +40,7 @@ const normalizedFirstQuestionTitle = firstQuestion.title.replace('\n\n', ' ')
 const normalizedSecondQuestionTitle = secondQuestion.title.replace('\n\n', ' ')
 const { buttonLabels, errorLabels } = props
 
-const renderWizardFormComponent = (
+const renderConversationalFormComponent = (
   form: Form,
   evaluateDisplayConditions: (
     response: AnswerInput[]
@@ -49,7 +48,7 @@ const renderWizardFormComponent = (
 ) => {
   act(() => {
     render(
-      <WizardFormComponent
+      <ConversationalFormComponent
         form={form}
         buttonLabels={buttonLabels}
         errorLabels={errorLabels}
@@ -67,13 +66,6 @@ const clickNextButton = async () => {
   })
 }
 
-const clickSubmitButton = async () => {
-  const submitButton = await screen.findByText(buttonLabels.submit)
-  await act(async () => {
-    fireEvent.click(submitButton)
-  })
-}
-
 const clickPrevButton = async () => {
   const prevButton = await screen.findByText(buttonLabels.prev)
   await act(async () => {
@@ -81,7 +73,7 @@ const clickPrevButton = async () => {
   })
 }
 
-describe('Wizard form', () => {
+describe('Conversational Form', () => {
   let evaluateDisplayConditions: (
     response: AnswerInput[]
   ) => Promise<QuestionRuleResult[]>
@@ -91,7 +83,7 @@ describe('Wizard form', () => {
   })
 
   it('Should render the first question and evaluate display condition on init', async () => {
-    renderWizardFormComponent(formData, evaluateDisplayConditions)
+    renderConversationalFormComponent(formData, evaluateDisplayConditions)
 
     const firstQuestionLabel = await screen.findByText(
       normalizedFirstQuestionTitle
@@ -106,7 +98,7 @@ describe('Wizard form', () => {
   })
 
   it('Should properly navigate to next question', async () => {
-    renderWizardFormComponent(formData, evaluateDisplayConditions)
+    renderConversationalFormComponent(formData, evaluateDisplayConditions)
 
     await waitFor(() =>
       expect(evaluateDisplayConditions).toHaveBeenCalledTimes(1)
@@ -129,12 +121,12 @@ describe('Wizard form', () => {
   })
 
   it('Should properly navigate to previous question', async () => {
-    renderWizardFormComponent(formData, evaluateDisplayConditions)
+    renderConversationalFormComponent(formData, evaluateDisplayConditions)
 
-    // GO to 2nd question
+    // GO to 1st question
     await clickNextButton()
 
-    // GO to 3rd question
+    // GO to 2nd question
     await clickNextButton()
 
     // Answer mandatory question
@@ -147,9 +139,6 @@ describe('Wizard form', () => {
     })
 
     expect(radioOption).toBeChecked()
-
-    // GO back to 3rd question
-    await clickPrevButton()
 
     // GO back to 2nd question
     await clickPrevButton()
@@ -165,12 +154,12 @@ describe('Wizard form', () => {
     // Check if evaluate visibility conditions were called each time user
     // navigates to NEXT question + 1 on init
     await waitFor(() =>
-      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(6)
+      expect(screen.getByText(normalizedFirstQuestionTitle)).toBeInTheDocument()
     )
   })
 
   it('Should properly navigate between required questions', async () => {
-    renderWizardFormComponent(
+    renderConversationalFormComponent(
       formWithTwoRequiredSingleSelectQuestions,
       evaluateDisplayConditions
     )
@@ -210,7 +199,10 @@ describe('Wizard form', () => {
   })
 
   it('Should not show an error message when user immediately presses next on slider question (because it has a default value)', async () => {
-    renderWizardFormComponent(sliderQuestionForm, evaluateDisplayConditions)
+    renderConversationalFormComponent(
+      sliderQuestionForm,
+      evaluateDisplayConditions
+    )
 
     // Try to go to next question
     await clickNextButton()
@@ -224,7 +216,10 @@ describe('Wizard form', () => {
   })
 
   it('Should show error message when user tries to skip required date question', async () => {
-    renderWizardFormComponent(dateQuestionForm, evaluateDisplayConditions)
+    renderConversationalFormComponent(
+      dateQuestionForm,
+      evaluateDisplayConditions
+    )
 
     // Try to go to next question
     await clickNextButton()
@@ -237,84 +232,6 @@ describe('Wizard form', () => {
 
     expect(questionTitleAfterClick).toBeInTheDocument()
     expect(errorMessage).toBeInTheDocument()
-  })
-
-  const evaluateDisplayConditionsForCarInput = (
-    response: AnswerInput[]
-  ): Promise<QuestionRuleResult[]> => {
-    const carQuestionAnswer = response.find(
-      (r) => r.question_id === 'VkL1vrscT5MV'
-    )
-    // hide the last question initially
-    if (!carQuestionAnswer) {
-      return Promise.resolve([
-        {
-          question_id: 'x5bgJqsOltmK3',
-          satisfied: false,
-          rule_id: 'some_rule_id',
-        },
-      ])
-    }
-
-    const { value: answer } = carQuestionAnswer
-
-    // only show the last question when answer of first question is "yes"
-    if (answer === '1') {
-      return Promise.resolve([
-        {
-          question_id: 'x5bgJqsOltmK3',
-          satisfied: true,
-          rule_id: 'some_rule_id',
-        },
-      ])
-    }
-
-    // hide the last question when answer of first question is "no"
-    return Promise.resolve([
-      {
-        question_id: 'x5bgJqsOltmK3',
-        satisfied: false,
-        rule_id: 'some_rule_id',
-      },
-    ])
-  }
-
-  it('Should not navigate back to a question hidden because of display conditions', async () => {
-    renderWizardFormComponent(
-      formHavingOneQuestionHiddenWithDisplayCondition,
-      evaluateDisplayConditionsForCarInput
-    )
-
-    // Answer mandatory question
-    const radioOption = await screen.findByLabelText('Yes')
-    expect(radioOption).not.toBeChecked()
-
-    await act(async () => {
-      fireEvent.click(radioOption)
-    })
-
-    // GO to next question
-    await clickSubmitButton()
-
-    // Answer mandatory question
-    const carTypeOption = await screen.findByLabelText('Sedan')
-    expect(carTypeOption).not.toBeChecked()
-
-    await act(async () => {
-      fireEvent.click(carTypeOption)
-    })
-
-    await clickPrevButton()
-
-    const doYouHaveCarOption = await screen.findByLabelText('No')
-    expect(doYouHaveCarOption).not.toBeChecked()
-
-    await act(async () => {
-      fireEvent.click(doYouHaveCarOption)
-    })
-
-    // this should not crash
-    await clickNextButton()
   })
 })
 

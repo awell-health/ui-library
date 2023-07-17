@@ -41,10 +41,10 @@ Make sure to wrap the application with the `ThemeProvider`. This will make sure 
 ### Use components
 
 ```
- import { WizardForm } from '@awell_health/ui-library'
+ import { ConversationalForm } from '@awell_health/ui-library'
 
  (...)
- return <WizardForm (...) />
+ return <ConversationalForm (...) />
 
 ```
 

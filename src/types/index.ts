@@ -8,7 +8,7 @@ export type {
   QuestionConfig,
   SliderQuestionConfig,
 } from './question'
-export type { Form, FormError, WizardFormProps } from './form'
+export type { Form, FormError, FormProps } from './form'
 export type { Nodes, Node, Element, Text } from './richText'
 export { isText, isElement } from './richText'
 export type { AttachmentLabels } from './message'

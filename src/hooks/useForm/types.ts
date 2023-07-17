@@ -1,5 +1,10 @@
 import { UseFormReturn } from 'react-hook-form'
-import { AnswerInput, Question, FormError } from '../../types'
+import {
+  AnswerInput,
+  Question,
+  FormError,
+  QuestionWithVisibility,
+} from '../../types'
 
 export type { FormError, QuestionWithVisibility } from '../../types'
 export { QuestionType, UserQuestionType } from '../../types'
@@ -22,6 +27,7 @@ export type ErrorLabels = {
   required: string
   sliderNotTouched: string
   invalidPhoneNumber: string
+  formHasErrors: string
 }
 
 export type AnswerValue = string | number | number[]
@@ -36,7 +42,7 @@ export interface FormSettingsContextProps {
   storedAnswers?: string
   onAnswersChange?: (answers: string) => void
 }
-export interface FormSettingsContextInterface {
+export interface ConversationalFormContext {
   updateQuestionVisibility: () => void
   submitForm: () => void
   handleGoToNextQuestion: () => void
@@ -48,4 +54,13 @@ export interface FormSettingsContextInterface {
   isFirstQuestion: boolean
   isLastQuestion: boolean
   isEvaluatingQuestionVisibility: boolean
+}
+
+export interface TraditionalFormContext {
+  updateQuestionVisibility: () => void
+  submitForm: () => void
+  formMethods: UseFormReturn
+  errors: Array<FormError>
+  questionWithVisiblity: Array<QuestionWithVisibility>
+  formHasErrors: boolean
 }

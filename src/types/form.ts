@@ -2,7 +2,7 @@ import {
   ErrorLabels,
   QuestionRuleResult,
   UserQuestionType,
-} from '../hooks/useWizardForm/types'
+} from '../hooks/useForm/types'
 import { AnswerInput, Form } from '.'
 import { QuestionLabels } from '../molecules/question/types'
 import { CountryIso2 } from 'react-international-phone'
@@ -18,7 +18,7 @@ type ButtonLabels = {
   start_form?: string
 }
 
-export interface WizardFormProps {
+export interface FormProps {
   form: Form
   questionLabels?: QuestionLabels
   buttonLabels: ButtonLabels

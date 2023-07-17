@@ -1,11 +1,14 @@
+import { UseFormReturn } from 'react-hook-form'
 import {
   Option,
   Question,
   UserQuestionType,
   QuestionWithVisibility,
   SliderQuestionConfig,
+  FormError,
 } from '../../types'
-import { AnswerValue, QuestionRuleResult } from './types'
+import { useValidate } from '../useValidate'
+import { AnswerValue, ErrorLabels, QuestionRuleResult } from './types'
 
 export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
@@ -144,4 +147,47 @@ export const calculatePercentageCompleted = ({
   }
 
   return Math.round(((currentQuestionIndex + 1) / allQuestions.length) * 100)
+}
+
+export const getErrorsForQuestion = (
+  currentQuestion: QuestionWithVisibility,
+  formMethods: UseFormReturn<Record<string, AnswerValue>, any>,
+  errorLabels: ErrorLabels,
+  isValidE164Number: (
+    number: string,
+    availableCountries?:
+      | import('react-international-phone').CountryIso2
+      | import('react-international-phone').CountryIso2[]
+      | undefined
+  ) => boolean
+): Array<FormError> => {
+  // For description question types, don't validate
+  if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
+    return []
+  }
+
+  const isQuestionMandatory = currentQuestion?.questionConfig?.mandatory
+  const valueOfCurrentQuestion = formMethods.getValues(currentQuestion?.id)
+
+  // For all question types, validate mandatory answers
+  if (isQuestionMandatory && isEmpty(valueOfCurrentQuestion)) {
+    return [{ id: currentQuestion.id, error: errorLabels.required }]
+  }
+
+  // For telephone question types, validate phone number
+  if (currentQuestion?.userQuestionType === UserQuestionType.Telephone) {
+    if (valueOfCurrentQuestion !== '') {
+      const errorLabel = errorLabels.invalidPhoneNumber
+      try {
+        const isValid = isValidE164Number(valueOfCurrentQuestion as string)
+        if (!isValid) {
+          return [{ id: currentQuestion.id, error: errorLabel }]
+        }
+      } catch (error) {
+        return [{ id: currentQuestion.id, error: errorLabel }]
+      }
+    }
+  }
+
+  return []
 }

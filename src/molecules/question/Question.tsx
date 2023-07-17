@@ -14,7 +14,6 @@ import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
-import { useValidate } from '../../hooks/useValidate'
 
 const AUTO_PROGRESS_DELAY = 750 // 750 milliseconds
 
@@ -24,10 +23,11 @@ export const QuestionData = ({
   getValues,
   labels,
   questionTypeConfig,
+  inputAutoFocus = false,
   submitAndMoveToNextQuestion = () => {},
+  onAnswerChange = () => {},
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
-  const { isValidE164Number } = useValidate()
 
   const shouldAutoProgress = (): boolean => {
     if (question.userQuestionType) {
@@ -61,6 +61,7 @@ export const QuestionData = ({
                 onChange={(data) => {
                   onChange(data)
                   if (value !== data && shouldAutoProgress()) {
+                    onAnswerChange()
                     setTimeout(
                       () => submitAndMoveToNextQuestion(),
                       AUTO_PROGRESS_DELAY
@@ -97,7 +98,12 @@ export const QuestionData = ({
                     searchPlaceholder: labels.select?.search_placeholder,
                     noOptions: labels.select?.no_options,
                   }}
-                  onChange={(data) => onChange(data)}
+                  onChange={(data) => {
+                    onChange(data)
+                    if (value !== data) {
+                      onAnswerChange()
+                    }
+                  }}
                   type="multiple"
                   options={question.options ?? []}
                   mandatory={config?.mandatory}
@@ -111,7 +117,12 @@ export const QuestionData = ({
               <MultipleChoiceQuestion
                 label={question.title}
                 options={question.options ?? []}
-                onChange={(data) => onChange(data)}
+                onChange={(data) => {
+                  onChange(data)
+                  if (value !== data) {
+                    onAnswerChange()
+                  }
+                }}
                 questionId={question.id}
                 values={value}
                 mandatory={config?.mandatory}
@@ -137,7 +148,10 @@ export const QuestionData = ({
                     searchPlaceholder: labels.select?.search_placeholder,
                     noOptions: labels.select?.no_options,
                   }}
-                  onChange={onChange}
+                  onChange={(data) => {
+                    onChange(data)
+                    onAnswerChange()
+                  }}
                   type="single"
                   options={question.options ?? []}
                   mandatory={config?.mandatory}
@@ -153,7 +167,9 @@ export const QuestionData = ({
                 options={question.options || []}
                 onChange={(data) => {
                   onChange(data)
+
                   if (value !== data && shouldAutoProgress()) {
+                    onAnswerChange()
                     setTimeout(
                       () => submitAndMoveToNextQuestion(),
                       AUTO_PROGRESS_DELAY
@@ -179,8 +195,11 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <LongTextField
               // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
-              onChange={(e) => onChange(e.target.value)}
+              autoFocus={inputAutoFocus}
+              onChange={(e) => {
+                onChange(e.target.value)
+                onAnswerChange()
+              }}
               label={question.title}
               id={question.id}
               value={value}
@@ -199,9 +218,12 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <InputField
               // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
+              autoFocus={inputAutoFocus}
               type="number"
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => {
+                onChange(e.target.value)
+                onAnswerChange()
+              }}
               label={question.title}
               id={question.id}
               value={value}
@@ -220,9 +242,12 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <InputField
               // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
+              autoFocus={inputAutoFocus}
               type="text"
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => {
+                onChange(e.target.value)
+                onAnswerChange()
+              }}
               label={question.title}
               id={question.id}
               value={value}
@@ -247,8 +272,11 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => (
             <PhoneInputField
               // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
-              onChange={(e) => onChange(e.target.value)}
+              autoFocus={inputAutoFocus}
+              onChange={(e) => {
+                onChange(e.target.value)
+                onAnswerChange()
+              }}
               label={question.title}
               id={question.id}
               value={value}
@@ -271,7 +299,10 @@ export const QuestionData = ({
             return (
               <RangeInput
                 label={question.title}
-                onChange={(e) => onChange(e.target.value)}
+                onChange={(e) => {
+                  onChange(e.target.value)
+                  onAnswerChange()
+                }}
                 id={question.id}
                 sliderConfig={(config as SliderQuestionConfig)?.slider}
                 value={value}
@@ -291,10 +322,13 @@ export const QuestionData = ({
             return (
               <InputField
                 // eslint-disable-next-line jsx-a11y/no-autofocus
-                autoFocus
+                autoFocus={inputAutoFocus}
                 type="date"
                 label={question.title}
-                onChange={(event) => onChange(event.target.value)}
+                onChange={(e) => {
+                  onChange(e.target.value)
+                  onAnswerChange()
+                }}
                 id={question.id}
                 value={value}
                 mandatory={config?.mandatory}
@@ -320,7 +354,9 @@ export const Question = ({
     yes_label: 'Yes',
     no_label: 'No',
   },
+  inputAutoFocus = false,
   submitAndMoveToNextQuestion,
+  onAnswerChange,
 }: QuestionProps): JSX.Element => {
   const [isVisible, setVisible] = useState(0)
   const style = { '--awell-question-opacity': isVisible } as React.CSSProperties
@@ -340,8 +376,10 @@ export const Question = ({
         control={control}
         getValues={getValues}
         labels={labels}
+        inputAutoFocus={inputAutoFocus}
         questionTypeConfig={questionTypeConfig}
         submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
+        onAnswerChange={onAnswerChange}
       />
 
       {currentError && (

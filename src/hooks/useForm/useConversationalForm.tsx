@@ -5,27 +5,27 @@ import {
   calculatePercentageCompleted,
   convertToAwellInput,
   convertToFormFormat,
+  getErrorsForQuestion,
   getInitialValues,
   isEmpty,
   updateVisibility,
 } from './helpers'
 import {
   AnswerValue,
-  FormSettingsContextInterface,
   FormSettingsContextProps,
   FormError,
-  UserQuestionType,
   QuestionWithVisibility,
+  ConversationalFormContext,
 } from './types'
 
-const useWizardForm = ({
+const useConversationalForm = ({
   questions,
   evaluateDisplayConditions,
   onSubmit,
   errorLabels,
   storedAnswers,
   onAnswersChange,
-}: FormSettingsContextProps): FormSettingsContextInterface => {
+}: FormSettingsContextProps): ConversationalFormContext => {
   const initialValues = convertToFormFormat(storedAnswers, questions)
   const { isValidE164Number } = useValidate()
   const formMethods = useForm({
@@ -84,65 +84,24 @@ const useWizardForm = ({
     updateQuestionVisibility()
   }, [updateQuestionVisibility])
 
-  const handleCheckForErrors = (): boolean => {
-    const currentQuestion = visibleQuestions?.[current]
+  const handleCheckForErrors = (
+    currentQuestion: QuestionWithVisibility
+  ): boolean => {
     const errorsWithoutCurrent = errors.filter(
       (err) => err.id !== currentQuestion?.id
     )
-
-    setErrors(errorsWithoutCurrent)
-
-    // For description question types, don't validate
-    if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
-      return false
-    }
-
-    const isQuestionMandatory = currentQuestion?.questionConfig?.mandatory
-    const valueOfCurrentQuestion = formMethods.getValues(currentQuestion?.id)
-
-    // For all question types, validate mandatory answers
-    if (isQuestionMandatory && isEmpty(valueOfCurrentQuestion)) {
-      const errorsWithoutCurrent = errors.filter(
-        (err) => err.id !== currentQuestion.id
-      )
-
-      setErrors([
-        ...errorsWithoutCurrent,
-        { id: currentQuestion.id, error: errorLabels.required },
-      ])
-
-      return true
-    }
-
-    // For telephone question types, validate phone number
-    if (currentQuestion?.userQuestionType === UserQuestionType.Telephone) {
-      if (valueOfCurrentQuestion !== '') {
-        const errorLabel = errorLabels.invalidPhoneNumber
-        try {
-          const isValid = isValidE164Number(valueOfCurrentQuestion as string)
-          if (!isValid) {
-            setErrors([
-              ...errorsWithoutCurrent,
-              { id: currentQuestion.id, error: errorLabel },
-            ])
-            return true
-          }
-        } catch (error) {
-          setErrors([
-            ...errorsWithoutCurrent,
-            { id: currentQuestion.id, error: errorLabel },
-          ])
-          return true
-        }
-      }
-    }
-
-    // in all other cases, there are no errors
-    return false
+    const existingErrors = getErrorsForQuestion(
+      currentQuestion,
+      formMethods,
+      errorLabels,
+      isValidE164Number
+    )
+    setErrors([...errorsWithoutCurrent, ...existingErrors])
+    return existingErrors.length > 0
   }
 
   const handleGoToNextQuestion = async () => {
-    const hasErrors = handleCheckForErrors()
+    const hasErrors = handleCheckForErrors(visibleQuestions?.[current])
     if (!hasErrors) {
       try {
         const updatedQuestions = await updateQuestionVisibility()
@@ -187,8 +146,8 @@ const useWizardForm = ({
       if (doNextQuestionExist) {
         return handleGoToNextQuestion()
       }
-      // check if there are any errors
-      const hasErrors = handleCheckForErrors()
+
+      const hasErrors = handleCheckForErrors(visibleQuestions?.[current])
       if (!hasErrors) {
         formMethods.handleSubmit(handleConvertAndSubmitForm)()
       }
@@ -210,4 +169,4 @@ const useWizardForm = ({
   }
 }
 
-export { useWizardForm }
+export { useConversationalForm }
