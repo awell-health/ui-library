@@ -16,6 +16,8 @@ import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 import { useValidate } from '../../hooks/useValidate'
 
+const AUTO_PROGRESS_DELAY = 750 // 750 milliseconds
+
 export const QuestionData = ({
   question,
   control,
@@ -59,12 +61,16 @@ export const QuestionData = ({
                 onChange={(data) => {
                   onChange(data)
                   if (value !== data && shouldAutoProgress()) {
-                    submitAndMoveToNextQuestion()
+                    setTimeout(
+                      () => submitAndMoveToNextQuestion(),
+                      AUTO_PROGRESS_DELAY
+                    )
                   }
                 }}
                 questionId={question.id}
                 value={value}
                 mandatory={config?.mandatory}
+                showFlickerOnSelected={shouldAutoProgress()}
               />
             )
           }}
@@ -131,12 +137,7 @@ export const QuestionData = ({
                     searchPlaceholder: labels.select?.search_placeholder,
                     noOptions: labels.select?.no_options,
                   }}
-                  onChange={(data) => {
-                    onChange(data)
-                    if (value !== data && shouldAutoProgress()) {
-                      submitAndMoveToNextQuestion()
-                    }
-                  }}
+                  onChange={onChange}
                   type="single"
                   options={question.options ?? []}
                   mandatory={config?.mandatory}
@@ -153,9 +154,13 @@ export const QuestionData = ({
                 onChange={(data) => {
                   onChange(data)
                   if (value !== data && shouldAutoProgress()) {
-                    submitAndMoveToNextQuestion()
+                    setTimeout(
+                      () => submitAndMoveToNextQuestion(),
+                      AUTO_PROGRESS_DELAY
+                    )
                   }
                 }}
+                showFlickerOnSelected={shouldAutoProgress()}
                 questionId={question.id}
                 value={value}
                 mandatory={config?.mandatory}
