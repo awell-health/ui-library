@@ -20,6 +20,10 @@ export interface RadioButtonProps
    */
   name: string
   /**
+   * set class for wrapper div
+   */
+  customWrapperClass?: string
+  /**
    * you can also set any attribute that is native to html radio input
    */
 }
@@ -28,10 +32,11 @@ export const RadioButton = ({
   onChange,
   label,
   name,
+  customWrapperClass,
   ...props
 }: RadioButtonProps): JSX.Element => {
   return (
-    <div className={classes.input_wrapper}>
+    <div className={`${classes.input_wrapper} ${customWrapperClass}`}>
       <div className={classes.radio_wrapper}>
         <input {...props} name={name} type="radio" onChange={onChange} />
       </div>

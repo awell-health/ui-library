@@ -131,10 +131,10 @@ describe('Wizard form', () => {
   it('Should properly navigate to previous question', async () => {
     renderWizardFormComponent(formData, evaluateDisplayConditions)
 
-    // GO to 1st question
+    // GO to 2nd question
     await clickNextButton()
 
-    // GO to 2nd question
+    // GO to 3rd question
     await clickNextButton()
 
     // Answer mandatory question
@@ -147,6 +147,9 @@ describe('Wizard form', () => {
     })
 
     expect(radioOption).toBeChecked()
+
+    // GO back to 3rd question
+    await clickPrevButton()
 
     // GO back to 2nd question
     await clickPrevButton()
@@ -162,7 +165,7 @@ describe('Wizard form', () => {
     // Check if evaluate visibility conditions were called each time user
     // navigates to NEXT question + 1 on init
     await waitFor(() =>
-      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(5)
+      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(6)
     )
   })
 

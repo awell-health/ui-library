@@ -5,7 +5,7 @@ import { Option } from '../../types'
 import { QuestionLabel } from '../../atoms/questionLabel'
 
 export interface SingleChoiceQuestionProps {
-  questionId: string,
+  questionId: string
   label: string
   options: Array<Option>
   value: Option | null
@@ -14,6 +14,11 @@ export interface SingleChoiceQuestionProps {
    * Is the question required?
    */
   mandatory?: boolean
+  /**
+   * For auto-progressed questions, we can highlight
+   * or flicker the selected option for increased visibility
+   */
+  showFlickerOnSelected?: boolean
 }
 
 export const SingleChoiceQuestion = ({
@@ -23,11 +28,23 @@ export const SingleChoiceQuestion = ({
   onChange,
   value,
   mandatory,
+  showFlickerOnSelected = false,
 }: SingleChoiceQuestionProps): JSX.Element => {
   const [checkedOption, setCheckedOption] = useState<Option | null>(value)
 
+  // controls whether should we show a flicker animation or not
+  const [flickerAnimation, setFlickerAnimation] = useState<boolean>(false)
+
   useEffect(() => {
     onChange(checkedOption)
+
+    // We only show animation if selected option has changed
+    if (value?.id !== checkedOption?.id) {
+      setFlickerAnimation(true)
+    }
+    return () => {
+      setFlickerAnimation(false)
+    }
   }, [checkedOption])
 
   const handleSelectOption = (option: Option) => {
@@ -46,6 +63,13 @@ export const SingleChoiceQuestion = ({
             key={option.id}
             checked={option.id === checkedOption?.id}
             name={questionId}
+            customWrapperClass={
+              flickerAnimation &&
+              option.id === checkedOption?.id &&
+              showFlickerOnSelected
+                ? classes.animate_flicker
+                : ''
+            }
           />
         ))}
       </fieldset>
