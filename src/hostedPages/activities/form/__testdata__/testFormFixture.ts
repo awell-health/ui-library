@@ -14,33 +14,33 @@ export const form: Form = {
   questions: [
     {
       id: 'x5bgJqsOltmK3',
-      title: 'Single select question',
+      title: 'Single select question\n\n(Not required)',
       definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
       dataPointValueType: DataPointValueType.Number,
       options: [
         {
-          id: 'q01_1',
+          id: '1',
           label: 'Option 1',
           value: 0,
         },
         {
-          id: 'q01_2',
+          id: '2',
           label: 'Option 2',
           value: 1,
         },
         {
-          id: 'q01_3',
+          id: '3',
           label: 'Option 3',
           value: 3,
         },
         {
-          id: 'q01_4',
+          id: '4',
           label: 'Option 4',
           value: 4,
         },
         {
-          id: 'q01_5',
+          id: '5',
           label: 'Option 5',
           value: 5,
         },
@@ -55,33 +55,33 @@ export const form: Form = {
     },
     {
       id: 'x5bgJqOltmK3',
-      title: 'Single select question',
+      title: 'Single select question\n\n(Required)',
       definition_id: 'Kzr2NafTxJfR',
       key: 'singleSelectQuestion',
       dataPointValueType: DataPointValueType.Number,
       options: [
         {
-          id: 'q02_1',
+          id: '1',
           label: 'Option 1',
           value: 0,
         },
         {
-          id: 'q02_2',
+          id: '2',
           label: 'Option 2',
           value: 1,
         },
         {
-          id: 'q02_3',
+          id: '3',
           label: 'Option 3',
           value: 3,
         },
         {
-          id: 'q02_4',
+          id: '4',
           label: 'Option 4',
           value: 4,
         },
         {
-          id: 'q02_5',
+          id: '5',
           label: 'Option 5',
           value: 5,
         },
@@ -102,22 +102,22 @@ export const form: Form = {
       dataPointValueType: DataPointValueType.NumbersArray,
       options: [
         {
-          id: 'q3_ZT6yN64opulL',
+          id: 'ZT6yN64opulL',
           value: 0,
           label: 'Option 1',
         },
         {
-          id: 'q3_RqYicEXp0agy',
+          id: 'RqYicEXp0agy',
           value: 1,
           label: 'Option 2',
         },
         {
-          id: 'q3_d_uA9ldC6L8_',
+          id: 'd_uA9ldC6L8_',
           value: 2,
           label: 'Option 3',
         },
         {
-          id: 'q3_ZkhlOC3DfSOF',
+          id: 'ZkhlOC3DfSOF',
           value: 3,
           label: 'Option 4',
         },
@@ -253,22 +253,22 @@ export const form: Form = {
       dataPointValueType: DataPointValueType.Telephone,
       options: [
         {
-          id: 'q9_ZT6yN64opulL',
+          id: 'ZT6yN64opulL',
           value: 0,
           label: 'Option 1',
         },
         {
-          id: 'q9_RqYicEXp0agy',
+          id: 'RqYicEXp0agy',
           value: 1,
           label: 'Option 2',
         },
         {
-          id: 'q9_d_uA9ldC6L8_',
+          id: 'd_uA9ldC6L8_',
           value: 2,
           label: 'Option 3',
         },
         {
-          id: 'q9_ZkhlOC3DfSOF',
+          id: 'ZkhlOC3DfSOF',
           value: 3,
           label: 'Option 4',
         },
@@ -289,22 +289,22 @@ export const form: Form = {
       dataPointValueType: DataPointValueType.NumbersArray,
       options: [
         {
-          id: 'q10_ZT6yN64opulL',
+          id: 'ZT6yN64opulL',
           value: 0,
           label: 'Option 1',
         },
         {
-          id: 'q10_RqYicEXp0agy',
+          id: 'RqYicEXp0agy',
           value: 1,
           label: 'Option 2',
         },
         {
-          id: 'q10_d_uA9ldC6L8_',
+          id: 'd_uA9ldC6L8_',
           value: 2,
           label: 'Option 3',
         },
         {
-          id: 'q10_ZkhlOC3DfSOF',
+          id: 'ZkhlOC3DfSOF',
           value: 3,
           label: 'Option 4',
         },
@@ -326,22 +326,22 @@ export const form: Form = {
       dataPointValueType: DataPointValueType.Number,
       options: [
         {
-          id: 'q11_ZT6yN64opulL',
+          id: 'ZT6yN64opulL',
           value: 0,
           label: 'Option 1',
         },
         {
-          id: 'q11_RqYicEXp0agy',
+          id: 'RqYicEXp0agy',
           value: 1,
           label: 'Option 2',
         },
         {
-          id: 'q11_d_uA9ldC6L8_',
+          id: 'd_uA9ldC6L8_',
           value: 2,
           label: 'Option 3',
         },
         {
-          id: 'q11_ZkhlOC3DfSOF',
+          id: 'ZkhlOC3DfSOF',
           value: 3,
           label: 'Option 4',
         },

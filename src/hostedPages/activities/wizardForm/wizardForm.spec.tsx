@@ -134,9 +134,6 @@ describe('Wizard form', () => {
     // GO to 2nd question
     await clickNextButton()
 
-    // GO to 3rd question
-    await clickNextButton()
-
     // Answer mandatory question
     const radioOption = await screen.findByLabelText('Option 1')
     expect(radioOption).not.toBeChecked()
@@ -148,8 +145,8 @@ describe('Wizard form', () => {
 
     expect(radioOption).toBeChecked()
 
-    // GO back to 3rd question
-    await clickPrevButton()
+    // GO to 3rd question - Remove this when auto progress is back
+    await clickNextButton()
 
     // GO back to 2nd question
     await clickPrevButton()
@@ -163,9 +160,9 @@ describe('Wizard form', () => {
     )
 
     // Check if evaluate visibility conditions were called each time user
-    // navigates to NEXT question + 1 on init
+    // navigates + 1 on init
     await waitFor(() =>
-      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(6)
+      expect(evaluateDisplayConditions).toHaveBeenCalledTimes(5)
     )
   })
 
@@ -190,11 +187,16 @@ describe('Wizard form', () => {
       'Answer the first required question'
     )
     expect(radioOption).not.toBeChecked()
+
     await act(async () => {
       // clicking on a select option moves to next question
       fireEvent.click(radioOption)
     })
     expect(radioOption).toBeChecked()
+
+    // Try going to 2nd question
+    // Remove this when auto progress is back
+    await clickNextButton()
 
     // GO back to 1st question
     await clickPrevButton()
