@@ -26,7 +26,7 @@ export const QuestionData = ({
   inputAutoFocus = false,
   submitAndMoveToNextQuestion = () => {},
   onAnswerChange = () => {},
-  shouldAutoProgress = (_) => false,
+  shouldAutoProgress = () => false,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
 
