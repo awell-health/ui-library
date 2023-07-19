@@ -11,7 +11,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0;
+    opacity: 0.15;
   }
   100% {
     opacity: 1;
@@ -22,7 +22,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0;
+    opacity: 0.15;
   }
   100% {
     opacity: 1;
@@ -33,7 +33,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0;
+    opacity: 0.15;
   }
   100% {
     opacity: 1;
@@ -44,18 +44,20 @@
     opacity: 1;
   }
   50% {
-    opacity: 0;
+    opacity: 0.15;
   }
   100% {
     opacity: 1;
   }
 }
+
 .animate_flicker {
-  -webkit-animation: flickerAnimation 0.4s infinite;
-  -moz-animation: flickerAnimation 0.4s infinite;
-  -o-animation: flickerAnimation 0.4s infinite;
-  animation: flickerAnimation 0.4s infinite;
+  -webkit-animation: flickerAnimation ease 0.425s infinite;
+  -moz-animation: flickerAnimation ease 0.425s infinite;
+  -o-animation: flickerAnimation ease 0.425s infinite;
+  animation: flickerAnimation ease 0.425s infinite;
 }
+
 .awell_single_choice_question > div {
   margin-top: var(--awell-spacing-5);
 

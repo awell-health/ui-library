@@ -140,6 +140,9 @@ describe('Conversational Form', () => {
 
     expect(radioOption).toBeChecked()
 
+    // Remove this when auto progress is back
+    await clickNextButton()
+
     // GO back to 2nd question
     await clickPrevButton()
 
@@ -184,6 +187,9 @@ describe('Conversational Form', () => {
       fireEvent.click(radioOption)
     })
     expect(radioOption).toBeChecked()
+
+    // Remove this when auto progress is back
+    await clickNextButton()
 
     // GO back to 1st question
     await clickPrevButton()

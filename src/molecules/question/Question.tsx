@@ -15,7 +15,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 
-const AUTO_PROGRESS_DELAY = 750 // 750 milliseconds
+const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
 export const QuestionData = ({
   question,
@@ -26,7 +26,7 @@ export const QuestionData = ({
   inputAutoFocus = false,
   submitAndMoveToNextQuestion = () => {},
   onAnswerChange = () => {},
-  shouldAutoProgress = (_) => false,
+  shouldAutoProgress = () => false,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
 

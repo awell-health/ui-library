@@ -7,7 +7,6 @@ import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 import { useConversationalForm } from '../../../hooks'
-import { Question, UserQuestionType } from '../../../types'
 
 export const ConversationalForm = ({
   form,
@@ -51,24 +50,27 @@ export const ConversationalForm = ({
    * Except for last question, there user will have to click on submit
    * button explicitly.
    */
-  const submitAndMoveToNextQuestion = () => {
-    if (!isLastQuestion) {
-      handleGoToNextQuestion()
-    }
-  }
+  // Uncomment the below code block to bring back auto progress
+  // Also, I think this if statement causes the failing tests in DataDog
+  // const submitAndMoveToNextQuestion = () => {
+  //   if (!isLastQuestion) {
+  //     handleGoToNextQuestion()
+  //   }
+  // }
 
   useEffect(() => {
     determineShowScrollHint()
   }, [currentQuestion])
 
-  const shouldAutoProgress = (question: Question): boolean => {
-    if (question.userQuestionType) {
-      return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
-        question.userQuestionType
-      )
-    }
-    return false
-  }
+  // Uncomment the code block below to bring back auto progress
+  // const shouldAutoProgress = (question: Question): boolean => {
+  //   if (question.userQuestionType) {
+  //     return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
+  //       question.userQuestionType
+  //     )
+  //   }
+  //   return false
+  // }
 
   return (
     <>
@@ -95,9 +97,11 @@ export const ConversationalForm = ({
                 errors={errors}
                 labels={questionLabels}
                 questionTypeConfig={questionTypeConfig}
-                submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
+                // Uncomment the below line to bring back auto progress
+                // submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
                 inputAutoFocus={true}
-                shouldAutoProgress={shouldAutoProgress}
+                // Uncomment the below line to bring back auto progress
+                // shouldAutoProgress={shouldAutoProgress}
               />
             </div>
           )}
