@@ -7,7 +7,7 @@ import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 import { useConversationalForm } from '../../../hooks'
-import { Question, UserQuestionType } from '../../../types'
+import { Question } from '../../../types'
 
 export const ConversationalForm = ({
   form,
@@ -51,22 +51,24 @@ export const ConversationalForm = ({
    * Except for last question, there user will have to click on submit
    * button explicitly.
    */
-  const submitAndMoveToNextQuestion = () => {
-    if (!isLastQuestion) {
-      handleGoToNextQuestion()
-    }
-  }
+  // Uncomment the below code block to bring back auto progress again
+  // const submitAndMoveToNextQuestion = () => {
+  //   if (!isLastQuestion) {
+  //     handleGoToNextQuestion()
+  //   }
+  // }
 
   useEffect(() => {
     determineShowScrollHint()
   }, [currentQuestion])
 
   const shouldAutoProgress = (question: Question): boolean => {
-    if (question.userQuestionType) {
-      return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
-        question.userQuestionType
-      )
-    }
+    // Uncomment the below code block to bring back auto progress again
+    // if (question.userQuestionType) {
+    //   return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
+    //     question.userQuestionType
+    //   )
+    // }
     return false
   }
 
@@ -95,7 +97,8 @@ export const ConversationalForm = ({
                 errors={errors}
                 labels={questionLabels}
                 questionTypeConfig={questionTypeConfig}
-                submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
+                // Uncomment the below line to bring back auto progress again
+                // submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
                 inputAutoFocus={true}
                 shouldAutoProgress={shouldAutoProgress}
               />
