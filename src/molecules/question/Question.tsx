@@ -15,7 +15,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 
-const AUTO_PROGRESS_DELAY = 900 // in milliseconds
+const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
 export const QuestionData = ({
   question,
