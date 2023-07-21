@@ -5,7 +5,6 @@ import {
   calculatePercentageCompleted,
   convertToAwellInput,
   convertToFormFormat,
-  getErrorsForQuestion,
   getInitialValues,
   isEmpty,
   updateVisibility,
@@ -16,6 +15,7 @@ import {
   FormError,
   QuestionWithVisibility,
   ConversationalFormContext,
+  UserQuestionType,
 } from './types'
 
 const useConversationalForm = ({
@@ -84,24 +84,65 @@ const useConversationalForm = ({
     updateQuestionVisibility()
   }, [updateQuestionVisibility])
 
-  const handleCheckForErrors = (
-    currentQuestion: QuestionWithVisibility
-  ): boolean => {
+  const handleCheckForErrors = (): boolean => {
+    const currentQuestion = visibleQuestions?.[current]
     const errorsWithoutCurrent = errors.filter(
       (err) => err.id !== currentQuestion?.id
     )
-    const existingErrors = getErrorsForQuestion(
-      currentQuestion,
-      formMethods,
-      errorLabels,
-      isValidE164Number
-    )
-    setErrors([...errorsWithoutCurrent, ...existingErrors])
-    return existingErrors.length > 0
+
+    setErrors(errorsWithoutCurrent)
+
+    // For description question types, don't validate
+    if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
+      return false
+    }
+
+    const isQuestionMandatory = currentQuestion?.questionConfig?.mandatory
+    const valueOfCurrentQuestion = formMethods.getValues(currentQuestion?.id)
+
+    // For all question types, validate mandatory answers
+    if (isQuestionMandatory && isEmpty(valueOfCurrentQuestion)) {
+      const errorsWithoutCurrent = errors.filter(
+        (err) => err.id !== currentQuestion.id
+      )
+
+      setErrors([
+        ...errorsWithoutCurrent,
+        { id: currentQuestion.id, error: errorLabels.required },
+      ])
+
+      return true
+    }
+
+    // For telephone question types, validate phone number
+    if (currentQuestion?.userQuestionType === UserQuestionType.Telephone) {
+      if (valueOfCurrentQuestion !== '') {
+        const errorLabel = errorLabels.invalidPhoneNumber
+        try {
+          const isValid = isValidE164Number(valueOfCurrentQuestion as string)
+          if (!isValid) {
+            setErrors([
+              ...errorsWithoutCurrent,
+              { id: currentQuestion.id, error: errorLabel },
+            ])
+            return true
+          }
+        } catch (error) {
+          setErrors([
+            ...errorsWithoutCurrent,
+            { id: currentQuestion.id, error: errorLabel },
+          ])
+          return true
+        }
+      }
+    }
+
+    // in all other cases, there are no errors
+    return false
   }
 
   const handleGoToNextQuestion = async () => {
-    const hasErrors = handleCheckForErrors(visibleQuestions?.[current])
+    const hasErrors = handleCheckForErrors()
     if (!hasErrors) {
       try {
         const updatedQuestions = await updateQuestionVisibility()
@@ -146,8 +187,8 @@ const useConversationalForm = ({
       if (doNextQuestionExist) {
         return handleGoToNextQuestion()
       }
-
-      const hasErrors = handleCheckForErrors(visibleQuestions?.[current])
+      // check if there are any errors
+      const hasErrors = handleCheckForErrors()
       if (!hasErrors) {
         formMethods.handleSubmit(handleConvertAndSubmitForm)()
       }
