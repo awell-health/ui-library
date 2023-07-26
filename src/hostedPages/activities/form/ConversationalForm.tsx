@@ -19,7 +19,7 @@ export const ConversationalForm = ({
   questionTypeConfig = {},
   storedAnswers,
   onAnswersChange,
-  autoProgressRadioQuestions = false,
+  autoProgress = false,
 }: FormProps) => {
   const {
     submitForm,
@@ -63,7 +63,7 @@ export const ConversationalForm = ({
   }, [currentQuestion])
 
   const shouldAutoProgress = (question: Question): boolean => {
-    if (autoProgressRadioQuestions === false) {
+    if (autoProgress === false) {
       return false
     }
 
