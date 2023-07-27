@@ -42,6 +42,11 @@ export default {
         formHasErrors: 'Please fix the errors in the form before submitting',
       },
     },
+    autoProgress: {
+      options: [true, false],
+      control: { type: 'radio' },
+      defaultValue: false,
+    },
   },
   decorators: [
     (StoryComponent) => (
@@ -57,6 +62,7 @@ const MyStory: Story = ({
   form,
   buttonLabels,
   displayMode,
+  autoProgress,
   errorLabels,
 }) => {
   const [answers, setAnswers] = React.useState<string>('')
@@ -112,6 +118,7 @@ const MyStory: Story = ({
               ]
             })
           }}
+          autoProgress={autoProgress}
         />
       ) : (
         <TraditionalFormComponent
@@ -166,6 +173,7 @@ export const Form: Story = ({
   buttonLabels,
   displayMode,
   errorLabels,
+  autoProgress,
 }) => {
   return (
     <MyStory
@@ -174,6 +182,7 @@ export const Form: Story = ({
       displayMode={displayMode}
       buttonLabels={buttonLabels}
       errorLabels={errorLabels}
+      autoProgress={autoProgress}
     />
   )
 }

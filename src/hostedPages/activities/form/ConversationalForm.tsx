@@ -7,6 +7,7 @@ import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 import { useConversationalForm } from '../../../hooks'
+import { Question, UserQuestionType } from '../../../types'
 
 export const ConversationalForm = ({
   form,
@@ -18,6 +19,7 @@ export const ConversationalForm = ({
   questionTypeConfig = {},
   storedAnswers,
   onAnswersChange,
+  autoProgress = false,
 }: FormProps) => {
   const {
     submitForm,
@@ -50,27 +52,28 @@ export const ConversationalForm = ({
    * Except for last question, there user will have to click on submit
    * button explicitly.
    */
-  // Uncomment the below code block to bring back auto progress
-  // Also, I think this if statement causes the failing tests in DataDog
-  // const submitAndMoveToNextQuestion = () => {
-  //   if (!isLastQuestion) {
-  //     handleGoToNextQuestion()
-  //   }
-  // }
+  const submitAndMoveToNextQuestion = () => {
+    if (!isLastQuestion) {
+      handleGoToNextQuestion()
+    }
+  }
 
   useEffect(() => {
     determineShowScrollHint()
   }, [currentQuestion])
 
-  // Uncomment the code block below to bring back auto progress
-  // const shouldAutoProgress = (question: Question): boolean => {
-  //   if (question.userQuestionType) {
-  //     return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
-  //       question.userQuestionType
-  //     )
-  //   }
-  //   return false
-  // }
+  const shouldAutoProgress = (question: Question): boolean => {
+    if (autoProgress === false) {
+      return false
+    }
+
+    if (question.userQuestionType) {
+      return [UserQuestionType.YesNo, UserQuestionType.MultipleChoice].includes(
+        question.userQuestionType
+      )
+    }
+    return false
+  }
 
   return (
     <>
@@ -97,11 +100,9 @@ export const ConversationalForm = ({
                 errors={errors}
                 labels={questionLabels}
                 questionTypeConfig={questionTypeConfig}
-                // Uncomment the below line to bring back auto progress
-                // submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
+                submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
                 inputAutoFocus={true}
-                // Uncomment the below line to bring back auto progress
-                // shouldAutoProgress={shouldAutoProgress}
+                shouldAutoProgress={shouldAutoProgress}
               />
             </div>
           )}

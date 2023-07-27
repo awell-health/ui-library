@@ -30,6 +30,7 @@ export interface FormProps {
   evaluateDisplayConditions: (
     response: Array<AnswerInput>
   ) => Promise<Array<QuestionRuleResult>>
+  autoProgress?: boolean
 }
 
 export interface QuestionConfigByType {

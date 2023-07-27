@@ -54,10 +54,12 @@ export const QuestionData = ({
                   onChange(data)
                   if (value !== data) {
                     onAnswerChange()
-                    setTimeout(
-                      () => submitAndMoveToNextQuestion(),
-                      AUTO_PROGRESS_DELAY
-                    )
+                    if (shouldAutoProgress(question)) {
+                      setTimeout(
+                        () => submitAndMoveToNextQuestion(),
+                        AUTO_PROGRESS_DELAY
+                      )
+                    }
                   }
                 }}
                 questionId={question.id}
