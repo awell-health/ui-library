@@ -16,7 +16,11 @@
   flex-direction: column;
 
   & .form_progress {
-    margin-bottom: var(--awell-spacing-8)
+    margin-bottom: var(--awell-spacing-5);
+
+    @media (min-width: 640px) {
+      margin-bottom: var(--awell-spacing-8);
+    }
   }
 
   & .loadingContainer {
@@ -42,7 +46,6 @@
     flex-direction: column;
     justify-content: center;
   }
-
 }
 
 .button_wrapper {
@@ -58,5 +61,5 @@
 }
 
 .traditional_form_question {
-  margin-bottom: var(--awell-spacing-8 );
+  margin-bottom: var(--awell-spacing-8);
 }

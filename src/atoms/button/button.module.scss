@@ -53,14 +53,12 @@
   cursor: pointer;
   text-decoration: none;
   box-shadow: var(--awell-shadow-sm);
-  padding: var(--awell-spacing-3) var(--awell-spacing-6);
-  font-size: var(--awell-font-size-base);
+  padding: var(--awell-spacing-2) var(--awell-spacing-4);
+  font-size: var(--awell-font-size-sm);
   line-height: var(--awell-leading-6);
 
-  @media (min-width: 600px) {
-    padding: var(--awell-spacing-2) var(--awell-spacing-4);
+  @media (min-width: 640px) {
     font-size: var(--awell-font-size-base);
-    line-height: var(--awell-leading-6);
   }
 
   /**

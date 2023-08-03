@@ -2,17 +2,21 @@
 
 .footer {
   width: 100%;
-  height: var(--awell-footer-height);
+  height: var(--awell-mobile-footer-height);
   background-color: var(--awell-neutralLight10);
   display: flex;
   justify-content: center;
   position: relative;
   padding: var(--awell-spacing-8) 0;
 
+  @media (min-width: 640px) {
+    height: var(--awell-footer-height);
+  }
+
   & .scrollHint {
     position: absolute;
-    bottom: var(--awell-footer-height);
-    padding: var(--awell-spacing-4) 0;
+    bottom: var(--awell-mobile-footer-height);
+    padding: var(--awell-spacing-2) 0;
     left: 0;
     display: flex;
     justify-content: center;
@@ -20,6 +24,11 @@
     z-index: 1;
     background: #fff;
     transition: visibility 0s linear 0.2s, opacity 0.2s linear;
+
+    @media (min-width: 640px) {
+      padding: var(--awell-spacing-4) 0;
+      height: var(--awell-footer-height);
+    }
 
     &.visible {
       visibility: visible;

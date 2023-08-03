@@ -1,5 +1,4 @@
 html {
-
   /*
     FONT
   */
@@ -9,6 +8,7 @@ html {
     Misc
   */
   --awell-header-height: 94px;
+  --awell-mobile-footer-height: 60px;
   --awell-footer-height: 80px;
 
   /*
@@ -118,7 +118,7 @@ html {
   /* 240px */
 
   --awell-spacing-none: var(--spacing-none);
-  --awell-spacing-O\.5: var(--spacing-O\.5);
+  --awell-spacing-0\.5: var(--spacing-O\.5);
   --awell-spacing-1: var(--spacing-1);
   --awell-spacing-1\.5: var(--spacing-1\.5);
   --awell-spacing-2: var(--spacing-2);
@@ -176,9 +176,12 @@ html {
   */
   --awell-shadow-none: 0 0 #0000;
   --awell-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --awell-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --awell-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --awell-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --awell-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --awell-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --awell-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
   --awell-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
   /*
@@ -199,7 +202,7 @@ html {
     LINE-HEIGHT
     Based on https://tailwindcss.com/docs/line-height#relative-line-heights
   */
-  --awell-leading-3: .75rem;
+  --awell-leading-3: 0.75rem;
   /* 12px */
   --awell-leading-4: 1rem;
   /* 16px */
