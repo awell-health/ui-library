@@ -234,6 +234,6 @@ FormMobile.args = {
 FormMobile.parameters = {
   viewport: {
     viewports: INITIAL_VIEWPORTS,
-    defaultViewport: 'iphone6',
+    defaultViewport: 'galaxys5',
   },
 }

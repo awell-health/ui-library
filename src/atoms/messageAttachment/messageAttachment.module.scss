@@ -6,22 +6,31 @@
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  transition: all .3s ease-in-out;
-  padding: var(--awell-spacing-3) var(--awell-spacing-2);
+  transition: all 0.3s ease-in-out;
+  padding: var(--awell-spacing-2) var(--awell-spacing-1);
+
+  @media (min-width: 640px) {
+    padding: var(--awell-spacing-3) var(--awell-spacing-2);
+  }
 
   &:not(:last-of-type) {
     border-bottom: 1px solid var(--awell-slate300);
   }
   &:hover {
-    transition: all .3s ease-in-out;
-  };
+    transition: all 0.3s ease-in-out;
+  }
 
   & .awell_message_link_button {
-    padding: var(--awell-spacing-2) var(--awell-spacing-4);
+    padding: var(--awell-spacing-1) var(--awell-spacing-2);
     color: var(--awell-accent-color);
     border-radius: 4px;
     text-decoration: none;
-    font-size: var(--awell-font-size-base);
+    font-size: var(--awell-font-size-sm);
+
+    @media (min-width: 640px) {
+      padding: var(--awell-spacing-2) var(--awell-spacing-4);
+      font-size: var(--awell-font-size-base);
+    }
 
     &:hover {
       text-decoration: underline;
@@ -31,11 +40,19 @@
   & .awell_message_name_container {
     display: flex;
     align-items: center;
-    font-size: var(--awell-font-size-base);
     color: var(--awell-slate800);
+    font-size: var(--awell-font-size-sm);
+
+    @media (min-width: 640px) {
+      font-size: var(--awell-font-size-base);
+    }
 
     & img {
-      margin-right: var(--awell-spacing-4);
+      margin-right: var(--awell-spacing-2);
+
+      @media (min-width: 640px) {
+        margin-right: var(--awell-spacing-4);
+      }
     }
   }
 }

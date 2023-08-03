@@ -1,6 +1,5 @@
 @use '../../../globalStyles';
 
-
 :root {
   --awell-activity-checklist-max-width: var(--awell-activity-max-width);
   --awell-activity-checklist-padding: var(--awell-activity-padding);
@@ -23,7 +22,11 @@
     flex-direction: column;
     padding-left: 4px;
 
-    >div {
+    > div:first-child {
+      margin-top: var(--awell-spacing-3);
+    }
+
+    > div:not(:first-child) {
       margin-top: var(--awell-spacing-5);
 
       @media (min-width: 600px) {

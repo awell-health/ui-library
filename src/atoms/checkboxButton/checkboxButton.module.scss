@@ -11,7 +11,7 @@
   align-items: center;
   height: 1.25rem;
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     height: var(--awell-radio-checkbox-height-mobile);
     width: var(--awell-radio-checkbox-width-mobile);
     color: var(--awell-accent-color);
@@ -19,9 +19,9 @@
     border: 1px solid var(--awell-radio-checkbox-border-color);
     margin: 0;
     position: relative;
-    top: 3px;
 
-    @media (min-width: 600px) {
+    @media (min-width: 640px) {
+      top: 3px;
       height: var(--awell-radio-checkbox-height-above-mobile);
       width: var(--awell-radio-checkbox-width-above-mobile);
     }
@@ -30,16 +30,23 @@
       --awell-ring-color: var(--awell-accent-ring-color-inputs);
       --awell-ring-offset-color: #fff;
       --awell-ring-offset-width: 2px;
-      --awell-ring-offset-shadow: 0 0 0 var(--awell-ring-offset-width) var(--awell-ring-offset-color);
-      --awell-ring-shadow: 0 0 0 calc(2px + var(--awell-ring-offset-width)) var(--awell-ring-color);
+      --awell-ring-offset-shadow: 0 0 0 var(--awell-ring-offset-width)
+        var(--awell-ring-offset-color);
+      --awell-ring-shadow: 0 0 0 calc(2px + var(--awell-ring-offset-width))
+        var(--awell-ring-color);
       --awell-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
       outline: 2px solid transparent;
       outline-offset: 2px;
-      box-shadow: var(--awell-ring-offset-shadow),var(--awell-ring-shadow),var(--awell-shadow,0 0 #0000);
+      box-shadow: var(--awell-ring-offset-shadow), var(--awell-ring-shadow),
+        var(--awell-shadow, 0 0 #0000);
     }
 
-    &:checked, &:checked:focus, &:checked:hover, &:checked:focus, &:checked:hover {
+    &:checked,
+    &:checked:focus,
+    &:checked:hover,
+    &:checked:focus,
+    &:checked:hover {
       border-color: transparent;
     }
   }
@@ -47,7 +54,12 @@
 
 .label_wrapper {
   margin-left: var(--awell-spacing-4);
-  font-size: var(--awell-font-size-lg);
   color: var(--awell-radio-checkbox-label-color);
-  line-height: var(--awell-leading-7)
+  font-size: var(--awell-font-size-base);
+  line-height: var(--awell-leading-5);
+
+  @media (min-width: 640px) {
+    font-size: var(--awell-font-size-lg);
+    line-height: var(--awell-leading-7);
+  }
 }

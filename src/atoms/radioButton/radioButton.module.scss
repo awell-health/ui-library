@@ -17,9 +17,9 @@
     border: 1px solid var(--awell-radio-checkbox-border-color);
     margin: 0;
     position: relative;
-    top: 3px;
 
-    @media (min-width: 600px) {
+    @media (min-width: 640px) {
+      top: 3px;
       height: var(--awell-radio-checkbox-height-above-mobile);
       width: var(--awell-radio-checkbox-width-above-mobile);
     }
@@ -52,7 +52,12 @@
 
 .label_wrapper {
   margin-left: var(--awell-spacing-4);
-  font-size: var(--awell-font-size-lg);
   color: var(--awell-radio-checkbox-label-color);
-  line-height: var(--awell-leading-7)
+  font-size: var(--awell-font-size-base);
+  line-height: var(--awell-leading-5);
+
+  @media (min-width: 640px) {
+    font-size: var(--awell-font-size-lg);
+    line-height: var(--awell-leading-7);
+  }
 }

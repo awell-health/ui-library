@@ -1,26 +1,30 @@
 @use '../../globalStyles';
 
 .progressBar {
-    --awell-progress-bar-background: var(--awell-secondary-color);
-    --awell-progress-bar-completed-bar-color: var(--awell-accent-color);
-    --awell-progress-bar-completed-text-color: var(--awell-accent-text-color);
-    --awell-progress-bar-height: 8px;
-    background-color: var(--awell-progress-bar-background);
-    border-radius: 30px;
-    width: 100%;
-    height: var(--awell-progress-bar-height);
+  --awell-progress-bar-background: var(--awell-secondary-color);
+  --awell-progress-bar-completed-bar-color: var(--awell-accent-color);
+  --awell-progress-bar-completed-text-color: var(--awell-accent-text-color);
+  --awell-progress-bar-height: 6px;
+  background-color: var(--awell-progress-bar-background);
+  border-radius: 30px;
+  width: 100%;
+  height: var(--awell-progress-bar-height);
 
-    .progressBar_completed {
-        border-radius: 30px;
-        width: var(--awell-progress-bar-width);
-        transition: width ease-in-out 0.5s;
-        will-change: width;
-        background-color: var(--awell-progress-bar-completed-bar-color);
-        color: var(--awell-progress-bar-completed-text-color);
-        line-height: var(--awell-progress-bar-height);
-        font-weight: var(--awell-font-medium);
-        font-size: var(--awell-font-size-xs);
-        text-align: center;
-        height: var(--awell-progress-bar-height);
-    }
+  @media (min-width: 640px) {
+    --awell-progress-bar-height: 8px;
+  }
+
+  .progressBar_completed {
+    border-radius: 30px;
+    width: var(--awell-progress-bar-width);
+    transition: width ease-in-out 0.5s;
+    will-change: width;
+    background-color: var(--awell-progress-bar-completed-bar-color);
+    color: var(--awell-progress-bar-completed-text-color);
+    line-height: var(--awell-progress-bar-height);
+    font-weight: var(--awell-font-medium);
+    font-size: var(--awell-font-size-xs);
+    text-align: center;
+    height: var(--awell-progress-bar-height);
+  }
 }

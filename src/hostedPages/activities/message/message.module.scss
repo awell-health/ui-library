@@ -34,13 +34,13 @@
 .message_title {
   color: rgb(17 24 39);
   text-align: center;
-  line-height: var(--awell-leading-8);
-  font-size: var(--awell-font-size-4xl);
-  letter-spacing: -0.025em;
-  font-weight: var(--awell-font-extrabold);
-  margin-bottom: var(--awell-spacing-8);
+  line-height: var(--awell-leading-tight);
+  font-size: var(--awell-font-size-xl);
+  font-weight: var(--awell-font-bold);
+  margin-bottom: var(--awell-spacing-4);
 
-  @media (min-width: 600px) {
+  @media (min-width: 640px) {
+    line-height: var(--awell-leading-8);
     margin-bottom: var(--awell-spacing-6);
     font-size: var(--awell-font-size-3xl);
   }
@@ -49,22 +49,27 @@
     content: '';
     margin: 0 auto;
     display: block;
-    width: 10rem;
-    margin-top: var(--awell-spacing-4);
+    max-width: 10rem;
+    width: 100%;
+    margin-top: var(--awell-spacing-2);
     background-color: var(--awell-accent-color);
-    height: 3px;
+    height: 2px;
     border-radius: var(--awell-border-radius-lg);
 
-    @media (min-width: 600px) {
+    @media (min-width: 640px) {
+      height: 3px;
       margin-top: var(--awell-spacing-3);
     }
   }
-
 }
 
 .attachmentList {
-  margin-top: var(--awell-spacing-4);
+  margin-top: var(--awell-spacing-2);
   width: 100%;
+
+  @media (min-width: 640px) {
+    margin-top: var(--awell-spacing-4);
+  }
 }
 
 .button_wrapper {

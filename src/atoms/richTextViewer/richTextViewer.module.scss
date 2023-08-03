@@ -1,8 +1,12 @@
 .content {
   font: var(--awell-font);
   color: var(--awell-slate600);
-  font-size: var(--awell-font-size-lg);
+  font-size: var(--awell-font-size-base);
   width: 100%;
+
+  @media (min-width: 640px) {
+    font-size: var(--awell-font-size-lg);
+  }
 
   h1,
   h2,
@@ -15,34 +19,36 @@
   }
 
   h1 {
-    font-size: var(--awell-font-size-3xl);
+    font-size: var(--awell-font-size-2xl);
 
-    @media (min-width: 600px) {
-      font-size: var(--awell-font-size-2xl);
+    @media (min-width: 640px) {
+      font-size: var(--awell-font-size-3xl);
     }
   }
 
   h2 {
-    font-size: var(--awell-font-size-2xl);
+    font-size: var(--awell-font-size-xl);
 
-    @media (min-width: 600px) {
-      font-size: var(--awell-font-size-xl);
+    @media (min-width: 640px) {
+      font-size: var(--awell-font-size-2xl);
     }
   }
 
   h3 {
-    font-size: var(--awell-font-size-xl);
+    font-size: var(--awell-font-size-lg);
 
-    @media (min-width: 600px) {
-      font-size: var(--awell-font-size-lg);
+    @media (min-width: 640px) {
+      font-size: var(--awell-font-size-xl);
     }
   }
 
   h4 {
-    font-size: var(--awell-font-size-lg);
+    font-size: var(--awell-font-size-base);
+    font-weight: var(--awell-font-semibold);
 
-    @media (min-width: 600px) {
-      font-size: var(--awell-font-size-base);
+    @media (min-width: 640px) {
+      font-size: var(--awell-font-size-lg);
+      font-weight: var(--awell-font-normal);
       text-transform: uppercase;
     }
   }
@@ -104,7 +110,7 @@
   }
 
   figure {
-    display: inline
+    display: inline;
   }
 
   .bold {
