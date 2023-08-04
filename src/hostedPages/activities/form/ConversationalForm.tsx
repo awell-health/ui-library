@@ -104,6 +104,11 @@ export const ConversationalForm = ({
                 inputAutoFocus={true}
                 shouldAutoProgress={shouldAutoProgress}
               />
+              <div className={`${classes.trademark} ${classes.conversational}`}>
+                {/* Replace with actual trademark with form response when back-end implementation is done */}
+                © EuroQol Research Foundation. EQ-5D™ is a trade mark of the
+                EuroQol Research Foundation. UK (English) v1.3
+              </div>
             </div>
           )}
         </div>
