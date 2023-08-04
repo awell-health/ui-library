@@ -105,7 +105,7 @@ export const ConversationalForm = ({
                 shouldAutoProgress={shouldAutoProgress}
               />
               <div className={`${classes.trademark} ${classes.conversational}`}>
-                {/* Replace with actual trademark with form response when back-end implementation is done */}
+                {/* Replace with actual trademark when back-end implementation is done */}
                 © EuroQol Research Foundation. EQ-5D™ is a trade mark of the
                 EuroQol Research Foundation. UK (English) v1.3
               </div>
