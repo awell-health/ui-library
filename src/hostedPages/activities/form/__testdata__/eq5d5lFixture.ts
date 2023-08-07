@@ -245,7 +245,7 @@ export const form = {
     {
       id: 'L3-VhVUwjN-Z',
       title:
-        '- We would like to know how good or bad your health is TODAY. \n- This scale is numbered from 0 to 100. \n- 100 means the best health you can imagine. 0 means the worst health you can imagine.\n- Indicate on the scale how your health is TODAY.\n',
+        '- We would like to know how good or bad your health is TODAY. \n- This scale is numbered from 0 to 100.\n- 100 means the best health you can imagine.\n- 0 means the worst health you can imagine.\n- Indicate on the scale how your health is TODAY.',
       dataPointValueType: 'NUMBER',
       options: [],
       questionType: 'INPUT',
