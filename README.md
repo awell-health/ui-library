@@ -2,6 +2,15 @@
 
 UI components to be used for integrating with Awell Health products.
 
+## Environment variables
+
+To set up your local development environment, more specifically automated generation of types based on our API, you need to configure the below two variables in your `.env` file which should exist at the root of the repository.
+
+```
+CODEGEN_AWELL_API_URL=
+CODEGEN_AWELL_API_KEY=
+```
+
 ## Preview components in storybook
 
 `yarn storybook`
