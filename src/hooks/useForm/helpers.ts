@@ -7,7 +7,6 @@ import {
   SliderQuestionConfig,
   FormError,
 } from '../../types'
-import { useValidate } from '../useValidate'
 import { AnswerValue, ErrorLabels, QuestionRuleResult } from './types'
 
 export const getDefaultValue = (question: Question): AnswerValue => {

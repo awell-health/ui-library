@@ -23,13 +23,17 @@ const useTraditionalForm = ({
   onSubmit,
   errorLabels,
   storedAnswers,
+  autosaveAnswers = true,
   onAnswersChange,
 }: FormSettingsContextProps): TraditionalFormContext => {
   const initialValues = convertToFormFormat(storedAnswers, questions)
+  const defaultValues =
+    !isEmpty(initialValues) && autosaveAnswers
+      ? initialValues
+      : getInitialValues(questions)
+
   const formMethods = useForm({
-    defaultValues: isEmpty(initialValues)
-      ? getInitialValues(questions)
-      : initialValues,
+    defaultValues,
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
@@ -55,8 +59,12 @@ const useTraditionalForm = ({
   }, [questions])
 
   useEffect(() => {
-    // If the form is not dirty, we don't need to update the stored answers
-    if (!formMethods.formState.isDirty || !onAnswersChange) {
+    // If the form is not dirty or we don't autosave, we don't need to update the stored answers
+    if (
+      !formMethods.formState.isDirty ||
+      !onAnswersChange ||
+      !autosaveAnswers
+    ) {
       return
     }
     onAnswersChange(JSON.stringify(formMethods.getValues()) ?? '{}')

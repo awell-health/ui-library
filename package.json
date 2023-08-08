@@ -1,6 +1,6 @@
 {
   "name": "@awell_health/ui-library",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "private": false,
   "description": "UI components to integrate with Awell Health",
   "repository": {
@@ -185,6 +185,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://github.com/awell-health/ui-library#readme",
-  "_id": "@awell_health/ui-library@0.1.11"
+  "homepage": "https://github.com/awell-health/ui-library#readme"
 }

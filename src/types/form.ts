@@ -31,6 +31,7 @@ export interface FormProps {
     response: Array<AnswerInput>
   ) => Promise<Array<QuestionRuleResult>>
   autoProgress?: boolean
+  autosaveAnswers?: boolean
 }
 
 export interface QuestionConfigByType {

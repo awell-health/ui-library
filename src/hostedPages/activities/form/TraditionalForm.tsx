@@ -15,6 +15,7 @@ export const TraditionalForm = ({
   questionTypeConfig = {},
   storedAnswers,
   onAnswersChange,
+  autosaveAnswers = true,
 }: FormProps) => {
   const {
     updateQuestionVisibility,
@@ -29,6 +30,7 @@ export const TraditionalForm = ({
     evaluateDisplayConditions,
     errorLabels,
     storedAnswers,
+    autosaveAnswers,
     onAnswersChange,
   })
 
