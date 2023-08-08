@@ -50,6 +50,8 @@ export type Activity = {
   context?: Maybe<PathwayContext>;
   date: Scalars['String'];
   form?: Maybe<Form>;
+  /** Form display mode can either be conversational (1 question at a time) or regular (all questions at once). Only used in hosted pages for now. */
+  form_display_mode?: Maybe<FormDisplayMode>;
   /** Url for icon, only used by extensions custom actions */
   icon_url?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -310,6 +312,8 @@ export enum BooleanOperator {
 export type BrandingSettings = {
   __typename?: 'BrandingSettings';
   accent_color?: Maybe<Scalars['String']>;
+  /** Auto progress to the next question when using the conversational display mode in Awell Hosted Pages. */
+  hosted_page_auto_progress?: Maybe<Scalars['Boolean']>;
   hosted_page_title?: Maybe<Scalars['String']>;
   logo_url?: Maybe<Scalars['String']>;
 };
@@ -386,6 +390,7 @@ export enum ConditionOperator {
   IsNotEmpty = 'IS_NOT_EMPTY',
   IsNotEqualTo = 'IS_NOT_EQUAL_TO',
   IsNotTrue = 'IS_NOT_TRUE',
+  IsToday = 'IS_TODAY',
   IsTrue = 'IS_TRUE'
 }
 
@@ -622,6 +627,7 @@ export type FilterActivitiesParams = {
   activity_status?: InputMaybe<StringArrayFilter>;
   activity_type?: InputMaybe<StringArrayFilter>;
   pathway_definition_id?: InputMaybe<StringArrayFilter>;
+  pathway_status?: InputMaybe<StringArrayFilter>;
   patient_id?: InputMaybe<TextFilterEquals>;
   stakeholders?: InputMaybe<StringArrayFilter>;
 };
@@ -665,6 +671,11 @@ export type Form = {
   release_id: Scalars['String'];
   title: Scalars['String'];
 };
+
+export enum FormDisplayMode {
+  Conversational = 'CONVERSATIONAL',
+  Regular = 'REGULAR'
+}
 
 export type FormPayload = Payload & {
   __typename?: 'FormPayload';
@@ -783,7 +794,7 @@ export type Message = {
   body: Scalars['String'];
   format: MessageFormat;
   id: Scalars['ID'];
-  subject: Scalars['String'];
+  subject?: Maybe<Scalars['String']>;
 };
 
 export type MessageAttachment = {
@@ -1712,6 +1723,7 @@ export type StartPathwayPayload = Payload & {
   __typename?: 'StartPathwayPayload';
   code: Scalars['String'];
   pathway_id: Scalars['String'];
+  stakeholders: Array<Stakeholder>;
   success: Scalars['Boolean'];
 };
 

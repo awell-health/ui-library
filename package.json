@@ -36,7 +36,7 @@
     "storybook": "start-storybook -p 6006",
     "test:ci": "jest --silent --testLocationInResults --ci --all --coverage --json --outputFile=\"report.json\" --config=jest.config.json",
     "test": "jest --config=jest.config.js",
-    "codegen": "graphql-codegen --config codegen.yml",
+    "codegen": "graphql-codegen --config codegen.js",
     "chromatic": "chromatic --exit-zero-on-changes"
   },
   "peerDependencies": {
@@ -49,6 +49,7 @@
     "cloudinary-core": "^2.13.0",
     "date-fns": "^2.29.1",
     "dompurify": "^2.4.0",
+    "dotenv": "^16.3.1",
     "escape-html": "^1.0.3",
     "html-react-parser": "^3.0.1",
     "react-date-picker": "^8.4.0",
