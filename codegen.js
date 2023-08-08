@@ -1,8 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config()
 
-console.log(process.env.CODEGEN_AWELL_API_KEY)
-
 module.exports = {
   overwrite: true,
   schema: {
