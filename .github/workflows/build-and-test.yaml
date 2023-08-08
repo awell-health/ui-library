@@ -18,6 +18,10 @@ jobs:
         run: yarn install
       - name: 📝 Codegen
         run: yarn codegen
+        env:
+          CODEGEN_AWELL_API_URL: ${{ secrets.CODEGEN_AWELL_API_URL }}
+          CODEGEN_AWELL_API_KEY: ${{ secrets.CODEGEN_AWELL_API_KEY }}
+      LAST_NAME: Octocat
       - name: 🧪 Run tests
         run: yarn test
       - name: 👓 Run lint on changed files
