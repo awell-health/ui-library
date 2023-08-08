@@ -1,10 +1,10 @@
-name: "🧪 Codegen, Lint and Test"
+name: '🧪 Codegen, Lint and Test'
 
 on:
   push:
     branches:
-      - "*"
-      - "!main"
+      - '*'
+      - '!main'
 
 jobs:
   build-and-test:
@@ -21,7 +21,6 @@ jobs:
         env:
           CODEGEN_AWELL_API_URL: ${{ secrets.CODEGEN_AWELL_API_URL }}
           CODEGEN_AWELL_API_KEY: ${{ secrets.CODEGEN_AWELL_API_KEY }}
-      LAST_NAME: Octocat
       - name: 🧪 Run tests
         run: yarn test
       - name: 👓 Run lint on changed files
