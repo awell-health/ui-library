@@ -106,6 +106,13 @@ export const ConversationalForm = ({
                 inputAutoFocus={true}
                 shouldAutoProgress={shouldAutoProgress}
               />
+              {form?.trademark && (
+                <div
+                  className={`${classes.trademark} ${classes.conversational}`}
+                >
+                  {form.trademark}
+                </div>
+              )}
             </div>
           )}
         </div>

@@ -70,6 +70,11 @@ export const TraditionalForm = ({
               </div>
             </div>
           )}
+          {form?.trademark && (
+            <div className={`${classes.trademark} ${classes.conversational}`}>
+              {form.trademark}
+            </div>
+          )}
           <div className={`${classes.button_wrapper}`}>
             {formHasErrors && (
               <div className={classes.error}>

@@ -9,6 +9,7 @@
   max-width: var(--awell-activity-form-max-width);
   padding: var(--awell-activity-form-padding);
   margin: 0 auto;
+  height: 100%;
 }
 
 .awell_wizard_form {
@@ -44,7 +45,8 @@
   & .wizard_form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    flex-grow: 1;
   }
 }
 
@@ -62,4 +64,22 @@
 
 .traditional_form_question {
   margin-bottom: var(--awell-spacing-8);
+}
+
+.trademark {
+  font-size: var(--font-size-xs);
+  color: var(--awell-slate500);
+  font-style: italic;
+  text-align: center;
+
+  @media (min-width: 640px) {
+    font-size: var(--font-size-sm);
+  }
+
+  &.traditional {
+    padding-bottom: var(--awell-spacing-6);
+  }
+  &.conversational {
+    padding-top: var(--awell-spacing-4);
+  }
 }
