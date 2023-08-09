@@ -155,7 +155,7 @@ export const RangeInput = ({
           onFocus={() => setTouched(true)}
           aria-valuemin={sliderConfig.min}
           aria-valuemax={sliderConfig.max}
-          aria-valuenow={(props.value || sliderConfig.min) ?? 0}
+          aria-valuenow={(props.value || sliderConfig.min) as number}
           aria-labelledby={`${id}-label`}
         />
         <div
