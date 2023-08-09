@@ -1,29 +1,49 @@
 .awell_range_input_wrapper {
   --awell-range-slider-background-color: var(--awell-accent-ring-color-buttons);
-  --ticksHeight: 30%;
-  --awell-thick-width: 2px;
-  --awell-ticks: linear-gradient(
-      to right,
-      var(--awell-thick-color) var(--awell-thick-width),
-      transparent 1px
-    )
-    repeat-x;
-
-  display: flex;
-  flex-direction: column;
+  --ticksHeight: 12px;
   position: relative;
-  background: silver;
-  background: var(--awell-ticks);
-  background-size: calc(
-      100% / ((var(--awell-max) - var(--awell-min)) / var(--awell-step)) - 0.1%
-    )
-    var(--ticksHeight);
-  background-position: 0 bottom;
-  position: relative;
-  height: 28px;
   transition: all 0.25s ease-in;
-  margin-top: var(--awell-spacing-8);
-  margin-bottom: var(--awell-spacing-24);
+  margin-top: 0;
+
+  @media (min-width: 640px) {
+    --awell-thick-width: 2px;
+  }
+
+  &.with_tooltip {
+    margin-top: var(--awell-spacing-8);
+  }
+
+  &.with_marks {
+    --awell-thick-width: 1px;
+    --awell-ticks: linear-gradient(
+        to right,
+        var(--awell-thick-color) var(--awell-thick-width),
+        transparent 1px
+      )
+      repeat-x;
+    background: silver;
+    background: var(--awell-ticks);
+    background-size: calc(
+        100% / ((var(--awell-max) - var(--awell-min)) / var(--awell-step)) -
+          0.1%
+      )
+      var(--ticksHeight);
+    background-position: 0 calc(var(--ticksHeight) * 1.7);
+    display: flex;
+    flex-direction: column;
+
+    &::before,
+    &::after {
+      top: 40px;
+    }
+
+    & .awell_range_input_datalist {
+      margin-top: 16px;
+      &.with_min_max_labels {
+        margin-top: 36px;
+      }
+    }
+  }
 
   /* min / max labels at the edges */
   &::before,
@@ -31,25 +51,48 @@
     font-size: var(--awell-font-size-sm);
     content: var(--awell-min-max-value);
     position: absolute;
-    bottom: -25px;
+    top: calc(40px - var(--ticksHeight));
+
+    @media (min-width: 640px) {
+      font-size: var(--awell-font-size-base);
+    }
   }
 
   &::before {
     counter-reset: x var(--awell-min);
-    transform: translateX(-50%);
   }
 
   &::after {
     counter-reset: x var(--awell-max);
     right: 0;
-    transform: translateX(50%);
   }
 
   & .awell_range_input_datalist {
-    font-size: var(--awell-font-size-md);
+    font-size: var(--awell-font-size-sm);
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+
+    &.with_min_max_labels {
+      margin-top: 20px;
+    }
+
+    @media (min-width: 640px) {
+      font-size: var(--awell-font-size-base);
+    }
+
+    & option {
+      width: 47.5%;
+      max-width: 250px;
+      text-wrap: wrap;
+      padding: 0;
+
+      &:first-child {
+        text-align: left;
+      }
+      &:not(:first-child) {
+        text-align: right;
+      }
+    }
   }
 
   & .awell_range_input {
@@ -171,5 +214,8 @@
     font-size: var(--awell-font-size-sm);
     border-radius: var(--awell-spacing-2);
     transform: translateX(-50%);
+    @media (min-width: 640px) {
+      font-size: var(--awell-font-size-base);
+    }
   }
 }

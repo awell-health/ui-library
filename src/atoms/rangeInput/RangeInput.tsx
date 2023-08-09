@@ -131,7 +131,12 @@ export const RangeInput = ({
   return (
     <div>
       <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
-      <div className={classes.awell_range_input_wrapper} style={style}>
+      <div
+        className={`${classes.awell_range_input_wrapper} ${
+          sliderConfig.display_marks ? classes.with_marks : ''
+        } ${sliderConfig.is_value_tooltip_on ? classes.with_tooltip : ''}`}
+        style={style}
+      >
         <input
           {...props}
           data-testid={id}
@@ -146,21 +151,14 @@ export const RangeInput = ({
           onFocus={() => setTouched(true)}
         />
         <datalist
-          style={{
-            marginTop: sliderConfig.show_min_max_values ? '36px' : '0px',
-          }}
-          className={classes.awell_range_input_datalist}
+          className={`${classes.awell_range_input_datalist} ${
+            sliderConfig.show_min_max_values ? classes.with_min_max_labels : ''
+          }`}
           data-testid={`${id}-datalist`}
           id={`${id}-min-max-labels`}
         >
-          <option
-            value={sliderConfig.min}
-            label={sliderConfig.min_label}
-          ></option>
-          <option
-            value={sliderConfig.max}
-            label={sliderConfig.max_label}
-          ></option>
+          <option value={sliderConfig.min} label={sliderConfig.min_label} />
+          <option value={sliderConfig.max} label={sliderConfig.max_label} />
         </datalist>
         {sliderConfig.is_value_tooltip_on &&
           renderValueTooltip(

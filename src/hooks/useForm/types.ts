@@ -40,6 +40,7 @@ export interface FormSettingsContextProps {
   questions: Array<Question>
   errorLabels: ErrorLabels
   storedAnswers?: string
+  autosaveAnswers?: boolean
   onAnswersChange?: (answers: string) => void
 }
 export interface ConversationalFormContext {
