@@ -16,7 +16,6 @@ export const TraditionalForm = ({
   storedAnswers,
   onAnswersChange,
   autosaveAnswers = true,
-  trademark,
 }: FormProps) => {
   const {
     updateQuestionVisibility,
@@ -71,9 +70,9 @@ export const TraditionalForm = ({
               </div>
             </div>
           )}
-          {trademark && (
+          {form?.trademark && (
             <div className={`${classes.trademark} ${classes.conversational}`}>
-              {trademark}
+              {form.trademark}
             </div>
           )}
           <div className={`${classes.button_wrapper}`}>
