@@ -76,6 +76,7 @@ const MyStory: Story = ({
     <HostedPageLayout
       onCloseHostedPage={() => alert('Stop session')}
       hideCloseButton
+      logo={undefined}
     >
       {isConversationalMode ? (
         <ConversationalFormComponent
@@ -234,6 +235,6 @@ FormMobile.args = {
 FormMobile.parameters = {
   viewport: {
     viewports: INITIAL_VIEWPORTS,
-    defaultViewport: 'galaxys5',
+    defaultViewport: 'iphone6',
   },
 }

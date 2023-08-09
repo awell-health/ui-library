@@ -130,7 +130,12 @@ export const RangeInput = ({
 
   return (
     <div>
-      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      <QuestionLabel
+        htmlFor={id}
+        label={label}
+        mandatory={mandatory}
+        id={`${id}-label`}
+      />
       <div
         className={`${classes.awell_range_input_wrapper} ${
           sliderConfig.display_marks ? classes.with_marks : ''
@@ -141,7 +146,6 @@ export const RangeInput = ({
           {...props}
           data-testid={id}
           type="range"
-          list={`${id}-min-max-labels`}
           id={id}
           min={sliderConfig.min}
           max={sliderConfig.max}
@@ -149,17 +153,24 @@ export const RangeInput = ({
           className={classes.awell_range_input}
           onChange={handleValueChange}
           onFocus={() => setTouched(true)}
+          aria-valuemin={sliderConfig.min}
+          aria-valuemax={sliderConfig.max}
+          aria-valuenow={(props.value || sliderConfig.min) ?? 0}
+          aria-labelledby={`${id}-label`}
         />
-        <datalist
+        <div
           className={`${classes.awell_range_input_datalist} ${
             sliderConfig.show_min_max_values ? classes.with_min_max_labels : ''
           }`}
           data-testid={`${id}-datalist`}
-          id={`${id}-min-max-labels`}
         >
-          <option value={sliderConfig.min} label={sliderConfig.min_label} />
-          <option value={sliderConfig.max} label={sliderConfig.max_label} />
-        </datalist>
+          <span className={classes.minLabel} aria-label="Minimum value">
+            {sliderConfig.min_label}
+          </span>
+          <span className={classes.maxLabel} aria-label="Maximum value">
+            {sliderConfig.max_label}
+          </span>
+        </div>
         {sliderConfig.is_value_tooltip_on &&
           renderValueTooltip(
             internalValue,
