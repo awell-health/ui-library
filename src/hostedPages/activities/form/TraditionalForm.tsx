@@ -16,6 +16,7 @@ export const TraditionalForm = ({
   storedAnswers,
   onAnswersChange,
   autosaveAnswers = true,
+  trademark,
 }: FormProps) => {
   const {
     updateQuestionVisibility,
@@ -70,11 +71,11 @@ export const TraditionalForm = ({
               </div>
             </div>
           )}
-          <div className={`${classes.trademark} ${classes.traditional}`}>
-            {/* Replace with actual trademark when back-end implementation is done */}
-            © EuroQol Research Foundation. EQ-5D™ is a trade mark of the EuroQol
-            Research Foundation. UK (English) v1.3
-          </div>
+          {trademark && (
+            <div className={`${classes.trademark} ${classes.conversational}`}>
+              {trademark}
+            </div>
+          )}
           <div className={`${classes.button_wrapper}`}>
             {formHasErrors && (
               <div className={classes.error}>

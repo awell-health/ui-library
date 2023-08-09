@@ -21,6 +21,7 @@ export const ConversationalForm = ({
   onAnswersChange,
   autoProgress = false,
   autosaveAnswers = true,
+  trademark,
 }: FormProps) => {
   const {
     submitForm,
@@ -106,11 +107,13 @@ export const ConversationalForm = ({
                 inputAutoFocus={true}
                 shouldAutoProgress={shouldAutoProgress}
               />
-              <div className={`${classes.trademark} ${classes.conversational}`}>
-                {/* Replace with actual trademark when back-end implementation is done */}
-                © EuroQol Research Foundation. EQ-5D™ is a trade mark of the
-                EuroQol Research Foundation. UK (English) v1.3
-              </div>
+              {trademark && (
+                <div
+                  className={`${classes.trademark} ${classes.conversational}`}
+                >
+                  {trademark}
+                </div>
+              )}
             </div>
           )}
         </div>
