@@ -33,7 +33,7 @@
   font-weight: var(--awell-font-extrabold);
   margin-bottom: var(--awell-spacing-8);
 
-  @media (min-width: 600px) {
+  @media (min-width: 640px) {
     margin-bottom: var(--awell-spacing-6);
     font-size: var(--awell-font-size-3xl);
   }
@@ -48,7 +48,7 @@
     height: 3px;
     border-radius: var(--awell-border-radius-lg);
 
-    @media (min-width: 600px) {
+    @media (min-width: 640px) {
       margin-top: var(--awell-spacing-3);
     }
   }

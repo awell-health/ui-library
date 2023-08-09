@@ -35,19 +35,9 @@ describe('Range input', () => {
 
     expect(dataList).toBeDefined()
 
-    expect(dataList).toContainHTML(
-      `<option
-        value='${FIXTURE.sliderConfig.min}'
-        label='${FIXTURE.sliderConfig.min_label}'
-      ></option>`
-    )
+    expect(dataList).toContainHTML(`${FIXTURE.sliderConfig.min_label}`)
 
-    expect(dataList).toContainHTML(
-      `<option
-        value='${FIXTURE.sliderConfig.max}'
-        label='${FIXTURE.sliderConfig.max_label}'
-      ></option>`
-    )
+    expect(dataList).toContainHTML(`${FIXTURE.sliderConfig.max_label}`)
   })
 
   it('Should only render the max label if min label is undefined', async () => {
@@ -81,12 +71,7 @@ describe('Range input', () => {
 
     expect(dataList).toBeDefined()
 
-    expect(dataList).toContainHTML(
-      `<option
-        value='${FIXTURE.sliderConfig.max}'
-        label='${FIXTURE.sliderConfig.max_label}'
-      ></option>`
-    )
+    expect(dataList).toContainHTML(`${FIXTURE.sliderConfig.max_label}`)
   })
 
   it('Should work properly if both min and max labels are undefined', async () => {

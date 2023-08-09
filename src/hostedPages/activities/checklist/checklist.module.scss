@@ -29,7 +29,7 @@
     > div:not(:first-child) {
       margin-top: var(--awell-spacing-5);
 
-      @media (min-width: 600px) {
+      @media (min-width: 640px) {
         margin-top: var(--awell-spacing-4);
       }
     }

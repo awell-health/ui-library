@@ -71,27 +71,32 @@
     font-size: var(--awell-font-size-sm);
     display: flex;
     justify-content: space-between;
+    position: relative;
 
     &.with_min_max_labels {
       margin-top: 20px;
     }
+    
+    .minLabel {
+      position: absolute;
+      left: 0;
+      bottom: -40px;
+      width: 47.5%;
+      max-width: 250px;
+      text-align: left;
+    }
+    
+    .maxLabel {
+      position: absolute;
+      right: 0;
+      bottom: -40px;
+      width: 47.5%;
+      max-width: 250px;
+      text-align: right;
+    }
 
     @media (min-width: 640px) {
       font-size: var(--awell-font-size-base);
-    }
-
-    & option {
-      width: 47.5%;
-      max-width: 250px;
-      text-wrap: wrap;
-      padding: 0;
-
-      &:first-child {
-        text-align: left;
-      }
-      &:not(:first-child) {
-        text-align: right;
-      }
     }
   }
 

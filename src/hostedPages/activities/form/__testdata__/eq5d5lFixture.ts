@@ -1,6 +1,8 @@
 export const form = {
   id: 'c6flqC4da3_C',
   title: 'EQ-5D-5L',
+  trademark:
+    '© EuroQol Research Foundation. EQ-5D™ is a trade mark of the EuroQol Research Foundation.',
   questions: [
     {
       id: 'dV6Qua7n0DLe',
@@ -258,7 +260,7 @@ export const form = {
           min: 0,
           max: 100,
           step_value: 1,
-          display_marks: true,
+          display_marks: false,
           min_label: 'The worst health you can imagine',
           max_label: 'The best health you can imagine',
           is_value_tooltip_on: true,
