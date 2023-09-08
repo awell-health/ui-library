@@ -4,7 +4,7 @@ import {
   parseCountry,
   CountryIso2,
 } from 'react-international-phone'
-import { CountryData } from 'react-international-phone/build/types'
+import { CountryData } from '../../hooks/useValidate'
 
 export const getDefaultCountries = (
   availableCountries: CountryIso2 | Array<CountryIso2> | undefined
