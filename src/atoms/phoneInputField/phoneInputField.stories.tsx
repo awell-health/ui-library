@@ -13,7 +13,7 @@ export default {
   argTypes: {
     value: {
       control: 'text',
-      defaultValue: '',
+      defaultValue: '+14018631000',
       type: { name: 'string', required: false },
     },
     label: {
@@ -81,6 +81,13 @@ export const PhoneInputField: Story<PhoneInputFieldProps> = ({
     onChange(e)
     setPhoneValue(e.target.value)
   }
+
+  const validation = validatePhoneNumber(phoneValue)
+  const areaCodes = !validation.country?.areaCodes
+    ? // @ts-expect-error priority is typed wrongly for some reason, it's an array of strings
+      validation.country?.priority?.join(', ') ?? 'N/A'
+    : validation.country?.areaCodes?.join(', ')
+
   return (
     <>
       <PhoneInputFieldComponent
@@ -94,16 +101,9 @@ export const PhoneInputField: Story<PhoneInputFieldProps> = ({
         <p>{`Value: ${phoneValue}`}</p>
         <p>{`Possible? ${isPossibleE164Number(phoneValue)}`}</p>
         <p>{`Valid? ${isValidE164Number(phoneValue)}`}</p>
-        <p>{`Country? ${
-          validatePhoneNumber(phoneValue).country?.name ?? ''
-        }`}</p>
-        <p>{`Dial Code? ${
-          validatePhoneNumber(phoneValue).country?.dialCode ?? ''
-        }`}</p>
-        <p>{`Area Codes? ${
-          validatePhoneNumber(phoneValue).country?.areaCodes?.join(', ') ??
-          'N/A'
-        }`}</p>
+        <p>{`Country? ${validation.country?.name ?? ''}`}</p>
+        <p>{`Dial Code? ${validation.country?.dialCode ?? ''}`}</p>
+        <p>{`Area Codes? ${areaCodes}`}</p>
       </div>
     </>
   )
@@ -132,6 +132,13 @@ export const FixedCountriesPhoneInputField: Story<PhoneInputFieldProps> = ({
     onChange(e)
     setPhoneValue(e.target.value)
   }
+
+  const validation = validatePhoneNumber(phoneValue)
+  const areaCodes = !validation.country?.areaCodes
+    ? // @ts-expect-error priority is typed wrongly for some reason, it's an array of strings
+      validation.country?.priority?.join(', ') ?? 'N/A'
+    : validation.country?.areaCodes?.join(', ')
+
   return (
     <ThemeProvider accentColor="#004ac2">
       <PhoneInputFieldComponent
@@ -150,20 +157,9 @@ export const FixedCountriesPhoneInputField: Story<PhoneInputFieldProps> = ({
           phoneValue,
           availableCountries
         )}`}</p>
-        <p>{`Country? ${
-          validatePhoneNumber(phoneValue, availableCountries).country?.name ??
-          ''
-        }`}</p>
-        <p>{`Dial Code? ${
-          validatePhoneNumber(phoneValue, availableCountries).country
-            ?.dialCode ?? ''
-        }`}</p>
-        <p>{`Area Codes? ${
-          validatePhoneNumber(
-            phoneValue,
-            availableCountries
-          ).country?.areaCodes?.join(', ') ?? 'N/A'
-        }`}</p>
+        <p>{`Country? ${validation.country?.name ?? ''}`}</p>
+        <p>{`Dial Code? ${validation.country?.dialCode ?? ''}`}</p>
+        <p>{`Area Codes? ${areaCodes}`}</p>
       </div>
     </ThemeProvider>
   )
