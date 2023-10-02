@@ -16,8 +16,13 @@ export const Logo = ({
   logo = awellLogo,
 }: LogoProps): JSX.Element => {
   return logo && typeof logo !== 'string' ? (
-    logo
+    <span id="awell__header_logo">{logo}</span>
   ) : (
-    <img className={classes.awell_logo} alt={companyName} src={logo} />
+    <img
+      className={classes.awell_logo}
+      id="awell__header_logo"
+      alt={companyName}
+      src={logo}
+    />
   )
 }

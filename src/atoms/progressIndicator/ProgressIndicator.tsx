@@ -22,7 +22,10 @@ export const ProgressIndicator = ({
   } as React.CSSProperties
 
   return (
-    <div className={`${classes.progressBar} awell_progress_bar`}>
+    <div
+      className={`${classes.progressBar} awell_progress_bar`}
+      id="awell__form_progress"
+    >
       {percentageCompletedNormalized !== 0 && (
         <div className={classes.progressBar_completed} style={style}>
           {showPercentage && (

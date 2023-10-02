@@ -33,15 +33,12 @@ export const CheckboxButton = ({
   return (
     <div className={classes.input_wrapper}>
       <div className={classes.checkbox_wrapper}>
-        <input
-          {...props}
-          name={name}
-          type="checkbox"
-          onChange={onChange}
-        />
+        <input {...props} name={name} type="checkbox" onChange={onChange} />
       </div>
       <div className={classes.label_wrapper}>
-        <label htmlFor={props.id}>{label}</label>
+        <label htmlFor={props.id} id="awell__question_checkbox">
+          {label}
+        </label>
       </div>
     </div>
   )
