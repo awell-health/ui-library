@@ -19,7 +19,11 @@ export const QuestionLabel = ({
   ...props
 }: QuestionLabelProps): JSX.Element => {
   return (
-    <label {...props} className={classes.label}>
+    <label
+      {...props}
+      className={`${classes.label} awell__question_label`}
+      id="awell__question_label"
+    >
       <span>{label}</span>{' '}
       {mandatory && <span className={classes.asterix}>*</span>}
     </label>

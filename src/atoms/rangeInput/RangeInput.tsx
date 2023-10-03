@@ -76,7 +76,7 @@ export const RangeInput = ({
     return (
       <div
         ref={tooltipRef}
-        id="tooltip"
+        id="awell__slider_tooltip"
         className={classes.tooltip}
         style={{ left, top, display: touched ? 'block' : 'none' }}
       >
@@ -146,7 +146,7 @@ export const RangeInput = ({
           {...props}
           data-testid={id}
           type="range"
-          id={id}
+          id="awell__slider_input"
           min={sliderConfig.min}
           max={sliderConfig.max}
           step={sliderConfig.step_value}
