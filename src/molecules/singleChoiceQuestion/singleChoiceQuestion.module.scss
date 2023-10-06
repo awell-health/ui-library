@@ -51,11 +51,13 @@
   }
 }
 
+// Make sure animation doesn't run in an inifite loop (see TP-203)
+// as that will result in confusing UX when a user is at the last question.
 .animate_flicker {
-  -webkit-animation: flickerAnimation ease 0.425s infinite;
-  -moz-animation: flickerAnimation ease 0.425s infinite;
-  -o-animation: flickerAnimation ease 0.425s infinite;
-  animation: flickerAnimation ease 0.425s infinite;
+  -webkit-animation: flickerAnimation ease 0.425s 3;
+  -moz-animation: flickerAnimation ease 0.425s 3;
+  -o-animation: flickerAnimation ease 0.425s 3;
+  animation: flickerAnimation ease 0.425s 3;
 }
 
 .awell_single_choice_question > div:first-child {
