@@ -20,6 +20,7 @@ export const ConversationalForm = ({
   storedAnswers,
   onAnswersChange,
   autoProgress = false,
+  autosaveAnswers = true,
 }: FormProps) => {
   const {
     submitForm,
@@ -38,6 +39,7 @@ export const ConversationalForm = ({
     evaluateDisplayConditions,
     errorLabels,
     storedAnswers,
+    autosaveAnswers,
     onAnswersChange,
   })
 
@@ -104,6 +106,13 @@ export const ConversationalForm = ({
                 inputAutoFocus={true}
                 shouldAutoProgress={shouldAutoProgress}
               />
+              {form?.trademark && (
+                <div
+                  className={`${classes.trademark} ${classes.conversational}`}
+                >
+                  {form.trademark}
+                </div>
+              )}
             </div>
           )}
         </div>

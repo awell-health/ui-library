@@ -12,7 +12,7 @@ import {
   CountryIso2,
 } from 'react-international-phone'
 import { getDefaultCountries } from './helpers'
-import { ParsedCountry } from 'react-international-phone/build/types'
+import { ParsedCountry } from '../../hooks/useValidate'
 
 export interface PhoneInputFieldProps
   extends InputHTMLAttributes<HTMLInputElement> {

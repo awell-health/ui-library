@@ -12,6 +12,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode", // Tell VSCode to use Prettier as default file formatter
     "cSpell.words": [
       "awell"
-    ]
+    ],
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
   }
 }

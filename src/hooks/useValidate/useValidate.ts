@@ -1,6 +1,6 @@
-import { CountryIso2, validatePhone } from 'react-international-phone'
-import { ValidatePhoneReturn } from 'react-international-phone/build/utils'
+import { validatePhone } from 'react-international-phone'
 import { getDefaultCountries } from '../../atoms/phoneInputField'
+import { ValidatePhoneReturn, CountryIso2 } from './types'
 
 export interface UseValidateHook {
   validatePhoneNumber: (
@@ -18,6 +18,23 @@ export interface UseValidateHook {
   ) => boolean
 }
 
+export const handleUSException = (
+  number: string,
+  originalValidation: ValidatePhoneReturn
+): ValidatePhoneReturn => {
+  const areaCodes = originalValidation.country?.areaCodes
+  const providedAreaCode = number.slice(2, 5)
+  if (providedAreaCode.length === 3 && areaCodes?.includes(providedAreaCode)) {
+    return originalValidation
+  }
+  const USValidation = validatePhone(number, {
+    countries: getDefaultCountries('us'),
+    charAfterDialCode: '',
+    prefix: '+',
+  })
+  return USValidation
+}
+
 export const useValidate = (): UseValidateHook => {
   const validatePhoneNumber = (
     number: string,
@@ -28,6 +45,12 @@ export const useValidate = (): UseValidateHook => {
       charAfterDialCode: '',
       prefix: '+',
     })
+
+    // exception for US numbers since it shares the same country code as Canada
+    if (number.startsWith('+1') && validation.isValid === false) {
+      return handleUSException(number, validation)
+    }
+
     return validation
   }
 
@@ -41,6 +64,11 @@ export const useValidate = (): UseValidateHook => {
       prefix: '+',
     })
 
+    // exception for US numbers since it shares the same country code as Canada
+    if (number.startsWith('+1') && validation.isValid === false) {
+      return handleUSException(number, validation).isValid
+    }
+
     return validation.isValid
   }
 
@@ -48,19 +76,28 @@ export const useValidate = (): UseValidateHook => {
     number: string,
     availableCountries: CountryIso2 | Array<CountryIso2>
   ) => {
-    const validation = validatePhone(number, {
-      countries: getDefaultCountries(availableCountries),
-      charAfterDialCode: '',
-      prefix: '+',
-    })
+    try {
+      let validation = validatePhone(number, {
+        countries: getDefaultCountries(availableCountries),
+        charAfterDialCode: '',
+        prefix: '+',
+      })
 
-    if (!availableCountries || validation.country?.iso2 == null)
-      throw new Error(`Country could not be parsed for ${number}`)
+      // exception for US numbers since it shares the same country code as Canada
+      if (number.startsWith('+1') && validation.isValid === false) {
+        validation = handleUSException(number, validation)
+      }
+      if (!validation.country) {
+        return false
+      }
 
-    if (typeof availableCountries === 'string') {
-      return availableCountries === validation.country.iso2 ?? false
+      if (typeof availableCountries === 'string') {
+        return availableCountries === validation.country.iso2 ?? false
+      }
+      return availableCountries.includes(validation.country.iso2)
+    } catch {
+      return false
     }
-    return availableCountries.includes(validation.country.iso2)
   }
 
   const isPossibleE164Number = (number: string) => {

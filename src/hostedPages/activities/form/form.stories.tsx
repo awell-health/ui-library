@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { ConversationalForm as ConversationalFormComponent } from '.'
 import { TraditionalForm as TraditionalFormComponent } from './TraditionalForm'
-import { form } from './__testdata__/testFormFixture'
+import { form } from './__testdata__/eq5d5lFixture'
 import { HostedPageLayout } from '../../layouts/HostedPageLayout'
 import { ThemeProvider } from '../../../atoms'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport/preview'
@@ -76,6 +76,7 @@ const MyStory: Story = ({
     <HostedPageLayout
       onCloseHostedPage={() => alert('Stop session')}
       hideCloseButton
+      logo={undefined}
     >
       {isConversationalMode ? (
         <ConversationalFormComponent
@@ -234,6 +235,6 @@ FormMobile.args = {
 FormMobile.parameters = {
   viewport: {
     viewports: INITIAL_VIEWPORTS,
-    defaultViewport: 'galaxys5',
+    defaultViewport: 'iphone6',
   },
 }
