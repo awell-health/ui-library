@@ -47,6 +47,7 @@ export {
   HostedPageLayout,
   CloseButton,
   CloudinaryUpload,
+  CloudinarySingleFileUpload,
 } from './hostedPages'
 
 export {
