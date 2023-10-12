@@ -32,6 +32,21 @@ export interface CloudinaryExtensionProps {
   }
 }
 
+export interface CloudinarySingleFileUploadProps
+  extends Omit<CloudinaryExtensionProps, 'onFinish' | 'text'> {
+  onFinish: (data: UploadData | undefined) => void
+  text: {
+    subject: string
+    fileCountHeader: (fileUploaded: boolean) => string
+    attachmentIcon: React.ReactNode
+    attachmentLabels: AttachmentLabels
+    buttonLabels: {
+      upload: string
+      done: string
+    }
+  }
+}
+
 export type CloudinaryExtensionSettings = {
   cloudName: string
   uploadPreset: string
