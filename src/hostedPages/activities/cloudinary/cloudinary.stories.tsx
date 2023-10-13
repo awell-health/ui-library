@@ -52,30 +52,31 @@ export const CloudinaryUpload: Story = ({
   tags,
   multiple,
 }) => {
+  console.log(multiple)
   return (
     <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
-      {multiple === true ? (
-        <CloudinarySingleFileUploadComponent
+      {Boolean(multiple) === true ? (
+        <CloudinaryUploadComponent
           cloudName={cloudName}
           uploadPreset={uploadPreset}
           context={context}
           folder={folder}
           tags={tags}
-          onFinish={(file) => alert(`Image uploaded ${file}`)}
+          onFinish={(files) => alert(`Image uploaded ${files}`)}
           text={{
-            subject: 'Upload file',
+            subject: 'Upload files',
             attachmentIcon: <img src={image} alt="" />,
             attachmentLabels: {
               file: 'View file',
               video: 'Open video',
               link: 'Open link',
             },
-            fileCountHeader: (fileUploaded) =>
-              fileUploaded
-                ? `You have successfully uploaded a file.`
-                : 'You have not uploaded a file yet.',
+            fileCountHeader: (count) =>
+              count > 0
+                ? `You have uploaded ${count} file${count > 1 ? 's.' : '.'}`
+                : 'You have not uploaded any files yet.',
             buttonLabels: {
-              upload: 'Upload file',
+              upload: 'Upload files',
               done: 'Done',
             },
           }}
