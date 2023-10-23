@@ -28,24 +28,18 @@
   z-index: 50;
 
   @media (min-width: 640px) {
-    .element-class {
-      margin-left: 25%;
-      min-width: 75%;
-    }
+    margin-left: 25%;
+    min-width: 75%;
   }
 
   @media (min-width: 768px) {
-    .element-class {
-      margin-left: 50%;
-      min-width: 50%;
-    }
+    margin-left: 50%;
+    min-width: 50%;
   }
 
   @media (min-width: 1280px) {
-    .element-class {
-      margin-left: 75%;
-      min-width: 30%;
-    }
+    margin-left: 75%;
+    min-width: 30%;
   }
 }
 
