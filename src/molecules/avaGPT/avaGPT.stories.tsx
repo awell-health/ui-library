@@ -46,6 +46,7 @@ export default {
 
 export const AvaGPT: Story<AvaGPTProps> = ({
   state,
+  prompt,
   promptPlaceholder,
   answer,
   onSubmit,
@@ -55,7 +56,7 @@ export const AvaGPT: Story<AvaGPTProps> = ({
   return (
     <AvaGPTComponent
       open={false}
-      prompt={undefined}
+      prompt={prompt}
       answer={answer}
       promptPlaceholder={promptPlaceholder}
       state={state}
