@@ -108,11 +108,7 @@ export const AvaGPT = ({
                           <WithTypingCaret Component="li" {...props} />
                         ),
                         pre: (props) => (
-                          <WithTypingCaret
-                            state={state === 'done' ? 'done' : 'loading'}
-                            Component="pre"
-                            {...props}
-                          />
+                          <WithTypingCaret Component="pre" {...props} />
                         ),
                       }}
                       remarkPlugins={[remarkGfm]}
