@@ -28,6 +28,8 @@ export {
   CalDotComScheduling,
   type CalDotComBookingSuccessfulFunction,
   ProgressIndicator,
+  TypingCaret,
+  WithTypingCaret,
 } from './atoms'
 
 export {
