@@ -1,0 +1,323 @@
+.chatContainerWrapper {
+  /* Positioning and size */
+  position: fixed;
+  bottom: 1rem; /* 4 divided by 4 (since 1rem usually equals 16px) */
+  right: 1.5rem; /* 6 divided by 4 */
+  height: 50%;
+  width: 25%;
+  min-width: 75%;
+  margin-bottom: 3rem; /* 12 divided by 4 */
+  margin-left: 25%;
+
+  /* Borders */
+  border-radius: 0.375rem; /* this translates to a medium-sized border-radius in Tailwind */
+  border-width: 0.5px;
+  border-color: #cccccc;
+
+  /* Shadows */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06); /* This is Tailwind's default medium shadow */
+
+  /* Colors */
+  background-color: white; /* For dark mode, you would need to use a media query or a different class added by JavaScript */
+
+  /* Typography */
+  font-family: sans-serif; /* Tailwind's sans-serif font stack is more complex, but this is a simplified version */
+
+  /* Z-index */
+  z-index: 50;
+
+  @media (min-width: 640px) {
+    margin-left: 25%;
+    min-width: 75%;
+  }
+
+  @media (min-width: 768px) {
+    margin-left: 50%;
+    min-width: 50%;
+  }
+
+  @media (min-width: 1280px) {
+    margin-left: 75%;
+    min-width: 30%;
+  }
+}
+
+.chatWindow {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 96%;
+  margin: var(--awell-spacing-4);
+  padding-top: 0;
+  color: var(--awell-slate600);
+}
+
+.answerContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: -10px;
+  z-index: 0;
+  height: 85%;
+  max-width: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth; /* Corresponds to scroll-smooth */
+  padding: var(--awell-spacing-4) var(--awell-spacing-2) var(--awell-spacing-8);
+  font-size: var(--awell-font-size-base);
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.startIcon {
+  height: 3rem;
+  width: 3rem;
+  margin-bottom: var(--awell-spacing-4);
+}
+
+.startText {
+  margin-top: 0;
+  font-family: sans-serif;
+  font-size: var(--awell-font-size-sm);
+}
+
+.spacer {
+  height: 1rem;
+}
+
+.questionContainer {
+  position: absolute;
+  bottom: var(--awell-spacing-4);
+  height: 2.5rem;
+  width: 100%;
+  background-color: #f2f2f2; /* bg-[#F2F2F2] */
+  border-radius: 0.375rem;
+}
+
+.form {
+  display: flex;
+}
+
+.questionInput {
+  height: 2.5rem;
+  width: 90%;
+  appearance: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 0.375rem;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  padding-top: 0.375rem;
+  font-size: 0.875rem;
+  outline: none;
+  box-shadow: none;
+
+  &:disabled {
+    cursor: progress;
+    color: #8b95a5;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    color: var(--awell-slate400);
+    opacity: 1;
+  }
+}
+
+.submitButton {
+  appearance: none;
+  position: absolute;
+  right: var(--awell-spacing-4);
+  border: none;
+  height: 100%;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.loadingIcon {
+  color: var(--awell-accent-color);
+  height: 1.5rem;
+  width: 1.5rem;
+  animation: spin 1s linear infinite;
+}
+
+.sendIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  stroke: #8b95a5;
+}
+
+.buttonContainer {
+  position: fixed;
+  bottom: var(--awell-spacing-4);
+  right: var(--awell-spacing-6);
+  z-index: 30;
+}
+
+.chatIcon {
+  margin-right: var(--awell-spacing-2);
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.answerLoading {
+  :not(:last-child) span[data-selector='typingCarret'] {
+    display: none;
+  }
+
+  .prompt-answer-loading :last-child span[data-selector='typingCarret'] {
+    @apply visible;
+  }
+}
+
+.answerDone {
+  span[data-selector='typingCarret'] {
+    display: none;
+  }
+}
+
+.answerContent {
+  color: var(--awell-slate600);
+
+  a {
+    font-weight: bold;
+    border-bottom: 1px solid var(--awell-accent-color);
+
+    &:hover {
+      border-bottom-width: 2px;
+    }
+  }
+
+  strong,
+  bold {
+    color: var(--awell-accent-color);
+  }
+
+  h1:first-child,
+  h2:first-child,
+  h3:first-child,
+  p:first-child {
+    margin-top: 0;
+  }
+
+  h1:not(:first-child),
+  h2:not(:first-child),
+  h3:not(:first-child),
+  p:not(:first-child) {
+    margin-top: var(--awell-spacing-4);
+  }
+
+  h1 + p,
+  h2 + p,
+  h3 + p {
+    margin-top: 0 !important;
+  }
+
+  ol {
+    list-style-type: none;
+  }
+
+  ul:not(.code-block ul) {
+    list-style-type: disc;
+  }
+
+  ol:not(.code-block ol),
+  ul:not(.code-block ul) {
+    font-size: var(--awell-font-size-base);
+    padding-left: var(--awell-spacing-8);
+    margin-bottom: var(--awell-spacing-6);
+    line-height: var(--awell-leading-7);
+  }
+
+  ol:not(.code-block ol) {
+    padding-left: 0;
+  }
+
+  ol.no-pl,
+  ul.no-pl {
+    padding-left: 0;
+  }
+
+  ol:not(.code-block ol) li,
+  ul:not(.code-block ul) li {
+    margin-bottom: var(--awell-spacing-2);
+    padding-left: var(--awell-spacing-2);
+  }
+
+  ol:not(.code-block ol) li {
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: var(--awell-spacing-10);
+
+    &:after {
+      content: counter(step-counter);
+      font-size: var(--awell-font-size-sm);
+      display: inline-block;
+      background-color: var(--awell-slate200);
+      color: var(--awell-slate600);
+      border-radius: 9999px;
+      font-weight: var(--awell-font-medium);
+      margin-right: var(--awell-spacing-4);
+      padding: var(--awell-spacing-O\.5) var(--awell-spacing-2);
+      position: absolute;
+      left: 0;
+      top: var(--awell-spacing-O\.5);
+    }
+  }
+
+  p {
+    font-size: var(--awell-font-size-base);
+    margin-top: var(--awell-spacing-6);
+    margin-bottom: var(--awell-spacing-6);
+    line-height: var(--awell-leading-7);
+  }
+
+  blockquote {
+    border-left-width: 2px;
+    border-color: var(--awell-accent-color);
+    padding-left: var(--awell-spacing-6);
+    margin-top: var(--awell-spacing-6);
+    margin-bottom: var(--awell-spacing-6); // my-6
+    word-break: break-word;
+  }
+
+  blockquote p {
+    padding-top: var(--awell-spacing-2);
+    padding-bottom: var(--awell-spacing-2);
+    margin: 0;
+  }
+
+  blockquote code,
+  code.code {
+    font-size: var(--awell-font-size-sm);
+    line-height: var(--awell-leading-6);
+  }
+
+  code {
+    font-weight: var(--awell-font-semibold);
+    font-size: var(--awell-font-size-sm);
+    color: var(--awell-slate900);
+    font-variant-ligatures: none;
+  }
+}

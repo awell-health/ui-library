@@ -1,0 +1,25 @@
+.caret {
+  height: 15px;
+  width: 8px;
+  transform: translateX(2px) translateY(2px);
+  border-radius: 1px;
+  background-color: var(--awell-accent-color);
+  display: inline-block;
+
+  // Animation
+  animation-name: caret;
+  animation-duration: 1000ms;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  transition-timing-function: cubic-bezier(0.14, 0, 0.16, 1);
+}
+
+@keyframes caret {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
