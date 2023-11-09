@@ -85,16 +85,14 @@ export const TraditionalForm = ({
               </div>
             )}
             <div></div>
-            <div>
-              <Button
-                onClick={submitForm}
-                type="submit"
-                data-cy="submitFormButton"
-                disabled={isSubmittingForm}
-              >
-                {buttonLabels.submit}
-              </Button>
-            </div>
+            <Button
+              onClick={submitForm}
+              type="submit"
+              data-cy="submitFormButton"
+              disabled={isSubmittingForm}
+            >
+              {buttonLabels.submit}
+            </Button>
           </div>
         </div>
       </main>
