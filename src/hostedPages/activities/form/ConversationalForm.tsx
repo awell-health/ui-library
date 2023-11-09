@@ -24,6 +24,7 @@ export const ConversationalForm = ({
 }: FormProps) => {
   const {
     submitForm,
+    isSubmittingForm,
     handleGoToNextQuestion,
     handleGoToPrevQuestion,
     formMethods: { control, getValues },
@@ -131,11 +132,13 @@ export const ConversationalForm = ({
                 </Button>
               )}
             </div>
+
             {isLastQuestion ? (
               <Button
                 onClick={submitForm}
                 type="submit"
                 data-cy="submitFormButton"
+                disabled={isSubmittingForm}
               >
                 {buttonLabels.submit}
               </Button>

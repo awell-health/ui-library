@@ -14,7 +14,10 @@ export default {
   displayName: 'Form',
 
   argTypes: {
-    onSubmit: { action: 'submitted' },
+    onSubmit: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      action('submitted')
+    },
     form: {
       control: 'object',
       defaultValue: form,
@@ -191,10 +194,13 @@ export const Form: Story = ({
 Form.args = {
   labels: {
     title: 'My WizardForm',
-    buttonSubmit: 'Submit',
+    buttonSubmit: 'Submit2',
     buttonCompleted: 'Submitted',
   },
-  onSubmit: action('submitted'),
+  onSubmit: async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+    action('submitted')
+  },
 }
 
 Form.parameters = {

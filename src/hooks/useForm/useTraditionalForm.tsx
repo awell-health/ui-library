@@ -43,6 +43,7 @@ const useTraditionalForm = ({
   >([])
   const [errors, setErrors] = useState<Array<FormError>>([])
   const [formHasErrors, setFormHasErrors] = useState<boolean>(false)
+  const [isSubmittingForm, setIsSubmittingForm] = useState<boolean>(false)
 
   const { isValidE164Number } = useValidate()
 
@@ -77,7 +78,9 @@ const useTraditionalForm = ({
   const handleConvertAndSubmitForm = async (
     formResponse: Record<string, AnswerValue>
   ) => {
+    setIsSubmittingForm(true)
     await onSubmit(convertToAwellInput(formResponse))
+    setIsSubmittingForm(false)
   }
 
   const submitForm = async () => {
@@ -97,6 +100,7 @@ const useTraditionalForm = ({
   return {
     updateQuestionVisibility,
     submitForm,
+    isSubmittingForm,
     formMethods,
     errors,
     questionWithVisiblity: visibleQuestions,
