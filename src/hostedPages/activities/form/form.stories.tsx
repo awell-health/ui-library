@@ -194,7 +194,7 @@ export const Form: Story = ({
 Form.args = {
   labels: {
     title: 'My WizardForm',
-    buttonSubmit: 'Submit2',
+    buttonSubmit: 'Submit',
     buttonCompleted: 'Submitted',
   },
   onSubmit: async () => {
