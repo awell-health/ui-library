@@ -46,6 +46,7 @@ export interface FormSettingsContextProps {
 export interface ConversationalFormContext {
   updateQuestionVisibility: () => void
   submitForm: () => void
+  isSubmittingForm: boolean
   handleGoToNextQuestion: () => void
   handleGoToPrevQuestion: () => void
   formMethods: UseFormReturn
@@ -60,6 +61,7 @@ export interface ConversationalFormContext {
 export interface TraditionalFormContext {
   updateQuestionVisibility: () => void
   submitForm: () => void
+  isSubmittingForm: boolean
   formMethods: UseFormReturn
   errors: Array<FormError>
   questionWithVisiblity: Array<QuestionWithVisibility>

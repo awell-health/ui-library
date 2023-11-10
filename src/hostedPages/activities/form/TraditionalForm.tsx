@@ -20,6 +20,7 @@ export const TraditionalForm = ({
   const {
     updateQuestionVisibility,
     submitForm,
+    isSubmittingForm,
     formMethods: { control, getValues },
     errors,
     questionWithVisiblity,
@@ -88,6 +89,7 @@ export const TraditionalForm = ({
               onClick={submitForm}
               type="submit"
               data-cy="submitFormButton"
+              disabled={isSubmittingForm}
             >
               {buttonLabels.submit}
             </Button>

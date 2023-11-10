@@ -14,7 +14,10 @@ export default {
   displayName: 'Form',
 
   argTypes: {
-    onSubmit: { action: 'submitted' },
+    onSubmit: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      action('submitted')
+    },
     form: {
       control: 'object',
       defaultValue: form,
@@ -194,7 +197,10 @@ Form.args = {
     buttonSubmit: 'Submit',
     buttonCompleted: 'Submitted',
   },
-  onSubmit: action('submitted'),
+  onSubmit: async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+    action('submitted')
+  },
 }
 
 Form.parameters = {

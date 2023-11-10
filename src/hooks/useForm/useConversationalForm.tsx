@@ -48,6 +48,7 @@ const useConversationalForm = ({
   const [isEvaluatingQuestionVisibility, setIsEvaluatingQuestionVisibility] =
     useState<boolean>(true)
   const [percentageCompleted, setPercentageCompleted] = useState(0)
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false)
 
   const updateQuestionVisibility = useCallback(async () => {
     setIsEvaluatingQuestionVisibility(true)
@@ -144,7 +145,9 @@ const useConversationalForm = ({
   const handleConvertAndSubmitForm = async (
     formResponse: Record<string, AnswerValue>
   ) => {
+    setIsSubmittingForm(true)
     await onSubmit(convertToAwellInput(formResponse))
+    setIsSubmittingForm(false)
   }
 
   const submitForm = async () => {
@@ -165,6 +168,7 @@ const useConversationalForm = ({
   return {
     updateQuestionVisibility,
     submitForm,
+    isSubmittingForm,
     handleGoToNextQuestion,
     handleGoToPrevQuestion,
     formMethods,
