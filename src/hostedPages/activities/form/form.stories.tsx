@@ -90,12 +90,6 @@ const MyStory: Story = ({
           storedAnswers={answers}
           onAnswersChange={handleAnswersChange}
           key={form.id}
-          questionTypeConfig={{
-            TELEPHONE: {
-              initialCountry: 'gb',
-              placeholder: '+447810123456',
-            },
-          }}
           questionLabels={{
             no_label: 'No',
             yes_label: 'Yes',
@@ -133,12 +127,6 @@ const MyStory: Story = ({
           storedAnswers={answers}
           onAnswersChange={handleAnswersChange}
           key={form.id}
-          questionTypeConfig={{
-            TELEPHONE: {
-              initialCountry: 'gb',
-              placeholder: '+447810123456',
-            },
-          }}
           questionLabels={{
             no_label: 'No',
             yes_label: 'Yes',

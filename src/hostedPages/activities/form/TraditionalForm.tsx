@@ -12,7 +12,6 @@ export const TraditionalForm = ({
   buttonLabels,
   evaluateDisplayConditions,
   errorLabels,
-  questionTypeConfig = {},
   storedAnswers,
   onAnswersChange,
   autosaveAnswers = true,
@@ -63,7 +62,6 @@ export const TraditionalForm = ({
                         key={visibleQuestion.id}
                         errors={errors}
                         inputAutoFocus={false}
-                        questionTypeConfig={questionTypeConfig}
                         onAnswerChange={updateQuestionVisibility}
                       />
                     </div>
