@@ -48,6 +48,7 @@ export const InputField = ({
         {...props}
         type={type}
         id={id}
+        data-1p-ignore
         className={classes.awell_input_field}
         onChange={onChange}
         data-testid={`input-${id}`}

@@ -52,7 +52,6 @@ export const CloudinaryUpload: Story = ({
   tags,
   multiple,
 }) => {
-  console.log(multiple)
   return (
     <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
       {Boolean(multiple) === true ? (

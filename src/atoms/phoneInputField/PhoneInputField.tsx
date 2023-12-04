@@ -74,14 +74,17 @@ export const PhoneInputField = ({
       countries,
     })
 
+  console.log('country', country)
+
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     handlePhoneValueChange(e)
     onChange(e)
   }
 
   const handleCountrySelect: (country: ParsedCountry) => void = ({ iso2 }) => {
+    console.log('country selected', iso2)
+    console.log('phone', phone)
     setCountry(iso2)
-    onChange({ target: { value: phone } })
   }
 
   return (
@@ -108,6 +111,7 @@ export const PhoneInputField = ({
           className={classes.awell_input_field}
           placeholder={placeholder}
           onChange={handleInputChange}
+          data-1p-ignore
           value={phone}
           data-testid={`input-${id}`}
           dir="ltr"

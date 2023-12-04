@@ -16,7 +16,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 import { CountryIso2 } from '../../hooks/useValidate'
-import { noop } from 'lodash'
+import { isNil, noop } from 'lodash'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -255,9 +255,10 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Telephone:
-      const availableCountries = (config?.phone?.available_countries ?? []).map(
-        (c) => c.toLocaleLowerCase()
-      ) as Array<CountryIso2>
+      console.log('config', config)
+      const availableCountries = (config?.phone?.available_countries ?? [])
+        .map((c) => c?.toLocaleLowerCase())
+        .filter((x) => !isNil(x)) as Array<CountryIso2>
 
       const initialCountry: CountryIso2 =
         (config?.phone?.default_country?.toLocaleLowerCase() as CountryIso2) ??
