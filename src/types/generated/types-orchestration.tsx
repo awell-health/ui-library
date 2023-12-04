@@ -1285,8 +1285,8 @@ export type Payload = {
 
 export type PhoneConfig = {
   __typename?: 'PhoneConfig';
-  available_countries: Array<Scalars['String']>;
-  default_country: Scalars['String'];
+  available_countries?: Maybe<Array<Scalars['String']>>;
+  default_country?: Maybe<Scalars['String']>;
 };
 
 export type PluginActionSettingsProperty = {
