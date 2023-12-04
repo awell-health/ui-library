@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { Controller } from 'react-hook-form'
 import { FormError, SliderQuestionConfig, UserQuestionType } from '../../types'
 import { SingleChoiceQuestion } from '../singleChoiceQuestion'
@@ -14,6 +15,8 @@ import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
+import { CountryIso2 } from '../../hooks/useValidate'
+import { noop } from 'lodash'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -22,10 +25,9 @@ export const QuestionData = ({
   control,
   getValues,
   labels,
-  questionTypeConfig,
   inputAutoFocus = false,
-  submitAndMoveToNextQuestion = () => {},
-  onAnswerChange = () => {},
+  submitAndMoveToNextQuestion = noop,
+  onAnswerChange = noop,
   shouldAutoProgress = () => false,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
@@ -253,13 +255,15 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Telephone:
-      // eslint-disable-next-line no-case-declarations
-      const {
-        availableCountries,
-        // TODO: setting this to gb as default for now
-        initialCountry = 'gb',
-        placeholder = '+447810123456',
-      } = questionTypeConfig?.TELEPHONE ?? {}
+      const availableCountries =
+        (config?.phone?.available_countries.map((c) =>
+          c.toLocaleLowerCase()
+        ) as Array<CountryIso2>) ?? []
+
+      const initialCountry: CountryIso2 =
+        (config?.phone?.default_country.toLocaleLowerCase() as CountryIso2) ??
+        'gb'
+
       return (
         <Controller
           name={question.id}
@@ -279,7 +283,6 @@ export const QuestionData = ({
               mandatory={question.questionConfig?.mandatory}
               availableCountries={availableCountries}
               initialCountry={initialCountry}
-              placeholder={placeholder}
             />
           )}
         />
@@ -345,7 +348,6 @@ export const Question = ({
   control,
   getValues,
   errors,
-  questionTypeConfig,
   labels = {
     yes_label: 'Yes',
     no_label: 'No',
@@ -374,7 +376,6 @@ export const Question = ({
         getValues={getValues}
         labels={labels}
         inputAutoFocus={inputAutoFocus}
-        questionTypeConfig={questionTypeConfig}
         submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
         onAnswerChange={onAnswerChange}
         shouldAutoProgress={shouldAutoProgress}

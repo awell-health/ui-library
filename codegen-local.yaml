@@ -1,0 +1,24 @@
+schema:
+  - '../awell-next/packages/pathway-orchestration/orchestration-schema.graphql'
+
+# documents: './**/*.graphql'
+overwrite: true
+generates:
+  ./src/types/generated/types-orchestration.tsx:
+    plugins:
+      - add:
+          content: '/* eslint-disable */'
+      - typescript
+      - typescript-operations
+    config:
+      withHOC: false
+      withHooks: true
+      withComponent: false
+      reactApolloVersion: 3
+      apolloClientVersion: 3
+  ./src/types/generated/fragment-types.ts:
+    plugins:
+      - add:
+          content: '/* eslint-disable */'
+    config:
+      apolloClientVersion: 3

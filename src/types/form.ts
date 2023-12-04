@@ -1,11 +1,6 @@
-import {
-  ErrorLabels,
-  QuestionRuleResult,
-  UserQuestionType,
-} from '../hooks/useForm/types'
+import { ErrorLabels, QuestionRuleResult } from '../hooks/useForm/types'
 import { AnswerInput, Form } from '.'
 import { QuestionLabels } from '../molecules/question/types'
-import { CountryIso2 } from 'react-international-phone'
 
 export type { Form } from '../types/generated/types-orchestration'
 
@@ -25,20 +20,10 @@ export interface FormProps {
   errorLabels: ErrorLabels
   onSubmit: (response: Array<AnswerInput>) => void
   storedAnswers?: string
-  questionTypeConfig?: QuestionConfigByType
   onAnswersChange?: (answers: string) => void
   evaluateDisplayConditions: (
     response: Array<AnswerInput>
   ) => Promise<Array<QuestionRuleResult>>
   autoProgress?: boolean
   autosaveAnswers?: boolean
-}
-
-export interface QuestionConfigByType {
-  [UserQuestionType.Telephone]?: {
-    availableCountries?: Array<CountryIso2> | CountryIso2
-    initialCountry?: CountryIso2
-    fixedCountry?: CountryIso2
-    placeholder?: string
-  }
 }

@@ -16,7 +16,7 @@ export const getDefaultCountries = (
     }
     return country[2] === availableCountries
   })
-  return filteredCountries.map((country) => {
+  const filtered = filteredCountries.map((country) => {
     const parsedCountry = parseCountry(country)
     if (parsedCountry.format == null) return country
     // remove all formatting mask characters except dots
@@ -29,4 +29,13 @@ export const getDefaultCountries = (
       format: newFormatMask === '' ? fallbackFormatMask : newFormatMask,
     })
   })
+  // move United States, UK and Belgium to the top of the list
+  const usIndex = filtered.findIndex((country) => country[2] === 'us')
+  const ukIndex = filtered.findIndex((country) => country[2] === 'gb')
+  const beIndex = filtered.findIndex((country) => country[2] === 'be')
+  const us = filtered.splice(usIndex, 1)
+  const uk = filtered.splice(ukIndex, 1)
+  const be = filtered.splice(beIndex, 1)
+  filtered.unshift(...us, ...uk, ...be)
+  return filtered
 }
