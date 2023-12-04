@@ -255,13 +255,12 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Telephone:
-      const availableCountries =
-        (config?.phone?.available_countries.map((c) =>
-          c.toLocaleLowerCase()
-        ) as Array<CountryIso2>) ?? []
+      const availableCountries = (config?.phone?.available_countries ?? []).map(
+        (c) => c.toLocaleLowerCase()
+      ) as Array<CountryIso2>
 
       const initialCountry: CountryIso2 =
-        (config?.phone?.default_country.toLocaleLowerCase() as CountryIso2) ??
+        (config?.phone?.default_country?.toLocaleLowerCase() as CountryIso2) ??
         'gb'
 
       return (
