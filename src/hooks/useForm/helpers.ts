@@ -8,6 +8,7 @@ import {
   FormError,
 } from '../../types'
 import { AnswerValue, ErrorLabels, QuestionRuleResult } from './types'
+import { CountryIso2 } from 'react-international-phone'
 
 export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
@@ -154,10 +155,7 @@ export const getErrorsForQuestion = (
   errorLabels: ErrorLabels,
   isValidE164Number: (
     number: string,
-    availableCountries?:
-      | import('react-international-phone').CountryIso2
-      | import('react-international-phone').CountryIso2[]
-      | undefined
+    availableCountries?: CountryIso2 | Array<CountryIso2> | undefined
   ) => boolean
 ): Array<FormError> => {
   // For description question types, don't validate

@@ -1,8 +1,4 @@
-import React, {
-  ChangeEventHandler,
-  InputHTMLAttributes,
-  MouseEventHandler,
-} from 'react'
+import React, { InputHTMLAttributes, MouseEventHandler } from 'react'
 import classes from './phoneInputField.module.scss'
 import { QuestionLabel } from '../questionLabel'
 import 'react-international-phone/style.css'
@@ -27,7 +23,7 @@ export interface PhoneInputFieldProps
   /**
    * change event handler
    */
-  onChange: ChangeEventHandler<HTMLInputElement>
+  onChange: ({ target: { value } }: { target: { value: string } }) => void
   /**
    * click event handler
    */
@@ -62,7 +58,6 @@ export const PhoneInputField = ({
   onChange,
   id,
   label,
-  type,
   mandatory,
   value,
   placeholder,
@@ -86,7 +81,6 @@ export const PhoneInputField = ({
 
   const handleCountrySelect: (country: ParsedCountry) => void = ({ iso2 }) => {
     setCountry(iso2)
-    onChange({ target: { value: phone } } as any)
   }
 
   return (
@@ -113,6 +107,7 @@ export const PhoneInputField = ({
           className={classes.awell_input_field}
           placeholder={placeholder}
           onChange={handleInputChange}
+          data-1p-ignore
           value={phone}
           data-testid={`input-${id}`}
           dir="ltr"

@@ -16,7 +16,6 @@ export const ConversationalForm = ({
   evaluateDisplayConditions,
   errorLabels,
   questionLabels,
-  questionTypeConfig = {},
   storedAnswers,
   onAnswersChange,
   autoProgress = false,
@@ -102,7 +101,6 @@ export const ConversationalForm = ({
                 key={currentQuestion.id}
                 errors={errors}
                 labels={questionLabels}
-                questionTypeConfig={questionTypeConfig}
                 submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
                 inputAutoFocus={true}
                 shouldAutoProgress={shouldAutoProgress}

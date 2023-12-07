@@ -77,7 +77,7 @@ export const PhoneInputField: Story<PhoneInputFieldProps> = ({
   const { isPossibleE164Number, validatePhoneNumber, isValidE164Number } =
     useValidate()
   const [phoneValue, setPhoneValue] = React.useState<string>(value)
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: any) => {
     onChange(e)
     setPhoneValue(e.target.value)
   }
@@ -128,7 +128,7 @@ export const FixedCountriesPhoneInputField: Story<PhoneInputFieldProps> = ({
   const { isPossibleE164Number, validatePhoneNumber, isValidE164Number } =
     useValidate()
   const [phoneValue, setPhoneValue] = React.useState<string>(value)
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: any) => {
     onChange(e)
     setPhoneValue(e.target.value)
   }

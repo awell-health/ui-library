@@ -1,6 +1,6 @@
 {
   "name": "@awell_health/ui-library",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "private": false,
   "description": "UI components to integrate with Awell Health",
   "repository": {
@@ -37,6 +37,7 @@
     "test:ci": "jest --silent --testLocationInResults --ci --all --coverage --json --outputFile=\"report.json\" --config=jest.config.json",
     "test": "jest --config=jest.config.js",
     "codegen": "graphql-codegen --config codegen.js",
+    "codegen:local": "graphql-codegen --config codegen-local.yaml",
     "chromatic": "chromatic --exit-zero-on-changes"
   },
   "peerDependencies": {
