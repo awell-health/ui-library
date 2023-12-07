@@ -74,16 +74,12 @@ export const PhoneInputField = ({
       countries,
     })
 
-  console.log('country', country)
-
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     handlePhoneValueChange(e)
     onChange(e)
   }
 
   const handleCountrySelect: (country: ParsedCountry) => void = ({ iso2 }) => {
-    console.log('country selected', iso2)
-    console.log('phone', phone)
     setCountry(iso2)
   }
 

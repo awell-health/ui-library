@@ -255,7 +255,6 @@ export const QuestionData = ({
         />
       )
     case UserQuestionType.Telephone:
-      console.log('config', config)
       const availableCountries = (config?.phone?.available_countries ?? [])
         .map((c) => c?.toLocaleLowerCase())
         .filter((x) => !isNil(x)) as Array<CountryIso2>
