@@ -40,7 +40,7 @@ Note: before running the build commmand, you need to update the version in `pack
 ### Import styles in root directory
 
 ```
- import '@awell_health/ui-library/dist/index.css'
+ import '@awell-health/ui-library/dist/index.css'
 ```
 
 ### Use ThemeProvider
@@ -50,7 +50,7 @@ Make sure to wrap the application with the `ThemeProvider`. This will make sure 
 ### Use components
 
 ```
- import { ConversationalForm } from '@awell_health/ui-library'
+ import { ConversationalForm } from '@awell-health/ui-library'
 
  (...)
  return <ConversationalForm (...) />
