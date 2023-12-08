@@ -5,16 +5,16 @@ import { ValidatePhoneReturn, CountryIso2 } from './types'
 export interface UseValidateHook {
   validatePhoneNumber: (
     number: string,
-    availableCountries?: CountryIso2 | Array<CountryIso2>
+    availableCountries?: Array<CountryIso2>
   ) => ValidatePhoneReturn
   isValidE164Number: (
     number: string,
-    availableCountries?: CountryIso2 | Array<CountryIso2>
+    availableCountries?: Array<CountryIso2>
   ) => boolean
   isPossibleE164Number: (number: string) => boolean
   numberMatchesAvailableCountries: (
     number: string,
-    availableCountries: CountryIso2 | Array<CountryIso2>
+    availableCountries: Array<CountryIso2>
   ) => boolean
 }
 
@@ -28,7 +28,7 @@ export const handleUSException = (
     return originalValidation
   }
   const USValidation = validatePhone(number, {
-    countries: getDefaultCountries('us'),
+    countries: getDefaultCountries(['us']),
     charAfterDialCode: '',
     prefix: '+',
   })
@@ -38,7 +38,7 @@ export const handleUSException = (
 export const useValidate = (): UseValidateHook => {
   const validatePhoneNumber = (
     number: string,
-    availableCountries?: CountryIso2 | Array<CountryIso2>
+    availableCountries?: Array<CountryIso2>
   ): ValidatePhoneReturn => {
     const validation = validatePhone(number, {
       countries: getDefaultCountries(availableCountries),
@@ -56,7 +56,7 @@ export const useValidate = (): UseValidateHook => {
 
   const isValidE164Number = (
     number: string,
-    availableCountries?: CountryIso2 | Array<CountryIso2>
+    availableCountries?: Array<CountryIso2>
   ): boolean => {
     const validation = validatePhone(number, {
       countries: getDefaultCountries(availableCountries),
@@ -74,7 +74,7 @@ export const useValidate = (): UseValidateHook => {
 
   const numberMatchesAvailableCountries = (
     number: string,
-    availableCountries: CountryIso2 | Array<CountryIso2>
+    availableCountries: Array<CountryIso2>
   ) => {
     try {
       let validation = validatePhone(number, {

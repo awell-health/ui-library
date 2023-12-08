@@ -155,7 +155,7 @@ export const getErrorsForQuestion = (
   errorLabels: ErrorLabels,
   isValidE164Number: (
     number: string,
-    availableCountries?: CountryIso2 | Array<CountryIso2> | undefined
+    availableCountries?: Array<CountryIso2>
   ) => boolean
 ): Array<FormError> => {
   // For description question types, don't validate

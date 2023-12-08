@@ -20,14 +20,14 @@ describe('useValidate', () => {
     it('should return an object with isValid set to true for a valid phone number in a specific country', () => {
       const { result } = renderHook(() => useValidate())
       const phoneNumber = '+447700900123'
-      const validation = result.current.validatePhoneNumber(phoneNumber, 'gb')
+      const validation = result.current.validatePhoneNumber(phoneNumber, ['gb'])
       expect(validation.isValid).toBe(true)
     })
 
     it('should return an object with isValid set to false for an invalid phone number in a specific country', () => {
       const { result } = renderHook(() => useValidate())
       const phoneNumber = '+44770090012'
-      const validation = result.current.validatePhoneNumber(phoneNumber, 'gb')
+      const validation = result.current.validatePhoneNumber(phoneNumber, ['gb'])
       expect(validation.isValid).toBe(false)
     })
   })
@@ -50,14 +50,14 @@ describe('useValidate', () => {
     it('should return true for a valid phone number in a specific country', () => {
       const { result } = renderHook(() => useValidate())
       const phoneNumber = '+447700900123'
-      const isValid = result.current.isValidE164Number(phoneNumber, 'gb')
+      const isValid = result.current.isValidE164Number(phoneNumber, ['gb'])
       expect(isValid).toBe(true)
     })
 
     it('should return false for an invalid phone number in a specific country', () => {
       const { result } = renderHook(() => useValidate())
       const phoneNumber = '+44770090012'
-      const isValid = result.current.isValidE164Number(phoneNumber, 'gb')
+      const isValid = result.current.isValidE164Number(phoneNumber, ['gb'])
       expect(isValid).toBe(false)
     })
   })
@@ -83,7 +83,7 @@ describe('useValidate', () => {
       const { result } = renderHook(() => useValidate())
       const phoneNumber = '+14155552671'
       const matchesAvailableCountries =
-        result.current.numberMatchesAvailableCountries(phoneNumber, 'us')
+        result.current.numberMatchesAvailableCountries(phoneNumber, ['us'])
       expect(matchesAvailableCountries).toBe(true)
     })
 
@@ -91,7 +91,7 @@ describe('useValidate', () => {
       const { result } = renderHook(() => useValidate())
       const phoneNumber = '+447700900123'
       const matchesAvailableCountries =
-        result.current.numberMatchesAvailableCountries(phoneNumber, 'us')
+        result.current.numberMatchesAvailableCountries(phoneNumber, ['us'])
       expect(matchesAvailableCountries).toBe(false)
     })
 
