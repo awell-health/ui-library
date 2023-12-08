@@ -46,7 +46,7 @@ export interface PhoneInputFieldProps
   /**
    * The list of available countries to choose from
    */
-  availableCountries?: CountryIso2 | Array<CountryIso2>
+  availableCountries?: Array<CountryIso2>
 
   /**
    * Placeholder phone number
