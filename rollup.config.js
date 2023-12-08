@@ -14,7 +14,7 @@ export default {
   output: [
     {
       file: 'dist/index.js',
-      name: '@awell_health/ui-library',
+      name: '@awell-health/ui-library',
       format: 'umd',
       globals: {
         react: 'react',
