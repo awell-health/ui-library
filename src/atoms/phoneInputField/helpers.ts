@@ -8,7 +8,8 @@ import { CountryData } from '../../hooks/useValidate'
 import { isArray, isNil } from 'lodash'
 
 export const getDefaultCountries = (
-  availableCountries: Array<CountryIso2> | undefined
+  availableCountries: Array<CountryIso2> | undefined,
+  initialCountry: CountryIso2 | undefined
 ): Array<CountryData> => {
   // remove all other characters from country formatting to display E164 format
   let countries = defaultCountries.map((country) => {
@@ -28,9 +29,16 @@ export const getDefaultCountries = (
     isArray(availableCountries) &&
     availableCountries.length > 0
   ) {
-    countries = countries.filter((c) =>
-      availableCountries.map((c) => c.toLowerCase()).includes(c[2])
-    )
+    countries = countries.filter((c) => {
+      const availableCountriesLowerCased = availableCountries.map((c) =>
+        c.toLowerCase()
+      )
+      // if initialCountry is available, always make sure it is included
+      if (!isNil(initialCountry) && c[2] === initialCountry) {
+        return true
+      }
+      return availableCountriesLowerCased.includes(c[2])
+    })
   }
   // move United States, UK and Belgium to the top of the list
   const usIndex = countries.findIndex((c) => c[2] === 'us')

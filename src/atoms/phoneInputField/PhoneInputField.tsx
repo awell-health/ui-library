@@ -65,7 +65,7 @@ export const PhoneInputField = ({
   availableCountries,
   ...props
 }: PhoneInputFieldProps): JSX.Element => {
-  const countries = getDefaultCountries(availableCountries)
+  const countries = getDefaultCountries(availableCountries, initialCountry)
   const { phone, handlePhoneValueChange, inputRef, country, setCountry } =
     usePhoneInput({
       initialCountry,
