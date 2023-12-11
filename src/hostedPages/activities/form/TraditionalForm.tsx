@@ -5,6 +5,7 @@ import { Question } from '../../../molecules'
 import { useTraditionalForm } from '../../../hooks/useForm'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
+import { UserQuestionType } from '../../../types'
 
 export const TraditionalForm = ({
   form,
@@ -53,7 +54,12 @@ export const TraditionalForm = ({
                   .map((visibleQuestion) => (
                     <div
                       key={visibleQuestion.id}
-                      className={classes.traditional_form_question}
+                      className={`${classes.traditional_form_question} ${
+                        visibleQuestion.userQuestionType ===
+                        UserQuestionType.Slider
+                          ? classes.traditional_form_question_slider
+                          : ''
+                      }`}
                     >
                       <Question
                         question={visibleQuestion}
