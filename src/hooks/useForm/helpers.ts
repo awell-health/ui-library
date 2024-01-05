@@ -4,7 +4,6 @@ import {
   Question,
   UserQuestionType,
   QuestionWithVisibility,
-  SliderQuestionConfig,
   FormError,
 } from '../../types'
 import { AnswerValue, ErrorLabels, QuestionRuleResult } from './types'
@@ -15,7 +14,7 @@ export const getDefaultValue = (question: Question): AnswerValue => {
     case UserQuestionType.MultipleSelect:
       return []
     case UserQuestionType.Slider:
-      return (question.questionConfig as SliderQuestionConfig)?.slider?.min ?? 0
+      return ''
     default:
       return ''
   }

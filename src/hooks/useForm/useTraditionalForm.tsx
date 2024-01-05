@@ -78,6 +78,9 @@ const useTraditionalForm = ({
   const handleConvertAndSubmitForm = async (
     formResponse: Record<string, AnswerValue>
   ) => {
+    if (isSubmittingForm) {
+      return
+    }
     setIsSubmittingForm(true)
     await onSubmit(convertToAwellInput(formResponse))
     setIsSubmittingForm(false)

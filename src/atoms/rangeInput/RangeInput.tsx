@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
 import classes from './rangeInput.module.scss'
 import { QuestionLabel } from '../questionLabel'
+import { noop } from 'lodash'
 
 export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
@@ -32,6 +33,14 @@ export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
    * Is the question required?
    */
   mandatory?: boolean
+  /**
+   * Function to reflect the touched state
+   */
+  onTouched?: (touched: boolean) => void
+  /**
+   * Touch tooltip label
+   */
+  touchTooltipLabel?: string
 }
 
 export const RangeInput = ({
@@ -40,16 +49,26 @@ export const RangeInput = ({
   id,
   sliderConfig,
   mandatory,
+  touchTooltipLabel,
+  onTouched = noop,
   ...props
 }: RangeInputProps): JSX.Element => {
+  const {
+    display_marks,
+    is_value_tooltip_on,
+    max,
+    max_label,
+    min,
+    min_label,
+    show_min_max_values,
+    step_value,
+  } = sliderConfig
   const style = {
-    '--awell-step': sliderConfig.step_value,
-    '--awell-min': sliderConfig.min,
-    '--awell-max': sliderConfig.max,
-    '--awell-min-max-value': sliderConfig.show_min_max_values
-      ? 'counter(x)'
-      : '',
-    '--awell-thick-color': sliderConfig.display_marks
+    '--awell-step': step_value,
+    '--awell-min': min,
+    '--awell-max': max,
+    '--awell-min-max-value': show_min_max_values ? 'counter(x)' : '',
+    '--awell-thick-color': display_marks
       ? 'var(--awell-neutralLight50)'
       : 'transparent',
     position: 'relative',
@@ -85,32 +104,40 @@ export const RangeInput = ({
     )
   }
 
+  const renderTouchTooltip = (): JSX.Element | null => {
+    if (touched) {
+      return null
+    }
+    return (
+      <div id="awell__slider_touch_tooltip" className={classes.tooltip_touched}>
+        {touchTooltipLabel ?? 'Touch to select a value'}
+      </div>
+    )
+  }
+
   const handleValueChange: ChangeEventHandler<HTMLInputElement> = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setTouched(true)
+    onTouched(true)
     setInternalValue(event.target.value)
     onChange(event)
   }
 
   React.useEffect(() => {
-    const MIDPOINT_PERECENTAGE = 0.5 // 50%
+    const MIDPOINT_PERCENTAGE = 0.5 // 50%
     const THUMB_WIDTH = 16 // px
     const TOP_POSITION_ADJUSTMENT = -28 // px
-    if (
-      touched === true &&
-      sliderConfig.is_value_tooltip_on &&
-      tooltipRef.current
-    ) {
+    if (touched === true && is_value_tooltip_on && tooltipRef.current) {
       const input = tooltipRef.current.closest(
         `.${classes.awell_range_input_wrapper}`
       ) as HTMLElement
       if (input) {
         const inputWidth = input.clientWidth
-        const range = sliderConfig.max - sliderConfig.min
-        const percentage = (parseInt(internalValue) - sliderConfig.min) / range
+        const range = max - min
+        const percentage = (parseInt(internalValue) - min) / range
         const thumbPosition =
-          (isNaN(percentage) ? MIDPOINT_PERECENTAGE : percentage) *
+          (isNaN(percentage) ? MIDPOINT_PERCENTAGE : percentage) *
           (inputWidth - THUMB_WIDTH)
         const tooltipLeft = thumbPosition + THUMB_WIDTH / 2
         const tooltipTop = TOP_POSITION_ADJUSTMENT
@@ -120,13 +147,7 @@ export const RangeInput = ({
         })
       }
     }
-  }, [
-    internalValue,
-    sliderConfig.is_value_tooltip_on,
-    sliderConfig.max,
-    sliderConfig.min,
-    touched,
-  ])
+  }, [internalValue, is_value_tooltip_on, max, min, touched])
 
   return (
     <div>
@@ -138,8 +159,8 @@ export const RangeInput = ({
       />
       <div
         className={`${classes.awell_range_input_wrapper} ${
-          sliderConfig.display_marks ? classes.with_marks : ''
-        } ${sliderConfig.is_value_tooltip_on ? classes.with_tooltip : ''}`}
+          display_marks ? classes.with_marks : ''
+        } ${is_value_tooltip_on ? classes.with_tooltip : ''}`}
         style={style}
       >
         <input
@@ -147,31 +168,37 @@ export const RangeInput = ({
           data-testid={id}
           type="range"
           id="awell__slider_input"
-          min={sliderConfig.min}
-          max={sliderConfig.max}
-          step={sliderConfig.step_value}
-          className={classes.awell_range_input}
+          min={min}
+          max={max}
+          step={step_value}
+          className={`${classes.awell_range_input} ${
+            touched ? classes.showThumb : classes.hideThumb
+          }`}
           onChange={handleValueChange}
-          onFocus={() => setTouched(true)}
-          aria-valuemin={sliderConfig.min}
-          aria-valuemax={sliderConfig.max}
-          aria-valuenow={(props.value || sliderConfig.min) as number}
+          onFocus={() => {
+            setTouched(true)
+            onTouched(true)
+          }}
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuenow={(props.value || min) as number}
           aria-labelledby={`${id}-label`}
         />
+        {renderTouchTooltip()}
         <div
           className={`${classes.awell_range_input_datalist} ${
-            sliderConfig.show_min_max_values ? classes.with_min_max_labels : ''
+            show_min_max_values ? classes.with_min_max_labels : ''
           }`}
           data-testid={`${id}-datalist`}
         >
           <span className={classes.minLabel} aria-label="Minimum value">
-            {sliderConfig.min_label}
+            {min_label}
           </span>
           <span className={classes.maxLabel} aria-label="Maximum value">
-            {sliderConfig.max_label}
+            {max_label}
           </span>
         </div>
-        {sliderConfig.is_value_tooltip_on &&
+        {is_value_tooltip_on &&
           renderValueTooltip(
             internalValue,
             tooltipPosition.left,
