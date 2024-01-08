@@ -30,7 +30,7 @@ export type ErrorLabels = {
   formHasErrors: string
 }
 
-export type AnswerValue = string | number | number[]
+export type AnswerValue = string | number | number[] | undefined
 
 export interface FormSettingsContextProps {
   evaluateDisplayConditions: (

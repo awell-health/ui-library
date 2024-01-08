@@ -82,7 +82,7 @@ export const TraditionalForm = ({
           )}
           <div className={`${classes.button_wrapper}`}>
             {formHasErrors && (
-              <div className={classes.error}>
+              <div>
                 <Text variant="textSmall" color="var(--awell-signalError100)">
                   {errorLabels.formHasErrors}
                 </Text>

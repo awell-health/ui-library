@@ -3,10 +3,11 @@ import { Meta, Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 import { ConversationalForm as ConversationalFormComponent } from '.'
 import { TraditionalForm as TraditionalFormComponent } from './TraditionalForm'
-import { form } from './__testdata__/eq5d5lFixture'
+import { form as eq5_form } from './__testdata__/eq5d5lFixture'
 import { HostedPageLayout } from '../../layouts/HostedPageLayout'
 import { ThemeProvider } from '../../../atoms'
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport/preview'
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { form } from '../../../constants/formFixture'
 
 export default {
   title: 'HostedPages/Activities',
@@ -97,6 +98,9 @@ const MyStory: Story = ({
               no_options: 'No options',
               search_placeholder: 'Search',
             },
+            slider: {
+              tooltip_guide: 'Touch to select a value',
+            },
           }}
           evaluateDisplayConditions={async (response) => {
             action('evaluateDisplayConditions')(response)
@@ -133,6 +137,9 @@ const MyStory: Story = ({
             select: {
               no_options: 'No options',
               search_placeholder: 'Search',
+            },
+            slider: {
+              tooltip_guide: 'Touch to select a value',
             },
           }}
           evaluateDisplayConditions={async (response) => {

@@ -291,8 +291,15 @@ export const QuestionData = ({
         <Controller
           name={question.id}
           control={control}
-          defaultValue={config?.slider?.min}
-          rules={{ required: config?.mandatory }}
+          rules={{
+            required: config?.mandatory,
+            validate: (value) => {
+              if (config?.mandatory && (value === '' || value === undefined)) {
+                return false
+              }
+              return true
+            },
+          }}
           render={({ field: { onChange, value } }) => {
             return (
               <RangeInput
@@ -301,9 +308,10 @@ export const QuestionData = ({
                   onChange(e.target.value)
                   onAnswerChange()
                 }}
+                touchTooltipLabel={labels.slider?.tooltip_guide}
                 id={question.id}
                 sliderConfig={(config as SliderQuestionConfig)?.slider}
-                value={value}
+                value={value === '' ? undefined : value}
                 mandatory={config?.mandatory}
               />
             )
@@ -350,6 +358,9 @@ export const Question = ({
   labels = {
     yes_label: 'Yes',
     no_label: 'No',
+    slider: {
+      tooltip_guide: 'Touch to select a value',
+    },
   },
   inputAutoFocus = false,
   submitAndMoveToNextQuestion,
@@ -381,7 +392,13 @@ export const Question = ({
       />
 
       {currentError && (
-        <div className={classes.error}>
+        <div
+          className={`${classes.error} ${
+            question.userQuestionType === UserQuestionType.Slider
+              ? classes.slider_error
+              : ''
+          }`}
+        >
           <Text variant="textSmall" color="var(--awell-signalError100)">
             {currentError.error}
           </Text>

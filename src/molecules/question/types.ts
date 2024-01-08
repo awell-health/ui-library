@@ -8,6 +8,9 @@ export interface QuestionLabels {
     search_placeholder: string
     no_options: string
   }
+  slider: {
+    tooltip_guide: string
+  }
 }
 
 export interface QuestionDataProps {

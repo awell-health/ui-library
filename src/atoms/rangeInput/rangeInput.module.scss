@@ -13,21 +13,31 @@
     margin-top: var(--awell-spacing-8);
   }
 
+  .tooltip_touched {
+    display: block;
+    position: absolute;
+    text-align: center;
+    background-color: var(--awell-secondary-color);
+    color: var(--awell-secondary-text-color);
+    padding: var(--awell-spacing-1) var(--awell-spacing-2);
+    font-size: var(--awell-font-size-xs);
+    border-radius: var(--awell-spacing-2);
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    @media (min-width: 640px) {
+      top: -32px;
+      font-size: var(--awell-font-size-base);
+    }
+  }
+
   &.with_marks {
     --awell-thick-width: 1px;
-    --awell-ticks: linear-gradient(
-        to right,
-        var(--awell-thick-color) var(--awell-thick-width),
-        transparent 1px
-      )
+    --awell-ticks: linear-gradient(to right, var(--awell-thick-color) var(--awell-thick-width), transparent 1px)
       repeat-x;
     background: silver;
     background: var(--awell-ticks);
-    background-size: calc(
-        100% / ((var(--awell-max) - var(--awell-min)) / var(--awell-step)) -
-          0.1%
-      )
-      var(--ticksHeight);
+    background-size: calc(100% / ((var(--awell-max) - var(--awell-min)) / var(--awell-step)) - 0.1%) var(--ticksHeight);
     background-position: 0 calc(var(--ticksHeight) * 1.7);
     display: flex;
     flex-direction: column;
@@ -76,7 +86,7 @@
     &.with_min_max_labels {
       margin-top: 20px;
     }
-    
+
     .minLabel {
       position: absolute;
       left: 0;
@@ -85,7 +95,7 @@
       max-width: 250px;
       text-align: left;
     }
-    
+
     .maxLabel {
       position: absolute;
       right: 0;
@@ -109,12 +119,14 @@
     margin: 1.3px 0;
     background-color: transparent;
     appearance: none;
+    position: relative;
 
     &:focus {
       outline: none;
     }
 
     &::-webkit-slider-runnable-track {
+      position: relative;
       background: var(--awell-range-slider-background-color);
       border: 0;
       border-radius: 25px;
@@ -153,6 +165,7 @@
     }
 
     &::-ms-track {
+      position: relative;
       background: transparent;
       border-color: transparent;
       border-width: 2.2px 0;
@@ -223,4 +236,28 @@
       font-size: var(--awell-font-size-base);
     }
   }
+}
+
+.awell_range_input.hideThumb::-webkit-slider-thumb {
+  visibility: hidden;
+}
+
+.awell_range_input.hideThumb::-moz-range-thumb {
+  visibility: hidden;
+}
+
+.awell_range_input.hideThumb::-ms-thumb {
+  visibility: hidden;
+}
+
+.awell_range_input.showThumb::-webkit-slider-thumb {
+  visibility: visible;
+}
+
+.awell_range_input.showThumb::-moz-range-thumb {
+  visibility: visible;
+}
+
+.awell_range_input.showThumb::-ms-thumb {
+  visibility: visible;
 }
