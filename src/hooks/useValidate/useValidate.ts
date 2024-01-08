@@ -28,7 +28,7 @@ export const handleUSException = (
     return originalValidation
   }
   const USValidation = validatePhone(number, {
-    countries: getDefaultCountries(['us']),
+    countries: getDefaultCountries(['us'], undefined),
     charAfterDialCode: '',
     prefix: '+',
   })
@@ -41,7 +41,7 @@ export const useValidate = (): UseValidateHook => {
     availableCountries?: Array<CountryIso2>
   ): ValidatePhoneReturn => {
     const validation = validatePhone(number, {
-      countries: getDefaultCountries(availableCountries),
+      countries: getDefaultCountries(availableCountries, undefined),
       charAfterDialCode: '',
       prefix: '+',
     })
@@ -59,7 +59,7 @@ export const useValidate = (): UseValidateHook => {
     availableCountries?: Array<CountryIso2>
   ): boolean => {
     const validation = validatePhone(number, {
-      countries: getDefaultCountries(availableCountries),
+      countries: getDefaultCountries(availableCountries, undefined),
       charAfterDialCode: '',
       prefix: '+',
     })
@@ -78,7 +78,7 @@ export const useValidate = (): UseValidateHook => {
   ) => {
     try {
       let validation = validatePhone(number, {
-        countries: getDefaultCountries(availableCountries),
+        countries: getDefaultCountries(availableCountries, undefined),
         charAfterDialCode: '',
         prefix: '+',
       })
