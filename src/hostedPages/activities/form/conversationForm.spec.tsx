@@ -22,6 +22,7 @@ const props = {
     required: 'Answer for this question is required',
     sliderNotTouched: 'You did not move the slider',
     invalidPhoneNumber: 'Please enter a valid phone number',
+    formHasErrors: 'Please fix the errors in the form',
   },
   evaluateDisplayConditionsTrue: () => {
     return Promise.all([]).then(function () {
@@ -213,12 +214,11 @@ describe('Conversational Form', () => {
     // Try to go to next question
     await clickNextButton()
 
-    // Check if 2nd question is displayed
-    const secondQuestionTitle = await screen.findByText(
-      sliderQuestionForm.questions[1].title
+    const errorMessage = await screen.findByText(
+      'Answer for this question is required'
     )
 
-    expect(secondQuestionTitle).toBeInTheDocument()
+    expect(errorMessage).toBeInTheDocument()
   })
 
   it('Should show error message when user tries to skip required date question', async () => {

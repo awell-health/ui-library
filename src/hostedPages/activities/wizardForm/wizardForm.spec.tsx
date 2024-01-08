@@ -23,6 +23,7 @@ const props = {
     required: 'Answer for this question is required',
     sliderNotTouched: 'You did not move the slider',
     invalidPhoneNumber: 'Please enter a valid phone number',
+    formHasErrors: 'Please fix the errors in the form',
   },
   evaluateDisplayConditionsTrue: () => {
     return Promise.all([]).then(function () {
@@ -211,18 +212,17 @@ describe('Wizard form', () => {
     expect(secondQuestionTitle).toBeInTheDocument()
   })
 
-  it('Should not show an error message when user immediately presses next on slider question (because it has a default value)', async () => {
+  it('Should show an error message when user immediately presses next on slider question when it is required', async () => {
     renderWizardFormComponent(sliderQuestionForm, evaluateDisplayConditions)
 
     // Try to go to next question
     await clickNextButton()
 
-    // Check if 2nd question is displayed
-    const secondQuestionTitle = await screen.findByText(
-      sliderQuestionForm.questions[1].title
+    const errorMessage = await screen.findByText(
+      'Answer for this question is required'
     )
 
-    expect(secondQuestionTitle).toBeInTheDocument()
+    expect(errorMessage).toBeInTheDocument()
   })
 
   it('Should show error message when user tries to skip required date question', async () => {

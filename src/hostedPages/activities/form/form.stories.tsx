@@ -84,7 +84,7 @@ const MyStory: Story = ({
     >
       {isConversationalMode ? (
         <ConversationalFormComponent
-          form={eq5_form as any}
+          form={form}
           buttonLabels={buttonLabels}
           errorLabels={errorLabels}
           onSubmit={onSubmit}
