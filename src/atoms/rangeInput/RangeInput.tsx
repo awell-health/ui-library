@@ -160,7 +160,7 @@ export const RangeInput = ({
       <div
         className={`${classes.awell_range_input_wrapper} ${
           display_marks ? classes.with_marks : ''
-        } ${is_value_tooltip_on ? classes.with_tooltip : ''}`}
+        }`}
         style={style}
       >
         <input
