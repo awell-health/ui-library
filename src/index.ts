@@ -30,6 +30,7 @@ export {
   ProgressIndicator,
   TypingCaret,
   WithTypingCaret,
+  Select,
 } from './atoms'
 
 export {
