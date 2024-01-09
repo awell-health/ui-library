@@ -4,13 +4,10 @@
   position: relative;
   transition: all 0.25s ease-in;
   margin-top: 0;
+  margin-top: var(--awell-spacing-8);
 
   @media (min-width: 640px) {
     --awell-thick-width: 2px;
-  }
-
-  &.with_tooltip {
-    margin-top: var(--awell-spacing-8);
   }
 
   .tooltip_touched {
