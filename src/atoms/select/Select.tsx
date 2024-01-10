@@ -11,6 +11,7 @@ import React, {
 import classes from './select.module.scss'
 import { QuestionLabel } from '../questionLabel'
 import { type Option } from './types'
+import { isNil } from 'lodash'
 
 export interface SelectProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
@@ -45,7 +46,7 @@ export interface SelectProps
   /**
    * Value of the select (if it is controlled)
    */
-  value: Array<Option> | number | undefined
+  value: Array<Option> | number | string | undefined
   /**
    * Labels for the select
    */
@@ -68,6 +69,11 @@ export interface SelectProps
    * Enable filtering of options in the dropdown (e.g. autocomplete behaviour)
    */
   filtering?: boolean
+
+  /**
+   * Callback function to handle search
+   */
+  onSearch?: (searchValue: string) => void
 }
 
 const truncateLabel = (label: string, maxLength: number | null = 15) => {
@@ -83,6 +89,7 @@ const truncateLabel = (label: string, maxLength: number | null = 15) => {
 
 export const Select = ({
   onChange,
+  onSearch,
   id,
   labels,
   type,
@@ -110,8 +117,7 @@ export const Select = ({
     }
     if (type === 'single') {
       return [
-        options.find((option) => (value as number) === option.value) ??
-          undefined,
+        options.find((option) => value === option.value) ?? undefined,
       ].filter((option) => option !== undefined) as Array<Option>
     }
     return []
@@ -122,6 +128,11 @@ export const Select = ({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value.toLowerCase()
+    if (!isNil(onSearch)) {
+      setSearchValue(inputText)
+      onSearch(inputText)
+      return
+    }
     if (inputText === '') {
       setSearchValue('')
       setFilteredOptions(options)
@@ -157,6 +168,12 @@ export const Select = ({
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isOpen, handleClickOutside])
+
+  useEffect(() => {
+    if (!isNil(onSearch)) {
+      setFilteredOptions(options)
+    }
+  }, [options])
 
   const toggleDropdown = useCallback(() => {
     setIsOpen(!isOpen)
@@ -324,7 +341,7 @@ export const Select = ({
           )}
           {filteredOptions.map((option) => (
             <div
-              key={option.value}
+              key={option.id ?? option.value}
               className={classes.option}
               id={`option-${option.value}`}
               onClick={(event) => handleSelect(event, option)}
