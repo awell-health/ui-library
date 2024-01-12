@@ -11,7 +11,8 @@ import React, {
 import classes from './select.module.scss'
 import { QuestionLabel } from '../questionLabel'
 import { type Option } from './types'
-import { isNil } from 'lodash'
+import { isNil, noop } from 'lodash'
+import { FixedSizeList as List } from 'react-window'
 
 export interface SelectProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
@@ -52,9 +53,10 @@ export interface SelectProps
    */
   labels: {
     questionLabel?: string
-    searchPlaceholder?: string
+    placeholder?: string
     noOptions?: string
     customError?: string
+    loading?: string
   }
   /**
    * Show the number of selected options in the select as a badge (only for 'multiple' type select)
@@ -74,6 +76,11 @@ export interface SelectProps
    * Callback function to handle search
    */
   onSearch?: (searchValue: string) => void
+
+  /**
+   * Are options for the select loading?
+   */
+  loading?: boolean
 }
 
 const truncateLabel = (label: string, maxLength: number | null = 15) => {
@@ -100,11 +107,12 @@ export const Select = ({
   displayMaxLength = 15,
   value,
   filtering = false,
+  loading = false,
   ...props
 }: SelectProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
   const [filteredOptions, setFilteredOptions] = useState<Array<Option>>(options)
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState<string | undefined>()
 
   // the incoming value may be an array of numbers or a number, corresponding to an option value,
   // depending on whether the select is single or multiple type
@@ -125,14 +133,18 @@ export const Select = ({
 
   const [selected, setSelected] = useState<Array<Option>>(getInitialValue())
   const selectWrapperRef = useRef<HTMLDivElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value.toLowerCase()
     if (!isNil(onSearch)) {
       setSearchValue(inputText)
       onSearch(inputText)
+      setIsOpen(true)
+      inputRef.current?.focus()
       return
     }
+
     if (inputText === '') {
       setSearchValue('')
       setFilteredOptions(options)
@@ -170,7 +182,8 @@ export const Select = ({
   }, [isOpen, handleClickOutside])
 
   useEffect(() => {
-    if (!isNil(onSearch)) {
+    if (!isNil(onSearch) && options.length > 0) {
+      setIsOpen(true)
       setFilteredOptions(options)
     }
   }, [options])
@@ -207,9 +220,45 @@ export const Select = ({
     [selected, type, onChange]
   )
 
+  const rowRenderer = ({
+    index,
+    style,
+  }: {
+    index: number
+    style: React.CSSProperties
+  }) => {
+    const option = filteredOptions[index]
+    return (
+      <div
+        key={option.id ?? option.value}
+        className={classes.option}
+        id={`option-${option.value}`}
+        style={style}
+        onClick={(event) => handleSelect(event, option)}
+        onKeyUp={(e) => handleKeyUpOnOption(e, option)}
+        onKeyDown={(e) => handleKeyDownOnOption(e, option)}
+        role="button"
+        tabIndex={0}
+      >
+        {option.label}
+        {type === 'multiple' && (
+          <div className={classes.checkbox}>
+            <input
+              type="checkbox"
+              id={`checkbox-${option.value}`}
+              checked={selected?.some((item) => item.value === option.value)}
+              readOnly
+              tabIndex={-1}
+            />
+          </div>
+        )}
+      </div>
+    )
+  }
+
   const getDisplayValue = (): string => {
-    if (isOpen) {
-      return searchValue
+    if (filtering && selected.length === 0) {
+      return searchValue ?? ''
     }
 
     if (type === 'single') {
@@ -292,14 +341,16 @@ export const Select = ({
     [toggleDropdown]
   )
 
-  const handleResetSearch = useCallback(() => {
-    setSearchValue('')
-    setFilteredOptions(options)
-  }, [options])
+  const getPlaceholder = (loading: boolean): string => {
+    if (loading) {
+      return labels?.loading ?? 'Loading...'
+    }
+    return labels?.placeholder ?? 'Type to search or click to see options...'
+  }
 
   return (
     <div className={classes.select_wrapper} ref={selectWrapperRef}>
-      {labels?.questionLabel !== undefined && (
+      {!isNil(labels?.questionLabel) && (
         <QuestionLabel
           htmlFor={id}
           label={labels.questionLabel}
@@ -309,16 +360,17 @@ export const Select = ({
       <div className={classes.select_input_wrapper} onClick={toggleDropdown}>
         <input
           {...props}
+          ref={inputRef}
           type="text"
           id={id}
           value={getDisplayValue()}
-          placeholder={filtering ? labels?.searchPlaceholder ?? '' : ''}
+          placeholder={getPlaceholder(loading)}
+          disabled={loading && filteredOptions.length === 0}
           className={`${classes.select_input} ${
             filtering ? '' : classes.pointer
           }`}
           data-testid={`input-${id}`}
-          onChange={filtering ? handleInputChange : () => null}
-          onClick={filtering ? handleResetSearch : () => null}
+          onChange={filtering ? handleInputChange : noop}
           readOnly={!filtering}
           onKeyUp={handleKeyUpOnInput}
           dir="ltr"
@@ -333,39 +385,24 @@ export const Select = ({
           className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${
             options.length > optionsShown ? classes.dropdown_scroll : ''
           }`}
-          style={{ maxHeight: `${optionsShown * 50}px` }}
           role="listbox"
         >
-          {filteredOptions.length === 0 && (
-            <div className={classes.no_options}>No options found</div>
-          )}
-          {filteredOptions.map((option) => (
-            <div
-              key={option.id ?? option.value}
-              className={classes.option}
-              id={`option-${option.value}`}
-              onClick={(event) => handleSelect(event, option)}
-              onKeyUp={(e) => handleKeyUpOnOption(e, option)}
-              onKeyDown={(e) => handleKeyDownOnOption(e, option)}
-              role="button"
-              tabIndex={0}
-            >
-              {option.label}
-              {type === 'multiple' && (
-                <div className={classes.checkbox}>
-                  <input
-                    type="checkbox"
-                    id={`checkbox-${option.value}`}
-                    checked={selected?.some(
-                      (item) => item.value === option.value
-                    )}
-                    readOnly
-                    tabIndex={-1}
-                  />
-                </div>
-              )}
+          {filteredOptions.length === 0 ? (
+            <div className={classes.no_options}>
+              {isNil(searchValue) || searchValue.length === 0
+                ? labels.placeholder
+                : labels.noOptions}
             </div>
-          ))}
+          ) : (
+            <List
+              height={Math.min(filteredOptions.length, 5) * 36}
+              itemCount={filteredOptions.length}
+              itemSize={36}
+              width="100%"
+            >
+              {rowRenderer}
+            </List>
+          )}
         </div>
       </div>
       {labels?.customError && (
