@@ -1,6 +1,6 @@
 {
   "name": "@awell-health/ui-library",
-  "version": "0.1.40",
+  "version": "0.1.41",
   "private": false,
   "description": "UI components to integrate with Awell Health",
   "repository": {
