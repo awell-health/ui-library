@@ -7,6 +7,7 @@ export interface QuestionLabels {
   select?: {
     search_placeholder: string
     no_options: string
+    loading?: string
   }
   slider: {
     tooltip_guide: string

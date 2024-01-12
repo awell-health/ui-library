@@ -24,7 +24,9 @@
   &:focus {
     outline: 2px transparent;
     outline-offset: 2px;
-    box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color),
+    box-shadow:
+      0 0 0 0px #fff,
+      0 0 0 calc(1px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color),
       0 0 #0000;
     border-color: var(--awell-focus-ring-color);
   }
@@ -56,13 +58,9 @@
   z-index: 1000;
   background-color: #fff;
   border-radius: 4px;
-  padding: var(--spacing-2\.5) 0;
-  overflow-y: auto;
 }
 
 .dropdown_scroll {
-  overflow-y: scroll;
-
   // Custom scrollbar styles
   &::-webkit-scrollbar {
     width: 6px;
