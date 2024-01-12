@@ -141,7 +141,6 @@ export const Select = ({
       setSearchValue(inputText)
       onSearch(inputText)
       setIsOpen(true)
-      console.log(inputRef.current)
       inputRef.current?.focus()
       return
     }
