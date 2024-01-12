@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, act } from '@testing-library/react'
 import { Select, SelectProps } from './Select'
 import { type Option } from './types'
 import '@testing-library/jest-dom/extend-expect'
@@ -22,7 +22,7 @@ describe('Select', () => {
       options,
       labels: {
         questionLabel: 'Select',
-        searchPlaceholder: 'Search',
+        placeholder: 'Search',
         noOptions: 'No options',
         customError: 'Custom error',
       },
@@ -111,16 +111,24 @@ describe('Select', () => {
         id: `${i + 1}`,
       }))
       const { getByLabelText, getByTestId, getByText } = render(
-        <Select {...defaultProps} options={options} />
+        <Select {...defaultProps} id="testing" options={options} />
       )
       const selectInput = getByLabelText('Select')
-      const input = getByTestId('input-select-test')
+      const input = getByTestId('input-testing')
 
       fireEvent.click(selectInput)
-      fireEvent.change(input, { target: { value: 'Option 1000' } })
+      fireEvent.change(input, { target: { value: '2' } })
 
-      const option = getByText('Option 1000')
-      expect(option).toBeInTheDocument()
+      // NB: the component uses react-window so take the render delay into account when testing
+      setTimeout(() => {
+        expect(getByText('Option 2')).toBeInTheDocument()
+      }, 200)
+
+      fireEvent.change(input, { target: { value: '1000' } })
+
+      setTimeout(() => {
+        expect(getByText('Option 1000')).toBeInTheDocument()
+      }, 200)
     })
   })
 
@@ -133,9 +141,10 @@ describe('Select', () => {
       options,
       labels: {
         questionLabel: 'Select',
-        searchPlaceholder: 'Search',
+        placeholder: 'Search',
         noOptions: 'No options',
         customError: 'Custom error',
+        loading: 'Loading...',
       },
     }
 

@@ -91,7 +91,7 @@ export const QuestionData = ({
                   value={value}
                   labels={{
                     questionLabel: question.title,
-                    searchPlaceholder: labels.select?.search_placeholder,
+                    placeholder: labels.select?.search_placeholder,
                     noOptions: labels.select?.no_options,
                   }}
                   onChange={(data) => {
@@ -141,7 +141,7 @@ export const QuestionData = ({
                   value={value}
                   labels={{
                     questionLabel: question.title,
-                    searchPlaceholder: labels.select?.search_placeholder,
+                    placeholder: labels.select?.search_placeholder,
                     noOptions: labels.select?.no_options,
                   }}
                   onChange={(data) => {
