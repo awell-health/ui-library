@@ -47,10 +47,14 @@ export const QuestionData = ({
                 options={[
                   {
                     id: `${question.id}-yes`,
-                    value: 1,
+                    value: '1',
                     label: labels.yes_label,
                   },
-                  { id: `${question.id}-no`, value: 0, label: labels.no_label },
+                  {
+                    id: `${question.id}-no`,
+                    value: '0',
+                    label: labels.no_label,
+                  },
                 ]}
                 onChange={(data) => {
                   onChange(data)
@@ -393,11 +397,10 @@ export const Question = ({
 
       {currentError && (
         <div
-          className={`${classes.error} ${
-            question.userQuestionType === UserQuestionType.Slider
+          className={`${classes.error} ${question.userQuestionType === UserQuestionType.Slider
               ? classes.slider_error
               : ''
-          }`}
+            }`}
         >
           <Text variant="textSmall" color="var(--awell-signalError100)">
             {currentError.error}

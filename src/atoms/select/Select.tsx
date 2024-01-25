@@ -27,7 +27,7 @@ export interface SelectProps
   /**
    * change event handler
    */
-  onChange: (value: number | Array<Option>) => void
+  onChange: (value: number | string | Array<Option>) => void
   /**
    * click event handler
    */
@@ -206,11 +206,9 @@ export const Select = ({
         if (isSelected) {
           updatedSelected = selected
             .filter((item) => item.value !== option.value)
-            .sort((a, b) => a.value - b.value)
+            .sort()
         } else {
-          updatedSelected = [...selected, option].sort(
-            (a, b) => a.value - b.value
-          )
+          updatedSelected = [...selected, option].sort()
         }
 
         setSelected(updatedSelected)
@@ -268,8 +266,8 @@ export const Select = ({
     if (type === 'multiple') {
       return selected.length > 0
         ? selected
-            .map((option) => truncateLabel(option.label, displayMaxLength))
-            .join(', ')
+          .map((option) => truncateLabel(option.label, displayMaxLength))
+          .join(', ')
         : ''
     }
 
@@ -366,9 +364,8 @@ export const Select = ({
           value={getDisplayValue()}
           placeholder={getPlaceholder(loading)}
           disabled={loading && filteredOptions.length === 0}
-          className={`${classes.select_input} ${
-            filtering ? '' : classes.pointer
-          }`}
+          className={`${classes.select_input} ${filtering ? '' : classes.pointer
+            }`}
           data-testid={`input-${id}`}
           onChange={filtering ? handleInputChange : noop}
           readOnly={!filtering}
@@ -382,9 +379,8 @@ export const Select = ({
           className={`${classes.chevron} ${isOpen ? `${classes.open}` : ''}`}
         />
         <div
-          className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${
-            options.length > optionsShown ? classes.dropdown_scroll : ''
-          }`}
+          className={`${isOpen ? classes.dropdown_open : classes.dropdown} ${options.length > optionsShown ? classes.dropdown_scroll : ''
+            }`}
           role="listbox"
         >
           {filteredOptions.length === 0 ? (
