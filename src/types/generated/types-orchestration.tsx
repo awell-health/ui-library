@@ -388,8 +388,7 @@ export enum ConditionOperandType {
   DataSource = 'DATA_SOURCE',
   Number = 'NUMBER',
   NumbersArray = 'NUMBERS_ARRAY',
-  String = 'STRING',
-  StringsArray = 'STRINGS_ARRAY'
+  String = 'STRING'
 }
 
 export enum ConditionOperator {
@@ -490,7 +489,6 @@ export enum DataPointValueType {
   Number = 'NUMBER',
   NumbersArray = 'NUMBERS_ARRAY',
   String = 'STRING',
-  StringsArray = 'STRINGS_ARRAY',
   Telephone = 'TELEPHONE'
 }
 
@@ -1088,7 +1086,7 @@ export type Option = {
   __typename?: 'Option';
   id: Scalars['ID'];
   label: Scalars['String'];
-  value: Scalars['String'];
+  value: Scalars['Float'];
 };
 
 export type OrchestrationFact = {
