@@ -11,7 +11,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Safe date scalar that can serialize string or date */
   SafeDate: any;
 };
 
@@ -81,6 +80,7 @@ export enum ActivityAction {
   Delegated = 'DELEGATED',
   Deliver = 'DELIVER',
   Discarded = 'DISCARDED',
+  Expired = 'EXPIRED',
   Failed = 'FAILED',
   FailedToSend = 'FAILED_TO_SEND',
   Generated = 'GENERATED',
@@ -141,6 +141,7 @@ export enum ActivityObjectType {
 }
 
 export enum ActivityResolution {
+  Expired = 'EXPIRED',
   Failure = 'FAILURE',
   Success = 'SUCCESS'
 }
@@ -149,6 +150,7 @@ export enum ActivityStatus {
   Active = 'ACTIVE',
   Canceled = 'CANCELED',
   Done = 'DONE',
+  Expired = 'EXPIRED',
   Failed = 'FAILED'
 }
 
@@ -386,7 +388,8 @@ export enum ConditionOperandType {
   DataSource = 'DATA_SOURCE',
   Number = 'NUMBER',
   NumbersArray = 'NUMBERS_ARRAY',
-  String = 'STRING'
+  String = 'STRING',
+  StringsArray = 'STRINGS_ARRAY'
 }
 
 export enum ConditionOperator {
@@ -487,6 +490,7 @@ export enum DataPointValueType {
   Number = 'NUMBER',
   NumbersArray = 'NUMBERS_ARRAY',
   String = 'STRING',
+  StringsArray = 'STRINGS_ARRAY',
   Telephone = 'TELEPHONE'
 }
 
@@ -682,10 +686,16 @@ export type Form = {
   id: Scalars['ID'];
   key: Scalars['String'];
   metadata?: Maybe<Scalars['String']>;
+  previous_answers?: Maybe<Array<PreviousAnswers>>;
   questions: Array<Question>;
   release_id: Scalars['String'];
   title: Scalars['String'];
   trademark?: Maybe<Scalars['String']>;
+};
+
+
+export type FormPrevious_AnswersArgs = {
+  pathway_id: Scalars['String'];
 };
 
 export enum FormDisplayMode {
@@ -744,6 +754,22 @@ export type GeneratedClinicalNoteNarrative = {
   id: Scalars['ID'];
   key: Scalars['String'];
   title: Scalars['String'];
+};
+
+export type HostedPagesLink = {
+  __typename?: 'HostedPagesLink';
+  id: Scalars['ID'];
+  pathway_id: Scalars['String'];
+  stakeholder_id?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type HostedPagesLinkPayload = Payload & {
+  __typename?: 'HostedPagesLinkPayload';
+  code: Scalars['String'];
+  /** The hosted pages link for the stakeholder. If there is no activity for the stakeholder in the care flow, this link will be null. */
+  hosted_pages_link?: Maybe<HostedPagesLink>;
+  success: Scalars['Boolean'];
 };
 
 export type HostedSession = {
@@ -1062,7 +1088,7 @@ export type Option = {
   __typename?: 'Option';
   id: Scalars['ID'];
   label: Scalars['String'];
-  value: Scalars['Float'];
+  value: Scalars['String'];
 };
 
 export type OrchestrationFact = {
@@ -1296,6 +1322,13 @@ export type PluginActionSettingsProperty = {
   value: Scalars['String'];
 };
 
+export type PreviousAnswers = {
+  __typename?: 'PreviousAnswers';
+  activity_id: Scalars['ID'];
+  answers: Array<Answer>;
+  date: Scalars['String'];
+};
+
 export type PublishedPathwayDefinition = {
   __typename?: 'PublishedPathwayDefinition';
   active_activities?: Maybe<Scalars['Float']>;
@@ -1357,6 +1390,7 @@ export type Query = {
   forms: FormsPayload;
   getOrchestrationFactsFromPrompt: OrchestrationFactsPromptPayload;
   getStatusForPublishedPathwayDefinitions: PublishedPathwayDefinitionsPayload;
+  hostedPagesLink: HostedPagesLinkPayload;
   hostedSession: HostedSessionPayload;
   hostedSessionActivities: HostedSessionActivitiesPayload;
   message: MessagePayload;
@@ -1481,6 +1515,12 @@ export type QueryFormsArgs = {
 export type QueryGetOrchestrationFactsFromPromptArgs = {
   pathway_id: Scalars['String'];
   prompt: Scalars['String'];
+};
+
+
+export type QueryHostedPagesLinkArgs = {
+  pathway_id: Scalars['String'];
+  stakeholder_id: Scalars['String'];
 };
 
 
@@ -1969,6 +2009,7 @@ export type Subscription = {
   __typename?: 'Subscription';
   activityCompleted: Activity;
   activityCreated: Activity;
+  activityExpired: Activity;
   activityUpdated: Activity;
   apiCallCreated: ApiCall;
   apiCallUpdated: ApiCall;
@@ -1978,6 +2019,7 @@ export type Subscription = {
   pathwayUpdated: Pathway;
   sessionActivityCompleted: Activity;
   sessionActivityCreated: Activity;
+  sessionActivityExpired: Activity;
   sessionActivityUpdated: Activity;
   sessionCompleted: HostedSession;
   sessionExpired: HostedSession;
@@ -1993,6 +2035,12 @@ export type SubscriptionActivityCompletedArgs = {
 
 
 export type SubscriptionActivityCreatedArgs = {
+  only_patient_activities?: InputMaybe<Scalars['Boolean']>;
+  pathway_id?: InputMaybe<Scalars['String']>;
+};
+
+
+export type SubscriptionActivityExpiredArgs = {
   only_patient_activities?: InputMaybe<Scalars['Boolean']>;
   pathway_id?: InputMaybe<Scalars['String']>;
 };
@@ -2043,6 +2091,11 @@ export type SubscriptionSessionActivityCompletedArgs = {
 
 
 export type SubscriptionSessionActivityCreatedArgs = {
+  only_stakeholder_activities?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type SubscriptionSessionActivityExpiredArgs = {
   only_stakeholder_activities?: InputMaybe<Scalars['Boolean']>;
 };
 

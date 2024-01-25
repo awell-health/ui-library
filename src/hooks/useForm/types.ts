@@ -14,6 +14,7 @@ export enum DataPointValueType {
   Date = 'DATE',
   Number = 'NUMBER',
   NumbersArray = 'NUMBERS_ARRAY',
+  StringsArray = 'STRINGS_ARRAY',
   String = 'STRING',
 }
 
