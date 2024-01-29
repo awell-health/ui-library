@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import classes from './singleChoiceQuestion.module.scss'
 import { RadioButton } from '../../atoms'
-import { Option } from '../../types'
 import { QuestionLabel } from '../../atoms/questionLabel'
+
+interface OptionStringOrNumberType {
+  id: string
+  value: string | number
+  label: string
+}
 
 export interface SingleChoiceQuestionProps {
   questionId: string
   label: string
-  options: Array<Option>
-  value: Option | null
-  onChange: (newValue: Option | null) => void
+  options: Array<OptionStringOrNumberType>
+  value: OptionStringOrNumberType | null
+  onChange: (newValue: OptionStringOrNumberType | null) => void
   /**
    * Is the question required?
    */
@@ -30,7 +35,8 @@ export const SingleChoiceQuestion = ({
   mandatory,
   showFlickerOnSelected = false,
 }: SingleChoiceQuestionProps): JSX.Element => {
-  const [checkedOption, setCheckedOption] = useState<Option | null>(value)
+  const [checkedOption, setCheckedOption] =
+    useState<OptionStringOrNumberType | null>(value)
 
   // controls whether should we show a flicker animation or not
   const [flickerAnimation, setFlickerAnimation] = useState<boolean>(false)
@@ -47,7 +53,7 @@ export const SingleChoiceQuestion = ({
     }
   }, [checkedOption])
 
-  const handleSelectOption = (option: Option) => {
+  const handleSelectOption = (option: OptionStringOrNumberType) => {
     setCheckedOption(option)
   }
 
@@ -55,7 +61,7 @@ export const SingleChoiceQuestion = ({
     <div>
       <QuestionLabel label={label} mandatory={mandatory} />
       <fieldset className={classes.awell_single_choice_question}>
-        {(options || []).map((option: Option) => (
+        {(options || []).map((option: OptionStringOrNumberType) => (
           <RadioButton
             onChange={() => handleSelectOption(option)}
             label={option.label}
