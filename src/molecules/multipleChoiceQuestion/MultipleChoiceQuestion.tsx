@@ -38,7 +38,9 @@ export const MultipleChoiceQuestion = ({
     if (event.target.checked) {
       newCheckedOptions = [...checkedOptions, option]
     } else {
-      newCheckedOptions = checkedOptions.filter((opt) => option.id !== opt.id)
+      newCheckedOptions = checkedOptions.filter(
+        (opt: Option) => option.id !== opt.id
+      )
     }
     setCheckedOptions(newCheckedOptions)
   }

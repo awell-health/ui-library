@@ -27,7 +27,7 @@ export interface SelectProps
   /**
    * change event handler
    */
-  onChange: (value: number | Array<Option>) => void
+  onChange: (value: number | Array<Option> | string) => void
   /**
    * click event handler
    */
@@ -206,11 +206,9 @@ export const Select = ({
         if (isSelected) {
           updatedSelected = selected
             .filter((item) => item.value !== option.value)
-            .sort((a, b) => a.value - b.value)
+            .sort()
         } else {
-          updatedSelected = [...selected, option].sort(
-            (a, b) => a.value - b.value
-          )
+          updatedSelected = [...selected, option].sort()
         }
 
         setSelected(updatedSelected)

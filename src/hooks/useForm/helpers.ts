@@ -46,6 +46,10 @@ const getValue = (answer: Array<Option> | string | number | Option) => {
     return answer.value ? '1' : '0'
   }
 
+  if (typeof answer.value === 'string') {
+    return `${answer.value}`
+  }
+
   return JSON.stringify(answer?.value)
 }
 export const convertToAwellInput = (formResponse: any) => {
