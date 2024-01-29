@@ -1,13 +1,12 @@
-import React from 'react'
-import { Meta, Story } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
-import { ConversationalForm as ConversationalFormComponent } from '.'
-import { TraditionalForm as TraditionalFormComponent } from './TraditionalForm'
-import { form as eq5_form } from './__testdata__/eq5d5lFixture'
-import { HostedPageLayout } from '../../layouts/HostedPageLayout'
-import { ThemeProvider } from '../../../atoms'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { Meta, Story } from '@storybook/react/types-6-0'
+import React from 'react'
+import { ConversationalForm as ConversationalFormComponent } from '.'
+import { ThemeProvider } from '../../../atoms'
 import { form } from '../../../constants/formFixture'
+import { HostedPageLayout } from '../../layouts/HostedPageLayout'
+import { TraditionalForm as TraditionalFormComponent } from './TraditionalForm'
 
 export default {
   title: 'HostedPages/Activities',
