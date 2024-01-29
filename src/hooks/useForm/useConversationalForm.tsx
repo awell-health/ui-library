@@ -62,7 +62,7 @@ const useConversationalForm = ({
     setIsEvaluatingQuestionVisibility(false)
 
     return updatedQuestions
-  }, [questions])
+  }, [JSON.stringify(questions)])
 
   useEffect(() => {
     // If the form is not dirty or we don't autosave, we don't need to update the stored answers
