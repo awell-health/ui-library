@@ -1,15 +1,20 @@
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import classes from './multipleChoiceQuestion.module.scss'
 import { CheckboxButton } from '../../atoms/checkboxButton'
-import { Option } from '../../types'
 import { QuestionLabel } from '../../atoms/questionLabel'
+
+interface OptionStringOrNumberType {
+  id: string
+  value: string | number
+  label: string
+}
 
 export interface MultipleChoiceQuestionProps {
   questionId: string
   label: string
-  options: Array<Option>
-  onChange: (newValue: Array<Option>) => void
-  values: Array<Option>
+  options: Array<OptionStringOrNumberType>
+  onChange: (newValue: Array<OptionStringOrNumberType>) => void
+  values: Array<OptionStringOrNumberType>
   /**
    * Is the question required?
    */
@@ -24,7 +29,8 @@ export const MultipleChoiceQuestion = ({
   values = [],
   mandatory,
 }: MultipleChoiceQuestionProps): JSX.Element => {
-  const [checkedOptions, setCheckedOptions] = useState<Array<Option>>(values)
+  const [checkedOptions, setCheckedOptions] =
+    useState<Array<OptionStringOrNumberType>>(values)
 
   useEffect(() => {
     onChange(checkedOptions)
@@ -32,14 +38,14 @@ export const MultipleChoiceQuestion = ({
 
   const handleSelectOption = (
     event: ChangeEvent<HTMLInputElement>,
-    option: Option
+    option: OptionStringOrNumberType
   ) => {
     let newCheckedOptions = []
     if (event.target.checked) {
       newCheckedOptions = [...checkedOptions, option]
     } else {
       newCheckedOptions = checkedOptions.filter(
-        (opt: Option) => option.id !== opt.id
+        (opt: OptionStringOrNumberType) => option.id !== opt.id
       )
     }
     setCheckedOptions(newCheckedOptions)
@@ -49,7 +55,7 @@ export const MultipleChoiceQuestion = ({
     <div>
       <QuestionLabel label={label} mandatory={mandatory} />
       <fieldset className={classes.awell_multiple_choice_question}>
-        {options.map((option: Option) => (
+        {options.map((option: OptionStringOrNumberType) => (
           <CheckboxButton
             key={option.id}
             onChange={(event) => handleSelectOption(event, option)}
