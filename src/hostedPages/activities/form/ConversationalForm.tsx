@@ -77,6 +77,10 @@ export const ConversationalForm = ({
     return false
   }
 
+  // hide progress indicator when all questions are evaluated
+  const hideProgressIndicator =
+    isEvaluatingQuestionVisibility && percentageCompleted === 100
+
   return (
     <>
       <main
@@ -84,6 +88,11 @@ export const ConversationalForm = ({
         className={layoutClasses.main_content}
       >
         <div className={`${classes.awell_wizard_form} ${classes.container}`}>
+          {!hideProgressIndicator && (
+            <div className={classes.form_progress}>
+              <ProgressIndicator percentageCompleted={percentageCompleted} />
+            </div>
+          )}
           {isEvaluatingQuestionVisibility ||
           currentQuestion?.id === undefined ? (
             <div className={classes.loadingContainer}>
@@ -91,9 +100,6 @@ export const ConversationalForm = ({
             </div>
           ) : (
             <>
-              <div className={classes.form_progress}>
-                <ProgressIndicator percentageCompleted={percentageCompleted} />
-              </div>
               <div className={classes.wizard_form}>
                 <QuestionComponent
                   question={currentQuestion}
