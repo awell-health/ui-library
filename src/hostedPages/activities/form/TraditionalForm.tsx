@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CircularSpinner, Text } from '../../../atoms'
+import { Button, HorizontalSpinner, Text } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useTraditionalForm } from '../../../hooks/useForm'
@@ -44,7 +44,7 @@ export const TraditionalForm = ({
         <div className={`${classes.container}`}>
           {!questionWithVisiblity ? (
             <div className={classes.loadingContainer}>
-              <CircularSpinner size="sm" />
+              <HorizontalSpinner />
             </div>
           ) : (
             <div>
