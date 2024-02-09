@@ -102,6 +102,8 @@ const MyStory: Story = ({
             },
           }}
           evaluateDisplayConditions={async (response) => {
+            await new Promise((resolve) => setTimeout(resolve, 1500))
+
             action('evaluateDisplayConditions')(response)
             return Promise.all([]).then(function () {
               const numberQ = response.find(

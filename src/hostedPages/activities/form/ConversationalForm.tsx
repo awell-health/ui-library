@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, ProgressIndicator, CircularSpinner } from '../../../atoms'
+import { Button, ProgressIndicator, HorizontalSpinner } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question as QuestionComponent } from '../../../molecules'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
@@ -84,35 +84,37 @@ export const ConversationalForm = ({
         className={layoutClasses.main_content}
       >
         <div className={`${classes.awell_wizard_form} ${classes.container}`}>
-          <div className={classes.form_progress}>
-            <ProgressIndicator percentageCompleted={percentageCompleted} />
-          </div>
           {isEvaluatingQuestionVisibility ||
           currentQuestion?.id === undefined ? (
             <div className={classes.loadingContainer}>
-              <CircularSpinner size="sm" />
+              <HorizontalSpinner />
             </div>
           ) : (
-            <div className={classes.wizard_form}>
-              <QuestionComponent
-                question={currentQuestion}
-                control={control}
-                getValues={getValues}
-                key={currentQuestion.id}
-                errors={errors}
-                labels={questionLabels}
-                submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
-                inputAutoFocus={true}
-                shouldAutoProgress={shouldAutoProgress}
-              />
-              {form?.trademark && (
-                <div
-                  className={`${classes.trademark} ${classes.conversational}`}
-                >
-                  {form.trademark}
-                </div>
-              )}
-            </div>
+            <>
+              <div className={classes.form_progress}>
+                <ProgressIndicator percentageCompleted={percentageCompleted} />
+              </div>
+              <div className={classes.wizard_form}>
+                <QuestionComponent
+                  question={currentQuestion}
+                  control={control}
+                  getValues={getValues}
+                  key={currentQuestion.id}
+                  errors={errors}
+                  labels={questionLabels}
+                  submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
+                  inputAutoFocus={true}
+                  shouldAutoProgress={shouldAutoProgress}
+                />
+                {form?.trademark && (
+                  <div
+                    className={`${classes.trademark} ${classes.conversational}`}
+                  >
+                    {form.trademark}
+                  </div>
+                )}
+              </div>
+            </>
           )}
         </div>
       </main>
