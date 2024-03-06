@@ -8,6 +8,14 @@
     font-size: var(--awell-font-size-lg);
   }
 
+  > :first-child {
+    margin-top: 0 !important;
+  }
+
+  > :last-child {
+    margin-bottom: 0 !important;
+  }
+
   h1,
   h2,
   h3,

@@ -104,15 +104,4 @@ export const descriptionFixture = [
       },
     ],
   },
-  {
-    type: 'img',
-    url: 'https://res.cloudinary.com/da7x4rzl4/image/upload/v1660164240/DEV%20SANDBOX%20-%20Awell%20Studio%20-%20TextEditor%20-%20Image%20upload/oggagfiec7prfhv5hucc.png',
-    children: [{ text: '' }],
-  },
-  { type: 'p', children: [{ text: '' }] },
-  {
-    type: 'media_embed',
-    url: 'https://www.youtube.com/embed/3pI2L3sSKlg',
-    children: [{ text: '' }],
-  },
 ]
