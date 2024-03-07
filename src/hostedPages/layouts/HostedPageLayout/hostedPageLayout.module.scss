@@ -5,8 +5,16 @@
   z-index: 999;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+
+  &.fullViewportHeight {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  // Used in f.e. Traditional Form mode
+  &.flexible {
+    height: auto;
+  }
 }
 
 .main_content {
