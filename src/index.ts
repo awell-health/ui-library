@@ -23,6 +23,7 @@ export {
   CircularSpinner,
   HorizontalSpinner,
   ThemeProvider,
+  useTheme,
   ScrollIndicator,
   Modal,
   CalDotComScheduling,

@@ -10,6 +10,10 @@
   padding: var(--awell-activity-form-padding);
   margin: 0 auto;
   height: 100%;
+
+  &.traditional_container {
+    height: auto;
+  }
 }
 
 .awell_wizard_form {
@@ -50,12 +54,22 @@
   }
 }
 
-.button_wrapper {
+.conversational_button_wrapper {
   display: flex;
   justify-content: space-between;
-  height: 100%;
   align-items: center;
   width: 100%;
+}
+
+.traditional_button_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: var(--awell-spacing-6);
+  max-width: var(--awell-activity-form-max-width);
+  padding: var(--awell-activity-form-padding);
+  margin: 0 auto;
 }
 
 .traditional_form {

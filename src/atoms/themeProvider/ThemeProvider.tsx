@@ -1,6 +1,18 @@
-import React, { FC } from 'react'
+import React, { FC, createContext, useContext, useState } from 'react'
 import { getTextColor, opacityColor } from './helpers'
 import classes from './themeProvider.module.scss'
+
+type LayoutMode = 'fullViewportHeight' | 'flexible'
+const defaultMode: LayoutMode = 'fullViewportHeight'
+
+interface ThemeContextType {
+  accentColor: string
+  layoutMode: LayoutMode
+  updateLayoutMode: (mode: LayoutMode) => void
+  resetLayoutMode: () => void
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export interface ThemeProviderProps {
   children: React.ReactNode | string
@@ -11,6 +23,8 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
   accentColor = 'var(--awell-brand100, #004ac2)',
 }) => {
+  const [layoutMode, setLayoutMode] = useState<LayoutMode>(defaultMode)
+
   const style = {
     '--awell-accent-color': accentColor,
     '--awell-accent-text-color': getTextColor(accentColor),
@@ -24,9 +38,37 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     '--awell-secondary-ring-color-buttons': accentColor,
     height: '100%',
   } as React.CSSProperties
+
+  const updateLayoutMode = (mode: LayoutMode) => {
+    setLayoutMode(mode)
+  }
+
+  const resetLayoutMode = () => {
+    setLayoutMode(defaultMode)
+  }
+
+  const contextValue = {
+    accentColor,
+    layoutMode,
+    updateLayoutMode,
+    resetLayoutMode,
+  }
+
   return (
-    <div className={classes.awell_themeProvider} style={style}>
-      {children}
-    </div>
+    <ThemeContext.Provider value={contextValue}>
+      <div className={classes.awell_themeProvider} style={style}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
   )
+}
+
+export const useTheme = (): ThemeContextType => {
+  const context = useContext(ThemeContext)
+
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider')
+  }
+
+  return context
 }

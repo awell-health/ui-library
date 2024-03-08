@@ -126,7 +126,9 @@ export const ConversationalForm = ({
       </main>
       <HostedPageFooter showScrollHint={showScrollHint}>
         {!isEvaluatingQuestionVisibility && (
-          <div className={`${classes.button_wrapper} ${classes.container}`}>
+          <div
+            className={`${classes.conversational_button_wrapper} ${classes.container}`}
+          >
             <div>
               {!isFirstQuestion && (
                 <Button

@@ -27,7 +27,7 @@
 
     @media (min-width: 640px) {
       padding: var(--awell-spacing-4) 0;
-      height: var(--awell-footer-height);
+      bottom: var(--awell-footer-height);
     }
 
     &.visible {

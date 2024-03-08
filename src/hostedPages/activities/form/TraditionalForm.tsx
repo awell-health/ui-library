@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, HorizontalSpinner, Text } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
@@ -6,6 +6,8 @@ import { useTraditionalForm } from '../../../hooks/useForm'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 import { UserQuestionType } from '../../../types'
+import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
+import { useTheme } from '../../../atoms/themeProvider/ThemeProvider'
 
 export const TraditionalForm = ({
   form,
@@ -17,6 +19,8 @@ export const TraditionalForm = ({
   onAnswersChange,
   autosaveAnswers = true,
 }: FormProps) => {
+  const { updateLayoutMode, resetLayoutMode } = useTheme()
+
   const {
     updateQuestionVisibility,
     submitForm,
@@ -35,13 +39,24 @@ export const TraditionalForm = ({
     onAnswersChange,
   })
 
+  useEffect(() => {
+    updateLayoutMode('flexible')
+
+    return () => {
+      // Reset to default mode on unmount
+      resetLayoutMode()
+    }
+  }, [])
+
   return (
     <>
       <main
         id="ahp_main_content_with_scroll_hint"
         className={`${layoutClasses.main_content} ${classes.traditional_form}`}
       >
-        <div className={`${classes.container}`}>
+        <div
+          className={`${classes.container} ${classes.traditional_container}`}
+        >
           {!questionWithVisiblity ? (
             <div className={classes.loadingContainer}>
               <HorizontalSpinner />
@@ -80,26 +95,28 @@ export const TraditionalForm = ({
               {form.trademark}
             </div>
           )}
-          <div className={`${classes.button_wrapper}`}>
-            {formHasErrors && (
-              <div>
-                <Text variant="textSmall" color="var(--awell-signalError100)">
-                  {errorLabels.formHasErrors}
-                </Text>
-              </div>
-            )}
-            <div></div>
-            <Button
-              onClick={submitForm}
-              type="submit"
-              data-cy="submitFormButton"
-              disabled={isSubmittingForm}
-            >
-              {buttonLabels.submit}
-            </Button>
-          </div>
         </div>
       </main>
+      <HostedPageFooter showScrollHint={false}>
+        <div className={`${classes.traditional_button_wrapper}`}>
+          {formHasErrors && (
+            <div>
+              <Text variant="textSmall" color="var(--awell-signalError100)">
+                {errorLabels.formHasErrors}
+              </Text>
+            </div>
+          )}
+          <div></div>
+          <Button
+            onClick={submitForm}
+            type="submit"
+            data-cy="submitFormButton"
+            disabled={isSubmittingForm}
+          >
+            {buttonLabels.submit}
+          </Button>
+        </div>
+      </HostedPageFooter>
     </>
   )
 }
