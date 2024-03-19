@@ -6,6 +6,14 @@
   display: flex;
   flex-direction: column;
 
+  &.withoutLogo {
+    padding-top: var(--awell-spacing-4);
+
+    @media (min-width: 640px) {
+      padding-top: var(--awell-spacing-8);
+    }
+  }
+
   &.fullViewportHeight {
     height: 100%;
     overflow: hidden;

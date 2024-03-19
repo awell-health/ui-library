@@ -20,7 +20,11 @@ export const HostedPageLayout: FC<HostedPageLayoutProps> = ({
   const { layoutMode } = useTheme()
 
   return (
-    <div className={`${classes.layout_container} ${classes[layoutMode]}`}>
+    <div
+      className={`${classes.layout_container} ${classes[layoutMode]} ${
+        logo ? '' : classes.withoutLogo
+      }`}
+    >
       {!hideCloseButton && <CloseButton onClose={onCloseHostedPage} />}
       {logo && (
         <header>
