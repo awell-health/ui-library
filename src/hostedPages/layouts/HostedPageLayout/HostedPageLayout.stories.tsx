@@ -64,9 +64,16 @@ export const HostedPageLayout: Story<HostedPageLayoutProps> = ({
   )
 }
 
-export const HostedPageLayoutMobile: Story = () => {
+export const HostedPageLayoutMobile: Story<HostedPageLayoutProps> = ({
+  logo,
+  hideCloseButton,
+}) => {
   return (
-    <HostedPageLayoutComponent onCloseHostedPage={() => alert('Handle close')}>
+    <HostedPageLayoutComponent
+      logo={logo}
+      hideCloseButton={hideCloseButton}
+      onCloseHostedPage={() => alert('Handle close')}
+    >
       <main className={classes.main_content} style={{ textAlign: 'center' }}>
         <p>Content</p>
         <p>Content</p>
