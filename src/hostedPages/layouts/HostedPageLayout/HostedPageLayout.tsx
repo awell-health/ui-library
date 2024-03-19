@@ -22,9 +22,11 @@ export const HostedPageLayout: FC<HostedPageLayoutProps> = ({
   return (
     <div className={`${classes.layout_container} ${classes[layoutMode]}`}>
       {!hideCloseButton && <CloseButton onClose={onCloseHostedPage} />}
-      <header>
-        <Navbar logo={logo} />
-      </header>
+      {logo && (
+        <header>
+          <Navbar logo={logo} />
+        </header>
+      )}
       {children}
     </div>
   )
