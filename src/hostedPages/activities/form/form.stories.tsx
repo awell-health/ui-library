@@ -79,7 +79,9 @@ const MyStory: Story = ({
     <HostedPageLayout
       onCloseHostedPage={() => alert('Stop session')}
       hideCloseButton
-      logo={'/static/media/src/assets/logo.svg'}
+      logo={
+        'https://res.cloudinary.com/da7x4rzl4/image/upload/v1710884206/Developer%20portal/awell_logo.svg'
+      }
     >
       {isConversationalMode ? (
         <ConversationalFormComponent

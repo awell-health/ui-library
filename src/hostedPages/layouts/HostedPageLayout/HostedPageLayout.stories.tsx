@@ -15,7 +15,8 @@ export default {
   argTypes: {
     logo: {
       control: 'text',
-      defaultValue: '/static/media/src/assets/logo.svg',
+      defaultValue:
+        'https://res.cloudinary.com/da7x4rzl4/image/upload/v1710884206/Developer%20portal/awell_logo.svg',
     },
     hideCloseButton: {
       control: 'boolean',
