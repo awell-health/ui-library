@@ -53,7 +53,10 @@ export const CloudinaryUpload: Story = ({
   multiple,
 }) => {
   return (
-    <HostedPageLayout onCloseHostedPage={() => alert('Stop session')}>
+    <HostedPageLayout
+      logo={'/static/media/src/assets/logo.svg'}
+      onCloseHostedPage={() => alert('Stop session')}
+    >
       {Boolean(multiple) === true ? (
         <CloudinaryUploadComponent
           cloudName={cloudName}

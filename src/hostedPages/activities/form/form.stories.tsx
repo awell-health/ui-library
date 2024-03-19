@@ -79,7 +79,7 @@ const MyStory: Story = ({
     <HostedPageLayout
       onCloseHostedPage={() => alert('Stop session')}
       hideCloseButton
-      logo={undefined}
+      logo={'/static/media/src/assets/logo.svg'}
     >
       {isConversationalMode ? (
         <ConversationalFormComponent
