@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, HorizontalSpinner, Text } from '../../../atoms'
+import { Button, Text } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useTraditionalForm } from '../../../hooks/useForm'
@@ -8,6 +8,7 @@ import { FormProps } from '../../../types/form'
 import { UserQuestionType } from '../../../types'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useTheme } from '../../../atoms/themeProvider/ThemeProvider'
+import { LoadActivityPlaceholder } from '../../layouts/HostedPageLayout/LoadActivityPlaceholder'
 
 export const TraditionalForm = ({
   form,
@@ -59,7 +60,7 @@ export const TraditionalForm = ({
         >
           {!questionWithVisiblity ? (
             <div className={classes.loadingContainer}>
-              <HorizontalSpinner />
+              <LoadActivityPlaceholder />
             </div>
           ) : (
             <div>
