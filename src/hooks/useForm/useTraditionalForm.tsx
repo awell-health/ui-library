@@ -45,7 +45,7 @@ const useTraditionalForm = ({
   const [formHasErrors, setFormHasErrors] = useState<boolean>(false)
   const [isSubmittingForm, setIsSubmittingForm] = useState<boolean>(false)
 
-  const { isValidE164Number } = useValidate()
+  const { isValidE164Number, validateDateResponse } = useValidate()
 
   const updateQuestionVisibility = useCallback(async () => {
     const formValuesInput = convertToAwellInput(formMethods.getValues())
@@ -89,7 +89,13 @@ const useTraditionalForm = ({
   const submitForm = async () => {
     await updateQuestionVisibility()
     const errors = visibleQuestions.flatMap((vq) =>
-      getErrorsForQuestion(vq, formMethods, errorLabels, isValidE164Number)
+      getErrorsForQuestion(
+        vq,
+        formMethods,
+        errorLabels,
+        isValidE164Number,
+        validateDateResponse
+      )
     )
     setErrors(errors)
     if (errors.length == 0) {

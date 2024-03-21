@@ -15,8 +15,10 @@ import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
-import { CountryIso2 } from '../../hooks/useValidate'
+import { CountryIso2, useValidate } from '../../hooks/useValidate'
 import { isNil, noop } from 'lodash'
+import { getMinValueForDateInput } from './helpers/getMinValueForDateInput'
+import { getMaxValueForDateInput } from './helpers/getMaxValueForDateInput'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -31,6 +33,7 @@ export const QuestionData = ({
   shouldAutoProgress = () => false,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
+  const { validateDateResponse } = useValidate()
 
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
@@ -327,7 +330,9 @@ export const QuestionData = ({
         <Controller
           name={question.id}
           control={control}
-          rules={{ required: config?.mandatory }}
+          rules={{
+            required: config?.mandatory,
+          }}
           render={({ field: { onChange, value } }) => {
             return (
               <InputField
@@ -342,6 +347,8 @@ export const QuestionData = ({
                 id={question.id}
                 value={value}
                 mandatory={config?.mandatory}
+                min={getMinValueForDateInput(config?.date)}
+                max={getMaxValueForDateInput(config?.date)}
               />
             )
           }}

@@ -8,6 +8,11 @@ import {
 } from '../../types'
 import { AnswerValue, ErrorLabels, QuestionRuleResult } from './types'
 import { CountryIso2 } from 'react-international-phone'
+import {
+  Maybe,
+  QuestionConfig,
+} from '../../types/generated/types-orchestration'
+import { DateValidationErrorType } from '../useValidate/useValidate'
 
 export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
@@ -159,7 +164,14 @@ export const getErrorsForQuestion = (
   isValidE164Number: (
     number: string,
     availableCountries?: Array<CountryIso2>
-  ) => boolean
+  ) => boolean,
+  validateDateResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: DateValidationErrorType
+  }
 ): Array<FormError> => {
   // For description question types, don't validate
   if (currentQuestion?.userQuestionType === UserQuestionType.Description) {
@@ -185,6 +197,42 @@ export const getErrorsForQuestion = (
         }
       } catch (error) {
         return [{ id: currentQuestion.id, error: errorLabel }]
+      }
+    }
+  }
+
+  if (currentQuestion?.userQuestionType === UserQuestionType.Date) {
+    const error = validateDateResponse(
+      currentQuestion?.questionConfig,
+      valueOfCurrentQuestion as string
+    )
+    if (error.isValid === false) {
+      switch (error.errorType) {
+        case 'DATE_CANNOT_BE_IN_THE_FUTURE':
+          return [
+            {
+              id: currentQuestion.id,
+              error:
+                errorLabels.dateCannotBeInTheFuture ||
+                'Date cannot be in the future',
+            },
+          ]
+        case 'DATE_CANNOT_BE_IN_THE_PAST':
+          return [
+            {
+              id: currentQuestion.id,
+              error:
+                errorLabels.dateCannotBeInThePast ||
+                'Date cannot be in the past',
+            },
+          ]
+        case 'DATE_CANNOT_BE_TODAY':
+          return [
+            {
+              id: currentQuestion.id,
+              error: errorLabels.dateCannotBeToday || 'Date cannot be today',
+            },
+          ]
       }
     }
   }

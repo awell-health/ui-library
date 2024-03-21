@@ -29,6 +29,10 @@ export type ErrorLabels = {
   sliderNotTouched: string
   invalidPhoneNumber: string
   formHasErrors: string
+
+  dateCannotBeInTheFuture?: string
+  dateCannotBeInThePast?: string
+  dateCannotBeToday?: string
 }
 
 export type AnswerValue = string | number | number[] | undefined
