@@ -81,10 +81,15 @@ export const generatePureHtml = (content: Nodes | string): string => {
     isSlate ? serializeHtml(content) : (content as string),
     {
       ADD_TAGS: ['iframe'],
-      ADD_ATTR: ['target', 'allow', 'allowfullscreen', 'frameborder', 'scrolling'],
+      ADD_ATTR: [
+        'target',
+        'allow',
+        'allowfullscreen',
+        'frameborder',
+        'scrolling',
+      ],
+      ALLOW_UNKNOWN_PROTOCOLS: true,
     }
   )
   return purifiedMessage
 }
-
-
