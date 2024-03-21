@@ -10,19 +10,19 @@
   .loading_indicator {
     width: 100%;
     height: 3.125rem;
-    border-radius: 0.625rem; 
-    margin: 0.4rem 0;
+    border-radius: var(--awell-border-radius-xl);
+    margin: var(--awell-spacing-2) 0;
     background: linear-gradient(90deg, transparent, #EEEEEE, transparent);
     background-size: 200% 100%;
     background-position: -100% 0;
-    animation: shimmer 1.2s infinite;
+    animation: wave 1.2s infinite;
   }
 
   /* Styles for larger screens */
   @media (min-width: 768px) {
     .loading_indicators {
        max-width: 570px;
-       padding: 2rem 0;
+       padding: var(--awell-spacing-8) 0;
     }
   }
    
@@ -30,11 +30,11 @@
    @media (max-width: 767px) {
     .loading_indicators {
        min-width: 336px;
-       padding: 2rem 1rem;
+       padding: var(--awell-spacing-8) var(--awell-spacing-4);
     }
    }
 
-  @keyframes shimmer {
+  @keyframes wave {
     0% {
       background-position: -100% 0;
     }
