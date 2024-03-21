@@ -6,9 +6,11 @@ import { useTraditionalForm } from '../../../hooks/useForm'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 import { UserQuestionType } from '../../../types'
-import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useTheme } from '../../../atoms/themeProvider/ThemeProvider'
-import { LoadActivityPlaceholder } from '../../layouts/HostedPageLayout/LoadActivityPlaceholder'
+import {
+  LoadActivityPlaceholder,
+  HostedPageFooter,
+} from '../../layouts/HostedPageLayout'
 
 export const TraditionalForm = ({
   form,
