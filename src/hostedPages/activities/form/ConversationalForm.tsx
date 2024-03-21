@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
-import { Button, ProgressIndicator, HorizontalSpinner } from '../../../atoms'
+import { Button, ProgressIndicator } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question as QuestionComponent } from '../../../molecules'
-import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 import { useConversationalForm } from '../../../hooks'
 import { Question, UserQuestionType } from '../../../types'
+import {
+  LoadActivityPlaceholder,
+  HostedPageFooter,
+} from '../../layouts/HostedPageLayout'
 
 export const ConversationalForm = ({
   form,
@@ -97,7 +100,7 @@ export const ConversationalForm = ({
           {isEvaluatingQuestionVisibility ||
           currentQuestion?.id === undefined ? (
             <div className={classes.loadingContainer}>
-              <HorizontalSpinner />
+              <LoadActivityPlaceholder />
             </div>
           ) : (
             <>
