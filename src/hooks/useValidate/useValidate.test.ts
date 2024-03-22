@@ -275,18 +275,24 @@ describe('useValidate', () => {
 
     describe('when all dates are allowed', () => {
       it('should return isValid set to true', () => {
+        const dateConfig = {
+          mandatory: false,
+          date: {
+            allowed_dates: AllowedDatesOptions.All,
+          },
+        }
         const { result } = renderHook(() => useValidate())
         const pastDate = '2023-01-01'
         expect(
-          result.current.validateDateResponse(undefined, pastDate).isValid
+          result.current.validateDateResponse(dateConfig, pastDate).isValid
         ).toBe(true)
         const todayDate = '2024-01-01'
         expect(
-          result.current.validateDateResponse(undefined, todayDate).isValid
+          result.current.validateDateResponse(dateConfig, todayDate).isValid
         ).toBe(true)
         const futureDate = '2024-01-05'
         expect(
-          result.current.validateDateResponse(undefined, futureDate).isValid
+          result.current.validateDateResponse(dateConfig, futureDate).isValid
         ).toBe(true)
       })
     })
