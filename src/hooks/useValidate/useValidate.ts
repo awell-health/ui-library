@@ -166,10 +166,17 @@ export const useValidate = (): UseValidateHook => {
         isValid: true,
       }
     }
-    if (include_date_of_response !== true && dateIsToday) {
-      return {
-        isValid: false,
-        errorType: 'DATE_CANNOT_BE_TODAY',
+
+    if (dateIsToday) {
+      if (include_date_of_response === true) {
+        return {
+          isValid: true,
+        }
+      } else {
+        return {
+          isValid: false,
+          errorType: 'DATE_CANNOT_BE_TODAY',
+        }
       }
     }
 
