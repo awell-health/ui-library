@@ -1,6 +1,18 @@
 import { validatePhone } from 'react-international-phone'
 import { getDefaultCountries } from '../../atoms/phoneInputField'
 import { ValidatePhoneReturn, CountryIso2 } from './types'
+import {
+  AllowedDatesOptions,
+  Maybe,
+  QuestionConfig,
+} from '../../types/generated/types-orchestration'
+import { isEmpty, isNil } from 'lodash'
+import { isToday } from 'date-fns'
+
+export type DateValidationErrorType =
+  | 'DATE_CANNOT_BE_IN_THE_FUTURE'
+  | 'DATE_CANNOT_BE_IN_THE_PAST'
+  | 'DATE_CANNOT_BE_TODAY'
 
 export interface UseValidateHook {
   validatePhoneNumber: (
@@ -16,6 +28,13 @@ export interface UseValidateHook {
     number: string,
     availableCountries: Array<CountryIso2>
   ) => boolean
+  validateDateResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: DateValidationErrorType
+  }
 }
 
 export const handleUSException = (
@@ -104,10 +123,84 @@ export const useValidate = (): UseValidateHook => {
     return /^\+?[1-9]\d{1,14}$/.test(number)
   }
 
+  const validateDateResponse = (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ): {
+    isValid: boolean
+    errorType?: DateValidationErrorType
+  } => {
+    const inputRequired = questionConfig?.mandatory
+
+    // skip validation if input is not required and empty
+    if (inputRequired === false && isEmpty(value)) {
+      return {
+        isValid: true,
+      }
+    }
+
+    // No validation needed if date config is not configured
+    if (!questionConfig || !questionConfig.date) {
+      return {
+        isValid: true,
+      }
+    }
+
+    const parsedDate = new Date(value)
+    const dateIsToday = isToday(parsedDate)
+
+    const { allowed_dates, include_date_of_response = false } =
+      questionConfig.date
+
+    if (allowed_dates === AllowedDatesOptions.All) {
+      return {
+        isValid: true,
+      }
+    }
+
+    if (dateIsToday) {
+      if (include_date_of_response === true) {
+        return {
+          isValid: true,
+        }
+      } else {
+        return {
+          isValid: false,
+          errorType: 'DATE_CANNOT_BE_TODAY',
+        }
+      }
+    }
+
+    if (
+      allowed_dates === AllowedDatesOptions.Past &&
+      parsedDate >= new Date()
+    ) {
+      return {
+        isValid: false,
+        errorType: 'DATE_CANNOT_BE_IN_THE_FUTURE',
+      }
+    }
+
+    if (
+      allowed_dates === AllowedDatesOptions.Future &&
+      parsedDate <= new Date()
+    ) {
+      return {
+        isValid: false,
+        errorType: 'DATE_CANNOT_BE_IN_THE_PAST',
+      }
+    }
+
+    return {
+      isValid: true,
+    }
+  }
+
   return {
     isValidE164Number,
     isPossibleE164Number,
     validatePhoneNumber,
     numberMatchesAvailableCountries,
+    validateDateResponse,
   }
 }
