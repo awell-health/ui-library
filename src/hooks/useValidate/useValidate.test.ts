@@ -297,4 +297,99 @@ describe('useValidate', () => {
       })
     })
   })
+
+  describe('validateNumberResponse', () => {
+    describe('when number configuration is not defined', () => {
+      it('should return isValid set to true', () => {
+        const { result } = renderHook(() => useValidate())
+        const questionConfig = {
+          mandatory: false,
+        }
+        expect(
+          result.current.validateNumberResponse(questionConfig, '0').isValid
+        ).toBe(true)
+      })
+
+      it('should return isValid set to false when value is not a number', () => {
+        const { result } = renderHook(() => useValidate())
+        const questionConfig = {
+          mandatory: false,
+        }
+        expect(
+          result.current.validateNumberResponse(questionConfig, 'abc').isValid
+        ).toBe(false)
+        expect(
+          result.current.validateNumberResponse(questionConfig, 'abc').errorType
+        ).toBe('NOT_A_NUMBER')
+      })
+    })
+
+    describe('when number configuration is defined', () => {
+      it('should return isValid set to true for when value is within range', () => {
+        const dateConfig = {
+          mandatory: false,
+          number: {
+            range: {
+              min: 0,
+              max: 20,
+              enabled: true,
+            },
+          },
+        }
+        const { result } = renderHook(() => useValidate())
+        expect(
+          result.current.validateNumberResponse(dateConfig, '0').isValid
+        ).toBe(true)
+        expect(
+          result.current.validateNumberResponse(dateConfig, '10').isValid
+        ).toBe(true)
+        expect(
+          result.current.validateNumberResponse(dateConfig, '20').isValid
+        ).toBe(true)
+      })
+
+      it('should return isValid set to false for when value is out of range', () => {
+        const dateConfig = {
+          mandatory: false,
+          number: {
+            range: {
+              min: 0,
+              max: 20,
+              enabled: true,
+            },
+          },
+        }
+        const { result } = renderHook(() => useValidate())
+        expect(
+          result.current.validateNumberResponse(dateConfig, '25').isValid
+        ).toBe(false)
+        expect(
+          result.current.validateNumberResponse(dateConfig, '25').errorType
+        ).toBe('OUT_OF_RANGE')
+      })
+
+      it('should return isValid set to true when range validation is disabled', () => {
+        const dateConfig = {
+          mandatory: false,
+          number: {
+            range: {
+              min: 0,
+              max: 20,
+              enabled: false,
+            },
+          },
+        }
+        const { result } = renderHook(() => useValidate())
+        expect(
+          result.current.validateNumberResponse(dateConfig, '25').isValid
+        ).toBe(true)
+        expect(
+          result.current.validateNumberResponse(dateConfig, '0').isValid
+        ).toBe(true)
+        expect(
+          result.current.validateNumberResponse(dateConfig, '1000').isValid
+        ).toBe(true)
+      })
+    })
+  })
 })

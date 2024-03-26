@@ -14,6 +14,8 @@ export type DateValidationErrorType =
   | 'DATE_CANNOT_BE_IN_THE_PAST'
   | 'DATE_CANNOT_BE_TODAY'
 
+export type NumberValidationErrorType = 'NOT_A_NUMBER' | 'OUT_OF_RANGE'
+
 export interface UseValidateHook {
   validatePhoneNumber: (
     number: string,
@@ -34,6 +36,13 @@ export interface UseValidateHook {
   ) => {
     isValid: boolean
     errorType?: DateValidationErrorType
+  }
+  validateNumberResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: NumberValidationErrorType
   }
 }
 
@@ -196,11 +205,66 @@ export const useValidate = (): UseValidateHook => {
     }
   }
 
+  const validateNumberResponse = (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ): {
+    isValid: boolean
+    errorType?: NumberValidationErrorType
+  } => {
+    const inputRequired = questionConfig?.mandatory
+
+    // skip validation if input is not required and empty
+    if (inputRequired === false && isEmpty(value)) {
+      return {
+        isValid: true,
+      }
+    }
+
+    const isNumber = !isNaN(Number(value))
+    if (!isNumber) {
+      return {
+        isValid: false,
+        errorType: 'NOT_A_NUMBER',
+      }
+    }
+
+    // No validation needed if date config is not configured
+    if (!questionConfig || !questionConfig.number) {
+      return {
+        isValid: true,
+      }
+    }
+
+    const isRangeEnabled =
+      !isNil(questionConfig?.number?.range) &&
+      questionConfig.number.range.enabled === true
+
+    if (isRangeEnabled) {
+      const range = questionConfig.number?.range
+      const min = range?.min ?? 0
+      const max = range?.max ?? 0
+      const number = Number(value)
+
+      if (number < min || number > max) {
+        return {
+          isValid: false,
+          errorType: 'OUT_OF_RANGE',
+        }
+      }
+    }
+
+    return {
+      isValid: true,
+    }
+  }
+
   return {
     isValidE164Number,
     isPossibleE164Number,
     validatePhoneNumber,
     numberMatchesAvailableCountries,
     validateDateResponse,
+    validateNumberResponse,
   }
 }

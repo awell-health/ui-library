@@ -19,6 +19,8 @@ import { CountryIso2, useValidate } from '../../hooks/useValidate'
 import { isNil, noop } from 'lodash'
 import { getMinValueForDateInput } from './helpers/getMinValueForDateInput'
 import { getMaxValueForDateInput } from './helpers/getMaxValueForDateInput'
+import { getMinValueForNumberInput } from './helpers/getMinValueForNumberInput'
+import { getMaxValueForNumberInput } from './helpers/getMaxValueForNumberInput'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -233,6 +235,8 @@ export const QuestionData = ({
               id={question.id}
               value={value}
               mandatory={config?.mandatory}
+              min={getMinValueForNumberInput(config?.number)}
+              max={getMaxValueForNumberInput(config?.number)}
             />
           )}
         />
