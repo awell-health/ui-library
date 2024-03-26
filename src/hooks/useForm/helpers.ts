@@ -12,7 +12,10 @@ import {
   Maybe,
   QuestionConfig,
 } from '../../types/generated/types-orchestration'
-import { DateValidationErrorType } from '../useValidate/useValidate'
+import {
+  DateValidationErrorType,
+  NumberValidationErrorType,
+} from '../useValidate/useValidate'
 
 export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
@@ -171,6 +174,13 @@ export const getErrorsForQuestion = (
   ) => {
     isValid: boolean
     errorType?: DateValidationErrorType
+  },
+  validateNumberResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: NumberValidationErrorType
   }
 ): Array<FormError> => {
   // For description question types, don't validate
@@ -231,6 +241,33 @@ export const getErrorsForQuestion = (
             {
               id: currentQuestion.id,
               error: errorLabels.dateCannotBeToday || 'Date cannot be today',
+            },
+          ]
+      }
+    }
+  }
+
+  if (currentQuestion?.userQuestionType === UserQuestionType.Number) {
+    const error = validateNumberResponse(
+      currentQuestion?.questionConfig,
+      valueOfCurrentQuestion as string
+    )
+    if (error.isValid === false) {
+      switch (error.errorType) {
+        case 'NOT_A_NUMBER':
+          return [
+            {
+              id: currentQuestion.id,
+              error: errorLabels.notANumber || 'Value must be a valid number',
+            },
+          ]
+        case 'OUT_OF_RANGE':
+          return [
+            {
+              id: currentQuestion.id,
+              error:
+                errorLabels.numberOutOfRange ||
+                'The number cannot be out of range',
             },
           ]
       }

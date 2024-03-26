@@ -33,6 +33,9 @@ export type ErrorLabels = {
   dateCannotBeInTheFuture?: string
   dateCannotBeInThePast?: string
   dateCannotBeToday?: string
+
+  notANumber?: string
+  numberOutOfRange?: string
 }
 
 export type AnswerValue = string | number | number[] | undefined
