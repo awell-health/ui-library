@@ -13,11 +13,8 @@ export type DateValidationErrorType =
   | 'DATE_CANNOT_BE_IN_THE_FUTURE'
   | 'DATE_CANNOT_BE_IN_THE_PAST'
   | 'DATE_CANNOT_BE_TODAY'
-<<<<<<< HEAD
 
 export type NumberValidationErrorType = 'NOT_A_NUMBER' | 'OUT_OF_RANGE'
-=======
->>>>>>> main
 
 export interface UseValidateHook {
   validatePhoneNumber: (
@@ -40,7 +37,6 @@ export interface UseValidateHook {
     isValid: boolean
     errorType?: DateValidationErrorType
   }
-<<<<<<< HEAD
   validateNumberResponse: (
     questionConfig: Maybe<QuestionConfig> | undefined,
     value: string
@@ -48,8 +44,6 @@ export interface UseValidateHook {
     isValid: boolean
     errorType?: NumberValidationErrorType
   }
-=======
->>>>>>> main
 }
 
 export const handleUSException = (
@@ -211,7 +205,6 @@ export const useValidate = (): UseValidateHook => {
     }
   }
 
-<<<<<<< HEAD
   const validateNumberResponse = (
     questionConfig: Maybe<QuestionConfig> | undefined,
     value: string
@@ -266,17 +259,12 @@ export const useValidate = (): UseValidateHook => {
     }
   }
 
-=======
->>>>>>> main
   return {
     isValidE164Number,
     isPossibleE164Number,
     validatePhoneNumber,
     numberMatchesAvailableCountries,
     validateDateResponse,
-<<<<<<< HEAD
     validateNumberResponse,
-=======
->>>>>>> main
   }
 }
