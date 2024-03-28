@@ -4,6 +4,7 @@ import { useValidate } from '../useValidate'
 import {
   convertToAwellInput,
   convertToFormFormat,
+  getDirtyFieldValues,
   getErrorsForQuestion,
   getInitialValues,
   isEmpty,
@@ -49,7 +50,9 @@ const useTraditionalForm = ({
     useValidate()
 
   const updateQuestionVisibility = useCallback(async () => {
-    const formValuesInput = convertToAwellInput(formMethods.getValues())
+    const formValuesInput = convertToAwellInput(
+      getDirtyFieldValues(formMethods)
+    )
     const evaluationResults = await evaluateDisplayConditions(formValuesInput)
     const updatedQuestions = updateVisibility(
       questions,
