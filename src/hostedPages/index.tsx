@@ -5,6 +5,9 @@ export { WizardForm } from './activities/wizardForm'
 export { CalDotcomActivity } from './activities/scheduling'
 export { CloudinaryUpload } from './activities/cloudinary'
 export { CloudinarySingleFileUpload } from './activities/cloudinary'
-export { HostedPageLayout } from './layouts/HostedPageLayout'
-export { CloseButton } from './layouts/HostedPageLayout'
-export { LoadActivityPlaceholder } from './layouts/HostedPageLayout/LoadActivityPlaceholder'
+export {
+  HostedPageLayout,
+  CloseButton,
+  HostedPageFooter,
+  LoadActivityPlaceholder,
+} from './layouts/HostedPageLayout'

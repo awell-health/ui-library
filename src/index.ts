@@ -52,6 +52,8 @@ export {
   CloseButton,
   CloudinaryUpload,
   CloudinarySingleFileUpload,
+  HostedPageFooter,
+  LoadActivityPlaceholder,
 } from './hostedPages'
 
 export {
