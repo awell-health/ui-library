@@ -50,6 +50,11 @@ export default {
       control: { type: 'radio' },
       defaultValue: false,
     },
+    showProgressBar: {
+      options: [true, false],
+      control: { type: 'radio' },
+      defaultValue: true,
+    },
   },
   decorators: [
     (StoryComponent) => (
@@ -67,6 +72,7 @@ const MyStory: Story = ({
   displayMode,
   autoProgress,
   errorLabels,
+  showProgressBar,
 }) => {
   const [answers, setAnswers] = React.useState<string>('')
   const isConversationalMode = displayMode == 'conversational'
@@ -92,6 +98,7 @@ const MyStory: Story = ({
           storedAnswers={answers}
           onAnswersChange={handleAnswersChange}
           key={form.id}
+          showProgressBar={showProgressBar}
           questionLabels={{
             no_label: 'No',
             yes_label: 'Yes',
@@ -134,6 +141,7 @@ const MyStory: Story = ({
           storedAnswers={answers}
           onAnswersChange={handleAnswersChange}
           key={form.id}
+          showProgressBar={showProgressBar}
           questionLabels={{
             no_label: 'No',
             yes_label: 'Yes',
@@ -176,6 +184,7 @@ export const Form: Story = ({
   displayMode,
   errorLabels,
   autoProgress,
+  showProgressBar,
 }) => {
   return (
     <MyStory
@@ -185,6 +194,7 @@ export const Form: Story = ({
       buttonLabels={buttonLabels}
       errorLabels={errorLabels}
       autoProgress={autoProgress}
+      showProgressBar={showProgressBar}
     />
   )
 }
@@ -215,6 +225,7 @@ export const FormMobile: Story = ({
   buttonLabels,
   displayMode,
   errorLabels,
+  showProgressBar,
 }) => {
   return (
     <MyStory
@@ -223,6 +234,7 @@ export const FormMobile: Story = ({
       displayMode={displayMode}
       buttonLabels={buttonLabels}
       errorLabels={errorLabels}
+      showProgressBar={showProgressBar}
     />
   )
 }

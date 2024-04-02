@@ -23,6 +23,7 @@ export const ConversationalForm = ({
   onAnswersChange,
   autoProgress = false,
   autosaveAnswers = true,
+  showProgressBar = true,
 }: FormProps) => {
   const {
     submitForm,
@@ -83,7 +84,8 @@ export const ConversationalForm = ({
   // hide progress indicator when all questions are evaluated or when form only has one question
   const hideProgressIndicator =
     (isEvaluatingQuestionVisibility && percentageCompleted === 100) ||
-    form.questions.length === 1
+    form.questions.length === 1 ||
+    showProgressBar === false
 
   return (
     <>

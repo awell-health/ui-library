@@ -26,4 +26,5 @@ export interface FormProps {
   ) => Promise<Array<QuestionRuleResult>>
   autoProgress?: boolean
   autosaveAnswers?: boolean
+  showProgressBar?: boolean
 }
