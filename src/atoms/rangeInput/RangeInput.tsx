@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, InputHTMLAttributes } from 'react'
 import classes from './rangeInput.module.scss'
 import { QuestionLabel } from '../questionLabel'
-import { noop } from 'lodash'
+import { isEmpty, noop } from 'lodash'
 
 export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
@@ -127,7 +127,7 @@ export const RangeInput = ({
   React.useEffect(() => {
     const MIDPOINT_PERCENTAGE = 0.5 // 50%
     const THUMB_WIDTH = 16 // px
-    const TOP_POSITION_ADJUSTMENT = -28 // px
+    const TOP_POSITION_ADJUSTMENT = -30 // px
     if (touched === true && is_value_tooltip_on && tooltipRef.current) {
       const input = tooltipRef.current.closest(
         `.${classes.awell_range_input_wrapper}`
@@ -157,54 +157,77 @@ export const RangeInput = ({
         mandatory={mandatory}
         id={`${id}-label`}
       />
-      <div
-        className={`${classes.awell_range_input_wrapper} ${
-          display_marks ? classes.with_marks : ''
-        }`}
-        style={style}
-      >
-        <input
-          {...props}
-          data-testid={id}
-          type="range"
-          id="awell__slider_input"
-          min={min}
-          max={max}
-          step={step_value}
-          className={`${classes.awell_range_input} ${
-            touched ? classes.showThumb : classes.hideThumb
-          }`}
-          onChange={handleValueChange}
-          onFocus={() => {
-            setTouched(true)
-            onTouched(true)
-          }}
-          aria-valuemin={min}
-          aria-valuemax={max}
-          aria-valuenow={(props.value || min) as number}
-          aria-labelledby={`${id}-label`}
-        />
-        {renderTouchTooltip()}
+      <div className={classes.input_container}>
         <div
-          className={`${classes.awell_range_input_datalist} ${
-            show_min_max_values ? classes.with_min_max_labels : ''
+          className={`${classes.touch_tooltip_wrapper}  ${
+            is_value_tooltip_on ? classes.with_value_tooltip : ''
           }`}
-          data-testid={`${id}-datalist`}
         >
-          <span className={classes.minLabel} aria-label="Minimum value">
-            {min_label}
-          </span>
-          <span className={classes.maxLabel} aria-label="Maximum value">
-            {max_label}
-          </span>
+          {renderTouchTooltip()}
         </div>
-        {is_value_tooltip_on &&
-          renderValueTooltip(
-            internalValue,
-            tooltipPosition.left,
-            tooltipPosition.top,
-            touched
+        <div
+          className={`${classes.awell_range_input_wrapper} ${
+            display_marks ? classes.with_marks : ''
+          }`}
+          style={style}
+        >
+          {is_value_tooltip_on &&
+            renderValueTooltip(
+              internalValue,
+              tooltipPosition.left,
+              tooltipPosition.top,
+              touched
+            )}
+          <input
+            {...props}
+            data-testid={id}
+            type="range"
+            id="awell__slider_input"
+            min={min}
+            max={max}
+            step={step_value}
+            className={`${classes.awell_range_input} ${
+              touched ? classes.showThumb : classes.hideThumb
+            }`}
+            onChange={handleValueChange}
+            onFocus={() => {
+              setTouched(true)
+              onTouched(true)
+            }}
+            aria-valuemin={min}
+            aria-valuemax={max}
+            aria-valuenow={(props.value || min) as number}
+            aria-labelledby={`${id}-label`}
+          />
+        </div>
+        <div className={classes.min_max_wrapper}>
+          {show_min_max_values && (
+            <div
+              className={classes.min_max_data_list}
+              data-testid={`${id}-datalist-values`}
+            >
+              <div className={classes.min} aria-label="Minimum value">
+                {min}
+              </div>
+              <div className={classes.max} aria-label="Maximum value">
+                {max}
+              </div>
+            </div>
           )}
+          {!isEmpty(min_label) && !isEmpty(max_label) && (
+            <div
+              className={classes.min_max_data_list}
+              data-testid={`${id}-datalist-labels`}
+            >
+              <div className={classes.min} aria-label="Minimum label">
+                {min_label}
+              </div>
+              <div className={classes.max} aria-label="Maximum label">
+                {max_label}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

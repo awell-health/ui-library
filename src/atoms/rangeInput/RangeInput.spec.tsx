@@ -31,7 +31,7 @@ describe('Range input', () => {
       />
     )
 
-    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
+    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist-labels`)
 
     expect(dataList).toBeDefined()
 
@@ -67,7 +67,7 @@ describe('Range input', () => {
       />
     )
 
-    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
+    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist-labels`)
 
     expect(dataList).toBeDefined()
 
@@ -101,7 +101,7 @@ describe('Range input', () => {
       />
     )
 
-    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
+    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist-labels`)
 
     expect(dataList).toBeDefined()
   })

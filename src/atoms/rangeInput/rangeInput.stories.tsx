@@ -75,7 +75,7 @@ export const RangeInput: Story<RangeInputProps> = ({
         mandatory={mandatory}
         onTouched={setTouched}
       />
-      <p style={{ marginTop: 80 }}>Touched? {touched.toString()}</p>
+      <p style={{ marginTop: 16 }}>Touched? {touched.toString()}</p>
       <p style={{ marginTop: 16 }}>Value? {`${value}`}</p>
     </>
   )
