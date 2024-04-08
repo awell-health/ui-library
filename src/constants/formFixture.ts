@@ -6,6 +6,7 @@ export const form: Form = {
   title: 'Example form',
   key: 'exampleForm',
   definition_id: 'Kzr2NafTxJfR',
+  trademark: 'A dummy trademark by Awell',
   release_id: '',
   questions: [
     {
