@@ -214,7 +214,7 @@ export const RangeInput = ({
               </div>
             </div>
           )}
-          {!isEmpty(min_label) && !isEmpty(max_label) && (
+          {(!isEmpty(min_label) || !isEmpty(max_label)) && (
             <div
               className={classes.min_max_data_list}
               data-testid={`${id}-datalist-labels`}
