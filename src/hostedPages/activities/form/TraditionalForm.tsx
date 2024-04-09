@@ -72,12 +72,7 @@ export const TraditionalForm = ({
                   .map((visibleQuestion) => (
                     <div
                       key={visibleQuestion.id}
-                      className={`${classes.traditional_form_question} ${
-                        visibleQuestion.userQuestionType ===
-                        UserQuestionType.Slider
-                          ? classes.traditional_form_question_slider
-                          : ''
-                      }`}
+                      className={classes.traditional_form_question}
                     >
                       <Question
                         question={visibleQuestion}

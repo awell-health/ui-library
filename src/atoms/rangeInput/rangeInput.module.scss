@@ -1,236 +1,219 @@
-.awell_range_input_wrapper {
-  --awell-range-slider-background-color: var(--awell-accent-ring-color-buttons);
-  --ticksHeight: 12px;
+@use '../../globalStyles';
+
+.input_container {
   position: relative;
-  transition: all 0.25s ease-in;
-  margin-top: 0;
-  margin-top: var(--awell-spacing-8);
 
-  @media (min-width: 640px) {
-    --awell-thick-width: 2px;
-  }
+  .touch_tooltip_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--awell-spacing-1);
 
-  .tooltip_touched {
-    display: block;
-    position: absolute;
-    text-align: center;
-    background-color: var(--awell-secondary-color);
-    color: var(--awell-secondary-text-color);
-    padding: var(--awell-spacing-1) var(--awell-spacing-2);
-    font-size: var(--awell-font-size-xs);
-    border-radius: var(--awell-spacing-2);
-    top: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    @media (min-width: 640px) {
-      top: -32px;
-      font-size: var(--awell-font-size-base);
+    &.with_value_tooltip {
+      height: 22px; // To prevent layout jumping
+      @media (min-width: 640px) {
+        height: 27px;
+      }
+    }
+
+    .tooltip_touched {
+      display: inline-block;
+      text-align: center;
+      background-color: var(--awell-secondary-color);
+      color: var(--awell-secondary-text-color);
+      padding: var(--awell-spacing-1) var(--awell-spacing-2);
+      font-size: var(--awell-font-size-xs);
+      border-radius: var(--awell-spacing-2);
+      @media (min-width: 640px) {
+        font-size: var(--awell-font-size-base);
+      }
     }
   }
 
-  &.with_marks {
-    --awell-thick-width: 1px;
-    --awell-ticks: linear-gradient(to right, var(--awell-thick-color) var(--awell-thick-width), transparent 1px)
-      repeat-x;
-    background: silver;
-    background: var(--awell-ticks);
-    background-size: calc(100% / ((var(--awell-max) - var(--awell-min)) / var(--awell-step)) - 0.1%) var(--ticksHeight);
-    background-position: 0 calc(var(--ticksHeight) * 1.7);
+  .awell_range_input_wrapper {
+    --awell-range-slider-background-color: var(
+      --awell-accent-ring-color-buttons
+    );
+    --ticksHeight: 12px;
+    position: relative;
+    transition: all 0.25s ease-in;
+
+    @media (min-width: 640px) {
+      --awell-thick-width: 2px;
+    }
+
+    &.with_marks {
+      --awell-thick-width: 1px;
+      --awell-ticks: linear-gradient(
+          to right,
+          var(--awell-thick-color) var(--awell-thick-width),
+          transparent 1px
+        )
+        repeat-x;
+      background: silver;
+      background: var(--awell-ticks);
+      background-size: calc(
+          100% / ((var(--awell-max) - var(--awell-min)) / var(--awell-step)) -
+            0.1%
+        )
+        var(--ticksHeight);
+      background-position: 0 calc(var(--ticksHeight) * 1.7);
+      display: flex;
+      flex-direction: column;
+      padding-bottom: calc(var(--ticksHeight) * 1.7);
+    }
+
+    & .awell_range_input {
+      --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
+      --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400));
+
+      font-size: var(--awell-font-size-md);
+      width: 100%;
+      margin: 1.3px 0;
+      background-color: transparent;
+      appearance: none;
+      position: relative;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::-webkit-slider-runnable-track {
+        position: relative;
+        background: var(--awell-range-slider-background-color);
+        border: 0;
+        border-radius: 25px;
+        width: 100%;
+        height: 11.4px;
+        cursor: pointer;
+      }
+
+      &::-webkit-slider-thumb {
+        margin-top: -1.3px;
+        width: 14px;
+        height: 14px;
+        background: var(--awell-accent-color);
+        border: 0;
+        border-radius: 15px;
+        cursor: pointer;
+        appearance: none;
+      }
+
+      &::-moz-range-track {
+        background: var(--awell-range-slider-background-color);
+        border: 0;
+        border-radius: 25px;
+        width: 100%;
+        height: 11.4px;
+        cursor: pointer;
+      }
+
+      &::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        background: var(--awell-accent-color);
+        border: 0;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      &::-ms-track {
+        position: relative;
+        background: transparent;
+        border-color: transparent;
+        border-width: 2.2px 0;
+        color: transparent;
+        width: 100%;
+        height: 11.4px;
+        cursor: pointer;
+      }
+
+      &::-ms-fill-lower {
+        background: var(--awell-accent-color);
+        border: 0;
+        border-radius: 50px;
+      }
+
+      &::-ms-fill-upper {
+        background: var(--awell-range-slider-background-color); // TODO
+        border: 0;
+        border-radius: 50px;
+      }
+
+      &::-ms-thumb {
+        width: 14px;
+        height: 14px;
+        background: var(--awell-accent-color);
+        border: 0;
+        border-radius: 15px;
+        cursor: pointer;
+        margin-top: 0;
+
+        /* Needed to keep the Edge thumb centred */
+      }
+
+      &:focus::-ms-fill-lower {
+        background: var(--awell-range-slider-background-color);
+      }
+
+      &:focus::-ms-fill-upper {
+        background: var(--awell-range-slider-background-color); // TODO
+      }
+
+      /* TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+    how to remove the virtical space around the range input in IE */
+      @supports (-ms-ime-align: auto) {
+        /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+        & {
+          margin: 0;
+
+          /* Edge starts the margin from the thumb, not the track as other browsers do */
+        }
+      }
+    }
+
+    & .tooltip {
+      position: absolute;
+      background-color: var(--awell-secondary-color);
+      color: var(--awell-secondary-text-color);
+      padding: var(--awell-spacing-1) var(--awell-spacing-2);
+      font-size: var(--awell-font-size-sm);
+      border-radius: var(--awell-spacing-2);
+      transform: translateX(-50%);
+      @media (min-width: 640px) {
+        font-size: var(--awell-font-size-base);
+      }
+    }
+  }
+
+  .min_max_wrapper {
     display: flex;
+    gap: var(--awell-spacing-2);
     flex-direction: column;
 
-    &::before,
-    &::after {
-      top: 40px;
-    }
-
-    & .awell_range_input_datalist {
-      margin-top: 16px;
-      &.with_min_max_labels {
-        margin-top: 36px;
+    .min_max_data_list {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--awell-spacing-2);
+      font-size: var(--awell-font-size-sm);
+      @media (min-width: 640px) {
+        font-size: var(--awell-font-size-base);
       }
-    }
-  }
 
-  /* min / max labels at the edges */
-  &::before,
-  &::after {
-    font-size: var(--awell-font-size-sm);
-    content: var(--awell-min-max-value);
-    position: absolute;
-    top: calc(40px - var(--ticksHeight));
-
-    @media (min-width: 640px) {
-      font-size: var(--awell-font-size-base);
-    }
-  }
-
-  &::before {
-    counter-reset: x var(--awell-min);
-  }
-
-  &::after {
-    counter-reset: x var(--awell-max);
-    right: 0;
-  }
-
-  & .awell_range_input_datalist {
-    font-size: var(--awell-font-size-sm);
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-
-    &.with_min_max_labels {
-      margin-top: 20px;
-    }
-
-    .minLabel {
-      position: absolute;
-      left: 0;
-      bottom: -40px;
-      width: 47.5%;
-      max-width: 250px;
-      text-align: left;
-    }
-
-    .maxLabel {
-      position: absolute;
-      right: 0;
-      bottom: -40px;
-      width: 47.5%;
-      max-width: 250px;
-      text-align: right;
-    }
-
-    @media (min-width: 640px) {
-      font-size: var(--awell-font-size-base);
-    }
-  }
-
-  & .awell_range_input {
-    --awell-radio-awell-border-radius: var(--border-radius-default, 4px);
-    --awell-radio-neutral: var(--neutral, var(--awell-neutralMid400));
-
-    font-size: var(--awell-font-size-md);
-    width: 100%;
-    margin: 1.3px 0;
-    background-color: transparent;
-    appearance: none;
-    position: relative;
-
-    &:focus {
-      outline: none;
-    }
-
-    &::-webkit-slider-runnable-track {
-      position: relative;
-      background: var(--awell-range-slider-background-color);
-      border: 0;
-      border-radius: 25px;
-      width: 100%;
-      height: 11.4px;
-      cursor: pointer;
-    }
-
-    &::-webkit-slider-thumb {
-      margin-top: -1.3px;
-      width: 14px;
-      height: 14px;
-      background: var(--awell-accent-color);
-      border: 0;
-      border-radius: 15px;
-      cursor: pointer;
-      appearance: none;
-    }
-
-    &::-moz-range-track {
-      background: var(--awell-range-slider-background-color);
-      border: 0;
-      border-radius: 25px;
-      width: 100%;
-      height: 11.4px;
-      cursor: pointer;
-    }
-
-    &::-moz-range-thumb {
-      width: 14px;
-      height: 14px;
-      background: var(--awell-accent-color);
-      border: 0;
-      border-radius: 15px;
-      cursor: pointer;
-    }
-
-    &::-ms-track {
-      position: relative;
-      background: transparent;
-      border-color: transparent;
-      border-width: 2.2px 0;
-      color: transparent;
-      width: 100%;
-      height: 11.4px;
-      cursor: pointer;
-    }
-
-    &::-ms-fill-lower {
-      background: var(--awell-accent-color);
-      border: 0;
-      border-radius: 50px;
-    }
-
-    &::-ms-fill-upper {
-      background: var(--awell-range-slider-background-color); // TODO
-      border: 0;
-      border-radius: 50px;
-    }
-
-    &::-ms-thumb {
-      width: 14px;
-      height: 14px;
-      background: var(--awell-accent-color);
-      border: 0;
-      border-radius: 15px;
-      cursor: pointer;
-      margin-top: 0;
-
-      /* Needed to keep the Edge thumb centred */
-    }
-
-    &:focus::-ms-fill-lower {
-      background: var(--awell-range-slider-background-color);
-    }
-
-    &:focus::-ms-fill-upper {
-      background: var(--awell-range-slider-background-color); // TODO
-    }
-
-    /* TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
-  how to remove the virtical space around the range input in IE */
-    @supports (-ms-ime-align: auto) {
-      /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
-      & {
-        margin: 0;
-
-        /* Edge starts the margin from the thumb, not the track as other browsers do */
+      & > div {
+        width: 50%;
       }
-    }
-  }
 
-  & .awell_range_input_labels {
-    display: flex;
-    justify-content: space-between;
-  }
+      &:first-child {
+        margin-top: var(--awell-spacing-1);
+      }
 
-  & .tooltip {
-    position: absolute;
-    background-color: var(--awell-secondary-color);
-    color: var(--awell-secondary-text-color);
-    padding: var(--awell-spacing-1) var(--awell-spacing-2);
-    font-size: var(--awell-font-size-sm);
-    border-radius: var(--awell-spacing-2);
-    transform: translateX(-50%);
-    @media (min-width: 640px) {
-      font-size: var(--awell-font-size-base);
+      .min {
+        text-align: left;
+      }
+      .max {
+        text-align: right;
+      }
     }
   }
 }

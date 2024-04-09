@@ -407,13 +407,7 @@ export const Question = ({
       />
 
       {currentError && (
-        <div
-          className={`${classes.error} ${
-            question.userQuestionType === UserQuestionType.Slider
-              ? classes.slider_error
-              : ''
-          }`}
-        >
+        <div className={classes.error}>
           <Text variant="textSmall" color="var(--awell-signalError100)">
             {currentError.error}
           </Text>

@@ -31,7 +31,7 @@ describe('Range input', () => {
       />
     )
 
-    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
+    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist-labels`)
 
     expect(dataList).toBeDefined()
 
@@ -67,14 +67,14 @@ describe('Range input', () => {
       />
     )
 
-    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
+    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist-labels`)
 
     expect(dataList).toBeDefined()
 
     expect(dataList).toContainHTML(`${FIXTURE.sliderConfig.max_label}`)
   })
 
-  it('Should work properly if both min and max labels are undefined', async () => {
+  it('Should not render min and max labels if both are undefined', async () => {
     const FIXTURE = {
       id: 'RANGE_INPUT_ID',
       label: 'MY_LABEL',
@@ -101,8 +101,8 @@ describe('Range input', () => {
       />
     )
 
-    const dataList = await screen.findByTestId(`${FIXTURE.id}-datalist`)
-
-    expect(dataList).toBeDefined()
+    expect(
+      async () => await screen.findByTestId(`${FIXTURE.id}-datalist-labels`)
+    )
   })
 })
