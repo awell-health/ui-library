@@ -48,7 +48,7 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
             confirmed,
             eventType: eventType,
             date,
-            booking
+            booking,
           })
         },
       })
@@ -67,7 +67,16 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
       .join('&')
   }
 
-  const composedCalLink = `${calLink}${metadata ? `?${metadataString}` : ''}`
+  /**
+   * Check if calLink already contains a '?'
+   * If that's the case, we want to make sure to preserve it and
+   * just append the metadata
+   */
+  const metadataSeparator = calLink.includes('?') ? '&' : '?'
+
+  const composedCalLink = `${calLink}${
+    metadataString ? `${metadataSeparator}${metadataString}` : ''
+  }`
 
   return (
     <Cal
