@@ -190,11 +190,15 @@ export const RangeInput = ({
               touched ? classes.showThumb : classes.hideThumb
             }`}
             onChange={handleValueChange}
-            onFocus={() => {
+            onFocus={(e) => {
+              if (!touched) {
+                setInternalValue(max.toString())
+                onChange(e)
+              }
+
               setTouched(true)
               onTouched(true)
             }}
-            value={internalValue}
             aria-valuemin={min}
             aria-valuemax={max}
             aria-valuenow={(props.value || min) as number}
