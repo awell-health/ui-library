@@ -1,0 +1,86 @@
+@use '../../../globalStyles';
+
+:root {
+  --awell-activity-collect-medication-max-width: 850px;
+  --awell-activity-collect-medication-padding: var(--awell-activity-padding);
+}
+
+.container {
+  max-width: var(--awell-activity-collect-medication-max-width);
+  padding: var(--awell-activity-collect-medication-padding);
+  margin: 0 auto;
+}
+
+.groupMedsListContainer {
+  font-size: var(--awell-font-size-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: var(--awell-spacing-4);
+  @media (min-width: 640px) {
+    font-size: var(--awell-font-size-base);
+    gap: var(--awell-spacing-3);
+  }
+}
+
+.singleMedsListContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: left;
+  width: 100%;
+  gap: var(--awell-spacing-2);
+  @media (min-width: 640px) {
+    gap: var(--awell-spacing-4);
+  }
+}
+
+.singleMedsListContainer:not(:first-child) label {
+  display: none;
+}
+
+.singleMedsListContainer > div {
+  width: 100%;
+}
+
+.addMedsButton {
+  margin-top: var(--awell-spacing-4);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.deleteMedsButton {
+  background-color: var(--awell-red50);
+  border: none;
+  color: var(--awell-red);
+  border-radius: var(--awell-border-radius-md);
+  display: flex;
+  align-items: center;
+  padding: var(--awell-spacing-2);
+  cursor: pointer;
+  &:hover {
+    background-color: #fee2e2;
+  }
+  @media (min-width: 640px) {
+    padding: var(--awell-spacing-2);
+  }
+}
+
+.icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  @media (min-width: 640px) {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+.button_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  align-items: center;
+  width: 100%;
+}
