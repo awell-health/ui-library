@@ -194,6 +194,7 @@ export const RangeInput = ({
               setTouched(true)
               onTouched(true)
             }}
+            value={internalValue}
             aria-valuemin={min}
             aria-valuemax={max}
             aria-valuenow={(props.value || min) as number}
