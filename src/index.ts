@@ -54,6 +54,7 @@ export {
   CloudinarySingleFileUpload,
   HostedPageFooter,
   LoadActivityPlaceholder,
+  CollectMedication,
 } from './hostedPages'
 
 export {
