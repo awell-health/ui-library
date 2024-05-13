@@ -192,12 +192,11 @@ export const RangeInput = ({
             onChange={handleValueChange}
             onFocus={(e) => {
               if (!touched) {
-                setInternalValue(max.toString())
-                onChange(e)
+                handleValueChange(e)
+              } else {
+                setTouched(true)
+                onTouched(true)
               }
-
-              setTouched(true)
-              onTouched(true)
             }}
             aria-valuemin={min}
             aria-valuemax={max}
