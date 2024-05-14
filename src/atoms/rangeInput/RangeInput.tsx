@@ -190,9 +190,13 @@ export const RangeInput = ({
               touched ? classes.showThumb : classes.hideThumb
             }`}
             onChange={handleValueChange}
-            onFocus={() => {
-              setTouched(true)
-              onTouched(true)
+            onFocus={(e) => {
+              if (!touched) {
+                handleValueChange(e)
+              } else {
+                setTouched(true)
+                onTouched(true)
+              }
             }}
             aria-valuemin={min}
             aria-valuemax={max}
