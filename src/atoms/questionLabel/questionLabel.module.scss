@@ -1,6 +1,6 @@
 .label {
   margin-bottom: var(--awell-spacing-1\.5);
-  font-size: var(--awell-font-size-sm);
+  font-size: var(--awell-font-size-base);
   line-height: var(--awell-leading-normal);
   font-weight: var(--awell-font-medium);
   color: rgb(55 65 81);
@@ -9,7 +9,7 @@
   white-space: pre-wrap;
 
   @media (min-width: 640px) {
-    font-size: var(--awell-font-size-base);
+    font-size: var(--awell-font-size-lg);
     line-height: var(--awell-leading-relaxed);
   }
 }
