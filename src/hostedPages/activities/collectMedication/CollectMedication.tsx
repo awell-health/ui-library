@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react'
-import { Button, InputField, useTheme } from '../../../atoms'
+import { Button, InputField, QuestionLabel, useTheme } from '../../../atoms'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import classes from './collectMedication.module.scss'
@@ -8,6 +8,7 @@ import { isEmpty } from 'lodash'
 import { MinusCircleIcon } from '@heroicons/react/24/outline'
 
 export const CollectMedication: FC<CollectMedicationProps> = ({
+  label,
   text,
   onSubmit,
 }) => {
@@ -59,6 +60,11 @@ export const CollectMedication: FC<CollectMedicationProps> = ({
         id="ahp_main_content_with_scroll_hint"
         className={layoutClasses.main_content}
       >
+        {!isEmpty(label) && (
+          <div className={`${classes.container} ${classes.label}`}>
+            <QuestionLabel label={label ?? ''} />
+          </div>
+        )}
         <div
           className={`${classes.container} ${classes.groupMedsListContainer}`}
         >

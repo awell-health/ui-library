@@ -9,6 +9,10 @@ export default {
   title: 'HostedPages/Activities/CollectMedication',
   component: CollectMedicationComponent,
   argTypes: {
+    label: {
+      control: 'text',
+      defaultValue: 'Question label goes here',
+    },
     onSubmit: { action: 'submitted' },
   },
   decorators: [
@@ -21,6 +25,7 @@ export default {
 } as Meta
 
 export const CollectMedication: Story<CollectMedicationProps> = ({
+  label,
   onSubmit,
 }) => {
   return (
@@ -32,6 +37,7 @@ export const CollectMedication: Story<CollectMedicationProps> = ({
     >
       <CollectMedicationComponent
         onSubmit={onSubmit}
+        label={label}
         text={{
           medication_name: 'Name',
           medication_dose: 'Dose',

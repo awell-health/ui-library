@@ -6,6 +6,7 @@ export type Medication = {
 
 export interface CollectMedicationProps {
   onSubmit: (data: Medication[]) => void
+  label?: string
   text: {
     medication_name: string
     medication_dose: string
