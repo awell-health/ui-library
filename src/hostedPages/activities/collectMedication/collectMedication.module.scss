@@ -11,6 +11,10 @@
   margin: 0 auto;
 }
 
+.label {
+  margin-bottom: var(--awell-spacing-4);
+}
+
 .groupMedsListContainer {
   font-size: var(--awell-font-size-sm);
   display: flex;
