@@ -15,6 +15,13 @@ export type Scalars = {
   SafeDate: any;
 };
 
+export type ActionComponent = {
+  __typename?: 'ActionComponent';
+  definition_id?: Maybe<Scalars['String']>;
+  release_id?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
 export type ActionPayload = Payload & {
   __typename?: 'ActionPayload';
   calculationId: Scalars['String'];
@@ -34,7 +41,7 @@ export enum ActionType {
   PushToEmr = 'PUSH_TO_EMR'
 }
 
-export type ActivitiesPayload = Payload & {
+export type ActivitiesPayload = PaginationAndSortingPayload & {
   __typename?: 'ActivitiesPayload';
   activities: Array<Activity>;
   code: Scalars['String'];
@@ -47,6 +54,7 @@ export type ActivitiesPayload = Payload & {
 export type Activity = {
   __typename?: 'Activity';
   action: ActivityAction;
+  action_component?: Maybe<ActionComponent>;
   container_name?: Maybe<Scalars['String']>;
   context?: Maybe<PathwayContext>;
   date: Scalars['String'];
@@ -519,6 +527,7 @@ export enum DataPointSourceType {
   ApiCall = 'API_CALL',
   ApiCallStatus = 'API_CALL_STATUS',
   Calculation = 'CALCULATION',
+  DataPoint = 'DATA_POINT',
   ExtensionAction = 'EXTENSION_ACTION',
   ExtensionWebhook = 'EXTENSION_WEBHOOK',
   Form = 'FORM',
@@ -532,6 +541,7 @@ export enum DataPointSourceType {
 export enum DataPointValueType {
   Boolean = 'BOOLEAN',
   Date = 'DATE',
+  Json = 'JSON',
   Number = 'NUMBER',
   NumbersArray = 'NUMBERS_ARRAY',
   String = 'STRING',
@@ -852,6 +862,7 @@ export type HostedSessionPayload = Payload & {
   __typename?: 'HostedSessionPayload';
   branding?: Maybe<BrandingSettings>;
   code: Scalars['String'];
+  metadata?: Maybe<SessionMetadata>;
   session: HostedSession;
   success: Scalars['Boolean'];
 };
@@ -1202,7 +1213,7 @@ export type OrchestrationFact = {
   pathway_id: Scalars['String'];
 };
 
-export type OrchestrationFactsPayload = Payload & {
+export type OrchestrationFactsPayload = PaginationAndSortingPayload & {
   __typename?: 'OrchestrationFactsPayload';
   code: Scalars['String'];
   facts: Array<OrchestrationFact>;
@@ -1218,24 +1229,37 @@ export type OrchestrationFactsPromptPayload = Payload & {
   success: Scalars['Boolean'];
 };
 
+export type PaginationAndSortingPayload = {
+  code: Scalars['String'];
+  pagination?: Maybe<PaginationOutput>;
+  sorting?: Maybe<SortingOutput>;
+  success: Scalars['Boolean'];
+};
+
 export type PaginationOutput = {
   __typename?: 'PaginationOutput';
-  count?: Maybe<Scalars['Float']>;
-  offset?: Maybe<Scalars['Float']>;
-  total_count?: Maybe<Scalars['Float']>;
+  count?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  total_count?: Maybe<Scalars['Int']>;
 };
 
 export type PaginationParams = {
-  count: Scalars['Float'];
-  offset: Scalars['Float'];
+  count: Scalars['Int'];
+  offset: Scalars['Int'];
 };
 
 export type Pathway = {
   __typename?: 'Pathway';
-  activities: Array<Activity>;
+  /**
+   * Deprecated. Please use latestActivities.
+   * @deprecated use latestActivities instead. Limited to most recent 1000 activities
+   */
+  activities?: Maybe<Array<Activity>>;
   complete_date?: Maybe<Scalars['SafeDate']>;
   dashboards?: Maybe<PathwayDashboard>;
   id: Scalars['ID'];
+  /** Activities, sorted by date in descending order. For larger care flows, only the most recent 1000 activities are included. To see a complete list of activities, please use the `activity` query and appropriate filters. */
+  latestActivities: Array<Activity>;
   pathway_definition_id: Scalars['String'];
   patient: User;
   patient_id: Scalars['String'];
@@ -1317,7 +1341,7 @@ export type PathwaySummary = {
   version?: Maybe<Scalars['Float']>;
 };
 
-export type PathwaysPayload = Payload & {
+export type PathwaysPayload = PaginationAndSortingPayload & {
   __typename?: 'PathwaysPayload';
   code: Scalars['String'];
   pagination?: Maybe<PaginationOutput>;
@@ -1399,12 +1423,12 @@ export type PatientProfileInput = {
   sex?: InputMaybe<Sex>;
 };
 
-export type PatientsPayload = Payload & {
+export type PatientsPayload = PaginationAndSortingPayload & {
   __typename?: 'PatientsPayload';
   code: Scalars['String'];
-  pagination: PaginationOutput;
+  pagination?: Maybe<PaginationOutput>;
   patients: Array<User>;
-  sorting: SortingOutput;
+  sorting?: Maybe<SortingOutput>;
   success: Scalars['Boolean'];
 };
 
@@ -1465,7 +1489,7 @@ export type PublishedPathwayDefinition = {
   version?: Maybe<Scalars['Float']>;
 };
 
-export type PublishedPathwayDefinitionsPayload = Payload & {
+export type PublishedPathwayDefinitionsPayload = PaginationAndSortingPayload & {
   __typename?: 'PublishedPathwayDefinitionsPayload';
   code: Scalars['String'];
   pagination?: Maybe<PaginationOutput>;
@@ -1640,7 +1664,9 @@ export type QueryMessageArgs = {
 
 
 export type QueryMyActivitiesArgs = {
+  pagination?: InputMaybe<PaginationParams>;
   pathway_id: Scalars['String'];
+  sorting?: InputMaybe<SortingParams>;
 };
 
 
@@ -1650,7 +1676,9 @@ export type QueryPathwayArgs = {
 
 
 export type QueryPathwayActivitiesArgs = {
+  pagination?: InputMaybe<PaginationParams>;
   pathway_id: Scalars['String'];
+  sorting?: InputMaybe<SortingParams>;
 };
 
 
@@ -1937,6 +1965,12 @@ export type SearchPatientsPayload = Payload & {
   success: Scalars['Boolean'];
 };
 
+export type SessionMetadata = {
+  __typename?: 'SessionMetadata';
+  pathway_definition_id?: Maybe<Scalars['String']>;
+  tenant_id?: Maybe<Scalars['String']>;
+};
+
 export enum Sex {
   Female = 'FEMALE',
   Male = 'MALE',
@@ -2048,6 +2082,8 @@ export type StartHostedPathwaySessionInput = {
   /** If no patient_id is provided this field will be used to uniquely identify the patient. */
   patient_identifier?: InputMaybe<IdentifierInput>;
   success_url?: InputMaybe<Scalars['String']>;
+  /** Time-to-live of the session in seconds. This defaults to the maximal value of 3600 seconds (one hour). */
+  ttl?: InputMaybe<Scalars['Float']>;
 };
 
 export type StartHostedPathwaySessionPayload = Payload & {
