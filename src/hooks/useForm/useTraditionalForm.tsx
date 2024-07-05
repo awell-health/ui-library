@@ -79,7 +79,7 @@ const useTraditionalForm = ({
 
   // Mark all initial values as dirty
   useEffect(() => {
-    if (!isEmpty(initialValues)) {
+    if (autosaveAnswers && !isEmpty(initialValues)) {
       formMethods.reset(getInitialValues(questions))
       Object.keys(initialValues).forEach((key) => {
         formMethods.setValue(key, initialValues[key], {
