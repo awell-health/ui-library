@@ -30,13 +30,8 @@ const useTraditionalForm = ({
 }: FormSettingsContextProps): TraditionalFormContext => {
   const initialValues = convertToFormFormat(storedAnswers, questions)
 
-  const defaultValues =
-    !isEmpty(initialValues) && autosaveAnswers
-      ? getInitialValues(questions)
-      : undefined
-
   const formMethods = useForm({
-    defaultValues,
+    defaultValues: getInitialValues(questions),
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',

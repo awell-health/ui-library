@@ -32,13 +32,8 @@ const useConversationalForm = ({
   const { isValidE164Number, validateDateResponse, validateNumberResponse } =
     useValidate()
 
-  const defaultValues =
-    !isEmpty(initialValues) && autosaveAnswers
-      ? getInitialValues(questions)
-      : undefined
-
   const formMethods = useForm({
-    defaultValues,
+    defaultValues: getInitialValues(questions),
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
