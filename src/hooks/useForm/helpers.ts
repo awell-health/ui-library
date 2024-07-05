@@ -278,16 +278,34 @@ export const getErrorsForQuestion = (
 }
 
 export const getDirtyFieldValues = (formMethods: UseFormReturn) => {
-  const {
-    formState: { dirtyFields },
-    getValues,
-  } = formMethods
+  const { getValues, getFieldState } = formMethods
+
   const allValues = getValues()
-  const dirtyValues = Object.keys(dirtyFields).reduce((acc, key) => {
-    if (dirtyFields[key]) {
+
+  const dirtyValues = Object.keys(getValues()).reduce((acc, key) => {
+    if (getFieldState(key).isDirty) {
       acc[key] = allValues[key]
     }
     return acc
   }, {} as Record<string, AnswerValue>)
+
   return dirtyValues
+}
+
+export const markInitialValuesAsDirty = ({
+  formMethods,
+  defaultValues,
+  initialValues,
+}: {
+  formMethods: UseFormReturn
+  defaultValues: Record<string, AnswerValue>
+  initialValues: Record<string, AnswerValue>
+}) => {
+  formMethods.reset(defaultValues)
+  Object.keys(initialValues).forEach((key) => {
+    formMethods.setValue(key, initialValues[key], {
+      shouldDirty: true,
+      shouldTouch: true,
+    })
+  })
 }

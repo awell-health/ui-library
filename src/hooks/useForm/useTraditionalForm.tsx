@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useValidate } from '../useValidate'
@@ -8,12 +9,13 @@ import {
   getErrorsForQuestion,
   getInitialValues,
   isEmpty,
+  markInitialValuesAsDirty,
   updateVisibility,
 } from './helpers'
 import {
   AnswerValue,
-  FormSettingsContextProps,
   FormError,
+  FormSettingsContextProps,
   QuestionWithVisibility,
   TraditionalFormContext,
 } from './types'
@@ -28,17 +30,14 @@ const useTraditionalForm = ({
   onAnswersChange,
 }: FormSettingsContextProps): TraditionalFormContext => {
   const initialValues = convertToFormFormat(storedAnswers, questions)
-  const defaultValues =
-    !isEmpty(initialValues) && autosaveAnswers
-      ? initialValues
-      : getInitialValues(questions)
 
   const formMethods = useForm({
-    defaultValues,
+    defaultValues: getInitialValues(questions),
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
   })
+
   const [visibleQuestions, setVisibleQuestions] = useState<
     Array<QuestionWithVisibility>
   >([])
@@ -79,6 +78,25 @@ const useTraditionalForm = ({
     updateQuestionVisibility()
   }, [updateQuestionVisibility])
 
+  // Mark all initial values as dirty
+  useEffect(() => {
+    if (autosaveAnswers && !isEmpty(initialValues)) {
+      markInitialValuesAsDirty({
+        formMethods,
+        initialValues,
+        defaultValues: getInitialValues(questions),
+      })
+      formMethods.trigger().then(() => {
+        // Ensure validation is completed before updating visibility
+        const allValues = formMethods.getValues()
+        if (onAnswersChange) {
+          onAnswersChange(JSON.stringify(allValues) ?? '{}')
+        }
+        updateQuestionVisibility()
+      })
+    }
+  }, [])
+
   const handleConvertAndSubmitForm = async (
     formResponse: Record<string, AnswerValue>
   ) => {
@@ -92,7 +110,7 @@ const useTraditionalForm = ({
 
   const submitForm = async () => {
     await updateQuestionVisibility()
-    const errors = visibleQuestions.flatMap((vq) =>
+    const formErrors = visibleQuestions.flatMap((vq) =>
       getErrorsForQuestion(
         vq,
         formMethods,
@@ -102,8 +120,8 @@ const useTraditionalForm = ({
         validateNumberResponse
       )
     )
-    setErrors(errors)
-    if (errors.length == 0) {
+    setErrors(formErrors)
+    if (formErrors.length === 0) {
       setFormHasErrors(false)
       formMethods.handleSubmit(handleConvertAndSubmitForm)()
     } else {

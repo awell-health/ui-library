@@ -9,6 +9,7 @@ import {
   getErrorsForQuestion,
   getInitialValues,
   isEmpty,
+  markInitialValuesAsDirty,
   updateVisibility,
 } from './helpers'
 import {
@@ -31,13 +32,9 @@ const useConversationalForm = ({
   const initialValues = convertToFormFormat(storedAnswers, questions)
   const { isValidE164Number, validateDateResponse, validateNumberResponse } =
     useValidate()
-  const defaultValues =
-    !isEmpty(initialValues) && autosaveAnswers
-      ? initialValues
-      : getInitialValues(questions)
 
   const formMethods = useForm({
-    defaultValues,
+    defaultValues: getInitialValues(questions),
     shouldUnregister: false,
     shouldFocusError: true,
     mode: 'all',
@@ -96,6 +93,25 @@ const useConversationalForm = ({
   useEffect(() => {
     updateQuestionVisibility()
   }, [updateQuestionVisibility])
+
+  // Mark all initial values as dirty
+  useEffect(() => {
+    if (autosaveAnswers && !isEmpty(initialValues)) {
+      markInitialValuesAsDirty({
+        formMethods,
+        initialValues,
+        defaultValues: getInitialValues(questions),
+      })
+      formMethods.trigger().then(() => {
+        // Ensure validation is completed before updating visibility
+        const allValues = formMethods.getValues()
+        if (onAnswersChange) {
+          onAnswersChange(JSON.stringify(allValues) ?? '{}')
+        }
+        updateQuestionVisibility()
+      })
+    }
+  }, [])
 
   const handleCheckForErrors = (
     currentQuestion: QuestionWithVisibility
