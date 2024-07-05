@@ -278,16 +278,16 @@ export const getErrorsForQuestion = (
 }
 
 export const getDirtyFieldValues = (formMethods: UseFormReturn) => {
-  const { getValues, getFieldState } = formMethods
-
+  const {
+    formState: { dirtyFields },
+    getValues,
+  } = formMethods
   const allValues = getValues()
-
-  const dirtyValues = Object.keys(getValues()).reduce((acc, key) => {
-    if (getFieldState(key).isDirty) {
+  const dirtyValues = Object.keys(dirtyFields).reduce((acc, key) => {
+    if (dirtyFields[key]) {
       acc[key] = allValues[key]
     }
     return acc
   }, {} as Record<string, AnswerValue>)
-
   return dirtyValues
 }

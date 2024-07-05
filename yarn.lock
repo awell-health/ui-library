@@ -14063,10 +14063,10 @@ react-fit@^1.4.0:
     prop-types "^15.6.0"
     tiny-warning "^1.0.0"
 
-react-hook-form@^7.41.5:
-  version "7.52.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.52.1.tgz#ec2c96437b977f8b89ae2d541a70736c66284852"
-  integrity sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==
+react-hook-form@^7.33.1:
+  version "7.34.2"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.34.2.tgz"
+  integrity sha512-1lYWbEqr0GW7HHUjMScXMidGvV0BE2RJV3ap2BL7G0EJirkqpccTaawbsvBO8GZaB3JjCeFBEbnEWI1P8ZoLRQ==
 
 react-inspector@^5.1.0:
   version "5.1.1"

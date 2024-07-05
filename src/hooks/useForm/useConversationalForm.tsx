@@ -31,11 +31,10 @@ const useConversationalForm = ({
   const initialValues = convertToFormFormat(storedAnswers, questions)
   const { isValidE164Number, validateDateResponse, validateNumberResponse } =
     useValidate()
-
   const defaultValues =
     !isEmpty(initialValues) && autosaveAnswers
-      ? getInitialValues(questions)
-      : undefined
+      ? initialValues
+      : getInitialValues(questions)
 
   const formMethods = useForm({
     defaultValues,
@@ -97,27 +96,6 @@ const useConversationalForm = ({
   useEffect(() => {
     updateQuestionVisibility()
   }, [updateQuestionVisibility])
-
-  // Mark all initial values as dirty
-  useEffect(() => {
-    if (!isEmpty(initialValues)) {
-      formMethods.reset(getInitialValues(questions))
-      Object.keys(initialValues).forEach((key) => {
-        formMethods.setValue(key, initialValues[key], {
-          shouldDirty: true,
-          shouldTouch: true,
-        })
-      })
-      formMethods.trigger().then(() => {
-        // Ensure validation is completed before updating visibility
-        const allValues = formMethods.getValues()
-        if (onAnswersChange) {
-          onAnswersChange(JSON.stringify(allValues) ?? '{}')
-        }
-        updateQuestionVisibility()
-      })
-    }
-  }, [])
 
   const handleCheckForErrors = (
     currentQuestion: QuestionWithVisibility
