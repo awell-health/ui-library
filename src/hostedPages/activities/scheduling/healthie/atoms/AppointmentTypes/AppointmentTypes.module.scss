@@ -20,6 +20,9 @@
   padding: var(--awell-spacing-4) var(--awell-spacing-6);
   box-shadow: var(--awell-shadow-sm);
   outline: none;
+  &:hover {
+    background-color: #f8fafc;
+  }
 }
 
 .radio_option:focus,
@@ -36,6 +39,17 @@
 
 .radio_option[data-disabled] {
   cursor: not-allowed;
+  border: 1px solid var(--awell-slate200);
+  background-color: var(--awell-slate50);
+  &:hover {
+    background-color: #fff;
+  }
+
+  .appointmentName,
+  .appointmentLength,
+  .appointmentTypes {
+    color: var(--awell-slate400);
+  }
 }
 
 @media (min-width: 640px) {

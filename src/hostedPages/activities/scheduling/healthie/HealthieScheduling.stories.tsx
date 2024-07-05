@@ -1,13 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
-import {
-  AppointmentTypes,
-  Stepper,
-  type StepperProps,
-  AppointmentTypesProps,
-} from './atoms'
+import { AppointmentTypes, Stepper } from './atoms'
 import { ThemeProvider } from '../../../../atoms'
 import { HostedPageLayout } from '../../../layouts/HostedPageLayout/HostedPageLayout'
+import { Scheduler } from './molecules/Scheduler/Scheduler'
 
 export default {
   title: 'HostedPages/Activities/Scheduling/Healthie',
@@ -17,7 +13,7 @@ export default {
       defaultValue: [
         {
           id: 'Step 1',
-          name: 'Appointment type',
+          name: 'Select appointment',
           href: '#',
           status: 'current',
         },
@@ -27,7 +23,12 @@ export default {
           href: '#',
           status: 'upcoming',
         },
-        { id: 'Step 3', name: 'Confirmation', href: '#', status: 'upcoming' },
+        {
+          id: 'Step 3',
+          name: 'Your information',
+          href: '#',
+          status: 'upcoming',
+        },
       ],
     },
     appointmentTypes: {
@@ -37,64 +38,35 @@ export default {
           id: '54454',
           name: 'Initial Consultation',
           length: 60,
-          clients_have_credit: true,
-          client_call_provider: false,
-          availability_exists_for: true,
-          valid_state_licensing_for: true,
-          available_contact_types: ['Healthie Video Call', 'Phone Call'],
-          is_group: false,
-          is_waitlist_enabled: false,
-          require_in_state_clients: false,
-          has_available_group_appts: null,
-          __typename: 'AppointmentType',
+          disabled: false,
+          availableContactTypes: ['Healthie Video Call', 'Phone Call'],
         },
         {
           id: '54455',
           name: 'Follow-up Session',
           length: 45,
-          clients_have_credit: true,
-          client_call_provider: false,
-          availability_exists_for: true,
-          valid_state_licensing_for: true,
-          available_contact_types: ['Healthie Video Call', 'Phone Call'],
-          is_group: false,
-          is_waitlist_enabled: false,
-          require_in_state_clients: false,
-          has_available_group_appts: null,
-          __typename: 'AppointmentType',
+          disabled: false,
+          availableContactTypes: ['Healthie Video Call', 'Phone Call'],
         },
         {
           id: '54456',
           name: 'Group Session',
           length: 45,
-          clients_have_credit: true,
-          client_call_provider: false,
-          availability_exists_for: false,
-          valid_state_licensing_for: true,
-          available_contact_types: ['Healthie Video Call', 'Phone Call'],
-          is_group: true,
-          is_waitlist_enabled: false,
-          require_in_state_clients: false,
-          has_available_group_appts: null,
-          __typename: 'AppointmentType',
+          disabled: true,
+          availableContactTypes: ['Phone Call'],
         },
         {
           id: '66891',
           name: 'Regular visit',
           length: 30,
-          clients_have_credit: true,
-          client_call_provider: false,
-          availability_exists_for: true,
-          valid_state_licensing_for: true,
-          available_contact_types: ['Healthie Video Call', 'Phone Call'],
-          is_group: false,
-          is_waitlist_enabled: false,
-          require_in_state_clients: false,
-          has_available_group_appts: null,
-          __typename: 'AppointmentType',
+          disabled: false,
+          availableContactTypes: ['Healthie Video Call'],
         },
       ],
     },
+    onAppointmentSelect: { action: 'appointmentSelected' },
+    onDateSelect: { action: 'dateSelected' },
+    onSlotSelect: { action: 'slotSelected' },
   },
   decorators: [
     (StoryComponent) => (
@@ -106,9 +78,53 @@ export default {
 } as Meta
 
 export const HealthieSchedulingActivity: Story = ({
-  steps,
+  steps: initialSteps,
   appointmentTypes,
+  onAppointmentSelect,
+  onDateSelect,
+  onSlotSelect,
 }) => {
+  const [steps, setSteps] = useState(initialSteps)
+  const [selectedAppointment, setSelectedAppointment] = useState<
+    string | undefined
+  >(undefined)
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [selectedSlot, setSelectedSlot] = useState<Date | undefined>(undefined)
+
+  const updateStepStatus = (stepId: string) => {
+    const updatedSteps = steps.map((step) => {
+      if (step.id === stepId) {
+        return { ...step, status: 'current' }
+      } else if (
+        steps.findIndex((s) => s.id === step.id) <
+        steps.findIndex((s) => s.id === stepId)
+      ) {
+        return { ...step, status: 'complete' }
+      } else {
+        return { ...step, status: 'upcoming' }
+      }
+    })
+
+    setSteps(updatedSteps)
+  }
+
+  const handleAppointmentSelect = (id: string) => {
+    updateStepStatus('Step 2')
+    setSelectedAppointment(id)
+    onAppointmentSelect(id)
+  }
+
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date)
+    onDateSelect(date)
+  }
+
+  const handleSlotSelect = (date: Date) => {
+    updateStepStatus('Step 3')
+    setSelectedSlot(date)
+    onSlotSelect(date)
+  }
+
   return (
     <HostedPageLayout
       logo={
@@ -116,11 +132,51 @@ export const HealthieSchedulingActivity: Story = ({
       }
       onCloseHostedPage={() => alert('Stop session')}
     >
-      <div style={{ width: '100%', maxWidth: '900px', margin: '0 auto' }}>
-        <Stepper steps={steps} />
+      <div
+        style={{
+          padding: '0 2rem',
+          width: '100%',
+          maxWidth: '1040px',
+          margin: '0 auto',
+        }}
+      >
+        <Stepper steps={steps} onStepClick={updateStepStatus} />
 
         <div style={{ marginTop: '2rem' }}>
-          <AppointmentTypes appointmentTypes={appointmentTypes} />
+          {steps[0].status === 'current' && (
+            <AppointmentTypes
+              value={selectedAppointment}
+              appointmentTypes={appointmentTypes}
+              onSelect={handleAppointmentSelect}
+            />
+          )}
+
+          {steps[1].status === 'current' && (
+            <Scheduler
+              // @ts-ignore it's okay
+              appointmentName={
+                appointmentTypes.find((a) => a.id === selectedAppointment).name
+              }
+              // @ts-ignore it's okay
+              appointmentLength={
+                appointmentTypes.find((a) => a.id === selectedAppointment)
+                  .length
+              }
+              // @ts-ignore it's okay
+              appointmentCallType={
+                appointmentTypes.find((a) => a.id === selectedAppointment)
+                  .availableContactTypes[0]
+              }
+              date={selectedDate}
+              slot={selectedSlot}
+              onDateSelect={handleDateSelect}
+              onSlotSelect={handleSlotSelect}
+            />
+          )}
+
+          {steps[2].status === 'current' && (
+            <div>Todo: form to insert information</div>
+          )}
         </div>
       </div>
     </HostedPageLayout>

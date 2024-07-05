@@ -7,7 +7,7 @@ import {
 import { ThemeProvider } from '../../../../../../atoms'
 
 export default {
-  title: 'HostedPages/Activities/Scheduling/Healthie/AppointmentTypes',
+  title: 'HostedPages/Activities/Scheduling/Healthie/Atoms/AppointmentTypes',
   component: AppointmentTypesComponent,
   argTypes: {
     appointmentTypes: {
@@ -17,64 +17,33 @@ export default {
           id: '54454',
           name: 'Initial Consultation',
           length: 60,
-          clients_have_credit: true,
-          client_call_provider: false,
-          availability_exists_for: true,
-          valid_state_licensing_for: true,
-          available_contact_types: ['Healthie Video Call', 'Phone Call'],
-          is_group: false,
-          is_waitlist_enabled: false,
-          require_in_state_clients: false,
-          has_available_group_appts: null,
-          __typename: 'AppointmentType',
+          disabled: false,
+          availableContactTypes: ['Healthie Video Call', 'Phone Call'],
         },
         {
           id: '54455',
           name: 'Follow-up Session',
           length: 45,
-          clients_have_credit: true,
-          client_call_provider: false,
-          availability_exists_for: true,
-          valid_state_licensing_for: true,
-          available_contact_types: ['Healthie Video Call', 'Phone Call'],
-          is_group: false,
-          is_waitlist_enabled: false,
-          require_in_state_clients: false,
-          has_available_group_appts: null,
-          __typename: 'AppointmentType',
+          disabled: false,
+          availableContactTypes: ['Healthie Video Call', 'Phone Call'],
         },
         {
           id: '54456',
           name: 'Group Session',
           length: 45,
-          clients_have_credit: true,
-          client_call_provider: false,
-          availability_exists_for: false,
-          valid_state_licensing_for: true,
-          available_contact_types: ['Healthie Video Call', 'Phone Call'],
-          is_group: true,
-          is_waitlist_enabled: false,
-          require_in_state_clients: false,
-          has_available_group_appts: null,
-          __typename: 'AppointmentType',
+          disabled: true,
+          availableContactTypes: ['Phone Call'],
         },
         {
           id: '66891',
           name: 'Regular visit',
           length: 30,
-          clients_have_credit: true,
-          client_call_provider: false,
-          availability_exists_for: true,
-          valid_state_licensing_for: true,
-          available_contact_types: ['Healthie Video Call', 'Phone Call'],
-          is_group: false,
-          is_waitlist_enabled: false,
-          require_in_state_clients: false,
-          has_available_group_appts: null,
-          __typename: 'AppointmentType',
+          disabled: false,
+          availableContactTypes: ['Healthie Video Call'],
         },
       ],
     },
+    onSelect: { action: 'selected' },
   },
   decorators: [
     (StoryComponent) => (
@@ -87,10 +56,14 @@ export default {
 
 export const AppointmentTypes: Story<AppointmentTypesProps> = ({
   appointmentTypes,
+  onSelect,
 }) => {
   return (
     <div style={{ padding: '2rem' }}>
-      <AppointmentTypesComponent appointmentTypes={appointmentTypes} />
+      <AppointmentTypesComponent
+        appointmentTypes={appointmentTypes}
+        onSelect={onSelect}
+      />
     </div>
   )
 }

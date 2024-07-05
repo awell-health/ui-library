@@ -55,6 +55,7 @@
 
 .progress a.incomplete {
   border-color: var(--awell-slate300);
+  cursor: not-allowed;
 }
 
 .progress a.incomplete:hover {
