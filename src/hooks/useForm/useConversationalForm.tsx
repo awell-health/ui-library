@@ -9,6 +9,7 @@ import {
   getErrorsForQuestion,
   getInitialValues,
   isEmpty,
+  markInitialValuesAsDirty,
   updateVisibility,
 } from './helpers'
 import {
@@ -96,12 +97,10 @@ const useConversationalForm = ({
   // Mark all initial values as dirty
   useEffect(() => {
     if (autosaveAnswers && !isEmpty(initialValues)) {
-      formMethods.reset(getInitialValues(questions))
-      Object.keys(initialValues).forEach((key) => {
-        formMethods.setValue(key, initialValues[key], {
-          shouldDirty: true,
-          shouldTouch: true,
-        })
+      markInitialValuesAsDirty({
+        formMethods,
+        initialValues,
+        defaultValues: getInitialValues(questions),
       })
       formMethods.trigger().then(() => {
         // Ensure validation is completed before updating visibility

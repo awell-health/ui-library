@@ -291,3 +291,21 @@ export const getDirtyFieldValues = (formMethods: UseFormReturn) => {
 
   return dirtyValues
 }
+
+export const markInitialValuesAsDirty = ({
+  formMethods,
+  defaultValues,
+  initialValues,
+}: {
+  formMethods: UseFormReturn
+  defaultValues: Record<string, AnswerValue>
+  initialValues: Record<string, AnswerValue>
+}) => {
+  formMethods.reset(defaultValues)
+  Object.keys(initialValues).forEach((key) => {
+    formMethods.setValue(key, initialValues[key], {
+      shouldDirty: true,
+      shouldTouch: true,
+    })
+  })
+}
