@@ -1,7 +1,6 @@
 {
   "name": "@awell-health/ui-library",
-  "version": "0.1.64",
-  "private": false,
+  "version": "0.1.65",
   "description": "UI components to integrate with Awell Health",
   "repository": {
     "type": "git",
@@ -55,7 +54,7 @@
     "html-react-parser": "^3.0.1",
     "lodash": "^4.17.21",
     "react-date-picker": "^8.4.0",
-    "react-hook-form": "^7.33.1",
+    "react-hook-form": "^7.41.5",
     "react-international-phone": "^1.8.8",
     "react-markdown": "^9.0.0",
     "react-window": "^1.8.10",
@@ -191,6 +190,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "homepage": "https://github.com/awell-health/ui-library#readme"
+  }
 }
