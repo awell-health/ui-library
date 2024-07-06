@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Stepper as StepperComponent, StepperProps } from './Stepper'
-import { ThemeProvider } from '../../../../../../atoms'
+import { ThemeProvider } from '..'
 
 export default {
-  title: 'HostedPages/Activities/Scheduling/Healthie/Atoms/Stepper',
+  title: 'Atoms/Stepper',
   component: StepperComponent,
   argTypes: {
     steps: {

@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
-import { AppointmentTypes, Stepper } from './atoms'
-import { ThemeProvider } from '../../../../atoms'
+import {
+  AppointmentTypeOverview,
+  AppointmentTypes,
+  InformationForm,
+} from './atoms'
+import { ThemeProvider, Stepper, useTheme } from '../../../../atoms'
 import { HostedPageLayout } from '../../../layouts/HostedPageLayout/HostedPageLayout'
 import { Scheduler } from './molecules/Scheduler/Scheduler'
 
@@ -67,6 +71,7 @@ export default {
     onAppointmentSelect: { action: 'appointmentSelected' },
     onDateSelect: { action: 'dateSelected' },
     onSlotSelect: { action: 'slotSelected' },
+    handleBooking: { action: 'confirmBooking' },
   },
   decorators: [
     (StoryComponent) => (
@@ -83,13 +88,24 @@ export const HealthieSchedulingActivity: Story = ({
   onAppointmentSelect,
   onDateSelect,
   onSlotSelect,
+  handleBooking,
 }) => {
+  const { updateLayoutMode, resetLayoutMode } = useTheme()
   const [steps, setSteps] = useState(initialSteps)
   const [selectedAppointment, setSelectedAppointment] = useState<
     string | undefined
   >(undefined)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedSlot, setSelectedSlot] = useState<Date | undefined>(undefined)
+
+  useEffect(() => {
+    updateLayoutMode('flexible')
+
+    return () => {
+      // Reset to default mode on unmount
+      resetLayoutMode()
+    }
+  }, [])
 
   const updateStepStatus = (stepId: string) => {
     const updatedSteps = steps.map((step) => {
@@ -125,6 +141,10 @@ export const HealthieSchedulingActivity: Story = ({
     onSlotSelect(date)
   }
 
+  console.log(selectedAppointment)
+  console.log(selectedDate)
+  console.log(selectedSlot)
+
   return (
     <HostedPageLayout
       logo={
@@ -142,7 +162,7 @@ export const HealthieSchedulingActivity: Story = ({
       >
         <Stepper steps={steps} onStepClick={updateStepStatus} />
 
-        <div style={{ marginTop: '2rem' }}>
+        <div style={{ marginTop: '3rem', marginBottom: '1rem' }}>
           {steps[0].status === 'current' && (
             <AppointmentTypes
               value={selectedAppointment}
@@ -175,7 +195,31 @@ export const HealthieSchedulingActivity: Story = ({
           )}
 
           {steps[2].status === 'current' && (
-            <div>Todo: form to insert information</div>
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <div style={{ width: '30%' }}>
+                <AppointmentTypeOverview
+                  bookedSlot={selectedSlot}
+                  // @ts-ignore it's okay
+                  name={
+                    appointmentTypes.find((a) => a.id === selectedAppointment)
+                      .name
+                  }
+                  // @ts-ignore it's okay
+                  length={
+                    appointmentTypes.find((a) => a.id === selectedAppointment)
+                      .length
+                  }
+                  // @ts-ignore it's okay
+                  contactType={
+                    appointmentTypes.find((a) => a.id === selectedAppointment)
+                      .availableContactTypes[0]
+                  }
+                />
+              </div>
+              <div style={{ width: '70%' }}>
+                <InformationForm onSubmit={handleBooking} />
+              </div>
+            </div>
           )}
         </div>
       </div>

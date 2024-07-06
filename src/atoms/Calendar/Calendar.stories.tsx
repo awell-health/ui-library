@@ -1,10 +1,10 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Calendar as CalendarComponent, CalendarProps } from './Calendar'
-import { ThemeProvider } from '../../../../../../atoms'
+import { ThemeProvider } from '../../atoms'
 
 export default {
-  title: 'HostedPages/Activities/Scheduling/Healthie/Atoms/Calendar',
+  title: 'Atoms/Calendar',
   component: CalendarComponent,
   argTypes: {
     onSelect: { action: 'selected' },

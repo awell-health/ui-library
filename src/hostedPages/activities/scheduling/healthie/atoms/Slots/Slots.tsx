@@ -34,42 +34,46 @@ export const Slots: FC<SlotsProps> = ({ value, slotDate, slots, onSelect }) => {
 
   return (
     <div>
-      {slotDate ? (
+      {slotDate && (
+        <h3 className={classes.title}>{formatTitleDate(slotDate)}</h3>
+      )}
+      {!slotDate && (
         <>
-          <h3 className={classes.title}>{formatTitleDate(slotDate)}</h3>
-          <div className={classes.slotList}>
-            <div className={classes.scrollContainer}>
-              <div className={classes.scrollBar}>
-                <fieldset
-                  className={classes.fieldset}
-                  aria-label="Appointment type"
+          <h3 className={classes.title}>Slots</h3>
+          <p>Select a date first</p>
+        </>
+      )}
+      {slotDate && (
+        <div className={classes.slotList}>
+          <div className={classes.scrollContainer}>
+            <div className={classes.scrollBar}>
+              <fieldset
+                className={classes.fieldset}
+                aria-label="Appointment type"
+              >
+                <RadioGroup
+                  value={selectedSlot}
+                  onChange={handleSlotSelect}
+                  className={classes.group}
                 >
-                  <RadioGroup
-                    value={selectedSlot}
-                    onChange={handleSlotSelect}
-                    className={classes.group}
-                  >
-                    {slots.map((slot) => (
-                      <Field key={slot.toISOString()}>
-                        <Radio
-                          key={slot.toISOString()}
-                          value={slot}
-                          aria-label={slot.toISOString()}
-                          aria-description={slot.toISOString()}
-                          className={classes.radio_option}
-                        >
-                          {formatSlotTime(slot)}
-                        </Radio>
-                      </Field>
-                    ))}
-                  </RadioGroup>
-                </fieldset>
-              </div>
+                  {slots.map((slot) => (
+                    <Field key={slot.toISOString()}>
+                      <Radio
+                        key={slot.toISOString()}
+                        value={slot}
+                        aria-label={slot.toISOString()}
+                        aria-description={slot.toISOString()}
+                        className={classes.radio_option}
+                      >
+                        {formatSlotTime(slot)}
+                      </Radio>
+                    </Field>
+                  ))}
+                </RadioGroup>
+              </fieldset>
             </div>
           </div>
-        </>
-      ) : (
-        <div>Select a date</div>
+        </div>
       )}
     </div>
   )

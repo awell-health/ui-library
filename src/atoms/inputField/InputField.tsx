@@ -10,7 +10,7 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * you can also set any attribute that is native to html button
    */
-  type: 'number' | 'text' | 'date'
+  type: 'number' | 'text' | 'date' | 'email'
   /**
    * sets label of the button
    */

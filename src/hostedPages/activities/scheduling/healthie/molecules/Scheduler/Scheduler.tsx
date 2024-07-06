@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import classes from './Scheduler.module.scss'
-import { Calendar, AppointmentTypeOverview, Slots } from '../../atoms'
+import { AppointmentTypeOverview, Slots } from '../../atoms'
+import { Calendar } from '../../../../../../atoms'
 
 export type SchedulerProps = {
   appointmentName: string

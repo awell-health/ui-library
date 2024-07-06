@@ -11,12 +11,16 @@ export default {
     'HostedPages/Activities/Scheduling/Healthie/Atoms/AppointmentTypeOverview',
   component: AppointmentTypeOverviewComponent,
   argTypes: {
+    bookedSlot: {
+      control: 'date',
+      defaultValue: new Date(),
+    },
     name: {
       control: 'text',
       defaultValue: 'Initial Consultation',
     },
     length: {
-      control: 'numer',
+      control: 'number',
       defaultValue: 45,
     },
     contactType: {
@@ -34,6 +38,7 @@ export default {
 } as Meta
 
 export const AppointmentTypeOverview: Story<AppointmentTypeOverviewProps> = ({
+  bookedSlot,
   name,
   length,
   contactType,
@@ -41,6 +46,7 @@ export const AppointmentTypeOverview: Story<AppointmentTypeOverviewProps> = ({
   return (
     <div style={{ padding: '2rem' }}>
       <AppointmentTypeOverviewComponent
+        bookedSlot={bookedSlot}
         name={name}
         length={length}
         contactType={contactType}
