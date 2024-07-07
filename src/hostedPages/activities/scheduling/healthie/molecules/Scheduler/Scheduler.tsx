@@ -7,8 +7,13 @@ export type SchedulerProps = {
   appointmentName: string
   appointmentLength: number
   appointmentCallType: string
+  timeZone: string
   date?: Date
   slot?: Date
+  availableDays?: Date[]
+  availableSlots?: Date[]
+  loadingAvailableDays?: boolean
+  loadingAvailableSlots?: boolean
   onDateSelect: (date: Date) => void
   onSlotSelect: (date: Date) => void
 }
@@ -16,9 +21,14 @@ export type SchedulerProps = {
 export const Scheduler: FC<SchedulerProps> = ({
   date,
   slot,
+  timeZone,
   appointmentName,
   appointmentLength,
   appointmentCallType,
+  availableDays,
+  availableSlots,
+  loadingAvailableDays,
+  loadingAvailableSlots,
   onDateSelect,
   onSlotSelect,
 }) => {
@@ -29,26 +39,25 @@ export const Scheduler: FC<SchedulerProps> = ({
           name={appointmentName}
           length={appointmentLength}
           contactType={appointmentCallType}
+          timezone={timeZone}
         />
       </div>
       <div className={classes.main}>
-        <Calendar value={date} onSelect={onDateSelect} />
+        <Calendar
+          value={date}
+          onSelect={onDateSelect}
+          loading={loadingAvailableDays}
+          availableDates={availableDays}
+        />
       </div>
       <div className={classes.timeslots}>
         <Slots
           value={slot}
           slotDate={date}
           onSelect={onSlotSelect}
-          slots={[
-            new Date('2025-07-10T22:00:00.000Z'),
-            new Date('2025-07-10T22:15:00.000Z'),
-            new Date('2025-07-10T22:30:00.000Z'),
-            new Date('2025-07-10T22:45:00.000Z'),
-            new Date('2025-07-10T23:00:00.000Z'),
-            new Date('2025-07-10T23:15:00.000Z'),
-            new Date('2025-07-10T23:30:00.000Z'),
-            new Date('2025-07-10T23:45:00.000Z'),
-          ]}
+          slots={availableSlots}
+          timeZone={timeZone}
+          loading={loadingAvailableSlots}
         />
       </div>
     </div>

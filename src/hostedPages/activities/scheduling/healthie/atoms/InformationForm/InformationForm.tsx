@@ -11,7 +11,13 @@ export type InformationFormProps = {
   email?: string
   phoneNumber?: string
   reason?: string
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void
+  onSubmit: (values: FormBookingValues) => void
+  errors: Partial<FormBookingValues>
   text?: {
+    title?: string
     firstNameLabel?: string
     lastNameLabel?: string
     emailLabel?: string
@@ -27,10 +33,9 @@ export type InformationFormProps = {
       phoneNumberInvalid?: string
     }
   }
-  onSubmit: (values: FormValues) => void
 }
 
-type FormValues = {
+export type FormBookingValues = {
   firstName: string
   lastName: string
   email: string
@@ -45,80 +50,28 @@ export const InformationForm: FC<InformationFormProps> = ({
   phoneNumber = '',
   reason = '',
   text,
+  onChange,
   onSubmit,
+  errors,
 }) => {
-  const [formValues, setFormValues] = useState<FormValues>({
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    reason,
-  })
-  const { isValidE164Number, isPossibleE164Number } = useValidate()
-
-  const [errors, setErrors] = useState<Partial<FormValues>>({})
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    onSubmit({ firstName, lastName, email, phoneNumber, reason })
+  }
 
   const {
+    title = 'Complete your information',
     firstNameLabel = 'First name',
     lastNameLabel = 'Last name',
     emailLabel = 'Email',
     phoneNumberLabel = 'Phone number',
     reasonLabel = 'Reason for appointment',
     submitButtonLabel = 'Submit',
-    errors: {
-      firstNameRequired = 'First name is required',
-      lastNameRequired = 'Last name is required',
-      emailRequired = 'Email is required',
-      emailInvalid = 'Invalid email address',
-      phoneNumberRequired = 'Phone number is required',
-      phoneNumberInvalid = 'Not a valid phone number',
-    } = {},
   } = text || {}
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    })
-  }
-
-  const validate = () => {
-    const newErrors: Partial<FormValues> = {}
-
-    if (isEmpty(formValues.firstName)) newErrors.firstName = firstNameRequired
-    if (isEmpty(formValues.lastName)) newErrors.lastName = lastNameRequired
-    if (isEmpty(formValues.email)) {
-      newErrors.email = emailRequired
-    } else if (!/^\S+@\S+\.\S+$/.test(formValues.email)) {
-      newErrors.email = emailInvalid
-    }
-    if (isEmpty(formValues.phoneNumber))
-      newErrors.phoneNumber = phoneNumberRequired
-
-    if (
-      !isValidE164Number(formValues.phoneNumber) ||
-      !isPossibleE164Number(formValues.phoneNumber)
-    )
-      newErrors.phoneNumber = phoneNumberInvalid
-
-    setErrors(newErrors)
-
-    return Object.keys(newErrors).length === 0
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (validate()) {
-      onSubmit(formValues)
-    }
-  }
 
   return (
     <div>
-      <h3 className={classes.heading}>Complete your information</h3>
+      <h3 className={classes.heading}>{title}</h3>
       <form onSubmit={handleSubmit} className={classes.form}>
         <div className={classes.row}>
           <div className={classes.field}>
@@ -127,8 +80,8 @@ export const InformationForm: FC<InformationFormProps> = ({
               label={firstNameLabel}
               type="text"
               name="firstName"
-              value={formValues.firstName}
-              onChange={handleChange}
+              value={firstName}
+              onChange={onChange}
               placeholder={firstNameLabel}
               mandatory={true}
             />
@@ -143,8 +96,8 @@ export const InformationForm: FC<InformationFormProps> = ({
               label={lastNameLabel}
               type="text"
               name="lastName"
-              value={formValues.lastName}
-              onChange={handleChange}
+              value={lastName}
+              onChange={onChange}
               placeholder={lastNameLabel}
               mandatory={true}
             />
@@ -161,8 +114,8 @@ export const InformationForm: FC<InformationFormProps> = ({
               label={emailLabel}
               type="email"
               name="email"
-              value={formValues.email}
-              onChange={handleChange}
+              value={email}
+              onChange={onChange}
               placeholder={emailLabel}
               mandatory={true}
             />
@@ -177,9 +130,9 @@ export const InformationForm: FC<InformationFormProps> = ({
               name="phoneNumber"
               label={phoneNumberLabel}
               //@ts-ignore this is okay
-              onChange={handleChange}
+              onChange={onChange}
               mandatory={true}
-              value={formValues.phoneNumber}
+              value={phoneNumber}
             />
             {errors.phoneNumber && (
               <span className={classes.error}>{errors.phoneNumber}</span>
@@ -192,8 +145,8 @@ export const InformationForm: FC<InformationFormProps> = ({
             id="reason"
             label={reasonLabel}
             name="reason"
-            value={formValues.reason}
-            onChange={handleChange}
+            value={reason}
+            onChange={onChange}
             placeholder={reasonLabel}
           />
           {errors.reason && (

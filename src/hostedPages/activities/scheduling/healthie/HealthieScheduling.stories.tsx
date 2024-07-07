@@ -4,10 +4,19 @@ import {
   AppointmentTypeOverview,
   AppointmentTypes,
   InformationForm,
+  useInformationForm,
 } from './atoms'
-import { ThemeProvider, Stepper, useTheme } from '../../../../atoms'
+import {
+  ThemeProvider,
+  Stepper,
+  useTheme,
+  CircularSpinner,
+} from '../../../../atoms'
 import { HostedPageLayout } from '../../../layouts/HostedPageLayout/HostedPageLayout'
 import { Scheduler } from './molecules/Scheduler/Scheduler'
+import { useTimezone } from '../../../../hooks'
+import { addDays, isSameDay } from 'date-fns'
+import { FormBookingValues } from './atoms/InformationForm/InformationForm'
 
 export default {
   title: 'HostedPages/Activities/Scheduling/Healthie',
@@ -35,43 +44,10 @@ export default {
         },
       ],
     },
-    appointmentTypes: {
-      control: 'array',
-      defaultValue: [
-        {
-          id: '54454',
-          name: 'Initial Consultation',
-          length: 60,
-          disabled: false,
-          availableContactTypes: ['Healthie Video Call', 'Phone Call'],
-        },
-        {
-          id: '54455',
-          name: 'Follow-up Session',
-          length: 45,
-          disabled: false,
-          availableContactTypes: ['Healthie Video Call', 'Phone Call'],
-        },
-        {
-          id: '54456',
-          name: 'Group Session',
-          length: 45,
-          disabled: true,
-          availableContactTypes: ['Phone Call'],
-        },
-        {
-          id: '66891',
-          name: 'Regular visit',
-          length: 30,
-          disabled: false,
-          availableContactTypes: ['Healthie Video Call'],
-        },
-      ],
-    },
     onAppointmentSelect: { action: 'appointmentSelected' },
     onDateSelect: { action: 'dateSelected' },
     onSlotSelect: { action: 'slotSelected' },
-    handleBooking: { action: 'confirmBooking' },
+    onBooking: { action: 'confirmBooking' },
   },
   decorators: [
     (StoryComponent) => (
@@ -82,24 +58,122 @@ export default {
   ],
 } as Meta
 
+const mockFetchAppointmentTypes = () =>
+  new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve([
+          {
+            id: '54454',
+            name: 'Initial Consultation',
+            length: 60,
+            disabled: false,
+            availableContactTypes: ['Healthie Video Call', 'Phone Call'],
+          },
+          {
+            id: '54455',
+            name: 'Follow-up Session',
+            length: 45,
+            disabled: false,
+            availableContactTypes: ['Healthie Video Call', 'Phone Call'],
+          },
+          {
+            id: '54456',
+            name: 'Group Session',
+            length: 45,
+            disabled: true,
+            availableContactTypes: ['Phone Call'],
+          },
+          {
+            id: '66891',
+            name: 'Regular visit',
+            length: 30,
+            disabled: false,
+            availableContactTypes: ['Healthie Video Call'],
+          },
+        ]),
+      750
+    )
+  )
+
+const mockFetchAvailableDays = () =>
+  new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve([
+          addDays(new Date(), 1),
+          addDays(new Date(), 7),
+          addDays(new Date(), 14),
+        ]),
+      750
+    )
+  )
+
+const mockFetchAvailableSlots = () =>
+  new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve([
+          '2024-07-12 00:00:00 +0200',
+          '2024-07-12 00:15:00 +0200',
+          '2024-07-12 00:30:00 +0200',
+          '2024-07-12 00:45:00 +0200',
+          '2024-07-12 01:00:00 +0200',
+          '2024-07-12 01:15:00 +0200',
+          '2024-07-12 01:30:00 +0200',
+        ]),
+      750
+    )
+  )
+
+const mockBookAppointment = () =>
+  new Promise((resolve) => setTimeout(() => resolve(true), 1500))
+
 export const HealthieSchedulingActivity: Story = ({
   steps: initialSteps,
-  appointmentTypes,
   onAppointmentSelect,
   onDateSelect,
   onSlotSelect,
-  handleBooking,
+  onBooking,
 }) => {
   const { updateLayoutMode, resetLayoutMode } = useTheme()
+  const timeZone = useTimezone()
+
   const [steps, setSteps] = useState(initialSteps)
+
+  const [appointmentTypes, setAppointmentTypes] = useState([])
+  const [availableDays, setAvailableDays] = useState([])
+  const [availableSlots, setAvailableSlots] = useState([])
+  const [loadingAppointmentTypes, setLoadingAppointmentTypes] = useState(true)
+  const [loadingAvailableDays, setLoadingAvailableDays] = useState(false)
+  const [loadingSlots, setLoadingSlots] = useState(false)
+  const [loadingConfirmation, setLoadingConfirmation] = useState(false)
+
   const [selectedAppointment, setSelectedAppointment] = useState<
     string | undefined
   >(undefined)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedSlot, setSelectedSlot] = useState<Date | undefined>(undefined)
 
+  const initialValues: FormBookingValues = {
+    firstName: 'Nick',
+    lastName: 'Hellemans',
+    email: 'nick@awellhealth.com',
+    phoneNumber: '+32476581696',
+    reason: '',
+  }
+
+  const { formValues, errors, handleChange, validate } =
+    useInformationForm(initialValues)
+
   useEffect(() => {
     updateLayoutMode('flexible')
+
+    mockFetchAppointmentTypes().then((types) => {
+      //@ts-ignore this is fine for the story
+      setAppointmentTypes(types)
+      setLoadingAppointmentTypes(false)
+    })
 
     return () => {
       // Reset to default mode on unmount
@@ -108,11 +182,14 @@ export const HealthieSchedulingActivity: Story = ({
   }, [])
 
   const updateStepStatus = (stepId: string) => {
+    // @ts-ignore it's okay
     const updatedSteps = steps.map((step) => {
       if (step.id === stepId) {
         return { ...step, status: 'current' }
       } else if (
+        // @ts-ignore it's okay
         steps.findIndex((s) => s.id === step.id) <
+        // @ts-ignore it's okay
         steps.findIndex((s) => s.id === stepId)
       ) {
         return { ...step, status: 'complete' }
@@ -125,14 +202,36 @@ export const HealthieSchedulingActivity: Story = ({
   }
 
   const handleAppointmentSelect = (id: string) => {
+    setLoadingAvailableDays(true)
+
     updateStepStatus('Step 2')
     setSelectedAppointment(id)
     onAppointmentSelect(id)
+
+    mockFetchAvailableDays().then((days) => {
+      //@ts-ignore this is fine for the story
+      setAvailableDays(days)
+      setLoadingAvailableDays(false)
+    })
   }
 
   const handleDateSelect = (date: Date) => {
+    setAvailableSlots([])
+    setLoadingSlots(true)
     setSelectedDate(date)
     onDateSelect(date)
+
+    mockFetchAvailableSlots().then((slots) => {
+      const isAvailable = (date: Date) => {
+        return availableDays.some((availableDate) =>
+          isSameDay(date, availableDate)
+        )
+      }
+
+      //@ts-ignore this is fine for the story
+      if (isAvailable(date)) setAvailableSlots(slots)
+      setLoadingSlots(false)
+    })
   }
 
   const handleSlotSelect = (date: Date) => {
@@ -141,9 +240,15 @@ export const HealthieSchedulingActivity: Story = ({
     onSlotSelect(date)
   }
 
-  console.log(selectedAppointment)
-  console.log(selectedDate)
-  console.log(selectedSlot)
+  const handleBooking = (data: FormBookingValues) => {
+    setLoadingConfirmation(true)
+    onBooking(data)
+
+    mockBookAppointment().then(() => {
+      setLoadingConfirmation(false)
+      alert('Show confirmation and button to complete activity')
+    })
+  }
 
   return (
     <HostedPageLayout
@@ -164,29 +269,42 @@ export const HealthieSchedulingActivity: Story = ({
 
         <div style={{ marginTop: '3rem', marginBottom: '1rem' }}>
           {steps[0].status === 'current' && (
-            <AppointmentTypes
-              value={selectedAppointment}
-              appointmentTypes={appointmentTypes}
-              onSelect={handleAppointmentSelect}
-            />
+            <>
+              {loadingAppointmentTypes ? (
+                <div style={{ justifyContent: 'center', display: 'flex' }}>
+                  <CircularSpinner size="sm" />
+                </div>
+              ) : (
+                <AppointmentTypes
+                  value={selectedAppointment}
+                  appointmentTypes={appointmentTypes}
+                  onSelect={handleAppointmentSelect}
+                />
+              )}
+            </>
           )}
 
           {steps[1].status === 'current' && (
             <Scheduler
-              // @ts-ignore it's okay
               appointmentName={
+                // @ts-ignore it's okay
                 appointmentTypes.find((a) => a.id === selectedAppointment).name
               }
-              // @ts-ignore it's okay
               appointmentLength={
+                // @ts-ignore it's okay
                 appointmentTypes.find((a) => a.id === selectedAppointment)
                   .length
               }
-              // @ts-ignore it's okay
               appointmentCallType={
+                // @ts-ignore it's okay
                 appointmentTypes.find((a) => a.id === selectedAppointment)
                   .availableContactTypes[0]
               }
+              loadingAvailableDays={loadingAvailableDays}
+              loadingAvailableSlots={loadingSlots}
+              availableDays={availableDays}
+              availableSlots={availableSlots?.map((d) => new Date(d))}
+              timeZone={timeZone}
               date={selectedDate}
               slot={selectedSlot}
               onDateSelect={handleDateSelect}
@@ -195,31 +313,58 @@ export const HealthieSchedulingActivity: Story = ({
           )}
 
           {steps[2].status === 'current' && (
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <div style={{ width: '30%' }}>
-                <AppointmentTypeOverview
-                  bookedSlot={selectedSlot}
-                  // @ts-ignore it's okay
-                  name={
-                    appointmentTypes.find((a) => a.id === selectedAppointment)
-                      .name
-                  }
-                  // @ts-ignore it's okay
-                  length={
-                    appointmentTypes.find((a) => a.id === selectedAppointment)
-                      .length
-                  }
-                  // @ts-ignore it's okay
-                  contactType={
-                    appointmentTypes.find((a) => a.id === selectedAppointment)
-                      .availableContactTypes[0]
-                  }
-                />
-              </div>
-              <div style={{ width: '70%' }}>
-                <InformationForm onSubmit={handleBooking} />
-              </div>
-            </div>
+            <>
+              {loadingConfirmation ? (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <CircularSpinner size="sm" />
+                </div>
+              ) : (
+                <div style={{ display: 'flex', gap: '20px' }}>
+                  <div style={{ width: '30%' }}>
+                    <AppointmentTypeOverview
+                      bookedSlot={selectedSlot}
+                      name={
+                        // @ts-ignore it's okay
+                        appointmentTypes.find(
+                          // @ts-ignore it's okay
+                          (a) => a.id === selectedAppointment
+                        ).name
+                      }
+                      length={
+                        // @ts-ignore it's okay
+                        appointmentTypes.find(
+                          // @ts-ignore it's okay
+                          (a) => a.id === selectedAppointment
+                        ).length
+                      }
+                      contactType={
+                        // @ts-ignore it's okay
+                        appointmentTypes.find(
+                          // @ts-ignore it's okay
+                          (a) => a.id === selectedAppointment
+                        ).availableContactTypes[0]
+                      }
+                    />
+                  </div>
+                  <div style={{ width: '70%' }}>
+                    <InformationForm
+                      firstName={formValues.firstName}
+                      lastName={formValues.lastName}
+                      email={formValues.email}
+                      phoneNumber={formValues.phoneNumber}
+                      onSubmit={(values) => {
+                        if (validate()) {
+                          handleBooking(values)
+                        }
+                      }}
+                      text={{ submitButtonLabel: 'Book appointment' }}
+                      errors={errors}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

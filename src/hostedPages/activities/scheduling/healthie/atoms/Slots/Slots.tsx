@@ -2,24 +2,47 @@ import { FC, useState } from 'react'
 import classes from './Slots.module.scss'
 import { Field, Radio, RadioGroup } from '@headlessui/react'
 import { format } from 'date-fns'
+import { isEmpty } from 'lodash'
+import { CircularSpinner } from '../../../../../../atoms'
 
 export interface SlotsProps {
   value?: Date
   slotDate?: Date
-  slots: Date[]
+  slots?: Date[]
+  timeZone: string
   onSelect: (date: Date) => void
+  loading?: boolean
+  text?: {
+    slotsLabel?: string
+    selectDateLabel?: string
+    noSlotsLabel?: string
+  }
 }
 
-export const Slots: FC<SlotsProps> = ({ value, slotDate, slots, onSelect }) => {
-  const [selectedSlot, setSelectedSlot] = useState<Date | undefined>(value)
+export const Slots: FC<SlotsProps> = ({
+  value,
+  slotDate,
+  slots,
+  timeZone,
+  loading,
+  onSelect,
+  text,
+}) => {
+  const {
+    slotsLabel = 'Slots',
+    selectDateLabel = 'Select a date first',
+    noSlotsLabel = 'No slots available',
+  } = text || {}
 
   const formatSlotTime = (date: Date) => {
     const options: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: 'numeric',
       hour12: true,
-      timeZone: 'America/New_York',
+      timeZone,
     }
+
+    // Always format in US format (12h notation + AM/PM)
     return new Intl.DateTimeFormat('en-US', options).format(date)
   }
 
@@ -28,22 +51,28 @@ export const Slots: FC<SlotsProps> = ({ value, slotDate, slots, onSelect }) => {
   }
 
   const handleSlotSelect = (date: Date) => {
-    setSelectedSlot(date)
     onSelect(date)
   }
 
   return (
     <div>
-      {slotDate && (
+      {slotDate ? (
         <h3 className={classes.title}>{formatTitleDate(slotDate)}</h3>
+      ) : (
+        <h3 className={classes.title}>{slotsLabel}</h3>
       )}
-      {!slotDate && (
+      {loading && (
+        <div className={classes.loading}>
+          <CircularSpinner size="sm" />
+        </div>
+      )}
+      {!loading && !slotDate && (
         <>
-          <h3 className={classes.title}>Slots</h3>
-          <p>Select a date first</p>
+          <p>{selectDateLabel}</p>
         </>
       )}
-      {slotDate && (
+      {!loading && slotDate && isEmpty(slots) && <div>{noSlotsLabel}</div>}
+      {!loading && slotDate && !isEmpty(slots) && (
         <div className={classes.slotList}>
           <div className={classes.scrollContainer}>
             <div className={classes.scrollBar}>
@@ -52,11 +81,11 @@ export const Slots: FC<SlotsProps> = ({ value, slotDate, slots, onSelect }) => {
                 aria-label="Appointment type"
               >
                 <RadioGroup
-                  value={selectedSlot}
+                  value={value}
                   onChange={handleSlotSelect}
                   className={classes.group}
                 >
-                  {slots.map((slot) => (
+                  {slots?.map((slot) => (
                     <Field key={slot.toISOString()}>
                       <Radio
                         key={slot.toISOString()}

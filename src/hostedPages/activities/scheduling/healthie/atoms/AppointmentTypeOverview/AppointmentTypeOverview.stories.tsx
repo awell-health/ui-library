@@ -5,6 +5,7 @@ import {
   AppointmentTypeOverviewProps,
 } from './AppointmentTypeOverview'
 import { ThemeProvider } from '../../../../../../atoms'
+import { useTimezone } from '../../../../../../hooks'
 
 export default {
   title:
@@ -43,6 +44,8 @@ export const AppointmentTypeOverview: Story<AppointmentTypeOverviewProps> = ({
   length,
   contactType,
 }) => {
+  const timeZone = useTimezone()
+
   return (
     <div style={{ padding: '2rem' }}>
       <AppointmentTypeOverviewComponent
@@ -50,6 +53,7 @@ export const AppointmentTypeOverview: Story<AppointmentTypeOverviewProps> = ({
         name={name}
         length={length}
         contactType={contactType}
+        timezone={timeZone}
       />
     </div>
   )

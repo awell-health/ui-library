@@ -2,6 +2,7 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import { Slots as SlotsComponent, SlotsProps } from './Slots'
 import { ThemeProvider } from '../../../../../../atoms'
+import { useTimezone } from '../../../../../../hooks'
 
 export default {
   title: 'HostedPages/Activities/Scheduling/Healthie/Atoms/Slots',
@@ -14,14 +15,13 @@ export default {
     slots: {
       control: 'array',
       defaultValue: [
-        '2025-07-10T22:00:00.000Z',
-        '2025-07-10T22:15:00.000Z',
-        '2025-07-10T22:30:00.000Z',
-        '2025-07-10T22:45:00.000Z',
-        '2025-07-10T23:00:00.000Z',
-        '2025-07-10T23:15:00.000Z',
-        '2025-07-10T23:30:00.000Z',
-        '2025-07-10T23:45:00.000Z',
+        '2024-07-12 00:00:00 +0200',
+        '2024-07-12 00:15:00 +0200',
+        '2024-07-12 00:30:00 +0200',
+        '2024-07-12 00:45:00 +0200',
+        '2024-07-12 01:00:00 +0200',
+        '2024-07-12 01:15:00 +0200',
+        '2024-07-12 01:30:00 +0200',
       ],
     },
     onSelect: { action: 'selected' },
@@ -36,12 +36,15 @@ export default {
 } as Meta
 
 export const Slots: Story<SlotsProps> = ({ slotDate, slots, onSelect }) => {
+  const timeZone = useTimezone()
+
   return (
     <div style={{ padding: '2rem' }}>
       <SlotsComponent
         slotDate={slotDate}
-        slots={slots.map((s) => new Date(s))}
+        slots={slots?.map((s) => new Date(s))}
         onSelect={onSelect}
+        timeZone={timeZone}
       />
     </div>
   )

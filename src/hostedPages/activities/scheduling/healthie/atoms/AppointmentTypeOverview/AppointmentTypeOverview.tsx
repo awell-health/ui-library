@@ -13,6 +13,7 @@ export type AppointmentTypeOverviewProps = {
   name: string
   length?: number
   contactType?: string
+  timezone?: string
 }
 
 export const AppointmentTypeOverview: FC<AppointmentTypeOverviewProps> = ({
@@ -20,9 +21,8 @@ export const AppointmentTypeOverview: FC<AppointmentTypeOverviewProps> = ({
   name,
   length,
   contactType,
+  timezone,
 }) => {
-  const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-
   const formatAppointmentDate = (startDate: Date, lengthInMinutes: number) => {
     const endDate = addMinutes(startDate, lengthInMinutes)
 
@@ -70,9 +70,11 @@ export const AppointmentTypeOverview: FC<AppointmentTypeOverviewProps> = ({
             <PhoneIcon className={classes.icon} /> <span>{contactType}</span>
           </div>
         )}
-        <div className={classes.item}>
-          <GlobeAltIcon className={classes.icon} /> <span>{userTimezone}</span>
-        </div>
+        {timezone && (
+          <div className={classes.item}>
+            <GlobeAltIcon className={classes.icon} /> <span>{timezone}</span>
+          </div>
+        )}
       </div>
     </div>
   )

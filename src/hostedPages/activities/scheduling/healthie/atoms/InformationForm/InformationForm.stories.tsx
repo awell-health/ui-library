@@ -1,10 +1,12 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react/types-6-0'
 import {
+  FormBookingValues,
   InformationForm as InformationFormComponent,
   InformationFormProps,
 } from './InformationForm'
 import { ThemeProvider } from '../../../../../../atoms'
+import { useInformationForm } from './useInformationForm'
 
 export default {
   title: 'HostedPages/Activities/Scheduling/Healthie/Atoms/InformationForm',
@@ -49,15 +51,34 @@ export const InformationForm: Story<InformationFormProps> = ({
   reason,
   onSubmit,
 }) => {
+  const initialValues: FormBookingValues = {
+    firstName: firstName ?? '',
+    lastName: lastName ?? '',
+    email: email ?? '',
+    phoneNumber: phoneNumber ?? '',
+    reason: reason ?? '',
+  }
+
+  const { formValues, errors, handleChange, validate } =
+    useInformationForm(initialValues)
+
+  const handleSubmit = (values: FormBookingValues) => {
+    if (validate()) {
+      onSubmit(values)
+    }
+  }
+
   return (
     <div style={{ padding: '2rem' }}>
       <InformationFormComponent
-        firstName={firstName}
-        lastName={lastName}
-        phoneNumber={phoneNumber}
-        email={email}
-        reason={reason}
-        onSubmit={onSubmit}
+        firstName={formValues.firstName}
+        lastName={formValues.lastName}
+        phoneNumber={formValues.phoneNumber}
+        email={formValues.email}
+        reason={formValues.reason}
+        onSubmit={handleSubmit}
+        onChange={handleChange}
+        errors={errors}
       />
     </div>
   )

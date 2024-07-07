@@ -16,17 +16,24 @@ import {
   isSameDay,
   isBefore,
 } from 'date-fns'
+import { CircularSpinner } from '../spinner'
 
 export interface CalendarProps {
   value?: Date
   onSelect: (date: Date) => void
   month?: Date
+  availableDates?: Date[]
+  loading?: boolean
+  weekStartsOn?: 'sunday' | 'monday'
 }
 
 export const Calendar: FC<CalendarProps> = ({
   value,
   onSelect,
   month = new Date(),
+  availableDates = [],
+  loading,
+  weekStartsOn = 'sunday',
 }) => {
   const [currentMonth, setCurrentMonth] = useState(month)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(value)
@@ -46,13 +53,24 @@ export const Calendar: FC<CalendarProps> = ({
     }
   }
 
+  const isAvailable = (date: Date) => {
+    return availableDates.some((availableDate) =>
+      isSameDay(date, availableDate)
+    )
+  }
+
   const isDisabled = (date: Date) => {
     return isBefore(date, new Date()) && !isToday(date)
   }
 
   const generateDays = (month: Date) => {
-    const start = startOfWeek(startOfMonth(month), { weekStartsOn: 1 })
-    const end = endOfWeek(endOfMonth(month), { weekStartsOn: 1 })
+    const weekStartsOnIndex = weekStartsOn === 'sunday' ? 0 : 1
+    const start = startOfWeek(startOfMonth(month), {
+      weekStartsOn: weekStartsOnIndex,
+    })
+    const end = endOfWeek(endOfMonth(month), {
+      weekStartsOn: weekStartsOnIndex,
+    })
 
     return eachDayOfInterval({ start, end }).map((date) => ({
       date,
@@ -60,13 +78,28 @@ export const Calendar: FC<CalendarProps> = ({
       isToday: isToday(date),
       isSelected: selectedDate ? isSameDay(date, selectedDate) : false,
       isDisabled: isDisabled(date),
+      isAvailable: isAvailable(date),
     }))
   }
 
   const days = generateDays(currentMonth)
 
+  const renderWeekDaysHeader = () => {
+    const weekDays =
+      weekStartsOn === 'sunday'
+        ? ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+        : ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+
+    return weekDays.map((day, index) => <div key={index}>{day}</div>)
+  }
+
   return (
-    <div>
+    <div className={classes.calendarContainer}>
+      {loading && (
+        <div className={classes.loadingOverlay}>
+          <CircularSpinner size="sm" />
+        </div>
+      )}
       <div className={classes.calendarNavigation}>
         <button
           type="button"
@@ -88,15 +121,7 @@ export const Calendar: FC<CalendarProps> = ({
           <ChevronRightIcon className={classes.navIcon} aria-hidden="true" />
         </button>
       </div>
-      <div className={classes.calendarDaysHeader}>
-        <div>M</div>
-        <div>T</div>
-        <div>W</div>
-        <div>T</div>
-        <div>F</div>
-        <div>S</div>
-        <div>S</div>
-      </div>
+      <div className={classes.calendarDaysHeader}>{renderWeekDaysHeader()}</div>
       <div className={classes.calendarBody}>
         {days.map((day, dayIdx) => (
           <button
@@ -141,7 +166,14 @@ export const Calendar: FC<CalendarProps> = ({
                   classes.dayNumberIsSelectedAndIsToday,
                 day.isSelected &&
                   !day.isToday &&
-                  classes.dayNumberIsSelectedAndIsNotToday
+                  classes.dayNumberIsSelectedAndIsNotToday,
+                day.isAvailable && classes.dayIsAvailable,
+                day.isAvailable &&
+                  day.isSelected &&
+                  classes.availableDayNumberSelected,
+                day.isAvailable &&
+                  day.isDisabled &&
+                  classes.availableDayNumberDisabled
               )}
             >
               {/* @ts-ignore it's fine */}

@@ -10,4 +10,6 @@ export { Slots, type SlotsProps } from './Slots/Slots'
 export {
   InformationForm,
   type InformationFormProps,
+  type FormBookingValues,
 } from './InformationForm/InformationForm'
+export { useInformationForm } from './InformationForm/useInformationForm'

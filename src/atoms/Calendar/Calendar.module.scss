@@ -1,3 +1,21 @@
+.calendarContainer {
+  position: relative;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: progress;
+}
+
 .calendarNavigation {
   display: flex;
   align-items: center;
@@ -145,11 +163,20 @@
     border-radius: 50%;
   }
 
-  .dayNumberIsSelectedAndIsToday {
-    background: var(--awell-accent-color);
+  .dayIsAvailable {
+    background: var(--awell-secondary-color);
+    color: var(--awell-secondary-text-color);
   }
 
-  .dayNumberIsSelectedAndIsNotToday {
+  .availableDayNumberDisabled {
+    background: inherit;
+    color: inherit;
+  }
+
+  .dayNumberIsSelectedAndIsToday,
+  .dayNumberIsSelectedAndIsNotToday,
+  .availableDayNumberSelected {
     background: var(--awell-accent-color);
+    color: white;
   }
 }
