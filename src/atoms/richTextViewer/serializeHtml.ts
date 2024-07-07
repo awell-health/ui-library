@@ -40,7 +40,7 @@ const serializeNode = (node: Node): string => {
     // to be defined in Elements
     if (node.type === 'a') {
       return `<${type} href="${
-        // @ts-expect-error
+        // @ts-expect-error todo
         node?.url
       }" target="_blank" rel="noopener noreferrer">${serializeHtml(
         node.children

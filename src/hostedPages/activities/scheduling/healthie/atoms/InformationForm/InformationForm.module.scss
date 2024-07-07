@@ -1,0 +1,35 @@
+.heading {
+  color: var(--awell-slate900);
+  font-size: var(--awell-font-size-xl);
+  font-weight: var(--awell-font-medium);
+  margin-top: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+// .row {
+//   display: flex;
+//   gap: var(--awell-spacing-8);
+//   .field {
+//     width: 50%;
+//   }
+// }
+
+.field {
+  margin-bottom: var(--awell-spacing-4);
+}
+
+.error {
+  display: inline-block;
+  color: var(--awell-red);
+  font-size: var(--awell-font-size-sm);
+  padding-top: var(--awell-spacing-2);
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: end;
+}

@@ -12,3 +12,15 @@ export {
   HostedPageFooter,
   LoadActivityPlaceholder,
 } from './layouts/HostedPageLayout'
+export {
+  AppointmentTypes,
+  type AppointmentTypesProps,
+  AppointmentTypeOverview,
+  type AppointmentTypeOverviewProps,
+  Slots,
+  type SlotsProps,
+  InformationForm,
+  type InformationFormProps,
+  type FormBookingValues,
+  useInformationForm,
+} from './activities/scheduling'

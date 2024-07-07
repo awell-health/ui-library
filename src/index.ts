@@ -32,6 +32,8 @@ export {
   TypingCaret,
   WithTypingCaret,
   Select,
+  Calendar,
+  Stepper,
 } from './atoms'
 
 export {
@@ -55,6 +57,16 @@ export {
   HostedPageFooter,
   LoadActivityPlaceholder,
   CollectMedication,
+  AppointmentTypes,
+  type AppointmentTypesProps,
+  AppointmentTypeOverview,
+  type AppointmentTypeOverviewProps,
+  Slots,
+  type SlotsProps,
+  InformationForm,
+  type InformationFormProps,
+  type FormBookingValues,
+  useInformationForm,
 } from './hostedPages'
 
 export {
@@ -62,6 +74,7 @@ export {
   useScrollHint,
   useConversationalForm,
   useTraditionalForm,
+  useTimezone,
 } from './hooks'
 
 export * from './types'

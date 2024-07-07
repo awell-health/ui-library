@@ -1,0 +1,182 @@
+.calendarContainer {
+  position: relative;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: progress;
+}
+
+.calendarNavigation {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--awell-slate800);
+}
+
+.activeMonth {
+  flex: 1 1 auto;
+  font-size: var(--awell-font-size-base);
+  font-weight: var(--awell-font-medium);
+}
+
+.srOnly {
+  display: none;
+}
+
+.custom-class {
+  margin: var(--awell-spacing-1\.5);
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--awell-spacing-1\.5);
+  color: var(--awell-slate400);
+}
+
+.navButton {
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  border: 0;
+  margin: var(--awell-spacing-1\.5);
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--awell-spacing-1\.5);
+  color: var(--awell-slate400);
+
+  &:hover {
+    color: var(--awell-slate500);
+  }
+}
+
+.navIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.calendarDaysHeader {
+  margin-top: var(--awell-spacing-6);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  text-align: center;
+  font-size: var(--awell-font-size-sm);
+  line-height: 1.5;
+  color: var(--awell-slate500);
+}
+
+.calendarBody {
+  margin-top: var(--awell-spacing-2);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  border-radius: var(--awell-border-radius-lg);
+  background-color: var(--awell-slate200);
+  font-size: var(--awell-font-size-sm);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  position: relative;
+  box-shadow: 0 0 0 1px #e5e7eb;
+
+  .defaultDayStyle {
+    background: none;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    border: 0;
+    margin: 0;
+    padding-top: var(--awell-spacing-1\.5);
+    padding-bottom: var(--awell-spacing-1\.5);
+
+    &:hover {
+      background-color: var(--awell-slate100);
+    }
+    &:focus {
+      z-index: 10;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .dayIsInCurrentMonth {
+    background: white;
+  }
+
+  .dayIsNotInCurrentMonth {
+    background-color: #f9fafb;
+  }
+
+  .dayIsSelectedAndIsToday {
+    font-weight: var(--awell-font-semibold);
+  }
+
+  .dayIsSelected {
+    color: white;
+  }
+
+  .dayIsNotSelectedAndIsCurrentMonthAndIsNotToday {
+    color: var(--awell-slate900);
+  }
+
+  .dayIsNotSelectedAndIsNotCurrentMonthAndIsNotToday {
+    color: var(--awell-slate400);
+  }
+
+  .dayIsTodayAndNotSelected {
+    color: var(--awell-accent-color);
+  }
+
+  .topLeftDay {
+    border-top-left-radius: var(--awell-border-radius-lg);
+  }
+  .topRightDay {
+    border-top-right-radius: var(--awell-border-radius-lg);
+  }
+  .bottomLeftDay {
+    border-bottom-left-radius: var(--awell-border-radius-lg);
+  }
+  .bottomRightDay {
+    border-bottom-right-radius: var(--awell-border-radius-lg);
+  }
+
+  .dayNumber {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    height: 1.75rem;
+    width: 1.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .dayIsAvailable {
+    background: var(--awell-secondary-color);
+    color: var(--awell-secondary-text-color);
+  }
+
+  .availableDayNumberDisabled {
+    background: inherit;
+    color: inherit;
+  }
+
+  .dayNumberIsSelectedAndIsToday,
+  .dayNumberIsSelectedAndIsNotToday,
+  .availableDayNumberSelected {
+    background: var(--awell-accent-color);
+    color: white;
+  }
+}

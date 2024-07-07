@@ -1,0 +1,28 @@
+.type {
+  color: var(--awell-slate900);
+  font-size: var(--awell-font-size-xl);
+  font-weight: var(--awell-font-medium);
+  margin-top: 0;
+}
+
+.list {
+  display: flex;
+  gap: var(--awell-spacing-2);
+  flex-direction: column;
+}
+
+.item {
+  font-size: var(--awell-font-size-base);
+  color: var(--awell-slate600);
+  display: flex;
+  gap: var(--awell-spacing-3);
+  align-items: start;
+  line-height: var(--awell-leading-6);
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  position: relative;
+  top: 2px;
+}
