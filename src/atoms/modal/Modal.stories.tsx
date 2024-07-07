@@ -39,10 +39,10 @@ export const Modal: Story = () => {
         icon="warning"
         onCloseModal={onClose}
         buttons={[
-          <Button variant="primary" onClick={onConfirm}>
+          <Button variant="primary" onClick={onConfirm} key="button-one">
             Yes, cancel session
           </Button>,
-          <Button variant="tertiary" onClick={onClose}>
+          <Button variant="tertiary" onClick={onClose} key="button-two">
             No
           </Button>,
         ]}

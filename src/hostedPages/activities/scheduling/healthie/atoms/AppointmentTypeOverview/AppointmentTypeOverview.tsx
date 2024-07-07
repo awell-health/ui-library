@@ -1,3 +1,4 @@
+import React from 'react'
 import { FC } from 'react'
 import classes from './AppointmentTypeOverview.module.scss'
 import {

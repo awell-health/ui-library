@@ -170,7 +170,7 @@ export const HealthieSchedulingActivity: Story = ({
     updateLayoutMode('flexible')
 
     mockFetchAppointmentTypes().then((types) => {
-      //@ts-ignore this is fine for the story
+      //@ts-expect-error this is fine for the story
       setAppointmentTypes(types)
       setLoadingAppointmentTypes(false)
     })
@@ -182,14 +182,14 @@ export const HealthieSchedulingActivity: Story = ({
   }, [])
 
   const updateStepStatus = (stepId: string) => {
-    // @ts-ignore it's okay
+    // @ts-expect-error it's okay
     const updatedSteps = steps.map((step) => {
       if (step.id === stepId) {
         return { ...step, status: 'current' }
       } else if (
-        // @ts-ignore it's okay
+        // @ts-expect-error it's okay
         steps.findIndex((s) => s.id === step.id) <
-        // @ts-ignore it's okay
+        // @ts-expect-error it's okay
         steps.findIndex((s) => s.id === stepId)
       ) {
         return { ...step, status: 'complete' }
@@ -209,7 +209,7 @@ export const HealthieSchedulingActivity: Story = ({
     onAppointmentSelect(id)
 
     mockFetchAvailableDays().then((days) => {
-      //@ts-ignore this is fine for the story
+      //@ts-expect-error this is fine for the story
       setAvailableDays(days)
       setLoadingAvailableDays(false)
     })
@@ -228,7 +228,7 @@ export const HealthieSchedulingActivity: Story = ({
         )
       }
 
-      //@ts-ignore this is fine for the story
+      //@ts-expect-error this is fine for the story
       if (isAvailable(date)) setAvailableSlots(slots)
       setLoadingSlots(false)
     })
@@ -287,16 +287,16 @@ export const HealthieSchedulingActivity: Story = ({
           {steps[1].status === 'current' && (
             <Scheduler
               appointmentName={
-                // @ts-ignore it's okay
+                // @ts-expect-error it's okay
                 appointmentTypes.find((a) => a.id === selectedAppointment).name
               }
               appointmentLength={
-                // @ts-ignore it's okay
+                // @ts-expect-error it's okay
                 appointmentTypes.find((a) => a.id === selectedAppointment)
                   .length
               }
               appointmentCallType={
-                // @ts-ignore it's okay
+                // @ts-expect-error it's okay
                 appointmentTypes.find((a) => a.id === selectedAppointment)
                   .availableContactTypes[0]
               }
@@ -324,23 +324,23 @@ export const HealthieSchedulingActivity: Story = ({
                     <AppointmentTypeOverview
                       bookedSlot={selectedSlot}
                       name={
-                        // @ts-ignore it's okay
+                        // @ts-expect-error it's okay
                         appointmentTypes.find(
-                          // @ts-ignore it's okay
+                          // @ts-expect-error it's okay
                           (a) => a.id === selectedAppointment
                         ).name
                       }
                       length={
-                        // @ts-ignore it's okay
+                        // @ts-expect-error it's okay
                         appointmentTypes.find(
-                          // @ts-ignore it's okay
+                          // @ts-expect-error it's okay
                           (a) => a.id === selectedAppointment
                         ).length
                       }
                       contactType={
-                        // @ts-ignore it's okay
+                        // @ts-expect-error it's okay
                         appointmentTypes.find(
-                          // @ts-ignore it's okay
+                          // @ts-expect-error it's okay
                           (a) => a.id === selectedAppointment
                         ).availableContactTypes[0]
                       }

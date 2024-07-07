@@ -1,4 +1,5 @@
-import { FC, useState } from 'react'
+import React from 'react'
+import { FC } from 'react'
 import classes from './Slots.module.scss'
 import { Field, Radio, RadioGroup } from '@headlessui/react'
 import { format } from 'date-fns'
@@ -91,7 +92,6 @@ export const Slots: FC<SlotsProps> = ({
                         key={slot.toISOString()}
                         value={slot}
                         aria-label={slot.toISOString()}
-                        aria-description={slot.toISOString()}
                         className={classes.radio_option}
                       >
                         {formatSlotTime(slot)}

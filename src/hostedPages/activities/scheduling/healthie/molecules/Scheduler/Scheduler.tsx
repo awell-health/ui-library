@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { FC } from 'react'
 import classes from './Scheduler.module.scss'
 import { AppointmentTypeOverview, Slots } from '../../atoms'

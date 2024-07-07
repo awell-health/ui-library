@@ -4,9 +4,13 @@ interface CircularSpinnerProps {
   size?: 'sm' | 'base'
 }
 
-export const CircularSpinner = ({size = 'base'}: CircularSpinnerProps): JSX.Element => {
+export const CircularSpinner = ({
+  size = 'base',
+}: CircularSpinnerProps): JSX.Element => {
   return (
-    <div className={`${classes.awell_circular_spinner} ${classes[`size-${size}`]}`}>
+    <div
+      className={`${classes.awell_circular_spinner} ${classes[`size-${size}`]}`}
+    >
       <div />
       <div />
       <div />

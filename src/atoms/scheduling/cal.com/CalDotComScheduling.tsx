@@ -1,3 +1,4 @@
+import React from 'react'
 import { FC, useEffect } from 'react'
 import Cal, { getCalApi } from '@calcom/embed-react'
 import { useAccentColor } from '../../../hooks/useAccentColor'

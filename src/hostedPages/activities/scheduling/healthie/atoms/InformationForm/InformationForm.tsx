@@ -1,9 +1,8 @@
-import { FC, useState } from 'react'
+import React from 'react'
+import { FC } from 'react'
 import classes from './InformationForm.module.scss'
 import { InputField, LongTextField, Button } from '../../../../../../atoms'
 import { PhoneInputField } from '../../../../../../atoms/phoneInputField'
-import { useValidate } from '../../../../../../hooks'
-import { isEmpty } from 'lodash'
 
 export type InformationFormProps = {
   firstName?: string
@@ -129,7 +128,7 @@ export const InformationForm: FC<InformationFormProps> = ({
               id="phoneNumber"
               name="phoneNumber"
               label={phoneNumberLabel}
-              //@ts-ignore this is okay
+              //@ts-expect-error this is okay
               onChange={onChange}
               mandatory={true}
               value={phoneNumber}

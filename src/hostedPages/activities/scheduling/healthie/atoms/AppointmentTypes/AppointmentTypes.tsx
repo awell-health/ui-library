@@ -1,4 +1,5 @@
-import { FC, useState } from 'react'
+import React from 'react'
+import { FC } from 'react'
 import classes from './AppointmentTypes.module.scss'
 import { Field, Radio, RadioGroup } from '@headlessui/react'
 
@@ -28,7 +29,6 @@ export const AppointmentTypes: FC<AppointmentTypesProps> = ({
               key={appointmentType.name}
               value={appointmentType.id}
               aria-label={appointmentType.name}
-              aria-description={`${appointmentType.name}, ${appointmentType.length} minutes`}
               className={`${classes.radio_option} ${
                 appointmentType.disabled ? classes.noAvailability : ''
               }`}
