@@ -1,12 +1,15 @@
 import React, { FC, createContext, useContext, useState } from 'react'
-import { getTextColor, opacityColor } from './helpers'
+import { getBorderRadius, getTextColor, opacityColor } from './helpers'
 import classes from './themeProvider.module.scss'
 
 type LayoutMode = 'fullViewportHeight' | 'flexible'
 const defaultMode: LayoutMode = 'fullViewportHeight'
 
+export type Shape = 'rounded' | 'pill' | 'rectangle'
+
 interface ThemeContextType {
   accentColor: string
+  shape: Shape
   layoutMode: LayoutMode
   updateLayoutMode: (mode: LayoutMode) => void
   resetLayoutMode: () => void
@@ -16,12 +19,14 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export interface ThemeProviderProps {
   children: React.ReactNode | string
+  shape?: Shape
   accentColor?: string
 }
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
   accentColor = 'var(--awell-brand100, #004ac2)',
+  shape = 'rounded',
 }) => {
   const [layoutMode, setLayoutMode] = useState<LayoutMode>(defaultMode)
 
@@ -36,6 +41,11 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     '--awell-secondary-hover-color': opacityColor(accentColor, 0.3),
     '--awell-secondary-ring-color-inputs': accentColor,
     '--awell-secondary-ring-color-buttons': accentColor,
+    '--awell-border-radius': getBorderRadius(shape),
+    '--awell-checkbox-border-radius': getBorderRadius(shape, 'checkbox'),
+    '--awell-modal-border-radius': getBorderRadius(shape, 'modal'),
+    '--awell-progress-bar-border-radius': getBorderRadius(shape, 'progressBar'),
+    '--awell-skeleton-border-radius': getBorderRadius(shape, 'skeleton'),
     height: '100%',
   } as React.CSSProperties
 
@@ -49,6 +59,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
 
   const contextValue = {
     accentColor,
+    shape,
     layoutMode,
     updateLayoutMode,
     resetLayoutMode,

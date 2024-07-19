@@ -9,6 +9,8 @@ import { RadioButton } from '../radioButton'
 import { Button } from '../button'
 import { CheckboxButton } from '../checkboxButton'
 import { RangeInput } from '../rangeInput'
+import { InputField } from '../inputField'
+import { PhoneInputField } from '../phoneInputField'
 
 const getComponentForSelected = (type: string) => {
   switch (type) {
@@ -22,6 +24,36 @@ const getComponentForSelected = (type: string) => {
           name="Some name"
           onChange={() => null}
           label="Radio button label"
+          id={'btn'}
+        />
+      )
+    case 'input':
+      return (
+        <InputField
+          name="Some name"
+          type="text"
+          onChange={() => null}
+          label="Input"
+          id={'btn'}
+        />
+      )
+    case 'date':
+      return (
+        <InputField
+          name="Some name"
+          type="date"
+          onChange={() => null}
+          label="Input"
+          id={'btn'}
+        />
+      )
+    case 'telephone':
+      return (
+        <PhoneInputField
+          name="Some name"
+          value={''}
+          onChange={() => null}
+          label="Input"
           id={'btn'}
         />
       )
@@ -74,6 +106,11 @@ export default {
       control: { type: 'color' },
       defaultValue: '#004ac2',
     },
+    shape: {
+      control: { type: 'radio' },
+      options: ['rectangle', 'rounded', 'pill'],
+      defaultValue: 'rounded',
+    },
     componentPreview: {
       control: { type: 'radio' },
       options: [
@@ -83,6 +120,9 @@ export default {
         'checkboxButton',
         'rangeInput',
         'button',
+        'input',
+        'date',
+        'telephone',
       ],
       defaultValue: 'button',
     },
@@ -103,9 +143,9 @@ export default {
 
 export const ThemeProvider: Story<
   ThemeProviderProps & { componentPreview: string }
-> = ({ componentPreview, accentColor }) => {
+> = ({ componentPreview, accentColor, shape }) => {
   return (
-    <ThemeProviderComponent accentColor={accentColor}>
+    <ThemeProviderComponent accentColor={accentColor} shape={shape}>
       <h1>Accent color</h1>
       <div>
         <div
