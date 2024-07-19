@@ -106,10 +106,22 @@ export default {
       control: { type: 'color' },
       defaultValue: '#004ac2',
     },
+    backgroundColor: {
+      control: { type: 'color' },
+      defaultValue: '#ffffff',
+    },
     shape: {
       control: { type: 'radio' },
       options: ['rectangle', 'rounded', 'pill'],
       defaultValue: 'rounded',
+    },
+    fontFamily: {
+      control: { type: 'text' },
+      defaultValue: 'Roboto, Inter, sans serif',
+    },
+    fontImportUrl: {
+      control: { type: 'text' },
+      defaultValue: undefined,
     },
     componentPreview: {
       control: { type: 'radio' },
@@ -143,9 +155,22 @@ export default {
 
 export const ThemeProvider: Story<
   ThemeProviderProps & { componentPreview: string }
-> = ({ componentPreview, accentColor, shape }) => {
+> = ({
+  componentPreview,
+  accentColor,
+  backgroundColor,
+  shape,
+  fontFamily,
+  fontImportUrl,
+}) => {
   return (
-    <ThemeProviderComponent accentColor={accentColor} shape={shape}>
+    <ThemeProviderComponent
+      accentColor={accentColor}
+      backgroundColor={backgroundColor}
+      shape={shape}
+      fontFamily={fontFamily}
+      fontImportUrl={fontImportUrl}
+    >
       <h1>Accent color</h1>
       <div>
         <div

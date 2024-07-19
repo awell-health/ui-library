@@ -1,16 +1,26 @@
-import React, { FC, createContext, useContext, useState } from 'react'
+import React, {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { getBorderRadius, getTextColor, opacityColor } from './helpers'
 import classes from './themeProvider.module.scss'
+import { isEmpty } from 'lodash'
 
 type LayoutMode = 'fullViewportHeight' | 'flexible'
 const defaultMode: LayoutMode = 'fullViewportHeight'
+const defaultFont = 'Roboto, Inter, sans-serif'
 
 export type Shape = 'rounded' | 'pill' | 'rectangle'
 
 interface ThemeContextType {
   accentColor: string
+  backgroundColor: string
   shape: Shape
   layoutMode: LayoutMode
+  fontFamily: string
   updateLayoutMode: (mode: LayoutMode) => void
   resetLayoutMode: () => void
 }
@@ -19,16 +29,38 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export interface ThemeProviderProps {
   children: React.ReactNode | string
-  shape?: Shape
   accentColor?: string
+  backgroundColor?: string
+  shape?: Shape
+  fontFamily?: string
+  fontImportUrl?: string
 }
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
   accentColor = 'var(--awell-brand100, #004ac2)',
+  backgroundColor = '#fff',
   shape = 'rounded',
+  fontFamily = defaultFont,
+  fontImportUrl,
 }) => {
   const [layoutMode, setLayoutMode] = useState<LayoutMode>(defaultMode)
+
+  useEffect(() => {
+    if (!isEmpty(fontImportUrl)) {
+      const link = document.createElement('link')
+      link.href = fontImportUrl as string
+      link.rel = 'stylesheet'
+      document.head.appendChild(link)
+      return () => {
+        document.head.removeChild(link)
+      }
+    }
+  }, [fontImportUrl])
+
+  useEffect(() => {
+    document.body.style.backgroundColor = backgroundColor
+  }, [backgroundColor])
 
   const style = {
     '--awell-accent-color': accentColor,
@@ -46,6 +78,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     '--awell-modal-border-radius': getBorderRadius(shape, 'modal'),
     '--awell-progress-bar-border-radius': getBorderRadius(shape, 'progressBar'),
     '--awell-skeleton-border-radius': getBorderRadius(shape, 'skeleton'),
+    '--awell-font': isEmpty(fontFamily) ? defaultFont : fontFamily,
     height: '100%',
   } as React.CSSProperties
 
@@ -59,8 +92,10 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
 
   const contextValue = {
     accentColor,
+    backgroundColor,
     shape,
     layoutMode,
+    fontFamily,
     updateLayoutMode,
     resetLayoutMode,
   }
