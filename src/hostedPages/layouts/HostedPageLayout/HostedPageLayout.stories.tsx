@@ -75,7 +75,6 @@ export const HostedPageLayoutMobile: Story<HostedPageLayoutProps> = ({
       onCloseHostedPage={() => alert('Handle close')}
     >
       <main className={classes.main_content} style={{ textAlign: 'center' }}>
-        <input type="text" />
         <p>Content</p>
         <p>Content</p>
         <p>Content</p>
