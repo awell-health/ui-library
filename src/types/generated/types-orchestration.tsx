@@ -11,7 +11,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Safe date scalar that can serialize string or date */
   SafeDate: any;
 };
 
@@ -275,8 +274,11 @@ export type ApiCallRequest = {
 };
 
 export enum ApiCallRequestMethod {
+  Delete = 'DELETE',
   Get = 'GET',
-  Post = 'POST'
+  Patch = 'PATCH',
+  Post = 'POST',
+  Put = 'PUT'
 }
 
 export type ApiCallResponse = {
@@ -791,12 +793,6 @@ export type FormResponsePayload = Payload & {
   success: Scalars['Boolean'];
 };
 
-export type FormattedText = {
-  __typename?: 'FormattedText';
-  content: TranslatedText;
-  format: Scalars['String'];
-};
-
 export type FormsPayload = Payload & {
   __typename?: 'FormsPayload';
   code: Scalars['String'];
@@ -1020,7 +1016,6 @@ export type MutationCompleteExtensionActivityArgs = {
 
 export type MutationCreatePatientArgs = {
   input?: InputMaybe<CreatePatientInput>;
-  mycare?: InputMaybe<MyCareOptions>;
 };
 
 
@@ -1178,10 +1173,6 @@ export type MutationUpdatePatientLanguageArgs = {
   input: UpdatePatientLanguageInput;
 };
 
-export type MyCareOptions = {
-  password?: InputMaybe<Scalars['String']>;
-};
-
 export type NumberArrayFilter = {
   in?: InputMaybe<Array<Scalars['Float']>>;
 };
@@ -1268,7 +1259,6 @@ export type Pathway = {
   status: PathwayStatus;
   status_explanation?: Maybe<Scalars['String']>;
   stop_date?: Maybe<Scalars['SafeDate']>;
-  swimlanes: Swimlanes;
   title: Scalars['String'];
   tracks: Array<Track>;
   version?: Maybe<Scalars['Float']>;
@@ -2290,58 +2280,6 @@ export type SubscriptionWebhookCallCreatedArgs = {
 
 export type SubscriptionWebhookCallUpdatedArgs = {
   pathway_id: Scalars['String'];
-};
-
-export type Swimlane = {
-  __typename?: 'Swimlane';
-  id: Scalars['ID'];
-  title: Scalars['String'];
-};
-
-export type SwimlaneItem = {
-  __typename?: 'SwimlaneItem';
-  category: SwimlaneItemCategory;
-  column_index: Scalars['Float'];
-  date?: Maybe<Scalars['SafeDate']>;
-  documentation?: Maybe<FormattedText>;
-  id: Scalars['ID'];
-  info?: Maybe<Scalars['String']>;
-  lane_id: Scalars['ID'];
-  row_index: Scalars['Float'];
-  title: Scalars['String'];
-  track_id?: Maybe<Scalars['ID']>;
-  type: SwimlaneItemType;
-};
-
-export enum SwimlaneItemCategory {
-  Action = 'ACTION',
-  PathwayEnd = 'PATHWAY_END',
-  PathwayStart = 'PATHWAY_START',
-  Step = 'STEP',
-  Track = 'TRACK',
-  TrackEnd = 'TRACK_END',
-  TrackStart = 'TRACK_START'
-}
-
-export enum SwimlaneItemType {
-  Active = 'active',
-  Completed = 'completed',
-  Pending = 'pending',
-  Possible = 'possible'
-}
-
-export type SwimlaneLink = {
-  __typename?: 'SwimlaneLink';
-  destination_id: Scalars['ID'];
-  id: Scalars['ID'];
-  origin_id: Scalars['ID'];
-};
-
-export type Swimlanes = {
-  __typename?: 'Swimlanes';
-  items: Array<SwimlaneItem>;
-  lanes: Array<Swimlane>;
-  links: Array<SwimlaneLink>;
 };
 
 export type Tenant = {

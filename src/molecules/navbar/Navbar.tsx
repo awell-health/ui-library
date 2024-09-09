@@ -1,4 +1,11 @@
-import React, { ReactElement, useRef } from 'react'
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import classes from './navbar.module.scss'
 import { Logo } from '../../atoms/logo'
 
@@ -9,25 +16,32 @@ export interface NavbarProps {
 }
 
 export const Navbar = ({ companyName, logo }: NavbarProps): JSX.Element => {
-  const [innerHeight, setInnerHeight] = React.useState(window.innerWidth)
-  const originalHeight = useRef(window.innerHeight)
+  const [innerHeight, setInnerHeight] = useState(window.innerHeight)
+  const originalHeight = useRef(window.innerHeight) // Capture initial height only once
 
-  // When a virtual keyboard is opened on mobile devices, the window.innerHeight
-  // is reduced by at least 20% of the original height. There is no non-experimental
-  // way (see https://developer.mozilla.org/en-US/docs/Web/API/VirtualKeyboard_API)
-  // to detect a virtual keyboard, so we are using a heuristic to determine if
-  // the height is reduced by a keyboard or not.
-  const isHeightReduced = innerHeight < originalHeight.current * 0.8 // 80% of the original height
+  /** Heuristic to detect if a virtual keyboard is open by comparing
+   * the current height to 80% of the original height
+   **/
+  const isHeightReduced = useMemo(
+    () => innerHeight < originalHeight.current * 0.8, // 80% of the original height
+    [innerHeight] // Recalculate only when innerHeight changes
+  )
 
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (window.innerHeight === innerHeight) return
+  const handleResize = useCallback(() => {
+    if (window.innerHeight !== innerHeight) {
       setInnerHeight(window.innerHeight)
     }
+  }, [innerHeight])
 
+  useEffect(() => {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [handleResize])
+
+  console.log('isHeightReduced', isHeightReduced)
+  console.log('innerHeight', innerHeight)
+  console.log('originalHeight', originalHeight.current)
+  console.log('window.innerHeight', window.innerHeight)
 
   return (
     <div
