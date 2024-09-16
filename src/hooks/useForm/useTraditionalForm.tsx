@@ -45,8 +45,12 @@ const useTraditionalForm = ({
   const [formHasErrors, setFormHasErrors] = useState<boolean>(false)
   const [isSubmittingForm, setIsSubmittingForm] = useState<boolean>(false)
 
-  const { isValidE164Number, validateDateResponse, validateNumberResponse } =
-    useValidate()
+  const {
+    isValidE164Number,
+    validateDateResponse,
+    validateNumberResponse,
+    validateEmailResponse,
+  } = useValidate()
 
   const updateQuestionVisibility = useCallback(async () => {
     const formValuesInput = convertToAwellInput(
@@ -117,7 +121,8 @@ const useTraditionalForm = ({
         errorLabels,
         isValidE164Number,
         validateDateResponse,
-        validateNumberResponse
+        validateNumberResponse,
+        validateEmailResponse
       )
     )
     setErrors(formErrors)
