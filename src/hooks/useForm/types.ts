@@ -36,6 +36,8 @@ export type ErrorLabels = {
 
   notANumber?: string
   numberOutOfRange?: string
+
+  emailInvalidFormat?: string
 }
 
 export type AnswerValue = string | number | number[] | undefined
