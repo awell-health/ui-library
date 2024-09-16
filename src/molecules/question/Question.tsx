@@ -356,6 +356,7 @@ export const QuestionData = ({
               id={question.id}
               value={value}
               mandatory={config?.mandatory}
+              placeholder="name@example.com"
             />
           )}
         />
