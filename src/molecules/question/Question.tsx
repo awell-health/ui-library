@@ -21,6 +21,7 @@ import { getMinValueForDateInput } from './helpers/getMinValueForDateInput'
 import { getMaxValueForDateInput } from './helpers/getMaxValueForDateInput'
 import { getMinValueForNumberInput } from './helpers/getMinValueForNumberInput'
 import { getMaxValueForNumberInput } from './helpers/getMaxValueForNumberInput'
+import { isValidEmail } from './helpers/isValidEmail'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -327,6 +328,36 @@ export const QuestionData = ({
               />
             )
           }}
+        />
+      )
+
+    case UserQuestionType.Email:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue=""
+          rules={{
+            required: config?.mandatory,
+            validate: (value: string): string | boolean => {
+              return isValidEmail(value)
+            },
+          }}
+          render={({ field: { onChange, value } }) => (
+            <InputField
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus={inputAutoFocus}
+              type="email"
+              onChange={(e) => {
+                onChange(e.target.value)
+                onAnswerChange()
+              }}
+              label={question.title}
+              id={question.id}
+              value={value}
+              mandatory={config?.mandatory}
+            />
+          )}
         />
       )
     case UserQuestionType.Date:
