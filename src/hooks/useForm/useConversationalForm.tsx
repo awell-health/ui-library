@@ -30,8 +30,12 @@ const useConversationalForm = ({
   onAnswersChange,
 }: FormSettingsContextProps): ConversationalFormContext => {
   const initialValues = convertToFormFormat(storedAnswers, questions)
-  const { isValidE164Number, validateDateResponse, validateNumberResponse } =
-    useValidate()
+  const {
+    isValidE164Number,
+    validateDateResponse,
+    validateNumberResponse,
+    validateEmailResponse,
+  } = useValidate()
 
   const formMethods = useForm({
     defaultValues: getInitialValues(questions),
@@ -125,7 +129,8 @@ const useConversationalForm = ({
       errorLabels,
       isValidE164Number,
       validateDateResponse,
-      validateNumberResponse
+      validateNumberResponse,
+      validateEmailResponse
     )
     setErrors([...errorsWithoutCurrent, ...existingErrors])
     return existingErrors.length > 0

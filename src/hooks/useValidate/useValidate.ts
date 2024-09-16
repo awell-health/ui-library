@@ -8,6 +8,7 @@ import {
 } from '../../types/generated/types-orchestration'
 import { isEmpty, isNil } from 'lodash'
 import { isToday } from 'date-fns'
+import { isValidEmail } from '../../molecules/question/helpers/isValidEmail'
 
 export type DateValidationErrorType =
   | 'DATE_CANNOT_BE_IN_THE_FUTURE'
@@ -15,6 +16,8 @@ export type DateValidationErrorType =
   | 'DATE_CANNOT_BE_TODAY'
 
 export type NumberValidationErrorType = 'NOT_A_NUMBER' | 'OUT_OF_RANGE'
+
+export type EmailValidationErrorType = 'INVALID_FORMAT'
 
 export interface UseValidateHook {
   validatePhoneNumber: (
@@ -43,6 +46,13 @@ export interface UseValidateHook {
   ) => {
     isValid: boolean
     errorType?: NumberValidationErrorType
+  }
+  validateEmailResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: EmailValidationErrorType
   }
 }
 
@@ -259,6 +269,34 @@ export const useValidate = (): UseValidateHook => {
     }
   }
 
+  const validateEmailResponse = (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ): {
+    isValid: boolean
+    errorType?: EmailValidationErrorType
+  } => {
+    const inputRequired = questionConfig?.mandatory
+
+    // skip validation if input is not required and empty
+    if (inputRequired === false && isEmpty(value)) {
+      return {
+        isValid: true,
+      }
+    }
+
+    if (!isValidEmail(value)) {
+      return {
+        isValid: false,
+        errorType: 'INVALID_FORMAT',
+      }
+    }
+
+    return {
+      isValid: true,
+    }
+  }
+
   return {
     isValidE164Number,
     isPossibleE164Number,
@@ -266,5 +304,6 @@ export const useValidate = (): UseValidateHook => {
     numberMatchesAvailableCountries,
     validateDateResponse,
     validateNumberResponse,
+    validateEmailResponse,
   }
 }
