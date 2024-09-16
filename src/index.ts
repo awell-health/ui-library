@@ -62,6 +62,7 @@ export {
   useScrollHint,
   useConversationalForm,
   useTraditionalForm,
+  useValidate,
 } from './hooks'
 
 export * from './types'
