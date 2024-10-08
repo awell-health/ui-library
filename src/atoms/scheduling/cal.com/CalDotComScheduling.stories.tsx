@@ -5,7 +5,6 @@ import {
   CalDotComScheduling as CalDotComSchedulingComponent,
   CalDotComSchedulingProps,
 } from '.'
-import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Atoms/Scheduling/Cal.com',
@@ -14,6 +13,11 @@ export default {
     calLink: {
       control: 'text',
       defaultValue: 'nick-hellemans-k1brip/15min',
+    },
+    calOrigin: {
+      control: 'text',
+      name: 'origin',
+      defaultValue: 'https://cal.com',
     },
     onBookingSuccessful: { action: 'bookingSuccessful' },
     hideEventTypeDetails: {
@@ -46,6 +50,7 @@ export default {
 
 export const CalDotComScheduling: Story<CalDotComSchedulingProps> = ({
   calLink,
+  calOrigin,
   onBookingSuccessful,
   hideEventTypeDetails,
   metadata,
@@ -53,6 +58,7 @@ export const CalDotComScheduling: Story<CalDotComSchedulingProps> = ({
   return (
     <CalDotComSchedulingComponent
       calLink={calLink}
+      calOrigin={calOrigin}
       onBookingSuccessful={onBookingSuccessful}
       hideEventTypeDetails={hideEventTypeDetails}
       metadata={metadata}

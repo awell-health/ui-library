@@ -2,6 +2,7 @@ import { CalDotComBookingSuccessfulFunction } from '../../../../atoms/scheduling
 
 export interface CalDotComActivityProps {
   calLink: string
+  calOrigin?: string
   onBookingSuccessful: CalDotComBookingSuccessfulFunction
   hideEventTypeDetails: boolean
 }
