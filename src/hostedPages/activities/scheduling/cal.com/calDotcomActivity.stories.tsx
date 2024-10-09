@@ -13,6 +13,11 @@ export default {
       control: 'text',
       defaultValue: 'nick-hellemans-k1brip/15min',
     },
+    calOrigin: {
+      control: 'text',
+      name: 'origin',
+      defaultValue: 'https://cal.com',
+    },
     hideEventTypeDetails: {
       control: 'boolean',
       defaultValue: false,
@@ -29,6 +34,7 @@ export default {
 
 export const CalDotComActivity: Story<CalDotComActivityProps> = ({
   calLink,
+  calOrigin,
   hideEventTypeDetails,
 }) => {
   return (
@@ -40,6 +46,7 @@ export const CalDotComActivity: Story<CalDotComActivityProps> = ({
     >
       <CalDotcomActivityComponent
         calLink={calLink}
+        calOrigin={calOrigin ?? 'https://cal.com'}
         onBookingSuccessful={() => alert('hey')}
         hideEventTypeDetails={hideEventTypeDetails}
       />

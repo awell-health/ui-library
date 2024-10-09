@@ -1,10 +1,11 @@
-import { FC, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import Cal, { getCalApi } from '@calcom/embed-react'
 import { useAccentColor } from '../../../hooks/useAccentColor'
 import { type BookingSuccessfulFunction } from './calDotComTypes'
 
 export interface CalDotComSchedulingProps {
   calLink: string
+  calOrigin?: string
   onBookingSuccessful: BookingSuccessfulFunction
   hideEventTypeDetails?: boolean
   /**
@@ -17,6 +18,7 @@ export interface CalDotComSchedulingProps {
 
 export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
   calLink,
+  calOrigin,
   hideEventTypeDetails = false,
   onBookingSuccessful,
   metadata,
@@ -81,6 +83,7 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
   return (
     <Cal
       calLink={composedCalLink}
+      calOrigin={calOrigin ?? 'https://cal.com'}
       style={{ width: '100%', height: '100%', overflow: 'hidden' }}
     />
   )
