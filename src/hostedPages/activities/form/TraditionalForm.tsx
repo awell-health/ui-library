@@ -21,6 +21,7 @@ export const TraditionalForm = ({
   storedAnswers,
   onAnswersChange,
   autosaveAnswers = true,
+  questionLabels,
 }: FormProps) => {
   const { updateLayoutMode, resetLayoutMode } = useTheme()
 
@@ -82,6 +83,7 @@ export const TraditionalForm = ({
                         errors={errors}
                         inputAutoFocus={false}
                         onAnswerChange={updateQuestionVisibility}
+                        labels={questionLabels}
                       />
                     </div>
                   ))}
