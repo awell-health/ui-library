@@ -1,4 +1,5 @@
-import { FC, useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, useEffect, useRef } from 'react'
 import Cal, { getCalApi } from '@calcom/embed-react'
 import { useAccentColor } from '../../../hooks/useAccentColor'
 import { type BookingSuccessfulFunction } from './calDotComTypes'
@@ -10,9 +11,7 @@ export interface CalDotComSchedulingProps {
   /**
    * See https://youtu.be/5MybtA2rdBU?t=146
    */
-  metadata?: {
-    [key: string]: string
-  }
+  metadata?: { [key: string]: string }
 }
 
 export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
@@ -22,11 +21,20 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
   metadata,
 }) => {
   const { accentColor } = useAccentColor()
+  const eventListenerRef = useRef(false)
+  const calApiRef = useRef<any>(null)
+
+  const bookingSuccessfulCallback = (e: { detail: { data: any } }) => {
+    const { data } = e.detail
+    const { confirmed, eventType, date, booking } = data
+    onBookingSuccessful({ confirmed, eventType, date, booking })
+  }
 
   const initComponent = async () => {
     const cal = await getCalApi()
+    calApiRef.current = cal
 
-    if (cal) {
+    if (cal && !eventListenerRef.current) {
       cal('ui', {
         theme: 'light',
         styles: { branding: { brandColor: accentColor } },
@@ -35,29 +43,30 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
 
       cal('on', {
         action: 'bookingSuccessful',
-        callback: (e: { detail: { data: any } }) => {
-          // `data` is properties for the event.
-          const { data } = e.detail
-
-          // `confirmed`: whether confirmation from organizer is pending or not
-          // `eventType`: Object for Event Type that has been booked
-          // `date`: date of Event
-          const { confirmed, eventType, date, booking } = data
-
-          onBookingSuccessful({
-            confirmed,
-            eventType: eventType,
-            date,
-            booking,
-          })
-        },
+        callback: bookingSuccessfulCallback,
       })
+
+      eventListenerRef.current = true
     }
   }
 
   useEffect(() => {
     initComponent()
-  }, [])
+
+    return () => {
+      const cleanup = async () => {
+        const cal = calApiRef.current || (await getCalApi())
+        if (cal && eventListenerRef.current) {
+          cal('off', {
+            action: 'bookingSuccessful',
+            callback: bookingSuccessfulCallback,
+          })
+          eventListenerRef.current = false
+        }
+      }
+      cleanup()
+    }
+  }, [accentColor, hideEventTypeDetails])
 
   let metadataString = ''
 
@@ -67,11 +76,6 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
       .join('&')
   }
 
-  /**
-   * Check if calLink already contains a '?'
-   * If that's the case, we want to make sure to preserve it and
-   * just append the metadata
-   */
   const metadataSeparator = calLink.includes('?') ? '&' : '?'
 
   const composedCalLink = `${calLink}${
@@ -79,9 +83,11 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
   }`
 
   return (
-    <Cal
-      calLink={composedCalLink}
-      style={{ width: '100%', height: '100%', overflow: 'hidden' }}
-    />
+    <div>
+      <Cal
+        calLink={composedCalLink}
+        style={{ width: '100%', height: '100%', overflow: 'hidden' }}
+      />
+    </div>
   )
 }
