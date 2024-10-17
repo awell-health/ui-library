@@ -97,3 +97,22 @@
     padding-top: var(--awell-spacing-4);
   }
 }
+
+/* Overlay for the opacity gradient */
+.scroll_hint_overlay {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(to bottom, transparent, var(--awell-neutralLight10) 100%);
+  pointer-events: none; /* Prevent interaction */
+  transition: top 0.5s ease-in-out;
+}
+
+.footer_for_traditional_form {
+  width: 100%;
+  position: fixed; 
+  bottom: 0; 
+  left: 0;
+}

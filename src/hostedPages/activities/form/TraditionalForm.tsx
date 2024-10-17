@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button, Text } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useTraditionalForm } from '../../../hooks/useForm'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
-import { UserQuestionType } from '../../../types'
 import { useTheme } from '../../../atoms/themeProvider/ThemeProvider'
 import {
   LoadActivityPlaceholder,
@@ -23,6 +22,26 @@ export const TraditionalForm = ({
   autosaveAnswers = true,
   questionLabels,
 }: FormProps) => {
+  const scrollHintOverlayRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollHintOverlayRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } =
+          document.documentElement
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight
+
+        if (isAtBottom) {
+          scrollHintOverlayRef.current.style.top = '100%' // Hide completely
+        } else {
+          scrollHintOverlayRef.current.style.top = 'auto' // Show by resetting to initial position
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   const { updateLayoutMode, resetLayoutMode } = useTheme()
 
   const {
@@ -45,7 +64,6 @@ export const TraditionalForm = ({
 
   useEffect(() => {
     updateLayoutMode('flexible')
-
     return () => {
       // Reset to default mode on unmount
       resetLayoutMode()
@@ -53,7 +71,7 @@ export const TraditionalForm = ({
   }, [])
 
   return (
-    <>
+    <div>
       <main
         id="ahp_main_content_with_scroll_hint"
         className={`${layoutClasses.main_content} ${classes.traditional_form}`}
@@ -97,26 +115,32 @@ export const TraditionalForm = ({
           )}
         </div>
       </main>
-      <HostedPageFooter showScrollHint={false}>
-        <div className={`${classes.traditional_button_wrapper}`}>
-          {formHasErrors && (
-            <div>
-              <Text variant="textSmall" color="var(--awell-signalError100)">
-                {errorLabels.formHasErrors}
-              </Text>
-            </div>
-          )}
-          <div></div>
-          <Button
-            onClick={submitForm}
-            type="submit"
-            data-cy="submitFormButton"
-            disabled={isSubmittingForm}
-          >
-            {buttonLabels.submit}
-          </Button>
-        </div>
-      </HostedPageFooter>
-    </>
+      <div
+        ref={scrollHintOverlayRef}
+        className={classes.scroll_hint_overlay}
+      ></div>
+      <div className={`${classes.footer_for_traditional_form}`}>
+        <HostedPageFooter showScrollHint={false}>
+          <div className={`${classes.traditional_button_wrapper}`}>
+            {formHasErrors && (
+              <div>
+                <Text variant="textSmall" color="var(--awell-signalError100)">
+                  {errorLabels.formHasErrors}
+                </Text>
+              </div>
+            )}
+            <div></div>
+            <Button
+              onClick={submitForm}
+              type="submit"
+              data-cy="submitFormButton"
+              disabled={isSubmittingForm}
+            >
+              {buttonLabels.submit}
+            </Button>
+          </div>
+        </HostedPageFooter>
+      </div>
+    </div>
   )
 }
