@@ -30,12 +30,7 @@ export const TraditionalForm = ({
         const { scrollTop, scrollHeight, clientHeight } =
           document.documentElement
         const isAtBottom = scrollTop + clientHeight >= scrollHeight
-
-        if (isAtBottom) {
-          scrollHintOverlayRef.current.style.top = '100%' // Hide completely
-        } else {
-          scrollHintOverlayRef.current.style.top = 'auto' // Show by resetting to initial position
-        }
+        scrollHintOverlayRef.current.style.top = isAtBottom ? '100%' : 'auto'
       }
     }
 
@@ -119,9 +114,9 @@ export const TraditionalForm = ({
         ref={scrollHintOverlayRef}
         className={classes.scroll_hint_overlay}
       ></div>
-      <div className={`${classes.footer_for_traditional_form}`}>
+      <div className={classes.footer_for_traditional_for}>
         <HostedPageFooter showScrollHint={false}>
-          <div className={`${classes.traditional_button_wrapper}`}>
+          <div className={classes.traditional_button_wrapper}>
             {formHasErrors && (
               <div>
                 <Text variant="textSmall" color="var(--awell-signalError100)">
