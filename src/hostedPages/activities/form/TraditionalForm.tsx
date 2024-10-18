@@ -10,6 +10,7 @@ import {
   LoadActivityPlaceholder,
   HostedPageFooter,
 } from '../../layouts/HostedPageLayout'
+import clsx from 'clsx'
 
 export const TraditionalForm = ({
   form,
@@ -69,7 +70,7 @@ export const TraditionalForm = ({
     <div>
       <main
         id="ahp_main_content_with_scroll_hint"
-        className={`${layoutClasses.main_content} ${classes.traditional_form}`}
+        className={clsx(layoutClasses.main_content, classes.traditional_form)}
       >
         <div
           className={`${classes.container} ${classes.traditional_container}`}
@@ -104,9 +105,7 @@ export const TraditionalForm = ({
             </div>
           )}
           {form?.trademark && (
-            <div className={`${classes.trademark} ${classes.traditional}`}>
-              {form.trademark}
-            </div>
+            <div className={classes.trademark}>{form.trademark}</div>
           )}
         </div>
       </main>
