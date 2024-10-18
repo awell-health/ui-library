@@ -81,6 +81,7 @@
   color: var(--awell-slate500);
   font-style: italic;
   text-align: center;
+  padding-bottom: var(--awell-spacing-4);
 
   @media (min-width: 640px) {
     font-size: var(--font-size-sm);
