@@ -29,7 +29,7 @@ export const TraditionalForm = ({
       if (scrollHintOverlayRef.current) {
         const { scrollTop, scrollHeight, clientHeight } =
           document.documentElement
-        const isAtBottom = scrollTop + clientHeight >= scrollHeight
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
         scrollHintOverlayRef.current.style.top = isAtBottom ? '100%' : 'auto'
       }
     }
@@ -104,7 +104,7 @@ export const TraditionalForm = ({
             </div>
           )}
           {form?.trademark && (
-            <div className={`${classes.trademark} ${classes.conversational}`}>
+            <div className={`${classes.trademark} ${classes.traditional}`}>
               {form.trademark}
             </div>
           )}
