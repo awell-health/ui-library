@@ -114,28 +114,26 @@ export const TraditionalForm = ({
         ref={scrollHintOverlayRef}
         className={classes.scroll_hint_overlay}
       ></div>
-      <div className={classes.footer_for_traditional_for}>
-        <HostedPageFooter showScrollHint={false}>
-          <div className={classes.traditional_button_wrapper}>
-            {formHasErrors && (
-              <div>
-                <Text variant="textSmall" color="var(--awell-signalError100)">
-                  {errorLabels.formHasErrors}
-                </Text>
-              </div>
-            )}
-            <div></div>
-            <Button
-              onClick={submitForm}
-              type="submit"
-              data-cy="submitFormButton"
-              disabled={isSubmittingForm}
-            >
-              {buttonLabels.submit}
-            </Button>
-          </div>
-        </HostedPageFooter>
-      </div>
+      <HostedPageFooter showScrollHint={false} fixPosition={true}>
+        <div className={classes.traditional_button_wrapper}>
+          {formHasErrors && (
+            <div>
+              <Text variant="textSmall" color="var(--awell-signalError100)">
+                {errorLabels.formHasErrors}
+              </Text>
+            </div>
+          )}
+          <div></div>
+          <Button
+            onClick={submitForm}
+            type="submit"
+            data-cy="submitFormButton"
+            disabled={isSubmittingForm}
+          >
+            {buttonLabels.submit}
+          </Button>
+        </div>
+      </HostedPageFooter>
     </div>
   )
 }

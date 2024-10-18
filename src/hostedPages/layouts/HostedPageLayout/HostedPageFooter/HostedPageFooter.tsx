@@ -5,14 +5,20 @@ import classes from './hostedPageFooter.module.scss'
 export interface HostedPageFooterProps {
   children: React.ReactNode | string
   showScrollHint?: boolean
+  fixPosition?: boolean
 }
 
 export const HostedPageFooter: FC<HostedPageFooterProps> = ({
   children,
   showScrollHint = false,
+  fixPosition = false,
 }) => {
+  const footerClass = fixPosition
+    ? `${classes.footer} ${classes.fixed}`
+    : classes.footer
+
   return (
-    <footer className={classes.footer}>
+    <footer className={footerClass}>
       <div
         className={`${classes.scrollHint} ${
           showScrollHint ? classes.visible : classes.hidden
