@@ -72,9 +72,7 @@ export const TraditionalForm = ({
         id="ahp_main_content_with_scroll_hint"
         className={clsx(layoutClasses.main_content, classes.traditional_form)}
       >
-        <div
-          className={`${classes.container} ${classes.traditional_container}`}
-        >
+        <div className={clsx(classes.container, classes.traditional_container)}>
           {!questionWithVisiblity ? (
             <div className={classes.loadingContainer}>
               <LoadActivityPlaceholder />
