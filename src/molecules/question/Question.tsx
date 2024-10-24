@@ -16,7 +16,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 import { CountryIso2, useValidate } from '../../hooks/useValidate'
-import { isNil, noop } from 'lodash'
+import { isEmpty, isNil, noop } from 'lodash'
 import { getMinValueForDateInput } from './helpers/getMinValueForDateInput'
 import { getMaxValueForDateInput } from './helpers/getMaxValueForDateInput'
 import { getMinValueForNumberInput } from './helpers/getMinValueForNumberInput'
@@ -340,7 +340,10 @@ export const QuestionData = ({
           rules={{
             required: config?.mandatory,
             validate: (value: string): string | boolean => {
-              return isValidEmail(value)
+              if (!isEmpty(value)) {
+                return isValidEmail(value)
+              }
+              return true
             },
           }}
           render={({ field: { onChange, value } }) => (
@@ -355,7 +358,7 @@ export const QuestionData = ({
               label={question.title}
               id={question.id}
               value={value}
-              mandatory={config?.mandatory}
+              mandatory={config?.mandatory ?? false}
               placeholder="name@example.com"
             />
           )}
