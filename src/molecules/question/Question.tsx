@@ -294,6 +294,7 @@ export const QuestionData = ({
               mandatory={question.questionConfig?.mandatory}
               availableCountries={availableCountries}
               initialCountry={initialCountry}
+              forceDialCode={true}
             />
           )}
         />
