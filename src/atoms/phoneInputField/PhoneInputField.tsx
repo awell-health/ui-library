@@ -52,6 +52,11 @@ export interface PhoneInputFieldProps
    * Placeholder phone number
    */
   placeholder?: string
+
+  /**
+   * Does not allow for the country code to be deleted
+   */
+  forceDialCode?: boolean
 }
 
 export const PhoneInputField = ({
@@ -63,6 +68,7 @@ export const PhoneInputField = ({
   placeholder,
   initialCountry = 'us',
   availableCountries,
+  forceDialCode = false,
   ...props
 }: PhoneInputFieldProps): JSX.Element => {
   const countries = getDefaultCountries(availableCountries, initialCountry)
@@ -72,6 +78,7 @@ export const PhoneInputField = ({
       value,
       hideSpaceAfterDialCode: true,
       countries,
+      forceDialCode,
     })
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
