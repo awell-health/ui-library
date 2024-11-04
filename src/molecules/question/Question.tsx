@@ -15,13 +15,14 @@ import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
-import { CountryIso2, useValidate } from '../../hooks/useValidate'
+import { CountryIso2 } from '../../hooks/useValidate'
 import { isEmpty, isNil, noop } from 'lodash'
 import { getMinValueForDateInput } from './helpers/getMinValueForDateInput'
 import { getMaxValueForDateInput } from './helpers/getMaxValueForDateInput'
 import { getMinValueForNumberInput } from './helpers/getMinValueForNumberInput'
 import { getMaxValueForNumberInput } from './helpers/getMaxValueForNumberInput'
 import { isValidEmail } from './helpers/isValidEmail'
+import { useICDClassificationList } from '../../hooks/useIcdClassificationList'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -36,7 +37,11 @@ export const QuestionData = ({
   shouldAutoProgress = () => false,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
-  const { validateDateResponse } = useValidate()
+  const {
+    options: icdClassificationOptions,
+    loading: optionsLoading,
+    onIcdClassificationSearchChange,
+  } = useICDClassificationList()
 
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
@@ -394,6 +399,41 @@ export const QuestionData = ({
           }}
         />
       )
+
+    case UserQuestionType.Icd10Classification:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue=""
+          rules={{ required: config?.mandatory }}
+          render={({ field: { onChange, value } }) => (
+            <Select
+              id={question.id}
+              value={value}
+              labels={{
+                questionLabel: question.title,
+                placeholder: labels.select?.search_placeholder,
+                noOptions: labels.select?.no_options,
+              }}
+              onChange={(data) => {
+                onChange(data)
+                onAnswerChange()
+              }}
+              type="single"
+              options={icdClassificationOptions ?? []}
+              mandatory={config?.mandatory}
+              showCount
+              filtering
+              onSearch={onIcdClassificationSearchChange}
+              loading={optionsLoading}
+              allowSearchAfterSelect={true}
+              allowEmptyOptionsList={true}
+            />
+          )}
+        />
+      )
+
     case UserQuestionType.Description:
       return <Description content={question.title} />
     default:
