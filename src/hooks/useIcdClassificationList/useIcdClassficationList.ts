@@ -45,7 +45,7 @@ export const useICDClassificationList = () => {
   const debouncedFetchICDCodesRef = useRef(
     debounce((terms: string) => {
       fetchICDCodes(terms)
-    }, 300)
+    }, 600)
   )
 
   useEffect(() => {
