@@ -25,11 +25,11 @@ export const useICDClassificationList = () => {
         },
       })
 
-      const [, codes, , displayStrings] = response.data
+      const [, , , displayStrings] = response.data
 
       const icdOptions: Array<Option> = displayStrings.map(
-        ([code, name]: [string, string], index: number) => ({
-          value: codes[index],
+        ([code, name]: [string, string]) => ({
+          value: `${code}|${name}`,
           label: `${code} - ${name}`,
         })
       )
