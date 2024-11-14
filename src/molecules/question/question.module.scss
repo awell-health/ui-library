@@ -9,3 +9,17 @@
     margin-top: var(--awell-spacing-4);
   }
 }
+
+.awell_question_description {
+  display: block;
+  color: var(--awell-neutralMid400);
+  font-size: 0.875rem;
+  line-height: 20px;
+  margin-top: var(--awell-spacing-2);
+  font-weight: 400;
+
+  & > a {
+    color: var(--awell-blue400);
+    text-decoration: underline;
+  }
+}

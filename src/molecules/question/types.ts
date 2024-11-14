@@ -8,6 +8,8 @@ export interface QuestionLabels {
     search_placeholder: string
     no_options: string
     loading?: string
+    icd_10_catalogue_description?: string
+    icd_10_catalogue_link?: string
   }
   slider: {
     tooltip_guide: string
