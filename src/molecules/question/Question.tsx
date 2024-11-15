@@ -414,7 +414,7 @@ export const QuestionData = ({
                 value={value}
                 labels={{
                   questionLabel: question.title,
-                  placeholder: labels.select?.search_placeholder,
+                  placeholder: labels.select?.search_icd_placeholder,
                   noOptions: labels.select?.no_options,
                 }}
                 onChange={(data) => {
@@ -439,6 +439,7 @@ export const QuestionData = ({
                 >
                   {labels.select?.icd_10_catalogue_link}
                 </a>
+                {'.'}
               </span>
             </>
           )}

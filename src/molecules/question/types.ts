@@ -6,6 +6,7 @@ export interface QuestionLabels {
   no_label: string
   select?: {
     search_placeholder: string
+    search_icd_placeholder: string
     no_options: string
     loading?: string
     icd_10_catalogue_description?: string
