@@ -408,28 +408,40 @@ export const QuestionData = ({
           defaultValue=""
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => (
-            <Select
-              id={question.id}
-              value={value}
-              labels={{
-                questionLabel: question.title,
-                placeholder: labels.select?.search_placeholder,
-                noOptions: labels.select?.no_options,
-              }}
-              onChange={(data) => {
-                onChange(data)
-                onAnswerChange()
-              }}
-              type="single"
-              options={icdClassificationOptions ?? []}
-              mandatory={config?.mandatory}
-              showCount
-              filtering
-              onSearch={onIcdClassificationSearchChange}
-              loading={optionsLoading}
-              allowSearchAfterSelect={true}
-              allowEmptyOptionsList={true}
-            />
+            <>
+              <Select
+                id={question.id}
+                value={value}
+                labels={{
+                  questionLabel: question.title,
+                  placeholder: labels.select?.search_icd_placeholder,
+                  noOptions: labels.select?.no_options,
+                }}
+                onChange={(data) => {
+                  onChange(data)
+                  onAnswerChange()
+                }}
+                type="single"
+                options={icdClassificationOptions ?? []}
+                mandatory={config?.mandatory}
+                showCount
+                filtering
+                onSearch={onIcdClassificationSearchChange}
+                loading={optionsLoading}
+                allowSearchAfterSelect={true}
+                allowEmptyOptionsList={true}
+              />
+              <span className={classes.awell_question_description}>
+                {labels.select?.icd_10_catalogue_description}{' '}
+                <a
+                  href="https://icd.who.int/browse10/2019/en#/J00"
+                  target="blank"
+                >
+                  {labels.select?.icd_10_catalogue_link}
+                </a>
+                {'.'}
+              </span>
+            </>
           )}
         />
       )
