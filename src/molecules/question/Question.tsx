@@ -15,12 +15,14 @@ import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
-import { CountryIso2, useValidate } from '../../hooks/useValidate'
-import { isNil, noop } from 'lodash'
+import { CountryIso2 } from '../../hooks/useValidate'
+import { isEmpty, isNil, noop } from 'lodash'
 import { getMinValueForDateInput } from './helpers/getMinValueForDateInput'
 import { getMaxValueForDateInput } from './helpers/getMaxValueForDateInput'
 import { getMinValueForNumberInput } from './helpers/getMinValueForNumberInput'
 import { getMaxValueForNumberInput } from './helpers/getMaxValueForNumberInput'
+import { isValidEmail } from './helpers/isValidEmail'
+import { useICDClassificationList } from '../../hooks/useIcdClassificationList'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -35,7 +37,11 @@ export const QuestionData = ({
   shouldAutoProgress = () => false,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
-  const { validateDateResponse } = useValidate()
+  const {
+    options: icdClassificationOptions,
+    loading: optionsLoading,
+    onIcdClassificationSearchChange,
+  } = useICDClassificationList()
 
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
@@ -293,6 +299,7 @@ export const QuestionData = ({
               mandatory={question.questionConfig?.mandatory}
               availableCountries={availableCountries}
               initialCountry={initialCountry}
+              forceDialCode={true}
             />
           )}
         />
@@ -329,6 +336,40 @@ export const QuestionData = ({
           }}
         />
       )
+
+    case UserQuestionType.Email:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue=""
+          rules={{
+            required: config?.mandatory,
+            validate: (value: string): string | boolean => {
+              if (!isEmpty(value)) {
+                return isValidEmail(value)
+              }
+              return true
+            },
+          }}
+          render={({ field: { onChange, value } }) => (
+            <InputField
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus={inputAutoFocus}
+              type="email"
+              onChange={(e) => {
+                onChange(e.target.value)
+                onAnswerChange()
+              }}
+              label={question.title}
+              id={question.id}
+              value={value}
+              mandatory={config?.mandatory ?? false}
+              placeholder="name@example.com"
+            />
+          )}
+        />
+      )
     case UserQuestionType.Date:
       return (
         <Controller
@@ -358,6 +399,53 @@ export const QuestionData = ({
           }}
         />
       )
+
+    case UserQuestionType.Icd10Classification:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue=""
+          rules={{ required: config?.mandatory }}
+          render={({ field: { onChange, value } }) => (
+            <>
+              <Select
+                id={question.id}
+                value={value}
+                labels={{
+                  questionLabel: question.title,
+                  placeholder: labels.select?.search_icd_placeholder,
+                  noOptions: labels.select?.no_options,
+                }}
+                onChange={(data) => {
+                  onChange(data)
+                  onAnswerChange()
+                }}
+                type="single"
+                options={icdClassificationOptions ?? []}
+                mandatory={config?.mandatory}
+                showCount
+                filtering
+                onSearch={onIcdClassificationSearchChange}
+                loading={optionsLoading}
+                allowSearchAfterSelect={true}
+                allowEmptyOptionsList={true}
+              />
+              <span className={classes.awell_question_description}>
+                {labels.select?.icd_10_catalogue_description}{' '}
+                <a
+                  href="https://icd.who.int/browse10/2019/en#/J00"
+                  target="blank"
+                >
+                  {labels.select?.icd_10_catalogue_link}
+                </a>
+                {'.'}
+              </span>
+            </>
+          )}
+        />
+      )
+
     case UserQuestionType.Description:
       return <Description content={question.title} />
     default:

@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button, Text } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useTraditionalForm } from '../../../hooks/useForm'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
-import { UserQuestionType } from '../../../types'
 import { useTheme } from '../../../atoms/themeProvider/ThemeProvider'
 import {
   LoadActivityPlaceholder,
   HostedPageFooter,
 } from '../../layouts/HostedPageLayout'
+import clsx from 'clsx'
 
 export const TraditionalForm = ({
   form,
@@ -21,7 +21,23 @@ export const TraditionalForm = ({
   storedAnswers,
   onAnswersChange,
   autosaveAnswers = true,
+  questionLabels,
 }: FormProps) => {
+  const scrollHintOverlayRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollHintOverlayRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } =
+          document.documentElement
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
+        scrollHintOverlayRef.current.style.top = isAtBottom ? '100%' : 'auto'
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   const { updateLayoutMode, resetLayoutMode } = useTheme()
 
   const {
@@ -44,7 +60,6 @@ export const TraditionalForm = ({
 
   useEffect(() => {
     updateLayoutMode('flexible')
-
     return () => {
       // Reset to default mode on unmount
       resetLayoutMode()
@@ -52,14 +67,12 @@ export const TraditionalForm = ({
   }, [])
 
   return (
-    <>
+    <div>
       <main
         id="ahp_main_content_with_scroll_hint"
-        className={`${layoutClasses.main_content} ${classes.traditional_form}`}
+        className={clsx(layoutClasses.main_content, classes.traditional_form)}
       >
-        <div
-          className={`${classes.container} ${classes.traditional_container}`}
-        >
+        <div className={clsx(classes.container, classes.traditional_container)}>
           {!questionWithVisiblity ? (
             <div className={classes.loadingContainer}>
               <LoadActivityPlaceholder />
@@ -82,6 +95,7 @@ export const TraditionalForm = ({
                         errors={errors}
                         inputAutoFocus={false}
                         onAnswerChange={updateQuestionVisibility}
+                        labels={questionLabels}
                       />
                     </div>
                   ))}
@@ -89,14 +103,16 @@ export const TraditionalForm = ({
             </div>
           )}
           {form?.trademark && (
-            <div className={`${classes.trademark} ${classes.conversational}`}>
-              {form.trademark}
-            </div>
+            <div className={classes.trademark}>{form.trademark}</div>
           )}
         </div>
       </main>
-      <HostedPageFooter showScrollHint={false}>
-        <div className={`${classes.traditional_button_wrapper}`}>
+      <div
+        ref={scrollHintOverlayRef}
+        className={classes.scroll_hint_overlay}
+      ></div>
+      <HostedPageFooter showScrollHint={false} fixPosition={true}>
+        <div className={classes.traditional_button_wrapper}>
           {formHasErrors && (
             <div>
               <Text variant="textSmall" color="var(--awell-signalError100)">
@@ -115,6 +131,6 @@ export const TraditionalForm = ({
           </Button>
         </div>
       </HostedPageFooter>
-    </>
+    </div>
   )
 }

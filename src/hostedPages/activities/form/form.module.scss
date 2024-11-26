@@ -72,10 +72,6 @@
   margin: 0 auto;
 }
 
-.traditional_form {
-  margin-bottom: 0px;
-}
-
 .traditional_form_question {
   margin-bottom: var(--awell-spacing-8);
 }
@@ -85,15 +81,29 @@
   color: var(--awell-slate500);
   font-style: italic;
   text-align: center;
+  padding-bottom: var(--awell-spacing-4);
 
   @media (min-width: 640px) {
     font-size: var(--font-size-sm);
   }
 
-  &.traditional {
-    padding-bottom: var(--awell-spacing-6);
-  }
   &.conversational {
     padding-top: var(--awell-spacing-4);
   }
+}
+
+/* Overlay for the opacity gradient */
+.scroll_hint_overlay {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--awell-neutralLight10) 50%
+  );
+  pointer-events: none; /* Prevent interaction */
+  transition: top 0.5s ease-in-out;
 }

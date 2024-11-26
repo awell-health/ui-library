@@ -81,6 +81,18 @@ export interface SelectProps
    * Are options for the select loading?
    */
   loading?: boolean
+
+  /**
+   * Allow searching after an option has been selected (for specific use cases)
+   */
+  allowSearchAfterSelect?: boolean
+
+  /**
+   * Allow having 0 options in the list
+   */
+  allowEmptyOptionsList?: boolean
+
+  searchValue?: string
 }
 
 const truncateLabel = (label: string, maxLength: number | null = 15) => {
@@ -108,11 +120,22 @@ export const Select = ({
   value,
   filtering = false,
   loading = false,
+  searchValue: propSearchValue,
+  allowEmptyOptionsList = false,
+  allowSearchAfterSelect = false,
   ...props
 }: SelectProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
   const [filteredOptions, setFilteredOptions] = useState<Array<Option>>(options)
-  const [searchValue, setSearchValue] = useState<string | undefined>()
+  const [searchValue, setSearchValue] = useState<string | undefined>(
+    propSearchValue
+  )
+
+  useEffect(() => {
+    if (propSearchValue !== undefined) {
+      setSearchValue(propSearchValue)
+    }
+  }, [propSearchValue])
 
   // the incoming value may be an array of numbers or a number, corresponding to an option value,
   // depending on whether the select is single or multiple type
@@ -136,23 +159,23 @@ export const Select = ({
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputText = event.target.value.toLowerCase()
+    const inputText = event.target.value
+
+    if (searchValue === inputText) {
+      return // Do nothing if the input hasn't changed
+    }
+
+    setSearchValue(inputText)
+
     if (!isNil(onSearch)) {
-      setSearchValue(inputText)
       onSearch(inputText)
       setIsOpen(true)
       inputRef.current?.focus()
       return
     }
 
-    if (inputText === '') {
-      setSearchValue('')
-      setFilteredOptions(options)
-      return
-    }
-    setSearchValue(inputText)
     const updatedFilteredOptions = options.filter((option) =>
-      option.label.toLowerCase().includes(inputText)
+      option.label.toLowerCase().includes(inputText.toLowerCase())
     )
     setFilteredOptions(updatedFilteredOptions)
   }
@@ -186,6 +209,9 @@ export const Select = ({
       setIsOpen(true)
       setFilteredOptions(options)
     }
+    if (allowEmptyOptionsList && options.length === 0) {
+      setFilteredOptions(options)
+    }
   }, [options])
 
   const toggleDropdown = useCallback(() => {
@@ -198,6 +224,9 @@ export const Select = ({
         setSelected([option])
         onChange(option.value)
         setIsOpen(false)
+        if (allowSearchAfterSelect) {
+          setSearchValue(option.label)
+        }
       } else {
         event.stopPropagation()
         const isSelected = selected.some((item) => item.value === option.value)
@@ -213,9 +242,13 @@ export const Select = ({
 
         setSelected(updatedSelected)
         onChange(updatedSelected)
+
+        if (allowSearchAfterSelect) {
+          setSearchValue('') // Clear searchValue or set to desired value
+        }
       }
     },
-    [selected, type, onChange]
+    [selected, type, onChange, allowSearchAfterSelect]
   )
 
   const rowRenderer = ({
@@ -255,15 +288,23 @@ export const Select = ({
   }
 
   const getDisplayValue = (): string => {
-    if (filtering && selected.length === 0) {
-      return searchValue ?? ''
-    }
-
-    if (type === 'single') {
+    if (filtering) {
+      if (allowSearchAfterSelect) {
+        return searchValue ?? ''
+      } else if (selected.length === 0) {
+        return searchValue ?? ''
+      } else if (type === 'single') {
+        return selected[0]?.label ?? ''
+      } else if (type === 'multiple') {
+        return selected.length > 0
+          ? selected
+              .map((option) => truncateLabel(option.label, displayMaxLength))
+              .join(', ')
+          : ''
+      }
+    } else if (type === 'single') {
       return selected[0]?.label ?? ''
-    }
-
-    if (type === 'multiple') {
+    } else if (type === 'multiple') {
       return selected.length > 0
         ? selected
             .map((option) => truncateLabel(option.label, displayMaxLength))

@@ -13,6 +13,12 @@
     height: var(--awell-footer-height);
   }
 
+  &.fixed {
+    position: fixed; 
+    bottom: 0; 
+    left: 0;
+  }
+
   & .scrollHint {
     position: absolute;
     bottom: var(--awell-mobile-footer-height);

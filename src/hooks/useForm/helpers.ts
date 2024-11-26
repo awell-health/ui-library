@@ -14,6 +14,7 @@ import {
 } from '../../types/generated/types-orchestration'
 import {
   DateValidationErrorType,
+  EmailValidationErrorType,
   NumberValidationErrorType,
 } from '../useValidate/useValidate'
 
@@ -181,6 +182,13 @@ export const getErrorsForQuestion = (
   ) => {
     isValid: boolean
     errorType?: NumberValidationErrorType
+  },
+  validateEmailResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: EmailValidationErrorType
   }
 ): Array<FormError> => {
   // For description question types, don't validate
@@ -268,6 +276,26 @@ export const getErrorsForQuestion = (
               error:
                 errorLabels.numberOutOfRange ||
                 'The number cannot be out of range',
+            },
+          ]
+      }
+    }
+  }
+
+  if (currentQuestion?.userQuestionType === UserQuestionType.Email) {
+    const error = validateEmailResponse(
+      currentQuestion?.questionConfig,
+      valueOfCurrentQuestion as string
+    )
+    if (error.isValid === false) {
+      switch (error.errorType) {
+        case 'INVALID_FORMAT':
+          return [
+            {
+              id: currentQuestion.id,
+              error:
+                errorLabels.emailInvalidFormat ||
+                'Value must be a valid email address',
             },
           ]
       }
