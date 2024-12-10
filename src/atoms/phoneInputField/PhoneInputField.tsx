@@ -79,11 +79,10 @@ export const PhoneInputField = ({
       hideSpaceAfterDialCode: true,
       countries,
       forceDialCode,
+      onPhoneUpdate: (phone) => {
+        onChange({ target: { value: phone } })
+      },
     })
-
-  useEffect(() => {
-    onChange({ target: { value: phone } })
-  }, [phone, onChange])
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     handlePhoneValueChange(e)
