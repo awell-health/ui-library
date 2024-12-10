@@ -93,6 +93,18 @@ export const PhoneInputField = ({
     setCountry(iso2)
   }
 
+  const onPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const phoneNumber = e.clipboardData.getData('text') ?? ''
+
+    // if number contains + (country code), remove it from input, before pasting new value
+    if (phoneNumber.includes('+')) {
+      if (inputRef.current) {
+        inputRef.current.value = ''
+        inputRef.current.dispatchEvent(new Event('change'))
+      }
+    }
+  }
+
   return (
     <div className={classes.awell_input_field_wrapper}>
       <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
@@ -121,6 +133,7 @@ export const PhoneInputField = ({
           value={phone}
           data-testid={`input-${id}`}
           dir="ltr"
+          onPaste={onPaste}
         />
       </div>
     </div>
