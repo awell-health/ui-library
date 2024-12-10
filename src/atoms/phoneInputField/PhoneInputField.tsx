@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, MouseEventHandler } from 'react'
+import React, { InputHTMLAttributes, MouseEventHandler, useEffect } from 'react'
 import classes from './phoneInputField.module.scss'
 import { QuestionLabel } from '../questionLabel'
 import 'react-international-phone/style.css'
@@ -81,9 +81,12 @@ export const PhoneInputField = ({
       forceDialCode,
     })
 
+  useEffect(() => {
+    onChange({ target: { value: phone } })
+  }, [phone, onChange])
+
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     handlePhoneValueChange(e)
-    onChange(e)
   }
 
   const handleCountrySelect: (country: ParsedCountry) => void = ({ iso2 }) => {
