@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, MouseEventHandler } from 'react'
+import React, { InputHTMLAttributes, MouseEventHandler, useEffect } from 'react'
 import classes from './phoneInputField.module.scss'
 import { QuestionLabel } from '../questionLabel'
 import 'react-international-phone/style.css'
@@ -81,13 +81,28 @@ export const PhoneInputField = ({
       forceDialCode,
     })
 
+  useEffect(() => {
+    onChange({ target: { value: phone } })
+  }, [phone, onChange])
+
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     handlePhoneValueChange(e)
-    onChange(e)
   }
 
   const handleCountrySelect: (country: ParsedCountry) => void = ({ iso2 }) => {
     setCountry(iso2)
+  }
+
+  const onPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const phoneNumber = e.clipboardData.getData('text') ?? ''
+
+    // if number contains + (country code), remove it from input, before pasting new value
+    if (phoneNumber.includes('+')) {
+      if (inputRef.current) {
+        inputRef.current.value = ''
+        inputRef.current.dispatchEvent(new Event('change'))
+      }
+    }
   }
 
   return (
@@ -118,6 +133,7 @@ export const PhoneInputField = ({
           value={phone}
           data-testid={`input-${id}`}
           dir="ltr"
+          onPaste={onPaste}
         />
       </div>
     </div>
