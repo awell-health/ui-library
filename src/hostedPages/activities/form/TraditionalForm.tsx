@@ -67,7 +67,8 @@ export const TraditionalForm = ({
   }, [])
 
   return (
-    <div>
+    // div wrapper breaks 100vh height (potentially can be removed)
+    <div style={{ height: '100%' }}>
       <main
         id="ahp_main_content_with_scroll_hint"
         className={clsx(layoutClasses.main_content, classes.traditional_form)}

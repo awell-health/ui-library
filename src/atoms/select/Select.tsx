@@ -214,6 +214,17 @@ export const Select = ({
     }
   }, [options])
 
+  useEffect(() => {
+    if (isOpen) {
+      const container = document.getElementById(
+        'ahp_main_content_with_scroll_hint'
+      )
+      if (container) {
+        container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
+      }
+    }
+  }, [isOpen])
+
   const toggleDropdown = useCallback(() => {
     setIsOpen(!isOpen)
   }, [isOpen])
