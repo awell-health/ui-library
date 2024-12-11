@@ -165,7 +165,7 @@ export const useValidate = (): UseValidateHook => {
       }
     }
 
-    const parsedDate = new Date(value)
+    const parsedDate = new Date(`${value}T00:00:00`)
     const dateIsToday = isToday(parsedDate)
 
     const { allowed_dates, include_date_of_response = false } =
