@@ -1,4 +1,9 @@
-import { Form, QuestionType, UserQuestionType } from '../types'
+import {
+  AllowedDatesOptions,
+  Form,
+  QuestionType,
+  UserQuestionType
+} from '../types'
 import { DataPointValueType } from '../types/question'
 
 export const form: Form = {
@@ -9,6 +14,24 @@ export const form: Form = {
   // trademark: 'A dummy trademark by Awell',
   release_id: '',
   questions: [
+    {
+      id: '5KMcDYtoz0r1',
+      title: 'This is date question',
+      definition_id: 'Kzr2NafTxJfR',
+      key: 'thisIsDateQuestion',
+      dataPointValueType: DataPointValueType.Date,
+      options: [],
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.Date,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: true,
+        date: {
+          allowed_dates: AllowedDatesOptions.Future,
+          include_date_of_response: true,
+        },
+      },
+    },
     {
       id: 'fSN5BktQ6cOV',
       title:
