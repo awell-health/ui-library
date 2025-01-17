@@ -1,5 +1,5 @@
 // Helper function to validate the email format using regex
 export const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const emailRegex = /^[\w-+.]+@([\w-]+\.)+[\w-]{2,4}$/
   return emailRegex.test(email)
 }
