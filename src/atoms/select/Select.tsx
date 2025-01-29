@@ -206,6 +206,15 @@ export const Select = ({
   }, [isOpen, handleClickOutside])
 
   useEffect(() => {
+    if (
+      !isNil(onSearch) &&
+      allowSearchAfterSelect &&
+      searchValue === selected[0]?.label
+    ) {
+      // no need to open the dropdown in this case as search exactly matches the label of the first selected option
+      setIsOpen(false)
+      return
+    }
     if (!isNil(onSearch) && options.length > 0) {
       setIsOpen(true)
       setFilteredOptions(options)
