@@ -41,7 +41,7 @@ export const QuestionData = ({
     options: icdClassificationOptions,
     loading: optionsLoading,
     onIcdClassificationSearchChange,
-  } = useICDClassificationList()
+  } = useICDClassificationList(question.id)
 
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
