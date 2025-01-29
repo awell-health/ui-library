@@ -11,7 +11,7 @@ import React, {
 import classes from './select.module.scss'
 import { QuestionLabel } from '../questionLabel'
 import { type Option } from './types'
-import { isNil, noop } from 'lodash'
+import { isEmpty, isNil, noop } from 'lodash'
 import { FixedSizeList as List } from 'react-window'
 
 export interface SelectProps
@@ -147,9 +147,10 @@ export const Select = ({
       return value as Array<Option>
     }
     if (type === 'single') {
-      return [
+      const matchingOption = [
         options.find((option) => value === option.value) ?? undefined,
       ].filter((option) => option !== undefined) as Array<Option>
+      return matchingOption
     }
     return []
   }
@@ -213,6 +214,16 @@ export const Select = ({
       setFilteredOptions(options)
     }
   }, [options])
+
+  useEffect(() => {
+    /*
+     * When the form is refreshed, we want to set the searchValue to the label of the first selected option
+     * This is to ensure that the searchValue is set to the label of the first selected option
+     */
+    if (allowSearchAfterSelect && selected.length > 0 && isEmpty(searchValue)) {
+      setSearchValue(selected[0]?.label ?? '')
+    }
+  }, [selected, allowSearchAfterSelect, searchValue])
 
   useEffect(() => {
     if (isOpen) {
@@ -301,6 +312,9 @@ export const Select = ({
   const getDisplayValue = (): string => {
     if (filtering) {
       if (allowSearchAfterSelect) {
+        if (isEmpty(searchValue) && selected.length > 0) {
+          return selected[0]?.label ?? ''
+        }
         return searchValue ?? ''
       } else if (selected.length === 0) {
         return searchValue ?? ''

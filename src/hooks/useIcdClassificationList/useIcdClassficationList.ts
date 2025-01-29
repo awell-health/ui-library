@@ -6,7 +6,10 @@ import { debounce } from 'lodash'
 const ICD_10_CLASSIFICATION_ENDPOINT = `https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search`
 
 export const useICDClassificationList = () => {
-  const [options, setOptions] = useState<Array<Option>>([])
+  const [options, setOptions] = useState<Array<Option>>(() => {
+    const savedOptions = localStorage.getItem('icdOptions')
+    return savedOptions ? JSON.parse(savedOptions) : []
+  })
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [searchValue, setSearchValue] = useState('')
@@ -35,6 +38,7 @@ export const useICDClassificationList = () => {
       )
 
       setOptions(icdOptions)
+      localStorage.setItem('icdOptions', JSON.stringify(icdOptions))
     } catch (err) {
       setError('Failed to fetch ICD-10 codes')
     } finally {
@@ -62,6 +66,7 @@ export const useICDClassificationList = () => {
 
   const onIcdClassificationSearchChange = (val: string) => {
     setSearchValue(val)
+    localStorage.setItem('icdSearchValue', val)
   }
 
   return { options, loading, error, onIcdClassificationSearchChange }
