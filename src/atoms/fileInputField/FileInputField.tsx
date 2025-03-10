@@ -3,7 +3,7 @@ import {
   type FileListItem,
   FileUpload,
 } from '@awell-health/design-system'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './FileInputField.module.scss'
 
 interface Props {
@@ -23,6 +23,7 @@ interface Props {
   dataCy?: string
   value?: Array<string>
   loading?: boolean
+  fileUploadErrors?: Array<{ id: string; error: string }>
 }
 
 export const FileInputField: React.FC<Props> = ({
@@ -41,19 +42,47 @@ export const FileInputField: React.FC<Props> = ({
   dataCy,
   value,
   loading = false,
+  fileUploadErrors,
 }) => {
-  const [selectedFiles, setSelectedFiles] = useState<Array<File>>([])
+  const [selectedFiles, setSelectedFiles] = useState<Array<FileListItem>>([])
+
+  useEffect(() => {
+    if (fileUploadErrors && fileUploadErrors.length > 0) {
+      console.log('fileUploadErrors', fileUploadErrors)
+      setSelectedFiles((prev) =>
+        prev.map((file) => {
+          const fileId = file.name
+          const error = fileUploadErrors.find((f) => f.id === fileId)
+          if (error) {
+            return { ...file, error: error.error }
+          }
+          return file
+        })
+      )
+    }
+  }, [fileUploadErrors])
 
   const handleFileChange = (files: FileList): void => {
     const updatedFiles = files as unknown as Array<File>
+    const filesAsListItems = updatedFiles.map((file) => ({
+      name: file.name,
+      size: file.size,
+      type: file.type,
+    })) as unknown as Array<FileListItem>
 
-    setSelectedFiles((prev) => [...prev, ...updatedFiles])
-    onChange([...selectedFiles, ...updatedFiles])
+    // We save the files as list items for visual feedback (i.e. error messages)
+    setSelectedFiles((prev) => [...prev, ...filesAsListItems])
+    // We send the files as files for the onChange callback (includes the file binary data)
+    onChange([...selectedFiles, ...updatedFiles] as unknown as Array<File>)
   }
 
   const handleRemoveFile = (file: FileListItem): void => {
     setSelectedFiles((prev) => prev.filter((f) => f.name !== file.name))
-    onChange(selectedFiles.filter((f) => f.name !== file.name))
+    onChange(
+      selectedFiles.filter(
+        (f) => f.name !== file.name
+      ) as unknown as Array<File>
+    )
   }
 
   return (
@@ -67,6 +96,7 @@ export const FileInputField: React.FC<Props> = ({
           isMultiple={multiple}
           accept={accept}
           label={label}
+          error={error}
         />
 
         {selectedFiles.length > 0 && (

@@ -46,11 +46,16 @@ export const QuestionData = ({
     onIcdClassificationSearchChange,
   } = useICDClassificationList(question.id)
 
+  const [fileUploadErrors, setFileUploadErrors] = useState<
+    Array<{ id: string; error: string }>
+  >([])
+
   const handleFilesUpload = async (
     files: Array<File>,
     onControllerChange: (value: string) => void
   ): Promise<void> => {
     if (onFileUpload) {
+      setFileUploadErrors([])
       const attachments = await Promise.all(
         files.map(async (file) => {
           try {
@@ -67,8 +72,14 @@ export const QuestionData = ({
             }
             return attachment
           } catch (error) {
-            // TODO: Handle error
-            console.error(error)
+            const errorMessage =
+              error instanceof Error
+                ? error.message
+                : 'This file could not be uploaded'
+            setFileUploadErrors((prev) => [
+              ...prev,
+              { id: file.name, error: errorMessage },
+            ])
           }
         })
       )
@@ -503,9 +514,12 @@ export const QuestionData = ({
                     'application/pdf',
                   ]
                 }
+                fileUploadErrors={fileUploadErrors}
                 onError={(error) => {
-                  // TODO: Handle error
-                  console.error('error', error)
+                  setFileUploadErrors((prev) => [
+                    ...prev,
+                    { id: error, error: error as string },
+                  ])
                 }}
               />
             )
@@ -533,9 +547,12 @@ export const QuestionData = ({
                 accept={
                   config?.file_storage?.accepted_file_types ?? ['image/*']
                 }
+                fileUploadErrors={fileUploadErrors}
                 onError={(error) => {
-                  // TODO: Handle error
-                  console.error('error', error)
+                  setFileUploadErrors((prev) => [
+                    ...prev,
+                    { id: error, error: error as string },
+                  ])
                 }}
               />
             )
