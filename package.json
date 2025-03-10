@@ -27,6 +27,7 @@
     "lint:css": "stylelint \"**/*.scss\"",
     "lint:js": "eslint --quiet --ext .js,.jsx,.ts,.tsx ./",
     "lint": "yarn lint:js && yarn lint:css",
+    "postinstall": "cd node_modules/@awell-health/design-system/dist && ln -sf index.umd.js index.umd.cjs || true",
     "pre-commit": "lint-staged",
     "prebuild": "yarn clean",
     "semantic-release": "semantic-release",
