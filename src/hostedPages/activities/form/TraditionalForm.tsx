@@ -22,6 +22,7 @@ export const TraditionalForm = ({
   onAnswersChange,
   autosaveAnswers = true,
   questionLabels,
+  onFileUpload,
 }: FormProps) => {
   const scrollHintOverlayRef = useRef<HTMLDivElement>(null)
 
@@ -97,6 +98,7 @@ export const TraditionalForm = ({
                         inputAutoFocus={false}
                         onAnswerChange={updateQuestionVisibility}
                         labels={questionLabels}
+                        onFileUpload={onFileUpload}
                       />
                     </div>
                   ))}

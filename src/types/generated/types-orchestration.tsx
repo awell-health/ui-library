@@ -149,9 +149,17 @@ export enum ActivityObjectType {
   Reminder = 'REMINDER',
   Stakeholder = 'STAKEHOLDER',
   Step = 'STEP',
+  Timer = 'TIMER',
   Track = 'TRACK',
   User = 'USER'
 }
+
+export type ActivityPayload = Payload & {
+  __typename?: 'ActivityPayload';
+  activity?: Maybe<Activity>;
+  code: Scalars['String'];
+  success: Scalars['Boolean'];
+};
 
 export enum ActivityResolution {
   Expired = 'EXPIRED',
@@ -186,6 +194,13 @@ export type ActivityTrack = {
   __typename?: 'ActivityTrack';
   id?: Maybe<Scalars['String']>;
   title: Scalars['String'];
+};
+
+export type ActivityTypesPayload = Payload & {
+  __typename?: 'ActivityTypesPayload';
+  activityTypes: Array<Scalars['String']>;
+  code: Scalars['String'];
+  success: Scalars['Boolean'];
 };
 
 export type AddActivityMetadataInput = {
@@ -480,6 +495,8 @@ export type CreatePatientInput = {
   mobile_phone?: InputMaybe<Scalars['String']>;
   national_registry_number?: InputMaybe<Scalars['String']>;
   patient_code?: InputMaybe<Scalars['String']>;
+  /** Must be a valid IANA timezone */
+  patient_timezone?: InputMaybe<Scalars['String']>;
   /** Must be in valid E164 telephone number format */
   phone?: InputMaybe<Scalars['String']>;
   /** ISO 639-1 shortcode */
@@ -517,7 +534,7 @@ export type DataPoint = {
   data_set_id: Scalars['String'];
   date: Scalars['String'];
   id: Scalars['ID'];
-  key: Scalars['String'];
+  key?: Maybe<Scalars['String']>;
   serialized_value?: Maybe<Scalars['String']>;
   valueType: DataPointValueType;
 };
@@ -583,6 +600,8 @@ export enum DataPointSourceType {
 }
 
 export enum DataPointValueType {
+  Attachment = 'ATTACHMENT',
+  AttachmentsArray = 'ATTACHMENTS_ARRAY',
   Boolean = 'BOOLEAN',
   Date = 'DATE',
   Json = 'JSON',
@@ -602,6 +621,11 @@ export type DateConfig = {
 export type DateFilter = {
   gte?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
+};
+
+export type DateRangeInput = {
+  from: Scalars['SafeDate'];
+  to: Scalars['SafeDate'];
 };
 
 export type DecisionOutputsPayload = Payload & {
@@ -766,6 +790,20 @@ export type ExtensionDataPointInput = {
   value: Scalars['String'];
 };
 
+export type FileStorageQuestionConfig = {
+  __typename?: 'FileStorageQuestionConfig';
+  accepted_file_types?: Maybe<Array<Scalars['String']>>;
+  file_storage_destination_id?: Maybe<Scalars['String']>;
+};
+
+export type FileUploadGcsPayload = Payload & {
+  __typename?: 'FileUploadGCSPayload';
+  code: Scalars['String'];
+  file_url: Scalars['String'];
+  success: Scalars['Boolean'];
+  upload_url: Scalars['String'];
+};
+
 export type FilterActivitiesParams = {
   action?: InputMaybe<StringArrayFilter>;
   activity_status?: InputMaybe<StringArrayFilter>;
@@ -774,6 +812,15 @@ export type FilterActivitiesParams = {
   pathway_status?: InputMaybe<StringArrayFilter>;
   patient_id?: InputMaybe<TextFilterEquals>;
   stakeholders?: InputMaybe<StringArrayFilter>;
+};
+
+export type FilterCareflowActivitiesParams = {
+  action?: InputMaybe<Array<Scalars['String']>>;
+  activity_status?: InputMaybe<Array<Scalars['String']>>;
+  activity_type?: InputMaybe<Array<Scalars['String']>>;
+  date_range?: InputMaybe<DateRangeInput>;
+  hide_system_activities?: InputMaybe<Scalars['Boolean']>;
+  stakeholders?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type FilterPathwayDataPointDefinitionsParams = {
@@ -903,6 +950,7 @@ export type HostedSession = {
   stakeholder: HostedSessionStakeholder;
   status: HostedSessionStatus;
   success_url?: Maybe<Scalars['String']>;
+  user_context?: Maybe<HostedSessionUserContext>;
 };
 
 export type HostedSessionActivitiesPayload = Payload & {
@@ -938,6 +986,17 @@ export enum HostedSessionStatus {
   Completed = 'COMPLETED',
   Expired = 'EXPIRED'
 }
+
+export type HostedSessionUserContext = {
+  __typename?: 'HostedSessionUserContext';
+  stytch_member_email?: Maybe<Scalars['String']>;
+  stytch_member_id?: Maybe<Scalars['String']>;
+};
+
+export type HostedSessionUserContextInput = {
+  stytch_member_email?: InputMaybe<Scalars['String']>;
+  stytch_member_id?: InputMaybe<Scalars['String']>;
+};
 
 export type IdFilter = {
   eq?: InputMaybe<Scalars['String']>;
@@ -1449,6 +1508,7 @@ export type PatientPathway = {
   latest_activity_type?: Maybe<Scalars['String']>;
   pathway_definition_id: Scalars['String'];
   release_id: Scalars['String'];
+  start_date: Scalars['String'];
   status: PathwayStatus;
   status_explanation?: Maybe<Scalars['String']>;
   stop_date?: Maybe<Scalars['String']>;
@@ -1482,6 +1542,8 @@ export type PatientProfileInput = {
   mobile_phone?: InputMaybe<Scalars['String']>;
   national_registry_number?: InputMaybe<Scalars['String']>;
   patient_code?: InputMaybe<Scalars['String']>;
+  /** Must be a valid IANA timezone */
+  patient_timezone?: InputMaybe<Scalars['String']>;
   /** Must be in valid E164 telephone number format */
   phone?: InputMaybe<Scalars['String']>;
   /** ISO 639-1 shortcode */
@@ -1568,6 +1630,7 @@ export type PublishedPathwayDefinitionsPayload = PaginationAndSortingPayload & {
 export type Query = {
   __typename?: 'Query';
   activities: ActivitiesPayload;
+  activity: ActivityPayload;
   adHocTracksByPathway: TracksPayload;
   adHocTracksByRelease: TracksPayload;
   apiCall: ApiCallPayload;
@@ -1575,6 +1638,8 @@ export type Query = {
   baselineInfo: BaselineInfoPayload;
   calculationAction: ActionPayload;
   calculationResults: CalculationResultsPayload;
+  careflowActivities: ActivitiesPayload;
+  careflowActivityTypes: ActivityTypesPayload;
   checklist: ChecklistPayload;
   clinicalNote: ClinicalNotePayload;
   decisionOutputs: DecisionOutputsPayload;
@@ -1586,6 +1651,8 @@ export type Query = {
   forms: FormsPayload;
   generateRetoolEmbedUrl: GenerateRetoolEmbedUrlPayload;
   getOrchestrationFactsFromPrompt: OrchestrationFactsPromptPayload;
+  /** Generate a signed URL for file upload to GCS */
+  getSignedUrl: FileUploadGcsPayload;
   getStatusForPublishedPathwayDefinitions: PublishedPathwayDefinitionsPayload;
   hostedPagesLink: HostedPagesLinkPayload;
   hostedSession: HostedSessionPayload;
@@ -1631,6 +1698,11 @@ export type QueryActivitiesArgs = {
 };
 
 
+export type QueryActivityArgs = {
+  id: Scalars['String'];
+};
+
+
 export type QueryAdHocTracksByPathwayArgs = {
   pathway_id: Scalars['String'];
 };
@@ -1664,6 +1736,19 @@ export type QueryCalculationActionArgs = {
 export type QueryCalculationResultsArgs = {
   activity_id: Scalars['String'];
   pathway_id: Scalars['String'];
+};
+
+
+export type QueryCareflowActivitiesArgs = {
+  filters?: InputMaybe<FilterCareflowActivitiesParams>;
+  pagination?: InputMaybe<PaginationParams>;
+  pathway_id: Scalars['String'];
+  sorting?: InputMaybe<SortingParams>;
+};
+
+
+export type QueryCareflowActivityTypesArgs = {
+  careflow_id: Scalars['String'];
 };
 
 
@@ -1702,6 +1787,7 @@ export type QueryFilterStakeholdersArgs = {
 
 export type QueryFormArgs = {
   id: Scalars['String'];
+  pathway_id?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1720,6 +1806,7 @@ export type QueryFormsArgs = {
 export type QueryGenerateRetoolEmbedUrlArgs = {
   groupIds: Array<Scalars['String']>;
   landingPageUuid: Scalars['String'];
+  releaseVersion?: InputMaybe<Scalars['String']>;
   userInfo: UserInfoParams;
 };
 
@@ -1727,6 +1814,14 @@ export type QueryGenerateRetoolEmbedUrlArgs = {
 export type QueryGetOrchestrationFactsFromPromptArgs = {
   pathway_id: Scalars['String'];
   prompt: Scalars['String'];
+};
+
+
+export type QueryGetSignedUrlArgs = {
+  config_id: Scalars['String'];
+  content_type: Scalars['String'];
+  expires_in?: InputMaybe<Scalars['Float']>;
+  file_name: Scalars['String'];
 };
 
 
@@ -1775,6 +1870,7 @@ export type QueryPathwayDataPointDefinitionsArgs = {
 export type QueryPathwayDataPointsArgs = {
   activity_id?: InputMaybe<Scalars['String']>;
   data_point_definition_id?: InputMaybe<Scalars['String']>;
+  data_point_key?: InputMaybe<Scalars['String']>;
   pagination?: InputMaybe<PaginationParams>;
   pathway_id: Scalars['String'];
   sorting?: InputMaybe<SortingParams>;
@@ -1897,6 +1993,7 @@ export type Question = {
 export type QuestionConfig = {
   __typename?: 'QuestionConfig';
   date?: Maybe<DateConfig>;
+  file_storage?: Maybe<FileStorageQuestionConfig>;
   mandatory: Scalars['Boolean'];
   multiple_select?: Maybe<MultipleSelectConfig>;
   number?: Maybe<NumberConfig>;
@@ -2129,6 +2226,7 @@ export type StartHostedActivitySessionInput = {
   pathway_id: Scalars['String'];
   stakeholder_id: Scalars['String'];
   success_url?: InputMaybe<Scalars['String']>;
+  user_context?: InputMaybe<HostedSessionUserContextInput>;
 };
 
 export type StartHostedActivitySessionPayload = Payload & {
@@ -2138,6 +2236,7 @@ export type StartHostedActivitySessionPayload = Payload & {
   session_id: Scalars['String'];
   session_url: Scalars['String'];
   success: Scalars['Boolean'];
+  user_context?: Maybe<HostedSessionUserContext>;
 };
 
 export type StartHostedActivitySessionViaHostedPagesLinkInput = {
@@ -2166,9 +2265,12 @@ export type StartHostedPathwaySessionInput = {
   patient_id?: InputMaybe<Scalars['String']>;
   /** If no patient_id is provided this field will be used to uniquely identify the patient. */
   patient_identifier?: InputMaybe<IdentifierInput>;
+  /** Specify the stakeholder for the hosted session. If not provided, the stakeholder will be the patient by default */
+  stakeholder_definition_id?: InputMaybe<Scalars['String']>;
   success_url?: InputMaybe<Scalars['String']>;
   /** Time-to-live of the session in seconds. This defaults to the maximal value of 3600 seconds (one hour). */
   ttl?: InputMaybe<Scalars['Float']>;
+  user_context?: InputMaybe<HostedSessionUserContextInput>;
 };
 
 export type StartHostedPathwaySessionPayload = Payload & {
@@ -2179,6 +2281,7 @@ export type StartHostedPathwaySessionPayload = Payload & {
   session_url: Scalars['String'];
   stakeholder: HostedSessionStakeholder;
   success: Scalars['Boolean'];
+  user_context?: Maybe<HostedSessionUserContext>;
 };
 
 export type StartPathwayInput = {
@@ -2506,6 +2609,7 @@ export type UserProfile = {
   name?: Maybe<Scalars['String']>;
   national_registry_number?: Maybe<Scalars['String']>;
   patient_code?: Maybe<Scalars['String']>;
+  patient_timezone?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   preferred_language?: Maybe<Scalars['String']>;
   /** Sex code as defined by ISO standard IEC_5218, 0 - NOT_KNOWN, 1 - MALE, 2 - FEMALE */
@@ -2516,7 +2620,9 @@ export enum UserQuestionType {
   Date = 'DATE',
   Description = 'DESCRIPTION',
   Email = 'EMAIL',
+  File = 'FILE',
   Icd10Classification = 'ICD10_CLASSIFICATION',
+  Image = 'IMAGE',
   LongText = 'LONG_TEXT',
   MultipleChoice = 'MULTIPLE_CHOICE',
   MultipleChoiceGrid = 'MULTIPLE_CHOICE_GRID',

@@ -26,6 +26,7 @@ export interface QuestionDataProps {
   submitAndMoveToNextQuestion?: () => void
   onAnswerChange?: () => void
   shouldAutoProgress?: (question: Question) => boolean
+  onFileUpload?: (file: File, configId?: string) => Promise<string>
 }
 export interface QuestionProps {
   question: Question
@@ -37,4 +38,12 @@ export interface QuestionProps {
   submitAndMoveToNextQuestion?: () => void
   onAnswerChange?: () => void
   shouldAutoProgress?: (question: Question) => boolean
+  onFileUpload?: (file: File, configId?: string) => Promise<string>
+}
+
+export interface Attachment {
+  url?: string
+  filename?: string
+  contentType?: string
+  size?: number
 }
