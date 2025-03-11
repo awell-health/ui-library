@@ -13,7 +13,7 @@ import {
 } from '../../atoms'
 import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
-import { QuestionDataProps, QuestionProps } from './types'
+import { Attachment, QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 import { CountryIso2 } from '../../hooks/useValidate'
 import { isEmpty, isNil, noop } from 'lodash'
@@ -23,6 +23,8 @@ import { getMinValueForNumberInput } from './helpers/getMinValueForNumberInput'
 import { getMaxValueForNumberInput } from './helpers/getMaxValueForNumberInput'
 import { isValidEmail } from './helpers/isValidEmail'
 import { useICDClassificationList } from '../../hooks/useIcdClassificationList'
+import { FileInputField } from '../../atoms/fileInputField'
+import { custom_json_parser } from '../../utils/custom_json_parser'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -35,6 +37,7 @@ export const QuestionData = ({
   submitAndMoveToNextQuestion = noop,
   onAnswerChange = noop,
   shouldAutoProgress = () => false,
+  onFileUpload,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
   const {
@@ -42,6 +45,49 @@ export const QuestionData = ({
     loading: optionsLoading,
     onIcdClassificationSearchChange,
   } = useICDClassificationList(question.id)
+
+  const [fileUploadErrors, setFileUploadErrors] = useState<
+    Array<{ id: string; error: string }>
+  >([])
+
+  const handleFilesUpload = async (
+    files: Array<File>,
+    onControllerChange: (value: string) => void
+  ): Promise<void> => {
+    if (onFileUpload) {
+      setFileUploadErrors([])
+      const attachments = await Promise.all(
+        files.map(async (file) => {
+          try {
+            const configId = config?.file_storage
+              ?.file_storage_destination_id as string | undefined
+
+            const fileUrl = await onFileUpload(file, configId)
+
+            const attachment: Attachment = {
+              url: fileUrl,
+              filename: file.name,
+              contentType: file.type,
+              size: file.size,
+            }
+            return attachment
+          } catch (error) {
+            const errorMessage =
+              error instanceof Error
+                ? error.message
+                : 'This file could not be uploaded'
+            setFileUploadErrors((prev) => [
+              ...prev,
+              { id: file.name, error: errorMessage },
+            ])
+          }
+        })
+      )
+      onControllerChange(
+        JSON.stringify(attachments.filter((attachment) => !isNil(attachment)))
+      )
+    }
+  }
 
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
@@ -446,6 +492,74 @@ export const QuestionData = ({
         />
       )
 
+    case UserQuestionType.File:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue={[]}
+          rules={{ required: config?.mandatory }}
+          render={({
+            field: { onChange: onControllerChange, onBlur, value },
+          }) => {
+            return (
+              <FileInputField
+                onChange={(files: Array<File>) => {
+                  void handleFilesUpload(files, onControllerChange)
+                }}
+                value={custom_json_parser(value as string)}
+                onBlur={onBlur}
+                accept={
+                  config?.file_storage?.accepted_file_types ?? [
+                    'application/pdf',
+                  ]
+                }
+                fileUploadErrors={fileUploadErrors}
+                onError={(error) => {
+                  setFileUploadErrors((prev) => [
+                    ...prev,
+                    { id: error, error: error as string },
+                  ])
+                }}
+              />
+            )
+          }}
+        />
+      )
+
+    case UserQuestionType.Image:
+      return (
+        <Controller
+          name={question.id}
+          control={control}
+          defaultValue={[]}
+          rules={{ required: config?.mandatory }}
+          render={({
+            field: { onChange: onControllerChange, onBlur, value },
+          }) => {
+            return (
+              <FileInputField
+                value={custom_json_parser(value as string)}
+                onChange={(files: Array<File>) => {
+                  void handleFilesUpload(files, onControllerChange)
+                }}
+                onBlur={onBlur}
+                accept={
+                  config?.file_storage?.accepted_file_types ?? ['image/*']
+                }
+                fileUploadErrors={fileUploadErrors}
+                onError={(error) => {
+                  setFileUploadErrors((prev) => [
+                    ...prev,
+                    { id: error, error: error as string },
+                  ])
+                }}
+              />
+            )
+          }}
+        />
+      )
+
     case UserQuestionType.Description:
       return <Description content={question.title} />
     default:
@@ -469,6 +583,7 @@ export const Question = ({
   submitAndMoveToNextQuestion,
   onAnswerChange,
   shouldAutoProgress,
+  onFileUpload,
 }: QuestionProps): JSX.Element => {
   const [isVisible, setVisible] = useState(0)
   const style = { '--awell-question-opacity': isVisible } as React.CSSProperties
@@ -492,6 +607,7 @@ export const Question = ({
         submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
         onAnswerChange={onAnswerChange}
         shouldAutoProgress={shouldAutoProgress}
+        onFileUpload={onFileUpload}
       />
 
       {currentError && (

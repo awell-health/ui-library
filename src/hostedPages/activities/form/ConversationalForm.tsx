@@ -24,6 +24,7 @@ export const ConversationalForm = ({
   autoProgress = false,
   autosaveAnswers = true,
   showProgressBar = true,
+  onFileUpload,
 }: FormProps) => {
   const {
     submitForm,
@@ -117,6 +118,7 @@ export const ConversationalForm = ({
                   submitAndMoveToNextQuestion={submitAndMoveToNextQuestion}
                   inputAutoFocus={true}
                   shouldAutoProgress={shouldAutoProgress}
+                  onFileUpload={onFileUpload}
                 />
                 {form?.trademark && (
                   <div
