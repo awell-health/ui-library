@@ -73,6 +73,7 @@ export const FileInputField: React.FC<Props> = ({
           try {
             const fileUrl = await onFileUpload?.(file, configId)
             return {
+              id: file.name,
               name: file.name,
               size: file.size,
               type: file.type,
@@ -82,6 +83,7 @@ export const FileInputField: React.FC<Props> = ({
             }
           } catch (error) {
             return {
+              id: file.name,
               name: file.name,
               size: file.size,
               type: file.type,
@@ -99,16 +101,19 @@ export const FileInputField: React.FC<Props> = ({
 
   const handleFilesChange = async (files: FileList) => {
     const fileList = Array.from(files).map((file) => ({
+      id: file.name,
       name: `${file.name} (uploading...)`,
       size: file.size,
       type: file.type,
       progress: 0,
       error: undefined,
     }))
-    setSelectedFiles(fileList)
-
+    setSelectedFiles((prev) => [...prev, ...fileList])
     const fileListWithUrls = await uploadFilesToStorage(files)
-    setSelectedFiles(fileListWithUrls)
+    // replace the uploading files with the uploaded files
+    setSelectedFiles((prev) =>
+      prev.map((file) => fileListWithUrls.find((f) => f.id === file.id) || file)
+    )
   }
 
   const handleRemoveFile = (file: FileListItem) => {
