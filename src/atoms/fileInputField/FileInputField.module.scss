@@ -2,7 +2,33 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  /* Higher specificity to override Tailwind */
+  &.file_input_field_container {
+    width: 100%;
+  }
 }
-.file_list {
-  display: flex;
+
+.error_message {
+  color: #e53e3e; /* Red for error */
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.file_upload_wrapper {
+  /* Isolate FileUpload component styles */
+  :global(.awell-file-upload) {
+    width: 100%;
+  }
+}
+
+.file_list_wrapper {
+  /* Isolate FileList component styles */
+  width: 100%;
+
+  /* Override Tailwind with higher specificity if needed */
+  :global(.awell-file-list) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 }

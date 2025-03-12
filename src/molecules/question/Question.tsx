@@ -46,49 +46,6 @@ export const QuestionData = ({
     onIcdClassificationSearchChange,
   } = useICDClassificationList(question.id)
 
-  const [fileUploadErrors, setFileUploadErrors] = useState<
-    Array<{ id: string; error: string }>
-  >([])
-
-  const handleFilesUpload = async (
-    files: Array<File>,
-    onControllerChange: (value: string) => void
-  ): Promise<void> => {
-    if (onFileUpload) {
-      setFileUploadErrors([])
-      const attachments = await Promise.all(
-        files.map(async (file) => {
-          try {
-            const configId = config?.file_storage
-              ?.file_storage_destination_id as string | undefined
-
-            const fileUrl = await onFileUpload(file, configId)
-
-            const attachment: Attachment = {
-              url: fileUrl,
-              filename: file.name,
-              contentType: file.type,
-              size: file.size,
-            }
-            return attachment
-          } catch (error) {
-            const errorMessage =
-              error instanceof Error
-                ? error.message
-                : 'This file could not be uploaded'
-            setFileUploadErrors((prev) => [
-              ...prev,
-              { id: file.name, error: errorMessage },
-            ])
-          }
-        })
-      )
-      onControllerChange(
-        JSON.stringify(attachments.filter((attachment) => !isNil(attachment)))
-      )
-    }
-  }
-
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
       return (
@@ -504,23 +461,21 @@ export const QuestionData = ({
           }) => {
             return (
               <FileInputField
-                onChange={(files: Array<File>) => {
-                  void handleFilesUpload(files, onControllerChange)
-                }}
+                id={question.id}
                 value={custom_json_parser(value as string)}
+                onChange={(attachments: Attachment[]) => {
+                  onControllerChange(JSON.stringify(attachments))
+                }}
                 onBlur={onBlur}
                 accept={
                   config?.file_storage?.accepted_file_types ?? [
                     'application/pdf',
                   ]
                 }
-                fileUploadErrors={fileUploadErrors}
-                onError={(error) => {
-                  setFileUploadErrors((prev) => [
-                    ...prev,
-                    { id: error, error: error as string },
-                  ])
-                }}
+                configId={
+                  config?.file_storage?.file_storage_destination_id as string
+                }
+                onFileUpload={onFileUpload}
               />
             )
           }}
@@ -539,21 +494,19 @@ export const QuestionData = ({
           }) => {
             return (
               <FileInputField
+                id={question.id}
                 value={custom_json_parser(value as string)}
-                onChange={(files: Array<File>) => {
-                  void handleFilesUpload(files, onControllerChange)
+                onChange={(attachments: Attachment[]) => {
+                  onControllerChange(JSON.stringify(attachments))
                 }}
                 onBlur={onBlur}
                 accept={
                   config?.file_storage?.accepted_file_types ?? ['image/*']
                 }
-                fileUploadErrors={fileUploadErrors}
-                onError={(error) => {
-                  setFileUploadErrors((prev) => [
-                    ...prev,
-                    { id: error, error: error as string },
-                  ])
-                }}
+                configId={
+                  config?.file_storage?.file_storage_destination_id as string
+                }
+                onFileUpload={onFileUpload}
               />
             )
           }}
