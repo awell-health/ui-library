@@ -5,106 +5,140 @@ import {
 } from '@awell-health/design-system'
 import React, { useEffect, useState } from 'react'
 import classes from './FileInputField.module.scss'
+import { Attachment } from '../../molecules/question/types'
 
 interface Props {
   id?: string
   label?: string
-  description?: string
   accept?: Array<string> // MIME types, e.g., "image/*,.pdf"
-  maxSize?: number // in bytes
   multiple?: boolean
   error?: string
-  disabled?: boolean
-  required?: boolean
-  onChange: (files: Array<File>) => void
+  onChange: (attachments: Array<Attachment>) => void
   onError?: (error: string) => void
   className?: string
   onBlur?: () => void
   dataCy?: string
-  value?: Array<string>
-  loading?: boolean
-  fileUploadErrors?: Array<{ id: string; error: string }>
+  onFileUpload?: (file: File, configId?: string) => Promise<string | undefined>
+  configId?: string
+  value?: Array<Attachment>
 }
 
 export const FileInputField: React.FC<Props> = ({
   id,
   label,
-  description,
   accept,
-  maxSize,
-  multiple = false,
+  multiple = true,
   error,
-  disabled = false,
-  required = false,
   onChange,
   onError,
   className = '',
   dataCy,
+  onFileUpload,
+  configId,
   value,
-  loading = false,
-  fileUploadErrors,
 }) => {
-  const [selectedFiles, setSelectedFiles] = useState<Array<FileListItem>>([])
+  const [selectedFiles, setSelectedFiles] = useState<
+    Array<FileListItem & { url?: string }>
+  >(
+    // initialize state from provided value prop. The value is saved as Attachment[], so need to convert to FileListItem[]
+    Array.isArray(value)
+      ? (value?.map((attachment) => ({
+          name: attachment.filename ?? '',
+          size: attachment.size ?? 0,
+          type: attachment.contentType ?? '',
+          url: attachment.url ?? '',
+          progress: 100,
+          error: undefined,
+        })) as Array<FileListItem & { url?: string }>)
+      : []
+  )
 
   useEffect(() => {
-    if (fileUploadErrors && fileUploadErrors.length > 0) {
-      console.log('fileUploadErrors', fileUploadErrors)
-      setSelectedFiles((prev) =>
-        prev.map((file) => {
-          const fileId = file.name
-          const error = fileUploadErrors.find((f) => f.id === fileId)
-          if (error) {
-            return { ...file, error: error.error }
+    const attachments = selectedFiles
+      .filter((file) => file.url)
+      .map((file) => ({
+        url: file.url,
+        filename: file.name,
+        contentType: file.type,
+        size: file.size,
+      }))
+
+    onChange(attachments)
+  }, [selectedFiles])
+
+  const uploadFilesToStorage = async (files: FileList) => {
+    const fileListWithUrls: Array<FileListItem & { url?: string }> =
+      await Promise.all(
+        Array.from(files).map(async (file) => {
+          try {
+            const fileUrl = await onFileUpload?.(file, configId)
+            return {
+              name: file.name,
+              size: file.size,
+              type: file.type,
+              progress: 100,
+              error: undefined,
+              url: fileUrl,
+            }
+          } catch (error) {
+            return {
+              name: file.name,
+              size: file.size,
+              type: file.type,
+              progress: 0,
+              error:
+                error instanceof Error ? error.message : 'File upload failed',
+              url: undefined,
+            }
           }
-          return file
         })
       )
-    }
-  }, [fileUploadErrors])
 
-  const handleFileChange = (files: FileList): void => {
-    const updatedFiles = files as unknown as Array<File>
-    const filesAsListItems = updatedFiles.map((file) => ({
-      name: file.name,
-      size: file.size,
-      type: file.type,
-    })) as unknown as Array<FileListItem>
-
-    // We save the files as list items for visual feedback (i.e. error messages)
-    setSelectedFiles((prev) => [...prev, ...filesAsListItems])
-    // We send the files as files for the onChange callback (includes the file binary data)
-    onChange([...selectedFiles, ...updatedFiles] as unknown as Array<File>)
+    return fileListWithUrls
   }
 
-  const handleRemoveFile = (file: FileListItem): void => {
-    setSelectedFiles((prev) => prev.filter((f) => f.name !== file.name))
-    onChange(
-      selectedFiles.filter(
-        (f) => f.name !== file.name
-      ) as unknown as Array<File>
-    )
+  const handleFilesChange = async (files: FileList) => {
+    const fileList = Array.from(files).map((file) => ({
+      name: `${file.name} (uploading...)`,
+      size: file.size,
+      type: file.type,
+      progress: 0,
+      error: undefined,
+    }))
+    setSelectedFiles(fileList)
+
+    const fileListWithUrls = await uploadFilesToStorage(files)
+    setSelectedFiles(fileListWithUrls)
+  }
+
+  const handleRemoveFile = (file: FileListItem) => {
+    setSelectedFiles(selectedFiles.filter((f) => f.name !== file.name))
   }
 
   return (
-    <div className={className} data-cy={dataCy}>
-      <div className={classes.file_input_field_container}>
-        {error && <div className={classes.error_message}>{error}</div>}
+    <div
+      key={id}
+      className={`${classes.file_input_field_container} ${className}`}
+      data-cy={dataCy}
+    >
+      {error && <div className={classes.error_message}>{error}</div>}
 
+      <div className={classes.file_upload_wrapper}>
         <FileUpload
-          onChange={handleFileChange}
+          onChange={handleFilesChange}
           onError={onError}
           isMultiple={multiple}
           accept={accept}
           label={label}
           error={error}
         />
-
-        {selectedFiles.length > 0 && (
-          <div className={classes.file_list}>
-            <FileList files={selectedFiles} onDelete={handleRemoveFile} />
-          </div>
-        )}
       </div>
+
+      {selectedFiles.length > 0 && (
+        <div className={classes.file_list_wrapper}>
+          <FileList files={selectedFiles} onDelete={handleRemoveFile} />
+        </div>
+      )}
     </div>
   )
 }
