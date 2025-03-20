@@ -31,4 +31,16 @@
     display: flex;
     flex-direction: column;
   }
+
+  /* Target the delete button inside FileList component */
+  :global(.btn.btn-square) {
+    width: 3rem !important;
+    height: 3rem !important;
+    min-width: 3rem !important;
+    min-height: 3rem !important;
+  }
+}
+
+.file_list_wrapper > button.btn-square {
+  width: 3rem !important;
 }

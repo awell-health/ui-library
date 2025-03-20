@@ -218,7 +218,9 @@ export const FileInputField: React.FC<Props> = ({
       </div>
 
       {selectedFiles.length > 0 && (
-        <div className={classes.file_list_wrapper}>
+        <div
+          className={`${classes.file_list_wrapper} ${classes.custom_file_list_container}`}
+        >
           <FileList
             files={selectedFiles}
             onDelete={handleRemoveFile}
