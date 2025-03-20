@@ -15,24 +15,6 @@ export const form: Form = {
   release_id: '',
   questions: [
     {
-      id: 'asd',
-      title: 'This is File Upload question',
-      definition_id: 'Kzr2NafTxJfR',
-      key: 'thisIsFileUploadQuestion',
-      dataPointValueType: DataPointValueType.AttachmentsArray,
-      options: [],
-      questionType: QuestionType.Input,
-      userQuestionType: UserQuestionType.File,
-      questionConfig: {
-        recode_enabled: false,
-        mandatory: true,
-        file_storage: {
-          file_storage_config_slug: 'config-slug',
-          accepted_file_types: ['image/*', 'application/pdf'],
-        },
-      },
-    },
-    {
       id: '5KMcDYtoz0r1',
       title: 'This is date question',
       definition_id: 'Kzr2NafTxJfR',
