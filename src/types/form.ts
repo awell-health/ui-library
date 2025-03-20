@@ -27,5 +27,5 @@ export interface FormProps {
   autoProgress?: boolean
   autosaveAnswers?: boolean
   showProgressBar?: boolean
-  onFileUpload?: (file: File, configId?: string) => Promise<string>
+  onFileUpload?: (file: File, configSlug?: string) => Promise<string>
 }

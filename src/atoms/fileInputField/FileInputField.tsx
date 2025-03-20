@@ -18,8 +18,11 @@ interface Props {
   className?: string
   onBlur?: () => void
   dataCy?: string
-  onFileUpload?: (file: File, configId?: string) => Promise<string | undefined>
-  configId?: string
+  onFileUpload?: (
+    file: File,
+    configSlug?: string
+  ) => Promise<string | undefined>
+  configSlug?: string
   value?: Array<Attachment>
 }
 
@@ -34,7 +37,7 @@ export const FileInputField: React.FC<Props> = ({
   className = '',
   dataCy,
   onFileUpload,
-  configId,
+  configSlug,
   value,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<
@@ -71,7 +74,7 @@ export const FileInputField: React.FC<Props> = ({
       await Promise.all(
         Array.from(files).map(async (file) => {
           try {
-            const fileUrl = await onFileUpload?.(file, configId)
+            const fileUrl = await onFileUpload?.(file, configSlug)
             return {
               id: file.name,
               name: file.name,

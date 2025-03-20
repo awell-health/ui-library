@@ -405,6 +405,25 @@ export type CancelScheduledTracksPayload = Payload & {
   unscheduled_ids: Array<Scalars['String']>;
 };
 
+export type CareflowVersion = {
+  __typename?: 'CareflowVersion';
+  live?: Maybe<Scalars['Boolean']>;
+  release_date?: Maybe<Scalars['String']>;
+  release_id?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['Float']>;
+};
+
+export type CareflowVersions = {
+  __typename?: 'CareflowVersions';
+  careflow_definition_id: Scalars['String'];
+  versions?: Maybe<Array<CareflowVersion>>;
+};
+
+export type CareflowVersionsPayload = {
+  __typename?: 'CareflowVersionsPayload';
+  careflowVersions: Array<CareflowVersions>;
+};
+
 export type Checklist = {
   __typename?: 'Checklist';
   items: Array<Scalars['String']>;
@@ -466,6 +485,8 @@ export enum ConditionOperandType {
 export enum ConditionOperator {
   Contains = 'CONTAINS',
   DoesNotContain = 'DOES_NOT_CONTAIN',
+  HasFileUploaded = 'HAS_FILE_UPLOADED',
+  HasNoFileUploaded = 'HAS_NO_FILE_UPLOADED',
   IsAnyOf = 'IS_ANY_OF',
   IsEmpty = 'IS_EMPTY',
   IsEqualTo = 'IS_EQUAL_TO',
@@ -793,7 +814,7 @@ export type ExtensionDataPointInput = {
 export type FileStorageQuestionConfig = {
   __typename?: 'FileStorageQuestionConfig';
   accepted_file_types?: Maybe<Array<Scalars['String']>>;
-  file_storage_destination_id?: Maybe<Scalars['String']>;
+  file_storage_config_slug?: Maybe<Scalars['String']>;
 };
 
 export type FileUploadGcsPayload = Payload & {
@@ -1651,6 +1672,7 @@ export type Query = {
   forms: FormsPayload;
   generateRetoolEmbedUrl: GenerateRetoolEmbedUrlPayload;
   getOrchestrationFactsFromPrompt: OrchestrationFactsPromptPayload;
+  getPublishedCareflowVersions: CareflowVersionsPayload;
   /** Generate a signed URL for file upload to GCS */
   getSignedUrl: FileUploadGcsPayload;
   getStatusForPublishedPathwayDefinitions: PublishedPathwayDefinitionsPayload;
@@ -1817,8 +1839,13 @@ export type QueryGetOrchestrationFactsFromPromptArgs = {
 };
 
 
+export type QueryGetPublishedCareflowVersionsArgs = {
+  careflow_definition_id?: InputMaybe<Scalars['String']>;
+};
+
+
 export type QueryGetSignedUrlArgs = {
-  config_id: Scalars['String'];
+  config_slug: Scalars['String'];
   content_type: Scalars['String'];
   expires_in?: InputMaybe<Scalars['Float']>;
   file_name: Scalars['String'];
@@ -1845,6 +1872,7 @@ export type QueryMyActivitiesArgs = {
   pagination?: InputMaybe<PaginationParams>;
   pathway_id: Scalars['String'];
   sorting?: InputMaybe<SortingParams>;
+  track_id?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1857,6 +1885,7 @@ export type QueryPathwayActivitiesArgs = {
   pagination?: InputMaybe<PaginationParams>;
   pathway_id: Scalars['String'];
   sorting?: InputMaybe<SortingParams>;
+  track_id?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1879,6 +1908,7 @@ export type QueryPathwayDataPointsArgs = {
 
 export type QueryPathwayElementsArgs = {
   pathway_id: Scalars['String'];
+  track_id?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -2344,6 +2374,7 @@ export type SubActivity = {
   error_category?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   object?: Maybe<ActivityObject>;
+  scheduled_date?: Maybe<Scalars['String']>;
   subject: ActivitySubject;
   text?: Maybe<TranslatedText>;
 };
