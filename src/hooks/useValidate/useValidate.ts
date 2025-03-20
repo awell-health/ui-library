@@ -19,6 +19,8 @@ export type NumberValidationErrorType = 'NOT_A_NUMBER' | 'OUT_OF_RANGE'
 
 export type EmailValidationErrorType = 'INVALID_FORMAT'
 
+export type AttachmentsValidationErrorType = 'REQUIRED' | 'INVALID_FORMAT'
+
 export interface UseValidateHook {
   validatePhoneNumber: (
     number: string,
@@ -53,6 +55,13 @@ export interface UseValidateHook {
   ) => {
     isValid: boolean
     errorType?: EmailValidationErrorType
+  }
+  validateAttachmentsResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: AttachmentsValidationErrorType
   }
 }
 
@@ -297,6 +306,43 @@ export const useValidate = (): UseValidateHook => {
     }
   }
 
+  const validateAttachmentsResponse = (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ): {
+    isValid: boolean
+    errorType?: AttachmentsValidationErrorType
+  } => {
+    const inputRequired = questionConfig?.mandatory
+
+    const parseAttachments = (val: string) => {
+      try {
+        return JSON.parse(val)
+      } catch (error) {
+        return []
+      }
+    }
+
+    const attachments = parseAttachments(value)
+
+    // skip validation if input is not required and empty
+    if (inputRequired === false && isEmpty(attachments)) {
+      return {
+        isValid: true,
+      }
+    }
+
+    if (attachments.length === 0) {
+      return {
+        isValid: false,
+        errorType: 'REQUIRED',
+      }
+    }
+
+    return {
+      isValid: true,
+    }
+  }
   return {
     isValidE164Number,
     isPossibleE164Number,
@@ -305,5 +351,6 @@ export const useValidate = (): UseValidateHook => {
     validateDateResponse,
     validateNumberResponse,
     validateEmailResponse,
+    validateAttachmentsResponse,
   }
 }

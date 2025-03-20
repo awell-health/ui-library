@@ -18,6 +18,11 @@ export default {
       await new Promise((resolve) => setTimeout(resolve, 1500))
       action('submitted')
     },
+    onFileUpload: async (file: File, configSlug?: string): Promise<string> => {
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      action('fileUploaded')(file, configSlug)
+      return `https://example.com/${file.name}`
+    },
     form: {
       control: 'object',
       defaultValue: form,
@@ -73,6 +78,7 @@ const MyStory: Story = ({
   autoProgress,
   errorLabels,
   showProgressBar,
+  onFileUpload,
 }) => {
   const [answers, setAnswers] = React.useState<string>('')
   const isConversationalMode = displayMode == 'conversational'
@@ -99,6 +105,7 @@ const MyStory: Story = ({
           onAnswersChange={handleAnswersChange}
           key={form.id}
           showProgressBar={showProgressBar}
+          onFileUpload={onFileUpload}
           questionLabels={{
             no_label: 'No',
             yes_label: 'Yes',
@@ -141,6 +148,7 @@ const MyStory: Story = ({
           storedAnswers={answers}
           onAnswersChange={handleAnswersChange}
           key={form.id}
+          onFileUpload={onFileUpload}
           showProgressBar={showProgressBar}
           questionLabels={{
             no_label: 'No',
@@ -185,6 +193,7 @@ export const Form: Story = ({
   errorLabels,
   autoProgress,
   showProgressBar,
+  onFileUpload,
 }) => {
   return (
     <MyStory
@@ -195,6 +204,7 @@ export const Form: Story = ({
       errorLabels={errorLabels}
       autoProgress={autoProgress}
       showProgressBar={showProgressBar}
+      onFileUpload={onFileUpload}
     />
   )
 }
@@ -208,6 +218,11 @@ Form.args = {
   onSubmit: async () => {
     await new Promise((resolve) => setTimeout(resolve, 1500))
     action('submitted')
+  },
+  onFileUpload: async (file: File, configSlug?: string): Promise<string> => {
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+    action('fileUploaded')(file, configSlug)
+    return `https://example.com/${file.name}`
   },
 }
 
@@ -226,6 +241,7 @@ export const FormMobile: Story = ({
   displayMode,
   errorLabels,
   showProgressBar,
+  onFileUpload,
 }) => {
   return (
     <MyStory
@@ -235,6 +251,7 @@ export const FormMobile: Story = ({
       buttonLabels={buttonLabels}
       errorLabels={errorLabels}
       showProgressBar={showProgressBar}
+      onFileUpload={onFileUpload}
     />
   )
 }

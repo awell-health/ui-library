@@ -13,6 +13,7 @@ import {
   QuestionConfig,
 } from '../../types/generated/types-orchestration'
 import {
+  AttachmentsValidationErrorType,
   DateValidationErrorType,
   EmailValidationErrorType,
   NumberValidationErrorType,
@@ -189,6 +190,13 @@ export const getErrorsForQuestion = (
   ) => {
     isValid: boolean
     errorType?: EmailValidationErrorType
+  },
+  validateAttachmentsResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: AttachmentsValidationErrorType
   }
 ): Array<FormError> => {
   // For description question types, don't validate
@@ -302,6 +310,26 @@ export const getErrorsForQuestion = (
     }
   }
 
+  if (
+    currentQuestion?.userQuestionType === UserQuestionType.File ||
+    currentQuestion?.userQuestionType === UserQuestionType.Image
+  ) {
+    const error = validateAttachmentsResponse(
+      currentQuestion?.questionConfig,
+      valueOfCurrentQuestion as string
+    )
+    if (error.isValid === false) {
+      switch (error.errorType) {
+        case 'REQUIRED':
+          return [
+            {
+              id: currentQuestion.id,
+              error: errorLabels.required || 'Please upload a file',
+            },
+          ]
+      }
+    }
+  }
   return []
 }
 
