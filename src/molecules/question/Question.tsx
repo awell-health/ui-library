@@ -472,8 +472,8 @@ export const QuestionData = ({
                     'application/pdf',
                   ]
                 }
-                configId={
-                  config?.file_storage?.file_storage_destination_id as string
+                configSlug={
+                  config?.file_storage?.file_storage_config_slug as string
                 }
                 onFileUpload={onFileUpload}
               />
@@ -503,8 +503,8 @@ export const QuestionData = ({
                 accept={
                   config?.file_storage?.accepted_file_types ?? ['image/*']
                 }
-                configId={
-                  config?.file_storage?.file_storage_destination_id as string
+                configSlug={
+                  config?.file_storage?.file_storage_config_slug as string
                 }
                 onFileUpload={onFileUpload}
               />
