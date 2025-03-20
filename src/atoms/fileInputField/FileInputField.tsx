@@ -6,6 +6,8 @@ import {
 import React, { useEffect, useState } from 'react'
 import classes from './FileInputField.module.scss'
 import { Attachment } from '../../molecules/question/types'
+import '@awell-health/design-system/style.css'
+import { QuestionLabel } from '../questionLabel'
 
 interface Props {
   id?: string
@@ -24,6 +26,7 @@ interface Props {
   ) => Promise<string | undefined>
   configSlug?: string
   value?: Array<Attachment>
+  mandatory?: boolean
 }
 
 export const FileInputField: React.FC<Props> = ({
@@ -39,6 +42,7 @@ export const FileInputField: React.FC<Props> = ({
   onFileUpload,
   configSlug,
   value,
+  mandatory,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<
     Array<FileListItem & { url?: string }>
@@ -69,59 +73,123 @@ export const FileInputField: React.FC<Props> = ({
     onChange(attachments)
   }, [selectedFiles])
 
+  const convertErrorMessage = (error: string) => {
+    if (error === 'Failed to fetch') {
+      // TODO: add a translation
+      return 'File upload failed. Please remove this file and try again.'
+    }
+    return error
+  }
+
   const uploadFilesToStorage = async (files: FileList) => {
-    const fileListWithUrls: Array<FileListItem & { url?: string }> =
-      await Promise.all(
-        Array.from(files).map(async (file) => {
-          try {
-            const fileUrl = await onFileUpload?.(file, configSlug)
-            return {
-              id: file.name,
-              name: file.name,
-              size: file.size,
-              type: file.type,
-              progress: 100,
-              error: undefined,
-              url: fileUrl,
-            }
-          } catch (error) {
-            return {
-              id: file.name,
-              name: file.name,
-              size: file.size,
-              type: file.type,
-              progress: 0,
-              error:
-                error instanceof Error ? error.message : 'File upload failed',
-              url: undefined,
-            }
-          }
-        })
-      )
+    const fileListWithUrls: Array<FileListItem & { url?: string }> = []
+
+    // Process files one by one
+    for (const file of Array.from(files)) {
+      try {
+        // Update the file status to uploading in the UI
+        const uploadingFile = {
+          id: file.name,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          progress: 10, // Starting progress
+          error: undefined,
+        }
+
+        // Add the file with uploading status
+        setSelectedFiles((prev) => [
+          ...prev.filter((f) => f.id !== file.name),
+          uploadingFile,
+        ])
+
+        // Upload the file
+        const fileUrl = await onFileUpload?.(file, configSlug)
+
+        // Create the completed file object
+        const completedFile = {
+          id: file.name,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          progress: 99,
+          error: undefined,
+          url: fileUrl,
+        }
+
+        // Update the UI with the completed file
+        setSelectedFiles((prev) => [
+          ...prev.filter((f) => f.id !== file.name),
+          completedFile,
+        ])
+
+        await new Promise((resolve) => setTimeout(resolve, 100))
+
+        // Update the UI with the completed file
+        setSelectedFiles((prev) => [
+          ...prev.filter((f) => f.id !== file.name),
+          {
+            ...completedFile,
+            progress: 100,
+          },
+        ])
+
+        // Add to our result array
+        fileListWithUrls.push(completedFile)
+      } catch (error) {
+        const failedFile = {
+          id: file.name,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          progress: 0,
+          error:
+            error instanceof Error
+              ? convertErrorMessage(error.message)
+              : 'File upload failed',
+          url: undefined,
+        }
+
+        // Update the UI with the failed file
+        setSelectedFiles((prev) => [
+          ...prev.filter((f) => f.id !== file.name),
+          failedFile,
+        ])
+
+        // Add to our result array
+        fileListWithUrls.push(failedFile)
+      }
+    }
 
     return fileListWithUrls
   }
 
   const handleFilesChange = async (files: FileList) => {
+    // Initialize files in the UI with pending status
     const fileList = Array.from(files).map((file) => ({
       id: file.name,
-      name: `${file.name} (uploading...)`,
+      name: file.name,
       size: file.size,
       type: file.type,
-      progress: 0,
+      progress: 1,
       error: undefined,
     }))
+
     setSelectedFiles((prev) => [...prev, ...fileList])
-    const fileListWithUrls = await uploadFilesToStorage(files)
-    // replace the uploading files with the uploaded files
-    setSelectedFiles((prev) =>
-      prev.map((file) => fileListWithUrls.find((f) => f.id === file.id) || file)
-    )
+
+    // Process uploads sequentially
+    await uploadFilesToStorage(files)
   }
 
   const handleRemoveFile = (file: FileListItem) => {
     setSelectedFiles(selectedFiles.filter((f) => f.name !== file.name))
   }
+
+  // if generalProgress is 100, then return undefined
+  const generalProgress =
+    selectedFiles.reduce((acc, file) => {
+      return acc + (file.progress ?? 0)
+    }, 0) / selectedFiles.length
 
   return (
     <div
@@ -129,6 +197,9 @@ export const FileInputField: React.FC<Props> = ({
       className={`${classes.file_input_field_container} ${className}`}
       data-cy={dataCy}
     >
+      {label && (
+        <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      )}
       {error && <div className={classes.error_message}>{error}</div>}
 
       <div className={classes.file_upload_wrapper}>
@@ -137,14 +208,19 @@ export const FileInputField: React.FC<Props> = ({
           onError={onError}
           isMultiple={multiple}
           accept={accept}
-          label={label}
           error={error}
         />
       </div>
 
       {selectedFiles.length > 0 && (
         <div className={classes.file_list_wrapper}>
-          <FileList files={selectedFiles} onDelete={handleRemoveFile} />
+          <FileList
+            files={selectedFiles}
+            onDelete={handleRemoveFile}
+            generalProgress={
+              generalProgress === 100 ? undefined : generalProgress
+            }
+          />
         </div>
       )}
     </div>

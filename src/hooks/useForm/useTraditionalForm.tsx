@@ -50,6 +50,7 @@ const useTraditionalForm = ({
     validateDateResponse,
     validateNumberResponse,
     validateEmailResponse,
+    validateAttachmentsResponse,
   } = useValidate()
 
   const updateQuestionVisibility = useCallback(async () => {
@@ -122,7 +123,8 @@ const useTraditionalForm = ({
         isValidE164Number,
         validateDateResponse,
         validateNumberResponse,
-        validateEmailResponse
+        validateEmailResponse,
+        validateAttachmentsResponse
       )
     )
     setErrors(formErrors)

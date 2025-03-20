@@ -25,6 +25,7 @@ import { isValidEmail } from './helpers/isValidEmail'
 import { useICDClassificationList } from '../../hooks/useIcdClassificationList'
 import { FileInputField } from '../../atoms/fileInputField'
 import { custom_json_parser } from '../../utils/custom_json_parser'
+import { areAttachmentsValid } from './helpers/areAttachmentsValid'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -455,7 +456,16 @@ export const QuestionData = ({
           name={question.id}
           control={control}
           defaultValue={[]}
-          rules={{ required: config?.mandatory }}
+          rules={{
+            required: config?.mandatory,
+            validate: (value: string) =>
+              areAttachmentsValid({
+                attachmentsValue: value,
+                acceptedFileTypes:
+                  config?.file_storage?.accepted_file_types ?? [],
+                required: config?.mandatory ?? false,
+              }),
+          }}
           render={({
             field: { onChange: onControllerChange, onBlur, value },
           }) => {
@@ -465,6 +475,7 @@ export const QuestionData = ({
                 value={custom_json_parser(value as string)}
                 onChange={(attachments: Attachment[]) => {
                   onControllerChange(JSON.stringify(attachments))
+                  onAnswerChange()
                 }}
                 onBlur={onBlur}
                 accept={
@@ -476,6 +487,8 @@ export const QuestionData = ({
                   config?.file_storage?.file_storage_config_slug as string
                 }
                 onFileUpload={onFileUpload}
+                label={question.title}
+                mandatory={config?.mandatory}
               />
             )
           }}
@@ -488,7 +501,15 @@ export const QuestionData = ({
           name={question.id}
           control={control}
           defaultValue={[]}
-          rules={{ required: config?.mandatory }}
+          rules={{
+            required: config?.mandatory,
+            validate: (value: string) =>
+              areAttachmentsValid({
+                attachmentsValue: value,
+                acceptedFileTypes: ['image/*'],
+                required: config?.mandatory ?? false,
+              }),
+          }}
           render={({
             field: { onChange: onControllerChange, onBlur, value },
           }) => {
@@ -498,6 +519,7 @@ export const QuestionData = ({
                 value={custom_json_parser(value as string)}
                 onChange={(attachments: Attachment[]) => {
                   onControllerChange(JSON.stringify(attachments))
+                  onAnswerChange()
                 }}
                 onBlur={onBlur}
                 accept={
@@ -507,6 +529,8 @@ export const QuestionData = ({
                   config?.file_storage?.file_storage_config_slug as string
                 }
                 onFileUpload={onFileUpload}
+                label={question.title}
+                mandatory={config?.mandatory}
               />
             )
           }}

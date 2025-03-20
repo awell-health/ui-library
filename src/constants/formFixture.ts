@@ -2,7 +2,7 @@ import {
   AllowedDatesOptions,
   Form,
   QuestionType,
-  UserQuestionType
+  UserQuestionType,
 } from '../types'
 import { DataPointValueType } from '../types/question'
 
