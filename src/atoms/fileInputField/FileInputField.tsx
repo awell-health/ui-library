@@ -191,6 +191,11 @@ export const FileInputField: React.FC<Props> = ({
       return acc + (file.progress ?? 0)
     }, 0) / selectedFiles.length
 
+  const hideGeneralProgress =
+    selectedFiles.length === 0 ||
+    selectedFiles.every((file) => file.progress === 100) ||
+    generalProgress === 0
+
   return (
     <div
       key={id}
@@ -217,9 +222,7 @@ export const FileInputField: React.FC<Props> = ({
           <FileList
             files={selectedFiles}
             onDelete={handleRemoveFile}
-            generalProgress={
-              generalProgress === 100 ? undefined : generalProgress
-            }
+            generalProgress={hideGeneralProgress ? undefined : generalProgress}
           />
         </div>
       )}

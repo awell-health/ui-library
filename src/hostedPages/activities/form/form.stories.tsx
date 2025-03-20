@@ -222,6 +222,9 @@ Form.args = {
   onFileUpload: async (file: File, configSlug?: string): Promise<string> => {
     await new Promise((resolve) => setTimeout(resolve, 1500))
     action('fileUploaded')(file, configSlug)
+    if (file.type === 'application/pdf') {
+      throw new Error('Failed to fetch')
+    }
     return `https://example.com/${file.name}`
   },
 }
