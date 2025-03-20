@@ -52,12 +52,12 @@
   dependencies:
     node-fetch "^2.6.1"
 
-"@awell-health/design-system@0.12.46":
-  version "0.12.46"
-  resolved "https://registry.yarnpkg.com/@awell-health/design-system/-/design-system-0.12.46.tgz#848a999e1ddfabdfae37afeb99883d140470d943"
-  integrity sha512-hjxSd9aBrV0ZEI8c79jboKPKi3LLQeTnqgBQOzoipH/xNZLrgSVQOWLd954nf2KZ2+MULWMYEFupuIRhabvi3A==
+"@awell-health/design-system@0.12.62":
+  version "0.12.62"
+  resolved "https://registry.yarnpkg.com/@awell-health/design-system/-/design-system-0.12.62.tgz#6deb70857264520d9a505e0b0eec1b6a7783ac2a"
+  integrity sha512-YGEG4Zji4JJkbY82sEszdCzRn8daO+7f+R8SzdT+7UbOBJxTW1oMGsU273A4myoTRYJ2QbRp0Wd8lp0O9NRdag==
   dependencies:
-    "@remixicon/react" "^4.3.0"
+    "@remixicon/react" "^4.6.0"
     class-variance-authority "^0.7.0"
     clsx "^2.1.1"
     date-fns "^4.1.0"
@@ -2619,7 +2619,7 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@remixicon/react@^4.3.0":
+"@remixicon/react@^4.6.0":
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/@remixicon/react/-/react-4.6.0.tgz#c25276338b4d7acd29075c5b26a20f19feecac04"
   integrity sha512-bY56maEgT5IYUSRotqy9h03IAKJC85vlKtWFg2FKzfs8JPrkdBAYSa9dxoUSKFwGzup8Ux6vjShs9Aec3jvr2w==
