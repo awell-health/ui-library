@@ -16,7 +16,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { Attachment, QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 import { CountryIso2 } from '../../hooks/useValidate'
-import { isEmpty, isNil, noop } from 'lodash'
+import { first, isEmpty, isNil, noop } from 'lodash'
 import { getMinValueForDateInput } from './helpers/getMinValueForDateInput'
 import { getMaxValueForDateInput } from './helpers/getMaxValueForDateInput'
 import { getMinValueForNumberInput } from './helpers/getMinValueForNumberInput'
@@ -26,6 +26,8 @@ import { useICDClassificationList } from '../../hooks/useIcdClassificationList'
 import { FileInputField } from '../../atoms/fileInputField'
 import { custom_json_parser } from '../../utils/custom_json_parser'
 import { areAttachmentsValid } from './helpers/areAttachmentsValid'
+import { SingleFileInputField } from '../../atoms/fileInputField/SingleFileInputField'
+import { isAttachmentValid } from './helpers/isAttachmentValid'
 
 const AUTO_PROGRESS_DELAY = 850 // in milliseconds
 
@@ -46,6 +48,11 @@ export const QuestionData = ({
     loading: optionsLoading,
     onIcdClassificationSearchChange,
   } = useICDClassificationList(question.id)
+
+  const fetchAttachmentValue = (value: string): Attachment[] | undefined => {
+    const attachment = custom_json_parser(value as string)
+    return attachment ? [attachment] : undefined
+  }
 
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
@@ -459,7 +466,7 @@ export const QuestionData = ({
           rules={{
             required: config?.mandatory,
             validate: (value: string) =>
-              areAttachmentsValid({
+              isAttachmentValid({
                 attachmentsValue: value,
                 acceptedFileTypes:
                   config?.file_storage?.accepted_file_types ?? [],
@@ -470,11 +477,11 @@ export const QuestionData = ({
             field: { onChange: onControllerChange, onBlur, value },
           }) => {
             return (
-              <FileInputField
+              <SingleFileInputField
                 id={question.id}
-                value={custom_json_parser(value as string)}
-                onChange={(attachments: Attachment[]) => {
-                  onControllerChange(JSON.stringify(attachments))
+                value={custom_json_parser(value as string, '')}
+                onChange={(attachment: Attachment | undefined) => {
+                  onControllerChange(JSON.stringify(attachment))
                   onAnswerChange()
                 }}
                 onBlur={onBlur}
@@ -514,11 +521,11 @@ export const QuestionData = ({
             field: { onChange: onControllerChange, onBlur, value },
           }) => {
             return (
-              <FileInputField
+              <SingleFileInputField
                 id={question.id}
-                value={custom_json_parser(value as string)}
-                onChange={(attachments: Attachment[]) => {
-                  onControllerChange(JSON.stringify(attachments))
+                value={custom_json_parser(value as string, '')}
+                onChange={(attachment: Attachment | undefined) => {
+                  onControllerChange(JSON.stringify(attachment))
                   onAnswerChange()
                 }}
                 onBlur={onBlur}
