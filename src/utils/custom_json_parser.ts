@@ -5,7 +5,10 @@
  *
  * @see https://stackoverflow.com/questions/42494823/json-parse-returns-string-instead-of-object
  */
-export const custom_json_parser = (blob: string): any => {
+export const custom_json_parser = (
+  blob: string,
+  defaultValue: any = 'invalid JSON'
+): any => {
   try {
     if (typeof blob !== 'string') {
       throw new Error()
@@ -17,6 +20,6 @@ export const custom_json_parser = (blob: string): any => {
     }
     return parsed
   } catch (error) {
-    return 'invalid JSON'
+    return defaultValue
   }
 }
