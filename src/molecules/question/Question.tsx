@@ -264,7 +264,13 @@ export const QuestionData = ({
           name={question.id}
           control={control}
           defaultValue=""
-          rules={{ required: config?.mandatory }}
+          rules={{
+            required: config?.mandatory,
+            ...(config?.input_validation?.pattern && {
+              value: new RegExp(config?.input_validation?.pattern),
+              message: config?.input_validation?.helper_text,
+            }),
+          }}
           render={({ field: { onChange, value } }) => (
             <InputField
               // eslint-disable-next-line jsx-a11y/no-autofocus

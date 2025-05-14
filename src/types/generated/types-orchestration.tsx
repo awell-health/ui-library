@@ -689,6 +689,7 @@ export enum ElementStatus {
 
 export enum ElementType {
   Action = 'ACTION',
+  Agent = 'AGENT',
   Pathway = 'PATHWAY',
   Step = 'STEP',
   Track = 'TRACK',
@@ -1040,6 +1041,28 @@ export type IdentityVerificationPayload = Payload & {
   success: Scalars['Boolean'];
 };
 
+export type InputValidationAllowed = {
+  __typename?: 'InputValidationAllowed';
+  letters?: Maybe<Scalars['Boolean']>;
+  numbers?: Maybe<Scalars['Boolean']>;
+  special?: Maybe<Scalars['Boolean']>;
+  whitespace?: Maybe<Scalars['Boolean']>;
+};
+
+export type InputValidationConfig = {
+  __typename?: 'InputValidationConfig';
+  helper_text?: Maybe<Scalars['String']>;
+  mode?: Maybe<Scalars['String']>;
+  pattern?: Maybe<Scalars['String']>;
+  simpleConfig?: Maybe<InputValidationSimpleConfig>;
+};
+
+export type InputValidationSimpleConfig = {
+  __typename?: 'InputValidationSimpleConfig';
+  allowed?: Maybe<InputValidationAllowed>;
+  exactLength?: Maybe<Scalars['Float']>;
+};
+
 export type MarkMessageAsReadInput = {
   activity_id: Scalars['String'];
 };
@@ -1055,7 +1078,7 @@ export type Message = {
   __typename?: 'Message';
   attachments?: Maybe<Array<MessageAttachment>>;
   body: Scalars['String'];
-  format: MessageFormat;
+  format?: Maybe<MessageFormat>;
   id: Scalars['ID'];
   subject?: Maybe<Scalars['String']>;
 };
@@ -1428,6 +1451,8 @@ export type Pathway = {
 export type PathwayContext = {
   __typename?: 'PathwayContext';
   action_id?: Maybe<Scalars['String']>;
+  agent_id?: Maybe<Scalars['String']>;
+  agent_thread_id?: Maybe<Scalars['String']>;
   instance_id: Scalars['String'];
   pathway_id: Scalars['String'];
   step_id?: Maybe<Scalars['String']>;
@@ -2022,6 +2047,7 @@ export type QuestionConfig = {
   __typename?: 'QuestionConfig';
   date?: Maybe<DateConfig>;
   file_storage?: Maybe<FileStorageQuestionConfig>;
+  input_validation?: Maybe<InputValidationConfig>;
   mandatory: Scalars['Boolean'];
   multiple_select?: Maybe<MultipleSelectConfig>;
   number?: Maybe<NumberConfig>;
