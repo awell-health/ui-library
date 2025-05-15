@@ -350,9 +350,9 @@ export const getErrorsForQuestion = (
           return [
             {
               id: currentQuestion.id,
-              error:
-                currentQuestion?.questionConfig?.input_validation
-                  ?.helper_text || 'The input value is invalid.',
+              error: `Please check your response to the question ${
+                currentQuestion?.title ? "'" + currentQuestion?.title + "'" : ''
+              }`,
             },
           ]
       }
