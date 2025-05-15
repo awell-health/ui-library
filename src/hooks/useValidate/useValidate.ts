@@ -21,6 +21,8 @@ export type EmailValidationErrorType = 'INVALID_FORMAT'
 
 export type AttachmentsValidationErrorType = 'REQUIRED' | 'INVALID_FORMAT'
 
+export type InputValidationErrorType = 'INVALID_FORMAT'
+
 export interface UseValidateHook {
   validatePhoneNumber: (
     number: string,
@@ -62,6 +64,13 @@ export interface UseValidateHook {
   ) => {
     isValid: boolean
     errorType?: AttachmentsValidationErrorType
+  }
+  validateInputValidationResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: InputValidationErrorType
   }
 }
 
@@ -343,6 +352,37 @@ export const useValidate = (): UseValidateHook => {
       isValid: true,
     }
   }
+
+  const validateInputValidationResponse = (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ): {
+    isValid: boolean
+    errorType?: InputValidationErrorType
+  } => {
+    if (!questionConfig || !questionConfig.input_validation) {
+      return {
+        isValid: true,
+      }
+    }
+
+    const { pattern } = questionConfig.input_validation
+
+    if (pattern) {
+      const regex = new RegExp(pattern)
+      if (!regex.test(value)) {
+        return {
+          isValid: false,
+          errorType: 'INVALID_FORMAT',
+        }
+      }
+    }
+
+    return {
+      isValid: true,
+    }
+  }
+
   return {
     isValidE164Number,
     isPossibleE164Number,
@@ -352,5 +392,6 @@ export const useValidate = (): UseValidateHook => {
     validateNumberResponse,
     validateEmailResponse,
     validateAttachmentsResponse,
+    validateInputValidationResponse,
   }
 }

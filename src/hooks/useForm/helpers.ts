@@ -16,6 +16,7 @@ import {
   AttachmentsValidationErrorType,
   DateValidationErrorType,
   EmailValidationErrorType,
+  InputValidationErrorType,
   NumberValidationErrorType,
 } from '../useValidate/useValidate'
 
@@ -197,6 +198,13 @@ export const getErrorsForQuestion = (
   ) => {
     isValid: boolean
     errorType?: AttachmentsValidationErrorType
+  },
+  validateInputValidationResponse: (
+    questionConfig: Maybe<QuestionConfig> | undefined,
+    value: string
+  ) => {
+    isValid: boolean
+    errorType?: InputValidationErrorType
   }
 ): Array<FormError> => {
   // For description question types, don't validate
@@ -325,6 +333,26 @@ export const getErrorsForQuestion = (
             {
               id: currentQuestion.id,
               error: errorLabels.required || 'Please upload a file',
+            },
+          ]
+      }
+    }
+  }
+
+  if (currentQuestion?.userQuestionType === UserQuestionType.ShortText) {
+    const error = validateInputValidationResponse(
+      currentQuestion?.questionConfig,
+      valueOfCurrentQuestion as string
+    )
+    if (error.isValid === false) {
+      switch (error.errorType) {
+        case 'INVALID_FORMAT':
+          return [
+            {
+              id: currentQuestion.id,
+              error:
+                currentQuestion?.questionConfig?.input_validation
+                  ?.helper_text || 'The input value is invalid.',
             },
           ]
       }

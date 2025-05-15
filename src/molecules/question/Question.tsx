@@ -258,7 +258,11 @@ export const QuestionData = ({
           )}
         />
       )
-    case UserQuestionType.ShortText:
+    case UserQuestionType.ShortText: {
+      const hasValidInputValidation =
+        !!config?.input_validation &&
+        typeof config?.input_validation?.pattern === 'string' &&
+        config?.input_validation?.pattern.length > 0
       return (
         <Controller
           name={question.id}
@@ -266,28 +270,40 @@ export const QuestionData = ({
           defaultValue=""
           rules={{
             required: config?.mandatory,
-            ...(config?.input_validation?.pattern && {
-              value: new RegExp(config?.input_validation?.pattern),
-              message: config?.input_validation?.helper_text,
+            ...(hasValidInputValidation && {
+              pattern: {
+                value: new RegExp(config?.input_validation?.pattern ?? ''),
+                message:
+                  config?.input_validation?.helper_text ??
+                  'The input value is invalid.',
+              },
             }),
           }}
-          render={({ field: { onChange, value } }) => (
-            <InputField
-              // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus={inputAutoFocus}
-              type="text"
-              onChange={(e) => {
-                onChange(e.target.value)
-                onAnswerChange()
-              }}
-              label={question.title}
-              id={question.id}
-              value={value}
-              mandatory={config?.mandatory}
-            />
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <>
+              <InputField
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus={inputAutoFocus}
+                type="text"
+                onChange={(e) => {
+                  onChange(e.target.value)
+                  onAnswerChange()
+                }}
+                label={question.title}
+                id={question.id}
+                value={value}
+                mandatory={config?.mandatory}
+              />
+              {error && (
+                <Text variant="textSmall" color="var(--awell-signalError100)">
+                  {error.message}
+                </Text>
+              )}
+            </>
           )}
         />
       )
+    }
     case UserQuestionType.Telephone:
       const availableCountries = (config?.phone?.available_countries ?? [])
         .map((c) => c?.toLocaleLowerCase())

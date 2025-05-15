@@ -16,6 +16,24 @@ export const form: Form = {
   questions: [
     {
       id: '5KMcDYtoz0r1',
+      title: 'Short input with input validation',
+      definition_id: 'Kzr2NafTxJfR',
+      key: 'shortInputWithInputValidation',
+      dataPointValueType: DataPointValueType.String,
+      options: [],
+      questionType: QuestionType.Input,
+      userQuestionType: UserQuestionType.ShortText,
+      questionConfig: {
+        mandatory: true,
+        input_validation: {
+          pattern: '^[a-zA-Z0-9]{3}$',
+          helper_text: 'Please enter 3 characters',
+          mode: 'custom'
+        },
+      },
+    },
+    {
+      id: '5KMcDYtoz0r1',
       title: 'This is date question',
       definition_id: 'Kzr2NafTxJfR',
       key: 'thisIsDateQuestion',

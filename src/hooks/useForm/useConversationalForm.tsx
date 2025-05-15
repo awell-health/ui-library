@@ -36,6 +36,7 @@ const useConversationalForm = ({
     validateNumberResponse,
     validateEmailResponse,
     validateAttachmentsResponse,
+    validateInputValidationResponse,
   } = useValidate()
 
   const formMethods = useForm({
@@ -132,7 +133,8 @@ const useConversationalForm = ({
       validateDateResponse,
       validateNumberResponse,
       validateEmailResponse,
-      validateAttachmentsResponse
+      validateAttachmentsResponse,
+      validateInputValidationResponse
     )
     setErrors([...errorsWithoutCurrent, ...existingErrors])
     return existingErrors.length > 0
