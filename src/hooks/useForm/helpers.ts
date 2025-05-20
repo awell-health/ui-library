@@ -350,9 +350,7 @@ export const getErrorsForQuestion = (
           return [
             {
               id: currentQuestion.id,
-              error: `Please check your response to the question ${
-                currentQuestion?.title ? "'" + currentQuestion?.title + "'" : ''
-              }`,
+              error: '',
             },
           ]
       }

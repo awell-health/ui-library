@@ -274,7 +274,7 @@ export const QuestionData = ({
               pattern: {
                 value: new RegExp(config?.input_validation?.pattern ?? ''),
                 message:
-                  config?.input_validation?.helper_text ??
+                  config?.input_validation?.helper_text ||
                   'The input value is invalid.',
               },
             }),
