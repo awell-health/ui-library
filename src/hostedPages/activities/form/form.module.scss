@@ -107,3 +107,15 @@
   pointer-events: none; /* Prevent interaction */
   transition: top 0.5s ease-in-out;
 }
+
+.scroll_indicator_wrapper {
+  position: fixed;
+  right: 1vw;
+  bottom: 30vh;
+  @media (min-width: 1024px) { 
+    right: 20vw;
+  }
+  z-index: 1001;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
