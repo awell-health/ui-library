@@ -21,7 +21,7 @@ export const HostedPageFooter: FC<HostedPageFooterProps> = ({
         const { scrollTop, scrollHeight, clientHeight } =
           document.documentElement
         const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
-        scrollIndicatorRef.current.style.opacity = isAtBottom ? '0' : '1'
+        scrollIndicatorRef.current.classList.toggle(classes.hidden, isAtBottom)
       }
     }
 
@@ -35,15 +35,15 @@ export const HostedPageFooter: FC<HostedPageFooterProps> = ({
 
   return (
     <footer className={footerClass}>
-      <div
-        ref={scrollIndicatorRef}
-        className={`${classes.scrollHint} ${
-          showScrollHint ? classes.visible : classes.hidden
-        }`}
-        id="awell__form_scrollhint"
-      >
-        <ScrollIndicator />
-      </div>
+      {showScrollHint && (
+        <div
+          ref={scrollIndicatorRef}
+          className={`${classes.scrollHint} ${classes.visible}`}
+          id="awell__scroll_hint"
+        >
+          <ScrollIndicator />
+        </div>
+      )}
       {children}
     </footer>
   )
