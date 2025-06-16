@@ -20,17 +20,14 @@
   }
 
   & .scrollHint {
-    position: absolute;
+    position: fixed;
     bottom: var(--awell-mobile-footer-height);
     padding: var(--awell-spacing-2) 0;
     left: 0;
     display: flex;
     justify-content: center;
     width: 100%;
-    z-index: 1;
-    background: #fff;
-    transition: opacity 0.3s ease-in-out;
-    opacity: 1;
+    z-index: 1001;
 
     @media (min-width: 640px) {
       padding: var(--awell-spacing-4) 0;
@@ -39,10 +36,12 @@
 
     &.visible {
       opacity: 1;
+      transition: opacity 0.3s ease-in-out;
     }
 
     &.hidden {
       opacity: 0;
+      transition: opacity 0.3s ease-in-out;
     }
   }
 }

@@ -20,7 +20,7 @@ export const HostedPageFooter: FC<HostedPageFooterProps> = ({
       if (scrollIndicatorRef.current) {
         const { scrollTop, scrollHeight, clientHeight } =
           document.documentElement
-        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 2
         scrollIndicatorRef.current.classList.toggle(classes.hidden, isAtBottom)
       }
     }
