@@ -91,15 +91,3 @@
     padding-top: var(--awell-spacing-4);
   }
 }
-
-.scroll_indicator_wrapper {
-  position: fixed;
-  right: 50vw;
-  bottom: 10vh;
-  @media (min-width: 1024px) { 
-    bottom: 12vh;
-  }
-  z-index: 1001;
-  pointer-events: none;
-  transition: opacity 0.3s ease-in-out;
-}

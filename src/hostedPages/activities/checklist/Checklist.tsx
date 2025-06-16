@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler, useState } from 'react'
-import { Text, CheckboxButton, Button, QuestionLabel } from '../../../atoms'
+import { CheckboxButton, Button, QuestionLabel } from '../../../atoms'
 import { useScrollHint } from '../../../hooks/useScrollHint'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import classes from './checklist.module.scss'

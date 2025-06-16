@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import { ScrollIndicator } from '../../../../atoms'
 import classes from './hostedPageFooter.module.scss'
 
@@ -13,6 +13,22 @@ export const HostedPageFooter: FC<HostedPageFooterProps> = ({
   showScrollHint = false,
   fixPosition = false,
 }) => {
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollIndicatorRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } =
+          document.documentElement
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
+        scrollIndicatorRef.current.style.opacity = isAtBottom ? '0' : '1'
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const footerClass = fixPosition
     ? `${classes.footer} ${classes.fixed}`
     : classes.footer
@@ -20,6 +36,7 @@ export const HostedPageFooter: FC<HostedPageFooterProps> = ({
   return (
     <footer className={footerClass}>
       <div
+        ref={scrollIndicatorRef}
         className={`${classes.scrollHint} ${
           showScrollHint ? classes.visible : classes.hidden
         }`}
