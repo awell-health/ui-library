@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Button, Text } from '../../../atoms'
+import { Button, Text, ScrollIndicator } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useTraditionalForm } from '../../../hooks/useForm'
@@ -25,6 +25,7 @@ export const TraditionalForm = ({
   onFileUpload,
 }: FormProps) => {
   const scrollHintOverlayRef = useRef<HTMLDivElement>(null)
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +34,12 @@ export const TraditionalForm = ({
           document.documentElement
         const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
         scrollHintOverlayRef.current.style.top = isAtBottom ? '100%' : 'auto'
+      }
+      if (scrollIndicatorRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } =
+          document.documentElement
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
+        scrollIndicatorRef.current.style.opacity = isAtBottom ? '0' : '1'
       }
     }
 
@@ -65,7 +72,7 @@ export const TraditionalForm = ({
       // Reset to default mode on unmount
       resetLayoutMode()
     }
-  }, [])
+  })
 
   return (
     // div wrapper breaks 100vh height (potentially can be removed)
@@ -114,6 +121,12 @@ export const TraditionalForm = ({
         ref={scrollHintOverlayRef}
         className={classes.scroll_hint_overlay}
       ></div>
+      <div
+        ref={scrollIndicatorRef}
+        className={classes.scroll_indicator_wrapper}
+      >
+        <ScrollIndicator />
+      </div>
       <HostedPageFooter showScrollHint={false} fixPosition={true}>
         <div className={classes.traditional_button_wrapper}>
           {formHasErrors && (
