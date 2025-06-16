@@ -28,20 +28,11 @@
     justify-content: center;
     width: 100%;
     z-index: 1001;
+    transition: opacity 0.3s ease-in-out;
 
     @media (min-width: 640px) {
       padding: var(--awell-spacing-4) 0;
       bottom: var(--awell-footer-height);
-    }
-
-    &.visible {
-      opacity: 1;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    &.hidden {
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
     }
   }
 }
