@@ -14,7 +14,7 @@ export const HostedPageFooter: FC<HostedPageFooterProps> = ({
   hideScrollHint = false,
   fixPosition = false,
 }) => {
-  const { showScrollHint } = useScrollHint(fixPosition)
+  const { showScrollHint } = useScrollHint()
 
   const footerClass = fixPosition
     ? `${classes.footer} ${classes.fixed}`

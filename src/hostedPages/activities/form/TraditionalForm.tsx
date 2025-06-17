@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, Text } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question } from '../../../molecules'
 import { useTraditionalForm } from '../../../hooks/useForm'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
-import { useTheme } from '../../../atoms/themeProvider/ThemeProvider'
 import {
   LoadActivityPlaceholder,
   HostedPageFooter,
@@ -24,8 +23,6 @@ export const TraditionalForm = ({
   questionLabels,
   onFileUpload,
 }: FormProps) => {
-  const { updateLayoutMode, resetLayoutMode } = useTheme()
-
   const {
     updateQuestionVisibility,
     submitForm,
@@ -42,14 +39,6 @@ export const TraditionalForm = ({
     storedAnswers,
     autosaveAnswers,
     onAnswersChange,
-  })
-
-  useEffect(() => {
-    updateLayoutMode('flexible')
-    return () => {
-      // Reset to default mode on unmount
-      resetLayoutMode()
-    }
   })
 
   return (
