@@ -7,7 +7,7 @@ interface UseScrollHintHook {
 export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
   const [showScrollHint, setShowScrollHint] = useState(false)
 
-  const determineShowScrollHint = useCallback(() => {
+  const checkScrollHint = useCallback(() => {
     if (fixPosition) {
       // For flexible layouts with fixed footer, use page-level scroll detection
       const isPageScrollable =
@@ -40,21 +40,21 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
 
   useEffect(() => {
     // Initial check
-    determineShowScrollHint()
+    checkScrollHint()
 
     // Additional check after DOM updates using requestAnimationFrame
     const rafCheck = requestAnimationFrame(() => {
-      determineShowScrollHint()
+      checkScrollHint()
     })
 
     if (fixPosition) {
       // For flexible layouts, listen to window scroll events
-      window.addEventListener('resize', determineShowScrollHint)
-      window.addEventListener('scroll', determineShowScrollHint)
+      window.addEventListener('resize', checkScrollHint)
+      window.addEventListener('scroll', checkScrollHint)
 
       // Use ResizeObserver to detect when content changes
       const resizeObserver = new ResizeObserver(() => {
-        determineShowScrollHint()
+        checkScrollHint()
       })
 
       // Observe the document body for size changes
@@ -62,7 +62,7 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
 
       // Use MutationObserver to detect when content is added/removed
       const mutationObserver = new MutationObserver(() => {
-        determineShowScrollHint()
+        checkScrollHint()
       })
 
       // Observe the main content element for DOM changes
@@ -79,8 +79,8 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
 
       return () => {
         cancelAnimationFrame(rafCheck)
-        window.removeEventListener('resize', determineShowScrollHint)
-        window.removeEventListener('scroll', determineShowScrollHint)
+        window.removeEventListener('resize', checkScrollHint)
+        window.removeEventListener('scroll', checkScrollHint)
         resizeObserver.disconnect()
         mutationObserver.disconnect()
       }
@@ -90,14 +90,14 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
         'ahp_main_content_with_scroll_hint'
       )
 
-      window.addEventListener('resize', determineShowScrollHint)
+      window.addEventListener('resize', checkScrollHint)
       if (mainContentEl) {
-        mainContentEl.addEventListener('scroll', determineShowScrollHint)
+        mainContentEl.addEventListener('scroll', checkScrollHint)
       }
 
       // Use ResizeObserver to detect when the main content element changes
       const resizeObserver = new ResizeObserver(() => {
-        determineShowScrollHint()
+        checkScrollHint()
       })
 
       if (mainContentEl) {
@@ -106,7 +106,7 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
 
       // Use MutationObserver to detect when content is added/removed
       const mutationObserver = new MutationObserver(() => {
-        determineShowScrollHint()
+        checkScrollHint()
       })
 
       if (mainContentEl) {
@@ -119,15 +119,15 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
 
       return () => {
         cancelAnimationFrame(rafCheck)
-        window.removeEventListener('resize', determineShowScrollHint)
+        window.removeEventListener('resize', checkScrollHint)
         if (mainContentEl) {
-          mainContentEl.removeEventListener('scroll', determineShowScrollHint)
+          mainContentEl.removeEventListener('scroll', checkScrollHint)
         }
         resizeObserver.disconnect()
         mutationObserver.disconnect()
       }
     }
-  }, [fixPosition, determineShowScrollHint])
+  }, [fixPosition, checkScrollHint])
 
   return {
     showScrollHint,
