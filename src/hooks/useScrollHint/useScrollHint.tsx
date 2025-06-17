@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 interface UseScrollHintHook {
   showScrollHint: boolean
@@ -6,6 +6,7 @@ interface UseScrollHintHook {
 
 export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
   const [showScrollHint, setShowScrollHint] = useState(false)
+  const rafIdRef = useRef<number>()
 
   const checkScrollHint = useCallback(() => {
     if (fixPosition) {
@@ -38,6 +39,14 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
     }
   }, [fixPosition])
 
+  // Debounced version using requestAnimationFrame
+  const debouncedCheckScrollHint = useCallback(() => {
+    if (rafIdRef.current) {
+      cancelAnimationFrame(rafIdRef.current)
+    }
+    rafIdRef.current = requestAnimationFrame(checkScrollHint)
+  }, [checkScrollHint])
+
   useEffect(() => {
     // Initial check
     checkScrollHint()
@@ -52,36 +61,23 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
       window.addEventListener('resize', checkScrollHint)
       window.addEventListener('scroll', checkScrollHint)
 
-      // Use ResizeObserver to detect when content changes
-      const resizeObserver = new ResizeObserver(() => {
-        checkScrollHint()
-      })
-
-      // Observe the document body for size changes
-      resizeObserver.observe(document.body)
-
       // Use MutationObserver to detect when content is added/removed
-      const mutationObserver = new MutationObserver(() => {
-        checkScrollHint()
-      })
+      const mutationObserver = new MutationObserver(debouncedCheckScrollHint)
 
-      // Observe the main content element for DOM changes
-      const mainContentEl = document.getElementById(
-        'ahp_main_content_with_scroll_hint'
-      )
-      if (mainContentEl) {
-        mutationObserver.observe(mainContentEl, {
-          childList: true,
-          subtree: true,
-          attributes: false,
-        })
-      }
+      // Observe the document body for DOM changes
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: false,
+      })
 
       return () => {
         cancelAnimationFrame(rafCheck)
+        if (rafIdRef.current) {
+          cancelAnimationFrame(rafIdRef.current)
+        }
         window.removeEventListener('resize', checkScrollHint)
         window.removeEventListener('scroll', checkScrollHint)
-        resizeObserver.disconnect()
         mutationObserver.disconnect()
       }
     } else {
@@ -95,19 +91,8 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
         mainContentEl.addEventListener('scroll', checkScrollHint)
       }
 
-      // Use ResizeObserver to detect when the main content element changes
-      const resizeObserver = new ResizeObserver(() => {
-        checkScrollHint()
-      })
-
-      if (mainContentEl) {
-        resizeObserver.observe(mainContentEl)
-      }
-
       // Use MutationObserver to detect when content is added/removed
-      const mutationObserver = new MutationObserver(() => {
-        checkScrollHint()
-      })
+      const mutationObserver = new MutationObserver(debouncedCheckScrollHint)
 
       if (mainContentEl) {
         mutationObserver.observe(mainContentEl, {
@@ -119,15 +104,17 @@ export const useScrollHint = (fixPosition = false): UseScrollHintHook => {
 
       return () => {
         cancelAnimationFrame(rafCheck)
+        if (rafIdRef.current) {
+          cancelAnimationFrame(rafIdRef.current)
+        }
         window.removeEventListener('resize', checkScrollHint)
         if (mainContentEl) {
           mainContentEl.removeEventListener('scroll', checkScrollHint)
         }
-        resizeObserver.disconnect()
         mutationObserver.disconnect()
       }
     }
-  }, [fixPosition, checkScrollHint])
+  }, [fixPosition, checkScrollHint, debouncedCheckScrollHint])
 
   return {
     showScrollHint,
