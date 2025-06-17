@@ -3,7 +3,6 @@ import { Button } from '../../../atoms'
 import { CloudinaryUploadWidget } from './components'
 import { AttachmentList } from '../../../molecules'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
-import { useScrollHint } from '../../../hooks'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import classes from './cloudinary.module.scss'
 import {
@@ -17,8 +16,6 @@ import {
 export const CloudinarySingleFileUpload: FC<
   CloudinarySingleFileUploadProps
 > = ({ cloudName, uploadPreset, folder, tags, context, onFinish, text }) => {
-  const { showScrollHint } = useScrollHint()
-
   const [uploadedFile, setUploadedFile] = useState<UploadData | undefined>(
     undefined
   )
@@ -82,7 +79,7 @@ export const CloudinarySingleFileUpload: FC<
         </section>
       </main>
 
-      <HostedPageFooter showScrollHint={showScrollHint}>
+      <HostedPageFooter>
         <div className={`${classes.button_wrapper} ${classes.container}`}>
           <Button
             data-cy="finishUpload"

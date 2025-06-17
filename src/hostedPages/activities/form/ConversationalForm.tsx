@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, ProgressIndicator } from '../../../atoms'
 import classes from './form.module.scss'
 import { Question as QuestionComponent } from '../../../molecules'
-import { useScrollHint } from '../../../hooks/useScrollHint'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 import { FormProps } from '../../../types/form'
 import { useConversationalForm } from '../../../hooks'
@@ -48,8 +47,6 @@ export const ConversationalForm = ({
     onAnswersChange,
   })
 
-  const { showScrollHint, determineShowScrollHint } = useScrollHint()
-
   /**
    * For certain questions like Single Select or Boolean questions,
    * we don't want the user to click on the answer first and then
@@ -64,10 +61,6 @@ export const ConversationalForm = ({
       handleGoToNextQuestion()
     }
   }
-
-  useEffect(() => {
-    determineShowScrollHint()
-  }, [currentQuestion])
 
   const shouldAutoProgress = (question: Question): boolean => {
     if (autoProgress === false) {
@@ -132,7 +125,7 @@ export const ConversationalForm = ({
           )}
         </div>
       </main>
-      <HostedPageFooter showScrollHint={showScrollHint}>
+      <HostedPageFooter>
         {!isEvaluatingQuestionVisibility && (
           <div
             className={`${classes.conversational_button_wrapper} ${classes.container}`}

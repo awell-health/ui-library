@@ -1,6 +1,5 @@
 import React, { FC, MouseEventHandler, useState } from 'react'
 import { CheckboxButton, Button, QuestionLabel } from '../../../atoms'
-import { useScrollHint } from '../../../hooks/useScrollHint'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
 import classes from './checklist.module.scss'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
@@ -28,7 +27,6 @@ export const Checklist: FC<ChecklistProps> = ({
   submitLabel,
 }) => {
   const [checkedItems, setCheckedItems] = useState(readOnly ? items : [])
-  const { showScrollHint } = useScrollHint()
 
   const handleChange = (item: ChecklistItem) => (checked: boolean) => {
     if (checked) {
@@ -64,7 +62,7 @@ export const Checklist: FC<ChecklistProps> = ({
           </div>
         </div>
       </main>
-      <HostedPageFooter showScrollHint={showScrollHint}>
+      <HostedPageFooter>
         <div className={`${classes.button_wrapper} ${classes.container}`}>
           <Button
             onClick={onSubmit}

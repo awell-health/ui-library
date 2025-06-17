@@ -117,7 +117,7 @@ export const CollectMedication: FC<CollectMedicationProps> = ({
         </div>
       </main>
 
-      <HostedPageFooter showScrollHint={false}>
+      <HostedPageFooter hideScrollHint={true}>
         <div className={`${classes.button_wrapper} ${classes.container}`}>
           <Button
             data-cy="submitMedication"

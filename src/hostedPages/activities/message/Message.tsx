@@ -4,7 +4,6 @@ import classes from './message.module.scss'
 import { AttachmentList } from '../../../molecules'
 import { MessageProps } from './types'
 import { HostedPageFooter } from '../../layouts/HostedPageLayout/HostedPageFooter'
-import { useScrollHint } from '../../../hooks/useScrollHint'
 import { generatePureHtml } from '../../../atoms/richTextViewer/serializeHtml'
 import layoutClasses from '../../layouts/HostedPageLayout/hostedPageLayout.module.scss'
 
@@ -18,7 +17,6 @@ export const Message = ({
   attachments,
   buttonLabels,
 }: MessageProps): JSX.Element => {
-  const { showScrollHint } = useScrollHint()
   const cleanContent = generatePureHtml(content)
 
   return (
@@ -42,7 +40,7 @@ export const Message = ({
           </div>
         </article>
       </main>
-      <HostedPageFooter showScrollHint={showScrollHint}>
+      <HostedPageFooter>
         <div className={`${classes.button_wrapper} ${classes.container}`}>
           <Button
             data-cy="markMessageAsReadButton"
