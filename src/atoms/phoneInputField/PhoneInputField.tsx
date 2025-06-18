@@ -1,4 +1,9 @@
-import React, { InputHTMLAttributes, MouseEventHandler, useEffect } from 'react'
+import React, {
+  InputHTMLAttributes,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from 'react'
 import classes from './phoneInputField.module.scss'
 import { QuestionLabel } from '../questionLabel'
 import 'react-international-phone/style.css'
@@ -23,7 +28,11 @@ export interface PhoneInputFieldProps
   /**
    * change event handler
    */
-  onChange: ({ target: { value } }: { target: { value: string } }) => void
+  onChange: ({
+    target: { value },
+  }: {
+    target: { value: string | undefined }
+  }) => void
   /**
    * click event handler
    */
@@ -71,6 +80,7 @@ export const PhoneInputField = ({
   forceDialCode = false,
   ...props
 }: PhoneInputFieldProps): JSX.Element => {
+  const [touched, setTouched] = useState(false)
   const countries = getDefaultCountries(availableCountries, initialCountry)
   const { phone, handlePhoneValueChange, inputRef, country, setCountry } =
     usePhoneInput({
@@ -80,11 +90,21 @@ export const PhoneInputField = ({
       countries,
       forceDialCode,
       onPhoneUpdate: (phone) => {
-        onChange({ target: { value: phone } })
+        // Only send value to backend if user has touched the field and value is more than country code
+        // The country code length is typically 1-3 digits, so we check if phone is longer than that
+        if (touched && phone.length > 3) {
+          onChange({ target: { value: phone } })
+        } else {
+          // Send undefined when field hasn't been touched or when user deletes back to just country code
+          onChange({ target: { value: undefined } })
+        }
       },
     })
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (!touched) {
+      setTouched(true)
+    }
     handlePhoneValueChange(e)
   }
 
