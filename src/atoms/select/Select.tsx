@@ -239,8 +239,28 @@ export const Select = ({
       const container = document.getElementById(
         'ahp_main_content_with_scroll_hint'
       )
-      if (container) {
-        container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
+      if (container && selectWrapperRef.current) {
+        const dropdownElement = selectWrapperRef.current.querySelector(
+          `.${classes.dropdown_open}`
+        ) as HTMLElement
+        if (dropdownElement) {
+          const containerRect = container.getBoundingClientRect()
+          const dropdownRect = dropdownElement.getBoundingClientRect()
+          const selectRect = selectWrapperRef.current.getBoundingClientRect()
+
+          // Check if dropdown would be cut off at the bottom
+          const dropdownBottom = selectRect.bottom + dropdownRect.height
+          const containerBottom = containerRect.bottom
+
+          if (dropdownBottom > containerBottom) {
+            // Calculate how much to scroll to show the dropdown
+            const scrollAmount = dropdownBottom - containerBottom + 20 // Add some padding
+            container.scrollTo({
+              top: container.scrollTop + scrollAmount,
+              behavior: 'smooth',
+            })
+          }
+        }
       }
     }
   }, [isOpen])

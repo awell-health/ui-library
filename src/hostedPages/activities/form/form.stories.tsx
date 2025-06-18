@@ -112,6 +112,7 @@ const MyStory: Story = ({
             select: {
               no_options: 'No options',
               search_placeholder: 'Search',
+              search_icd_placeholder: 'Search',
             },
             slider: {
               tooltip_guide: 'Touch to select a value',
@@ -156,6 +157,7 @@ const MyStory: Story = ({
             select: {
               no_options: 'No options',
               search_placeholder: 'Search',
+              search_icd_placeholder: 'Search',
             },
             slider: {
               tooltip_guide: 'Touch to select a value',

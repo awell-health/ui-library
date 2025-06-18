@@ -29,6 +29,7 @@
     width: 100%;
     z-index: 1001;
     transition: opacity 0.3s ease-in-out;
+    background-color: white;
 
     @media (min-width: 640px) {
       padding: var(--awell-spacing-4) 0;

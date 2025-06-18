@@ -16,14 +16,13 @@ import React, { useLayoutEffect, useState } from 'react'
 import { Attachment, QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 import { CountryIso2 } from '../../hooks/useValidate'
-import { first, isEmpty, isNil, noop } from 'lodash'
+import { isEmpty, isNil, noop } from 'lodash'
 import { getMinValueForDateInput } from './helpers/getMinValueForDateInput'
 import { getMaxValueForDateInput } from './helpers/getMaxValueForDateInput'
 import { getMinValueForNumberInput } from './helpers/getMinValueForNumberInput'
 import { getMaxValueForNumberInput } from './helpers/getMaxValueForNumberInput'
 import { isValidEmail } from './helpers/isValidEmail'
 import { useICDClassificationList } from '../../hooks/useIcdClassificationList'
-import { FileInputField } from '../../atoms/fileInputField'
 import { custom_json_parser } from '../../utils/custom_json_parser'
 import { areAttachmentsValid } from './helpers/areAttachmentsValid'
 import { SingleFileInputField } from '../../atoms/fileInputField/SingleFileInputField'
@@ -48,11 +47,6 @@ export const QuestionData = ({
     loading: optionsLoading,
     onIcdClassificationSearchChange,
   } = useICDClassificationList(question.id)
-
-  const fetchAttachmentValue = (value: string): Attachment[] | undefined => {
-    const attachment = custom_json_parser(value as string)
-    return attachment ? [attachment] : undefined
-  }
 
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
@@ -311,7 +305,7 @@ export const QuestionData = ({
 
       const initialCountry: CountryIso2 =
         (config?.phone?.default_country?.toLocaleLowerCase() as CountryIso2) ??
-        'gb'
+        'us'
 
       return (
         <Controller
@@ -328,7 +322,7 @@ export const QuestionData = ({
               }}
               label={question.title}
               id={question.id}
-              value={value}
+              value={value ?? ''}
               mandatory={question.questionConfig?.mandatory}
               availableCountries={availableCountries}
               initialCountry={initialCountry}
