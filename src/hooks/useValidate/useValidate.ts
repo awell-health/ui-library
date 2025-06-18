@@ -148,7 +148,7 @@ export const useValidate = (): UseValidateHook => {
       }
 
       if (typeof availableCountries === 'string') {
-        return availableCountries === validation.country.iso2 ?? false
+        return availableCountries === validation.country.iso2
       }
       return availableCountries.includes(validation.country.iso2)
     } catch {

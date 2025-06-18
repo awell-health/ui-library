@@ -1,9 +1,4 @@
-import React, {
-  InputHTMLAttributes,
-  MouseEventHandler,
-  useEffect,
-  useState,
-} from 'react'
+import React, { InputHTMLAttributes, MouseEventHandler, useState } from 'react'
 import classes from './phoneInputField.module.scss'
 import { QuestionLabel } from '../questionLabel'
 import 'react-international-phone/style.css'
@@ -28,11 +23,7 @@ export interface PhoneInputFieldProps
   /**
    * change event handler
    */
-  onChange: ({
-    target: { value },
-  }: {
-    target: { value: string | undefined }
-  }) => void
+  onChange: ({ target: { value } }: { target: { value: string } }) => void
   /**
    * click event handler
    */
@@ -85,7 +76,7 @@ export const PhoneInputField = ({
   const { phone, handlePhoneValueChange, inputRef, country, setCountry } =
     usePhoneInput({
       initialCountry,
-      value,
+      value: value ?? '',
       hideSpaceAfterDialCode: true,
       countries,
       forceDialCode,
@@ -95,8 +86,8 @@ export const PhoneInputField = ({
         if (touched && phone.length > 3) {
           onChange({ target: { value: phone } })
         } else {
-          // Send undefined when field hasn't been touched or when user deletes back to just country code
-          onChange({ target: { value: undefined } })
+          // Send empty string when field hasn't been touched or when user deletes back to just country code
+          onChange({ target: { value: '' } })
         }
       },
     })
