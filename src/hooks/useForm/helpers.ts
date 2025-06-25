@@ -108,6 +108,26 @@ export const updateVisibility = (
     return { ...question, visible }
   })
 
+export const updateVisibilityForTraditionalForm = (
+  questions: Array<Question>,
+  evaluation_results: Array<QuestionRuleResult>
+): Array<QuestionWithVisibility> => {
+  if (evaluation_results.length === 0) {
+    return questions.map((question) => ({
+      ...question,
+      visible: question.rule === null,
+    }))
+  } else {
+    return questions.map((question) => {
+      const result = evaluation_results.find(
+        ({ question_id }) => question_id === question.id
+      )
+      const visible = !result ? true : result?.satisfied
+      return { ...question, visible }
+    })
+  }
+}
+
 export const isEmpty = (value: any) => {
   return (
     (typeof Array.isArray(value) && value.length === 0) ||

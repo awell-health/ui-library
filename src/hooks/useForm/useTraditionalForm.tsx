@@ -10,7 +10,7 @@ import {
   getInitialValues,
   isEmpty,
   markInitialValuesAsDirty,
-  updateVisibility,
+  updateVisibilityForTraditionalForm,
 } from './helpers'
 import {
   AnswerValue,
@@ -59,7 +59,7 @@ const useTraditionalForm = ({
       getDirtyFieldValues(formMethods)
     )
     const evaluationResults = await evaluateDisplayConditions(formValuesInput)
-    const updatedQuestions = updateVisibility(
+    const updatedQuestions = updateVisibilityForTraditionalForm(
       questions,
       evaluationResults
     ).filter((e) => e.visible)
