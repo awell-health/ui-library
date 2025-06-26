@@ -115,7 +115,10 @@ export const updateVisibilityForTraditionalForm = (
   if (evaluation_results.length === 0) {
     return questions.map((question) => ({
       ...question,
-      visible: question.rule === null,
+      visible:
+        question.rule === null ||
+        (Array.isArray(question.rule?.conditions) &&
+          question.rule?.conditions.length === 0),
     }))
   } else {
     return questions.map((question) => {
