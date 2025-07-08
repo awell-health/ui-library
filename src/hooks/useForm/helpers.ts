@@ -19,6 +19,7 @@ import {
   InputValidationErrorType,
   NumberValidationErrorType,
 } from '../useValidate/useValidate'
+import { isNil } from 'lodash'
 
 export const getDefaultValue = (question: Question): AnswerValue => {
   switch (question.userQuestionType) {
@@ -116,7 +117,7 @@ export const updateVisibilityForTraditionalForm = (
     return questions.map((question) => ({
       ...question,
       visible:
-        question.rule === null ||
+        isNil(question.rule) ||
         (Array.isArray(question.rule?.conditions) &&
           question.rule?.conditions.length === 0),
     }))
