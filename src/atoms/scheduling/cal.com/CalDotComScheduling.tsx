@@ -12,6 +12,7 @@ export interface CalDotComSchedulingProps {
    * See https://youtu.be/5MybtA2rdBU?t=146
    */
   metadata?: { [key: string]: string }
+  defaultFormValues?: { name?: string; email?: string; phone?: string }
 }
 
 export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
@@ -19,6 +20,7 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
   hideEventTypeDetails = false,
   onBookingSuccessful,
   metadata,
+  defaultFormValues,
 }) => {
   const { accentColor } = useAccentColor()
   const eventListenerRef = useRef(false)
@@ -40,6 +42,10 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
         styles: { branding: { brandColor: accentColor } },
         hideEventTypeDetails,
       })
+
+      if (defaultFormValues && Object.keys(defaultFormValues).length > 0) {
+        ;(cal as any)('prefill', defaultFormValues)
+      }
 
       cal('on', {
         action: 'bookingSuccessful',
@@ -67,6 +73,19 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
       cleanup()
     }
   }, [accentColor, hideEventTypeDetails])
+/* Re-apply prefill when defaultFormValues change */
+useEffect(() => {
+  const applyPrefill = async () => {
+    if (!defaultFormValues) return
+    const cal = (calApiRef.current || (await getCalApi())) as any
+    if (cal) {
+      cal('prefill', defaultFormValues)
+    }
+  }
+  applyPrefill()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [defaultFormValues])
+
 
   let metadataString = ''
 
