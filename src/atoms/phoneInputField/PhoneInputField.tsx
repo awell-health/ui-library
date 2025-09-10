@@ -106,6 +106,9 @@ export const PhoneInputField = ({
   const onPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const phoneNumber = e.clipboardData.getData('text') ?? ''
 
+    if (!touched) {
+      setTouched(true)
+    }
     // if number contains + (country code), remove it from input, before pasting new value
     if (phoneNumber.includes('+')) {
       if (inputRef.current) {
