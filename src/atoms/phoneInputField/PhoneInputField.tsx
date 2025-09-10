@@ -87,7 +87,7 @@ export const PhoneInputField = ({
           onChange({ target: { value: phone } })
         } else {
           // Send empty string when field hasn't been touched or when user deletes back to just country code
-          onChange({ target: { value: '' } })
+          onChange({ target: { value: inputRef.current?.value ?? '' } })
         }
       },
     })
@@ -106,9 +106,6 @@ export const PhoneInputField = ({
   const onPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const phoneNumber = e.clipboardData.getData('text') ?? ''
 
-    if (!touched) {
-      setTouched(true)
-    }
     // if number contains + (country code), remove it from input, before pasting new value
     if (phoneNumber.includes('+')) {
       if (inputRef.current) {
