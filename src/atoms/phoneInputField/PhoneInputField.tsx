@@ -81,13 +81,17 @@ export const PhoneInputField = ({
       countries,
       forceDialCode,
       onPhoneUpdate: (phone) => {
-        // Only send value to backend if user has touched the field and value is more than country code
-        // The country code length is typically 1-3 digits, so we check if phone is longer than that
-        if (touched && phone.length > 3) {
+        // Send value if user has touched field OR if phone has meaningful content
+        const hasSignificantValue = phone.length > 4 // Country code + at least 2 digits
+
+        if (touched || hasSignificantValue) {
           onChange({ target: { value: phone } })
+          // Set touched for paste scenarios
+          if (!touched) {
+            setTouched(true)
+          }
         } else {
-          // Send empty string when field hasn't been touched or when user deletes back to just country code
-          onChange({ target: { value: inputRef.current?.value ?? '' } })
+          onChange({ target: { value: '' } })
         }
       },
     })
