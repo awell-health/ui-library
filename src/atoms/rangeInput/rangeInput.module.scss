@@ -44,6 +44,10 @@
 
     &.with_marks {
       --awell-thick-width: 1px;
+      // Add safety checks to prevent division by zero and invalid calculations
+      --safe-step: max(var(--awell-step), 0.1);
+      --safe-range: max(var(--awell-max) - var(--awell-min), 1);
+      --safe-divisions: max(var(--safe-range) / var(--safe-step), 1);
       --awell-ticks: linear-gradient(
           to right,
           var(--awell-thick-color) var(--awell-thick-width),
@@ -52,10 +56,7 @@
         repeat-x;
       background: silver;
       background: var(--awell-ticks);
-      background-size: calc(
-          100% / ((var(--awell-max) - var(--awell-min)) / var(--awell-step)) -
-            0.1%
-        )
+      background-size: calc(100% / var(--safe-divisions) - 0.1%)
         var(--ticksHeight);
       background-position: 0 calc(var(--ticksHeight) * 1.7);
       display: flex;

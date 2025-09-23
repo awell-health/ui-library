@@ -125,27 +125,83 @@ export const RangeInput = ({
   }
 
   React.useEffect(() => {
+    // Early return if tooltip should not be shown
+    if (!touched || !is_value_tooltip_on || !tooltipRef.current) {
+      return
+    }
+
     const MIDPOINT_PERCENTAGE = 0.5 // 50%
     const THUMB_WIDTH = 16 // px
     const TOP_POSITION_ADJUSTMENT = -30 // px
-    if (touched === true && is_value_tooltip_on && tooltipRef.current) {
+
+    try {
       const input = tooltipRef.current.closest(
         `.${classes.awell_range_input_wrapper}`
       ) as HTMLElement
-      if (input) {
-        const inputWidth = input.clientWidth
-        const range = max - min
-        const percentage = (parseInt(internalValue) - min) / range
-        const thumbPosition =
-          (isNaN(percentage) ? MIDPOINT_PERCENTAGE : percentage) *
-          (inputWidth - THUMB_WIDTH)
-        const tooltipLeft = thumbPosition + THUMB_WIDTH / 2
-        const tooltipTop = TOP_POSITION_ADJUSTMENT
-        setTooltipPosition({
-          left: tooltipLeft,
-          top: tooltipTop,
-        })
+
+      if (!input) {
+        console.warn(
+          'RangeInput: Could not find wrapper element for tooltip positioning'
+        )
+        return
       }
+
+      // Use requestAnimationFrame to batch DOM reads and prevent layout thrashing
+      const updateTooltipPosition = () => {
+        try {
+          const inputWidth = input.clientWidth
+          const range = max - min
+
+          // Add safety checks for range calculation
+          if (range <= 0) {
+            console.warn('RangeInput: Invalid range for tooltip positioning', {
+              min,
+              max,
+            })
+            return
+          }
+
+          const numericValue = parseFloat(internalValue)
+          if (!isFinite(numericValue)) {
+            // Use midpoint if value is not a valid number
+            const percentage = MIDPOINT_PERCENTAGE
+            const thumbPosition = percentage * (inputWidth - THUMB_WIDTH)
+            const tooltipLeft = thumbPosition + THUMB_WIDTH / 2
+            const tooltipTop = TOP_POSITION_ADJUSTMENT
+
+            setTooltipPosition({
+              left: Math.max(0, tooltipLeft), // Ensure tooltip doesn't go off-screen
+              top: tooltipTop,
+            })
+            return
+          }
+
+          const percentage = Math.max(
+            0,
+            Math.min(1, (numericValue - min) / range)
+          )
+          const thumbPosition = percentage * (inputWidth - THUMB_WIDTH)
+          const tooltipLeft = thumbPosition + THUMB_WIDTH / 2
+          const tooltipTop = TOP_POSITION_ADJUSTMENT
+
+          setTooltipPosition({
+            left: Math.max(0, tooltipLeft), // Ensure tooltip doesn't go off-screen
+            top: tooltipTop,
+          })
+        } catch (error) {
+          console.warn('RangeInput: Error calculating tooltip position:', error)
+        }
+      }
+
+      // Use requestAnimationFrame to optimize DOM measurements
+      const rafId = requestAnimationFrame(updateTooltipPosition)
+
+      // Cleanup function to cancel animation frame if component unmounts
+      return () => {
+        cancelAnimationFrame(rafId)
+      }
+    } catch (error) {
+      console.warn('RangeInput: Error in tooltip positioning effect:', error)
     }
   }, [internalValue, is_value_tooltip_on, max, min, touched])
 
