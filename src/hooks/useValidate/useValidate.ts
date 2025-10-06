@@ -366,6 +366,12 @@ export const useValidate = (): UseValidateHook => {
       }
     }
 
+    if (questionConfig?.mandatory === false && (isNil(value) || value === '')) {
+      return {
+        isValid: true,
+      }
+    }
+
     const { pattern } = questionConfig.input_validation
 
     if (pattern) {
