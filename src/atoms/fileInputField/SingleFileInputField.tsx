@@ -211,6 +211,7 @@ export const SingleFileInputField: React.FC<Props> = ({
           isMultiple={false} // Always false for single file upload
           accept={accept}
           error={error}
+          maxSizeMb={5}
         />
       </div>
 

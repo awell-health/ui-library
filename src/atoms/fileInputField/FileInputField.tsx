@@ -214,6 +214,7 @@ export const FileInputField: React.FC<Props> = ({
           isMultiple={multiple}
           accept={accept}
           error={error}
+          maxSizeMb={5}
         />
       </div>
 
