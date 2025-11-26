@@ -48,6 +48,15 @@ export const QuestionData = ({
     onIcdClassificationSearchChange,
   } = useICDClassificationList(question.id)
 
+  // 'document/*' is non-standard and it causes issues with different fie types especially on
+  // traditional form types so I'm bypassing this for now.
+  const getAcceptedFileTypes = () => {
+    if (config?.file_storage?.accepted_file_types?.includes('document/*')) {
+      return ['*/*']
+    }
+    return config?.file_storage?.accepted_file_types ?? ['*/*']
+  }
+
   switch (question.userQuestionType) {
     case UserQuestionType.YesNo:
       return (
@@ -484,19 +493,7 @@ export const QuestionData = ({
             validate: (value: string) =>
               isAttachmentValid({
                 attachmentsValue: value,
-                acceptedFileTypes: config?.file_storage
-                  ?.accepted_file_types ?? [
-                  'application/pdf',
-                  'application/msword',
-                  'application/json',
-                  'application/xml',
-                  'application/csv',
-                  'application/zip',
-                  'document/json',
-                  'document/xml',
-                  'document/csv',
-                  'document/zip',
-                ],
+                acceptedFileTypes: getAcceptedFileTypes(),
                 required: config?.mandatory ?? false,
               }),
           }}
@@ -508,24 +505,12 @@ export const QuestionData = ({
                 id={question.id}
                 value={custom_json_parser(value as string, '')}
                 onChange={(attachment: Attachment | undefined) => {
+                  console.log('attachment', attachment?.contentType)
                   onControllerChange(JSON.stringify(attachment))
                   onAnswerChange()
                 }}
                 onBlur={onBlur}
-                accept={
-                  config?.file_storage?.accepted_file_types ?? [
-                    'application/pdf',
-                    'application/msword',
-                    'application/json',
-                    'application/xml',
-                    'application/csv',
-                    'application/zip',
-                    'document/json',
-                    'document/xml',
-                    'document/csv',
-                    'document/zip',
-                  ]
-                }
+                accept={getAcceptedFileTypes()}
                 configSlug={
                   config?.file_storage?.file_storage_config_slug as string
                 }
