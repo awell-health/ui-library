@@ -510,7 +510,7 @@ export const QuestionData = ({
                   onAnswerChange()
                 }}
                 onBlur={onBlur}
-                accept={getAcceptedFileTypes()}
+                accept={config?.file_storage?.accepted_file_types ?? undefined}
                 configSlug={
                   config?.file_storage?.file_storage_config_slug as string
                 }
