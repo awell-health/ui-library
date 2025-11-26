@@ -484,8 +484,19 @@ export const QuestionData = ({
             validate: (value: string) =>
               isAttachmentValid({
                 attachmentsValue: value,
-                acceptedFileTypes:
-                  config?.file_storage?.accepted_file_types ?? [],
+                acceptedFileTypes: config?.file_storage
+                  ?.accepted_file_types ?? [
+                  'application/pdf',
+                  'application/msword',
+                  'application/json',
+                  'application/xml',
+                  'application/csv',
+                  'application/zip',
+                  'document/json',
+                  'document/xml',
+                  'document/csv',
+                  'document/zip',
+                ],
                 required: config?.mandatory ?? false,
               }),
           }}
@@ -504,6 +515,15 @@ export const QuestionData = ({
                 accept={
                   config?.file_storage?.accepted_file_types ?? [
                     'application/pdf',
+                    'application/msword',
+                    'application/json',
+                    'application/xml',
+                    'application/csv',
+                    'application/zip',
+                    'document/json',
+                    'document/xml',
+                    'document/csv',
+                    'document/zip',
                   ]
                 }
                 configSlug={
