@@ -30,6 +30,11 @@ export const isAttachmentValid = ({
     return !required
   }
 
+  // If acceptedFileTypes includes wildcard, skip MIME type validation
+  if (acceptedFileTypes.includes('*') || acceptedFileTypes.includes('*/*')) {
+    return true
+  }
+
   // Check if the file type is accepted
   return acceptedFileTypes.includes(attachment.contentType)
 }
