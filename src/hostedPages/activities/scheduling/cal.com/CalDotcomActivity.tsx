@@ -7,6 +7,7 @@ import layoutClasses from '../../../layouts/HostedPageLayout/hostedPageLayout.mo
 
 export const CalDotcomActivity = ({
   calLink,
+  calOrigin,
   onBookingSuccessful,
   hideEventTypeDetails,
 }: CalDotComActivityProps): JSX.Element => {
@@ -19,6 +20,7 @@ export const CalDotcomActivity = ({
         <div className={`${classes.container} ${classes.calDotComActivity}`}>
           <CalDotComScheduling
             calLink={calLink}
+            calOrigin={calOrigin}
             onBookingSuccessful={onBookingSuccessful}
             hideEventTypeDetails={hideEventTypeDetails}
           />
