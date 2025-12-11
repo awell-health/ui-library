@@ -6,6 +6,12 @@ import { type BookingSuccessfulFunction } from './calDotComTypes'
 
 export interface CalDotComSchedulingProps {
   calLink: string
+  /**
+   * Base URL for your Cal.com deployment.
+   * Defaults to 'https://cal.com' but can be overridden for enterprise
+   * Cal.com accounts with custom domains (e.g., 'https://myorg.cal.com').
+   */
+  calOrigin?: string
   onBookingSuccessful: BookingSuccessfulFunction
   hideEventTypeDetails?: boolean
   /**
@@ -16,6 +22,7 @@ export interface CalDotComSchedulingProps {
 
 export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
   calLink,
+  calOrigin,
   hideEventTypeDetails = false,
   onBookingSuccessful,
   metadata,
@@ -86,6 +93,7 @@ export const CalDotComScheduling: FC<CalDotComSchedulingProps> = ({
     <div>
       <Cal
         calLink={composedCalLink}
+        calOrigin={calOrigin}
         style={{ width: '100%', height: '100%', overflow: 'hidden' }}
       />
     </div>
