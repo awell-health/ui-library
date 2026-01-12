@@ -14,7 +14,7 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * sets label of the button
    */
-  label: string
+  label?: string
   /**
    * sets id that is used to connect input with label
    */
@@ -43,7 +43,7 @@ export const InputField = ({
 }: InputFieldProps): JSX.Element => {
   return (
     <div className={classes.awell_input_field_wrapper}>
-      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      {label && <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />}
       <input
         {...props}
         type={type}

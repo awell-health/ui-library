@@ -15,7 +15,7 @@ export interface PhoneInputFieldProps
   /**
    * sets label of the button
    */
-  label: string
+  label?: string
   /**
    * sets id that is used to connect input with label
    */
@@ -121,7 +121,7 @@ export const PhoneInputField = ({
 
   return (
     <div className={classes.awell_input_field_wrapper}>
-      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      {label && <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />}
       <div className={classes.awell_phone_input_field_container}>
         <CountrySelector
           countries={countries}

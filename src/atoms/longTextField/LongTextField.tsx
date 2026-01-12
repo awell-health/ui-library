@@ -7,7 +7,7 @@ export interface LongTextFieldProps
   /**
    * sets label of the button
    */
-  label: string
+  label?: string
   /**
    * sets id that is used to connect input with label
    */
@@ -36,7 +36,7 @@ export const LongTextField = ({
   const DEFAULT_ROWS = 4
   return (
     <div className={classes.awell_long_text_field_wrapper}>
-      <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />
+      {label && <QuestionLabel htmlFor={id} label={label} mandatory={mandatory} />}
       <textarea
         {...props}
         id={id}
