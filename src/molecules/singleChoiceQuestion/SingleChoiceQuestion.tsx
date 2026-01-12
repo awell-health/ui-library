@@ -11,7 +11,7 @@ interface OptionStringOrNumberType {
 
 export interface SingleChoiceQuestionProps {
   questionId: string
-  label: string
+  label?: string
   options: Array<OptionStringOrNumberType>
   value: OptionStringOrNumberType | null
   onChange: (newValue: OptionStringOrNumberType | null) => void
@@ -59,7 +59,7 @@ export const SingleChoiceQuestion = ({
 
   return (
     <div>
-      <QuestionLabel label={label} mandatory={mandatory} />
+      {label && <QuestionLabel label={label} mandatory={mandatory} />}
       <fieldset className={classes.awell_single_choice_question}>
         {(options || []).map((option: OptionStringOrNumberType) => (
           <RadioButton

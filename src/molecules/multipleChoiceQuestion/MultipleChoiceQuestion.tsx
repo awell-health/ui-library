@@ -11,7 +11,7 @@ interface OptionStringOrNumberType {
 
 export interface MultipleChoiceQuestionProps {
   questionId: string
-  label: string
+  label?: string
   options: Array<OptionStringOrNumberType>
   onChange: (newValue: Array<OptionStringOrNumberType>) => void
   values: Array<OptionStringOrNumberType>
@@ -53,7 +53,7 @@ export const MultipleChoiceQuestion = ({
 
   return (
     <div>
-      <QuestionLabel label={label} mandatory={mandatory} />
+      {label && <QuestionLabel label={label} mandatory={mandatory} />}
       <fieldset className={classes.awell_multiple_choice_question}>
         {options.map((option: OptionStringOrNumberType) => (
           <CheckboxButton

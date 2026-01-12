@@ -6,7 +6,7 @@ export interface QuestionLabelProps
   /**
    * Label of the question
    */
-  label: string
+  label?: string
   /**
    * Is the question mandatory?
    */
@@ -17,7 +17,12 @@ export const QuestionLabel = ({
   label,
   mandatory = false,
   ...props
-}: QuestionLabelProps): JSX.Element => {
+}: QuestionLabelProps): JSX.Element | null => {
+  // Don't render anything if label is not provided or is empty
+  if (!label || label.trim() === '') {
+    return null
+  }
+
   return (
     <label
       {...props}

@@ -7,7 +7,7 @@ export interface RangeInputProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * Question label
    */
-  label: string
+  label?: string
   /**
    * slider config
    */
@@ -151,12 +151,14 @@ export const RangeInput = ({
 
   return (
     <div>
-      <QuestionLabel
-        htmlFor={id}
-        label={label}
-        mandatory={mandatory}
-        id={`${id}-label`}
-      />
+      {label && (
+        <QuestionLabel
+          htmlFor={id}
+          label={label}
+          mandatory={mandatory}
+          id={`${id}-label`}
+        />
+      )}
       <div className={classes.input_container}>
         <div
           className={`${classes.touch_tooltip_wrapper}  ${
