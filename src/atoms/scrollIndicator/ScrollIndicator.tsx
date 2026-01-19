@@ -2,9 +2,18 @@ import React from 'react'
 
 import classes from './ScrollIndicator.module.scss'
 
-export const ScrollIndicator = () => {
+interface ScrollIndicatorProps {
+  onClick?: () => void
+}
+
+export const ScrollIndicator = ({ onClick }: ScrollIndicatorProps) => {
   return (
-    <div className={classes.scroll_indicator_container}>
+    <button
+      type="button"
+      className={classes.scroll_indicator_container}
+      onClick={onClick}
+      aria-label="Scroll down for more content"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -19,6 +28,6 @@ export const ScrollIndicator = () => {
           d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75"
         />
       </svg>
-    </div>
+    </button>
   )
 }
