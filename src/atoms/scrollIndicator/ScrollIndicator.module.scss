@@ -5,9 +5,21 @@
   position: relative;
   z-index: 999;
   border-radius: 50%;
-  position: relative;
   width: 28px;
   height: 28px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: 2px solid var(--awell-accent-color);
+    outline-offset: 2px;
+  }
 
   @media (min-width: 640px) {
     width: 36px;
