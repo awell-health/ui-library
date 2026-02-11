@@ -35,7 +35,7 @@ export const Navbar = ({ companyName, logo }: NavbarProps): JSX.Element => {
         isHeightReduced ? classes.awell_navbar_keyboard_open : ''
       }`}
     >
-      {isHeightReduced ? <></> : <Logo logo={logo} companyName={companyName} />}
+      <Logo logo={logo} companyName={companyName} />
     </div>
   )
 }
