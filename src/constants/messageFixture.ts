@@ -39,6 +39,52 @@ export const messageFixture = [
     ],
   },
   { type: 'p', children: [{ text: '' }] },
+  { type: 'p', children: [{ text: 'Unordered list with longer text' }] },
+  {
+    type: 'ul',
+    children: [
+      {
+        type: 'li',
+        children: [
+          {
+            type: 'lic',
+            children: [
+              {
+                text: 'Take your medication every morning with a full glass of water, preferably before eating breakfast. If you experience any nausea, try taking it with a small snack instead.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: 'li',
+        children: [
+          {
+            type: 'lic',
+            children: [
+              {
+                text: 'Schedule a follow-up appointment with your care team within two weeks of discharge. Bring a list of all current medications and any questions you may have.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: 'li',
+        children: [
+          {
+            type: 'lic',
+            children: [
+              {
+                text: 'Monitor your symptoms daily and record them in your health journal. Contact your provider immediately if you notice any sudden changes or worsening of symptoms.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  { type: 'p', children: [{ text: '' }] },
   { type: 'p', children: [{ text: 'Ordered list' }] },
   {
     type: 'ol',
@@ -54,6 +100,52 @@ export const messageFixture = [
       {
         type: 'li',
         children: [{ type: 'lic', children: [{ text: 'Option 3' }] }],
+      },
+    ],
+  },
+  { type: 'p', children: [{ text: '' }] },
+  { type: 'p', children: [{ text: 'Ordered list with longer text' }] },
+  {
+    type: 'ol',
+    children: [
+      {
+        type: 'li',
+        children: [
+          {
+            type: 'lic',
+            children: [
+              {
+                text: 'Complete the intake questionnaire before your first visit. This helps your care team understand your medical history and current concerns so they can prepare accordingly.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: 'li',
+        children: [
+          {
+            type: 'lic',
+            children: [
+              {
+                text: 'Review and sign the consent forms provided in your patient portal. If you have any questions about the terms, reach out to our support team for clarification.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: 'li',
+        children: [
+          {
+            type: 'lic',
+            children: [
+              {
+                text: 'Attend the orientation session scheduled for your first day. You will receive an overview of the program, meet your care coordinator, and set up your personalized care plan.',
+              },
+            ],
+          },
+        ],
       },
     ],
   },
