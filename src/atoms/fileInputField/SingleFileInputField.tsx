@@ -3,7 +3,7 @@ import {
   type FileListItem,
   FileUpload,
 } from '@awell-health/design-system'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './FileInputField.module.scss'
 import { Attachment } from '../../molecules/question/types'
 import '@awell-health/design-system/style.css'
@@ -62,6 +62,20 @@ export const SingleFileInputField: React.FC<Props> = ({
         }
       : undefined
   )
+
+  useEffect(() => {
+    if (!isNil(value) && !isEmpty(value) && !selectedFile) {
+      setSelectedFile({
+        id: value.filename ?? 'untitled',
+        name: value.filename ?? 'untitled',
+        size: value.size ?? 0,
+        type: value.contentType ?? '',
+        url: value.url ?? '',
+        progress: 100,
+        error: undefined,
+      })
+    }
+  }, [value])
 
   const convertErrorMessage = (error: string) => {
     if (error === 'Failed to fetch') {
