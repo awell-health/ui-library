@@ -79,7 +79,7 @@ export const SingleFileInputField: React.FC<Props> = ({
 
   const convertErrorMessage = (error: string) => {
     if (error === 'Failed to fetch') {
-      // TODO: add a translation
+      // TODO: add a translation here and everywhere else
       return 'File upload failed. Please remove this file and try again.'
     }
     return error
