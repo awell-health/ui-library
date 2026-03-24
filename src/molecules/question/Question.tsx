@@ -499,14 +499,16 @@ export const QuestionData = ({
           }}
           render={({
             field: { onChange: onControllerChange, onBlur, value },
+            fieldState: { error: fieldError },
           }) => {
             return (
               <SingleFileInputField
                 id={question.id}
                 value={custom_json_parser(value as string, '')}
                 onChange={(attachment: Attachment | undefined) => {
-                  console.log('attachment', attachment?.contentType)
-                  onControllerChange(JSON.stringify(attachment))
+                  onControllerChange(
+                    attachment ? JSON.stringify(attachment) : ''
+                  )
                   onAnswerChange()
                 }}
                 onBlur={onBlur}
@@ -517,6 +519,7 @@ export const QuestionData = ({
                 onFileUpload={onFileUpload}
                 label={question.title}
                 mandatory={config?.mandatory}
+                error={fieldError?.message}
               />
             )
           }}
@@ -540,13 +543,16 @@ export const QuestionData = ({
           }}
           render={({
             field: { onChange: onControllerChange, onBlur, value },
+            fieldState: { error: fieldError },
           }) => {
             return (
               <SingleFileInputField
                 id={question.id}
                 value={custom_json_parser(value as string, '')}
                 onChange={(attachment: Attachment | undefined) => {
-                  onControllerChange(JSON.stringify(attachment))
+                  onControllerChange(
+                    attachment ? JSON.stringify(attachment) : ''
+                  )
                   onAnswerChange()
                 }}
                 onBlur={onBlur}
@@ -559,6 +565,7 @@ export const QuestionData = ({
                 onFileUpload={onFileUpload}
                 label={question.title}
                 mandatory={config?.mandatory}
+                error={fieldError?.message}
               />
             )
           }}

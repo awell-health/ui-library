@@ -323,34 +323,13 @@ export const useValidate = (): UseValidateHook => {
     errorType?: AttachmentsValidationErrorType
   } => {
     const inputRequired = questionConfig?.mandatory
+    const hasValue = !isNil(value) && !isEmpty(value)
 
-    const parseAttachments = (val: string) => {
-      try {
-        return JSON.parse(val)
-      } catch (error) {
-        return []
-      }
+    if (inputRequired && !hasValue) {
+      return { isValid: false, errorType: 'REQUIRED' }
     }
 
-    const attachments = parseAttachments(value)
-
-    // skip validation if input is not required and empty
-    if (inputRequired === false && isEmpty(attachments)) {
-      return {
-        isValid: true,
-      }
-    }
-
-    if (attachments.length === 0) {
-      return {
-        isValid: false,
-        errorType: 'REQUIRED',
-      }
-    }
-
-    return {
-      isValid: true,
-    }
+    return { isValid: true }
   }
 
   const validateInputValidationResponse = (
