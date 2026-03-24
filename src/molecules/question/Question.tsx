@@ -506,6 +506,7 @@ export const QuestionData = ({
                 id={question.id}
                 value={custom_json_parser(value as string, '')}
                 onChange={(attachment: Attachment | undefined) => {
+                  console.log('attachment', attachment?.contentType)
                   onControllerChange(
                     attachment ? JSON.stringify(attachment) : ''
                   )
