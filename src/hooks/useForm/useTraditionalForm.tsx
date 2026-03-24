@@ -121,15 +121,16 @@ const useTraditionalForm = ({
   }
 
   const submitForm = async () => {
+    let currentVisibleQuestions = visibleQuestions
     try {
-      await updateQuestionVisibility()
+      currentVisibleQuestions = await updateQuestionVisibility()
     } catch (error) {
       console.error('Failed to evaluate display conditions:', error)
       setFormHasErrors(true)
       return
     }
 
-    const formErrors = visibleQuestions.flatMap((vq) =>
+    const formErrors = currentVisibleQuestions.flatMap((vq) =>
       getErrorsForQuestion(
         vq,
         formMethods,

@@ -199,7 +199,7 @@ const useConversationalForm = ({
         return handleGoToNextQuestion()
       }
 
-      const hasErrors = handleCheckForErrors(visibleQuestions?.[current])
+      const hasErrors = handleCheckForErrors(updatedQuestions?.[current])
       if (!hasErrors) {
         formMethods.handleSubmit(handleConvertAndSubmitForm, (rhfErrors) => {
           console.error('Form validation errors:', rhfErrors)
