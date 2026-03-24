@@ -110,12 +110,25 @@ const useTraditionalForm = ({
       return
     }
     setIsSubmittingForm(true)
-    await onSubmit(convertToAwellInput(formResponse))
-    setIsSubmittingForm(false)
+    try {
+      await onSubmit(convertToAwellInput(formResponse))
+    } catch (error) {
+      console.error('Form submission failed:', error)
+      setFormHasErrors(true)
+    } finally {
+      setIsSubmittingForm(false)
+    }
   }
 
   const submitForm = async () => {
-    await updateQuestionVisibility()
+    try {
+      await updateQuestionVisibility()
+    } catch (error) {
+      console.error('Failed to evaluate display conditions:', error)
+      setFormHasErrors(true)
+      return
+    }
+
     const formErrors = visibleQuestions.flatMap((vq) =>
       getErrorsForQuestion(
         vq,
@@ -132,7 +145,10 @@ const useTraditionalForm = ({
     setErrors(formErrors)
     if (formErrors.length === 0) {
       setFormHasErrors(false)
-      formMethods.handleSubmit(handleConvertAndSubmitForm)()
+      formMethods.handleSubmit(handleConvertAndSubmitForm, (rhfErrors) => {
+        console.error('Form validation errors:', rhfErrors)
+        setFormHasErrors(true)
+      })()
     } else {
       setFormHasErrors(true)
     }

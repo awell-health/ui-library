@@ -147,7 +147,9 @@ const useConversationalForm = ({
         const updatedQuestions = await updateQuestionVisibility()
         const isLastVisibleQuestion = current === updatedQuestions.length - 1
         if (isLastVisibleQuestion) {
-          formMethods.handleSubmit(handleConvertAndSubmitForm)()
+          formMethods.handleSubmit(handleConvertAndSubmitForm, (rhfErrors) => {
+            console.error('Form validation errors:', rhfErrors)
+          })()
           return
         }
       } finally {
@@ -180,13 +182,18 @@ const useConversationalForm = ({
       return
     }
     setIsSubmittingForm(true)
-    await onSubmit(convertToAwellInput(formResponse))
-    setIsSubmittingForm(false)
+    try {
+      await onSubmit(convertToAwellInput(formResponse))
+    } catch (error) {
+      console.error('Form submission failed:', error)
+    } finally {
+      setIsSubmittingForm(false)
+    }
   }
 
   const submitForm = async () => {
-    await updateQuestionVisibility().then((updatedQuestions) => {
-      // check if there are new visible questions after evaluating rules
+    try {
+      const updatedQuestions = await updateQuestionVisibility()
       const doNextQuestionExist = current !== updatedQuestions.length - 1
       if (doNextQuestionExist) {
         return handleGoToNextQuestion()
@@ -194,9 +201,13 @@ const useConversationalForm = ({
 
       const hasErrors = handleCheckForErrors(visibleQuestions?.[current])
       if (!hasErrors) {
-        formMethods.handleSubmit(handleConvertAndSubmitForm)()
+        formMethods.handleSubmit(handleConvertAndSubmitForm, (rhfErrors) => {
+          console.error('Form validation errors:', rhfErrors)
+        })()
       }
-    })
+    } catch (error) {
+      console.error('Failed to evaluate display conditions:', error)
+    }
   }
 
   return {
