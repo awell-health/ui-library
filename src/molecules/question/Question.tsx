@@ -9,8 +9,15 @@ import {
   Text,
   RangeInput,
   Description,
-  Select,
 } from '../../atoms'
+import { Select as DesignSystemSelect } from '@awell-health/design-system'
+import {
+  optionsToSelectItems,
+  multiValueToSelectItems,
+  singleValueToSelectItem,
+  selectValueToOptions,
+  selectValueToSingleValue,
+} from './helpers/selectAdapters'
 import classes from './question.module.scss'
 import React, { useLayoutEffect, useState } from 'react'
 import { Attachment, QuestionDataProps, QuestionProps } from './types'
@@ -115,25 +122,21 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             if (config?.use_select === true) {
               return (
-                <Select
-                  id={question.id}
-                  value={value}
-                  labels={{
-                    questionLabel: question.title,
-                    placeholder: labels.select?.search_placeholder,
-                    noOptions: labels.select?.no_options,
-                  }}
-                  onChange={(data) => {
-                    onChange(data)
-                    if (value !== data) {
+                <DesignSystemSelect
+                  label={question.title}
+                  value={multiValueToSelectItems(value)}
+                  placeholder={labels.select?.search_placeholder}
+                  onChange={(selected) => {
+                    const mapped = selectValueToOptions(selected)
+                    onChange(mapped)
+                    if (value !== mapped) {
                       onAnswerChange()
                     }
                   }}
-                  type="multiple"
-                  options={question.options ?? []}
-                  mandatory={config?.mandatory}
-                  showCount
-                  filtering
+                  isMulti
+                  options={optionsToSelectItems(question.options ?? [])}
+                  required={config?.mandatory}
+                  isSearchable
                 />
               )
             }
@@ -165,23 +168,21 @@ export const QuestionData = ({
           render={({ field: { onChange, value } }) => {
             if (config?.use_select === true) {
               return (
-                <Select
-                  id={question.id}
-                  value={value}
-                  labels={{
-                    questionLabel: question.title,
-                    placeholder: labels.select?.search_placeholder,
-                    noOptions: labels.select?.no_options,
-                  }}
-                  onChange={(data) => {
-                    onChange(data)
+                <DesignSystemSelect
+                  label={question.title}
+                  value={singleValueToSelectItem(
+                    value,
+                    question.options ?? []
+                  )}
+                  placeholder={labels.select?.search_placeholder}
+                  onChange={(selected) => {
+                    const mapped = selectValueToSingleValue(selected)
+                    onChange(mapped)
                     onAnswerChange()
                   }}
-                  type="single"
-                  options={question.options ?? []}
-                  mandatory={config?.mandatory}
-                  showCount
-                  filtering
+                  options={optionsToSelectItems(question.options ?? [])}
+                  required={config?.mandatory}
+                  isSearchable
                 />
               )
             }
@@ -445,27 +446,26 @@ export const QuestionData = ({
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => (
             <>
-              <Select
-                id={question.id}
-                value={value}
-                labels={{
-                  questionLabel: question.title,
-                  placeholder: labels.select?.search_icd_placeholder,
-                  noOptions: labels.select?.no_options,
-                }}
-                onChange={(data) => {
-                  onChange(data)
+              <DesignSystemSelect
+                label={question.title}
+                value={singleValueToSelectItem(
+                  value,
+                  icdClassificationOptions ?? []
+                )}
+                placeholder={labels.select?.search_icd_placeholder}
+                onChange={(selected) => {
+                  const mapped = selectValueToSingleValue(selected)
+                  onChange(mapped)
                   onAnswerChange()
                 }}
-                type="single"
-                options={icdClassificationOptions ?? []}
-                mandatory={config?.mandatory}
-                showCount
-                filtering
-                onSearch={onIcdClassificationSearchChange}
-                loading={optionsLoading}
-                allowSearchAfterSelect={true}
-                allowEmptyOptionsList={true}
+                options={optionsToSelectItems(
+                  icdClassificationOptions ?? []
+                )}
+                required={config?.mandatory}
+                isSearchable
+                isClearable
+                handleInputChange={onIcdClassificationSearchChange}
+                disabled={optionsLoading && !icdClassificationOptions?.length}
               />
               <span className={classes.awell_question_description}>
                 {labels.select?.icd_10_catalogue_description}{' '}
