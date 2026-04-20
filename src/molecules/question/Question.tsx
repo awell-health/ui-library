@@ -9,8 +9,12 @@ import {
   Text,
   RangeInput,
   Description,
+  Select as UILibrarySelect,
 } from '../../atoms'
-import { Select as DesignSystemSelect } from '@awell-health/design-system'
+import {
+  Select as DesignSystemSelect,
+  DateRangeSelect,
+} from '@awell-health/design-system'
 import {
   optionsToSelectItems,
   multiValueToSelectItems,
@@ -170,10 +174,7 @@ export const QuestionData = ({
               return (
                 <DesignSystemSelect
                   label={question.title}
-                  value={singleValueToSelectItem(
-                    value,
-                    question.options ?? []
-                  )}
+                  value={singleValueToSelectItem(value, question.options ?? [])}
                   placeholder={labels.select?.search_placeholder}
                   onChange={(selected) => {
                     const mapped = selectValueToSingleValue(selected)
@@ -446,26 +447,27 @@ export const QuestionData = ({
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => (
             <>
-              <DesignSystemSelect
-                label={question.title}
-                value={singleValueToSelectItem(
-                  value,
-                  icdClassificationOptions ?? []
-                )}
-                placeholder={labels.select?.search_icd_placeholder}
-                onChange={(selected) => {
-                  const mapped = selectValueToSingleValue(selected)
-                  onChange(mapped)
+              <UILibrarySelect
+                id={question.id}
+                value={value}
+                labels={{
+                  questionLabel: question.title,
+                  placeholder: labels.select?.search_icd_placeholder,
+                  noOptions: labels.select?.no_options,
+                }}
+                onChange={(data) => {
+                  onChange(data)
                   onAnswerChange()
                 }}
-                options={optionsToSelectItems(
-                  icdClassificationOptions ?? []
-                )}
-                required={config?.mandatory}
-                isSearchable
-                isClearable
-                handleInputChange={onIcdClassificationSearchChange}
-                disabled={optionsLoading && !icdClassificationOptions?.length}
+                type="single"
+                options={icdClassificationOptions ?? []}
+                mandatory={config?.mandatory}
+                showCount
+                filtering
+                onSearch={onIcdClassificationSearchChange}
+                loading={optionsLoading}
+                allowSearchAfterSelect={true}
+                allowEmptyOptionsList={true}
               />
               <span className={classes.awell_question_description}>
                 {labels.select?.icd_10_catalogue_description}{' '}
