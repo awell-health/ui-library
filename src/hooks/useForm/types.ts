@@ -42,6 +42,11 @@ export type ErrorLabels = {
 
 export type AnswerValue = string | number | number[] | undefined
 
+export interface AnswerChange {
+  questionId: string
+  value: unknown
+}
+
 export interface FormSettingsContextProps {
   evaluateDisplayConditions: (
     response: Array<AnswerInput>
@@ -54,7 +59,7 @@ export interface FormSettingsContextProps {
   onAnswersChange?: (answers: string) => void
 }
 export interface ConversationalFormContext {
-  updateQuestionVisibility: (changedQuestionId?: string) => void
+  updateQuestionVisibility: (change?: AnswerChange) => void
   submitForm: () => void
   isSubmittingForm: boolean
   handleGoToNextQuestion: () => void
@@ -69,7 +74,7 @@ export interface ConversationalFormContext {
 }
 
 export interface TraditionalFormContext {
-  updateQuestionVisibility: (changedQuestionId?: string) => void
+  updateQuestionVisibility: (change?: AnswerChange) => void
   submitForm: () => void
   isSubmittingForm: boolean
   formMethods: UseFormReturn

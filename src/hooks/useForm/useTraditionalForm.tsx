@@ -14,6 +14,7 @@ import {
 } from './helpers'
 import {
   AnswerValue,
+  AnswerChange,
   FormError,
   FormSettingsContextProps,
   QuestionWithVisibility,
@@ -55,13 +56,13 @@ const useTraditionalForm = ({
   } = useValidate()
 
   const updateQuestionVisibility = useCallback(
-    async (changedQuestionId?: string) => {
+    async (change?: AnswerChange) => {
       const updatedQuestions = await evaluateQuestionVisibility({
         questions,
         formMethods,
         evaluateDisplayConditions,
         updateVisibilityForQuestions: updateVisibilityForTraditionalForm,
-        changedQuestionId,
+        change,
       })
       setVisibleQuestions(updatedQuestions)
 

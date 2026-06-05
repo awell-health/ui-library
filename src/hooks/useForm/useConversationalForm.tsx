@@ -13,6 +13,7 @@ import {
   updateVisibility,
 } from './helpers'
 import {
+  AnswerChange,
   AnswerValue,
   FormSettingsContextProps,
   FormError,
@@ -55,19 +56,23 @@ const useConversationalForm = ({
   const [percentageCompleted, setPercentageCompleted] = useState(0)
   const [isSubmittingForm, setIsSubmittingForm] = useState(false)
 
-  const updateQuestionVisibility = useCallback(async () => {
-    setIsEvaluatingQuestionVisibility(true)
-    const updatedQuestions = await evaluateQuestionVisibility({
-      questions,
-      formMethods,
-      evaluateDisplayConditions,
-      updateVisibilityForQuestions: updateVisibility,
-    })
-    setVisibleQuestions(updatedQuestions)
-    setIsEvaluatingQuestionVisibility(false)
+  const updateQuestionVisibility = useCallback(
+    async (change?: AnswerChange) => {
+      setIsEvaluatingQuestionVisibility(true)
+      const updatedQuestions = await evaluateQuestionVisibility({
+        questions,
+        formMethods,
+        evaluateDisplayConditions,
+        updateVisibilityForQuestions: updateVisibility,
+        change,
+      })
+      setVisibleQuestions(updatedQuestions)
+      setIsEvaluatingQuestionVisibility(false)
 
-    return updatedQuestions
-  }, [JSON.stringify(questions)])
+      return updatedQuestions
+    },
+    [JSON.stringify(questions)]
+  )
 
   useEffect(() => {
     // If the form is not dirty or we don't autosave, we don't need to update the stored answers

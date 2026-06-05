@@ -1,5 +1,6 @@
 import { UseFormReturn } from 'react-hook-form'
 import {
+  AnswerInput,
   BooleanOperator,
   DataPointValueType,
   Question,
@@ -123,6 +124,53 @@ describe('useForm helpers', () => {
   })
 
   describe('evaluateQuestionVisibility', () => {
+    it('uses the changed answer value when evaluating before form state updates', async () => {
+      const questions = [
+        createQuestion({ id: 'q1' }),
+        createQuestion({ id: 'q2', references: ['q1'] }),
+      ]
+      const values = {
+        q1: '1',
+        q2: '',
+      }
+      const formMethods = createFormMethods(values)
+      const evaluateDisplayConditions = jest.fn(
+        async (answers: Array<AnswerInput>) => {
+          const q1Answer = answers.find(
+            ({ question_id }) => question_id === 'q1'
+          )
+
+          return [
+            {
+              question_id: 'q2',
+              rule_id: 'q2-rule',
+              satisfied: q1Answer?.value === '2',
+            },
+          ]
+        }
+      )
+
+      const visibleQuestions = await evaluateQuestionVisibility({
+        questions,
+        formMethods,
+        evaluateDisplayConditions,
+        updateVisibilityForQuestions: updateVisibility,
+        change: {
+          questionId: 'q1',
+          value: '2',
+        },
+      })
+
+      expect(evaluateDisplayConditions).toHaveBeenLastCalledWith([
+        {
+          question_id: 'q1',
+          value: '2',
+        },
+      ])
+      expect(visibleQuestions.map(({ id }) => id)).toEqual(['q1', 'q2'])
+      expect(values.q1).toBe('1')
+    })
+
     it('resets dependent and hidden answers before returning visible questions', async () => {
       const questions = [
         createQuestion({ id: 'q1' }),
@@ -135,29 +183,36 @@ describe('useForm helpers', () => {
         q3: '1',
       }
       const formMethods = createFormMethods(values)
-      const evaluateDisplayConditions = jest.fn(async (answers) => {
-        const q2Answer = answers.find(({ question_id }) => question_id === 'q2')
+      const evaluateDisplayConditions = jest.fn(
+        async (answers: Array<AnswerInput>) => {
+          const q2Answer = answers.find(
+            ({ question_id }) => question_id === 'q2'
+          )
 
-        return [
-          {
-            question_id: 'q2',
-            rule_id: 'q2-rule',
-            satisfied: true,
-          },
-          {
-            question_id: 'q3',
-            rule_id: 'q3-rule',
-            satisfied: q2Answer?.value === '1',
-          },
-        ]
-      })
+          return [
+            {
+              question_id: 'q2',
+              rule_id: 'q2-rule',
+              satisfied: true,
+            },
+            {
+              question_id: 'q3',
+              rule_id: 'q3-rule',
+              satisfied: q2Answer?.value === '1',
+            },
+          ]
+        }
+      )
 
       const visibleQuestions = await evaluateQuestionVisibility({
         questions,
         formMethods,
         evaluateDisplayConditions,
         updateVisibilityForQuestions: updateVisibility,
-        changedQuestionId: 'q1',
+        change: {
+          questionId: 'q1',
+          value: '2',
+        },
       })
 
       expect(formMethods.resetField).toHaveBeenCalledWith('q2', {

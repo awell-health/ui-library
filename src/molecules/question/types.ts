@@ -1,6 +1,11 @@
 import { FormError, Question } from '../../types'
 import { Control, UseFormGetValues } from 'react-hook-form'
 
+export interface AnswerChange {
+  questionId: string
+  value: unknown
+}
+
 export interface QuestionLabels {
   yes_label: string
   no_label: string
@@ -24,7 +29,7 @@ export interface QuestionDataProps {
   labels: QuestionLabels
   inputAutoFocus?: boolean
   submitAndMoveToNextQuestion?: () => void
-  onAnswerChange?: (questionId?: string) => void
+  onAnswerChange?: (change?: AnswerChange) => void
   shouldAutoProgress?: (question: Question) => boolean
   onFileUpload?: (file: File, configSlug?: string) => Promise<string>
 }
@@ -36,7 +41,7 @@ export interface QuestionProps {
   labels?: QuestionLabels
   inputAutoFocus?: boolean
   submitAndMoveToNextQuestion?: () => void
-  onAnswerChange?: (questionId?: string) => void
+  onAnswerChange?: (change?: AnswerChange) => void
   shouldAutoProgress?: (question: Question) => boolean
   onFileUpload?: (file: File, configSlug?: string) => Promise<string>
 }

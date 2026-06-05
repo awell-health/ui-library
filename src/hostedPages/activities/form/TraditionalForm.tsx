@@ -69,11 +69,7 @@ export const TraditionalForm = ({
                         key={visibleQuestion.id}
                         errors={errors}
                         inputAutoFocus={false}
-                        onAnswerChange={(questionId) => {
-                          setTimeout(() => {
-                            updateQuestionVisibility(questionId)
-                          }, 0)
-                        }}
+                        onAnswerChange={updateQuestionVisibility}
                         labels={questionLabels}
                         onFileUpload={onFileUpload}
                       />

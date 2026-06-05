@@ -7,7 +7,12 @@ import {
   FormError,
   AnswerInput,
 } from '../../types'
-import { AnswerValue, ErrorLabels, QuestionRuleResult } from './types'
+import {
+  AnswerChange,
+  AnswerValue,
+  ErrorLabels,
+  QuestionRuleResult,
+} from './types'
 import { CountryIso2 } from 'react-international-phone'
 import {
   Maybe,
@@ -70,7 +75,8 @@ export const getDependentQuestionIds = (
       continue
     }
 
-    const currentQuestionReferences = getQuestionReferenceValues(currentQuestion)
+    const currentQuestionReferences =
+      getQuestionReferenceValues(currentQuestion)
 
     questions.forEach((question) => {
       if (
@@ -124,7 +130,7 @@ interface EvaluateQuestionVisibilityParams {
     questions: Array<Question>,
     evaluationResults: Array<QuestionRuleResult>
   ) => Array<QuestionWithVisibility>
-  changedQuestionId?: string
+  change?: AnswerChange
 }
 
 export const evaluateQuestionVisibility = async ({
@@ -132,11 +138,13 @@ export const evaluateQuestionVisibility = async ({
   formMethods,
   evaluateDisplayConditions,
   updateVisibilityForQuestions,
-  changedQuestionId,
-}: EvaluateQuestionVisibilityParams): Promise<Array<QuestionWithVisibility>> => {
+  change,
+}: EvaluateQuestionVisibilityParams): Promise<
+  Array<QuestionWithVisibility>
+> => {
   const dependentQuestionIds = getDependentQuestionIds(
     questions,
-    changedQuestionId
+    change?.questionId
   )
 
   dependentQuestionIds.forEach((questionId) => {
@@ -150,7 +158,11 @@ export const evaluateQuestionVisibility = async ({
   let questionsWithVisibility: Array<QuestionWithVisibility> = []
 
   for (let attempt = 0; attempt <= questions.length; attempt += 1) {
-    const formValuesInput = convertToAwellInput(getDirtyFieldValues(formMethods))
+    const dirtyValues = getDirtyFieldValues(formMethods)
+    const formValuesInput = convertToAwellInput({
+      ...dirtyValues,
+      ...(change ? { [change.questionId]: change.value } : {}),
+    })
     const evaluationResults = await evaluateDisplayConditions(formValuesInput)
     questionsWithVisibility = updateVisibilityForQuestions(
       questions,
