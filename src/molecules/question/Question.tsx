@@ -11,10 +11,7 @@ import {
   Description,
   Select as UILibrarySelect,
 } from '../../atoms'
-import {
-  Select as DesignSystemSelect,
-  DateRangeSelect,
-} from '@awell-health/design-system'
+import { Select as DesignSystemSelect } from '@awell-health/design-system'
 import {
   optionsToSelectItems,
   multiValueToSelectItems,

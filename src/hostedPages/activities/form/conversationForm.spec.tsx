@@ -4,6 +4,12 @@ import '@testing-library/jest-dom'
 
 import { ConversationalForm as ConversationalFormComponent } from './ConversationalForm'
 import {
+  BooleanOperator,
+  DataPointValueType,
+  QuestionType,
+  UserQuestionType,
+} from '../../../types/generated/types-orchestration'
+import {
   form as formData,
   sliderQuestionForm,
   formWithTwoRequiredSingleSelectQuestions,
@@ -41,11 +47,104 @@ const normalizedFirstQuestionTitle = firstQuestion.title.replace('\n\n', ' ')
 const normalizedSecondQuestionTitle = secondQuestion.title.replace('\n\n', ' ')
 const { buttonLabels, errorLabels } = props
 
+const cascadingLogicForm: Form = {
+  id: 'conversational-cascading-logic-form',
+  title: 'Conversational cascading logic form',
+  key: 'conversationalCascadingLogicForm',
+  definition_id: '',
+  release_id: '',
+  questions: [
+    {
+      id: 'q1',
+      title: 'Q1',
+      definition_id: '',
+      key: 'q1',
+      dataPointValueType: DataPointValueType.String,
+      options: [
+        {
+          id: 'q1-a',
+          label: 'Q1 A',
+          value: 1,
+          value_string: '1',
+        },
+        {
+          id: 'q1-b',
+          label: 'Q1 B',
+          value: 2,
+          value_string: '2',
+        },
+      ],
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+    },
+    {
+      id: 'q2',
+      title: 'Q2',
+      definition_id: '',
+      key: 'q2',
+      dataPointValueType: DataPointValueType.String,
+      options: [
+        {
+          id: 'q2-x',
+          label: 'Q2 X',
+          value: 1,
+          value_string: '1',
+        },
+      ],
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+      rule: {
+        id: 'q2-rule',
+        boolean_operator: BooleanOperator.And,
+        conditions: [],
+      },
+    },
+    {
+      id: 'q3',
+      title: 'Q3',
+      definition_id: '',
+      key: 'q3',
+      dataPointValueType: DataPointValueType.String,
+      options: [
+        {
+          id: 'q3-y',
+          label: 'Q3 Y',
+          value: 1,
+          value_string: '1',
+        },
+      ],
+      questionType: QuestionType.MultipleChoice,
+      userQuestionType: UserQuestionType.MultipleChoice,
+      questionConfig: {
+        recode_enabled: false,
+        mandatory: false,
+        slider: null,
+      },
+      rule: {
+        id: 'q3-rule',
+        boolean_operator: BooleanOperator.And,
+        conditions: [],
+      },
+    },
+  ],
+}
+
 const renderConversationalFormComponent = (
   form: Form,
   evaluateDisplayConditions: (
     response: AnswerInput[]
-  ) => Promise<QuestionRuleResult[]>
+  ) => Promise<QuestionRuleResult[]>,
+  onSubmit: (response: AnswerInput[]) => Promise<void> | void = () => null
 ) => {
   act(() => {
     render(
@@ -53,7 +152,7 @@ const renderConversationalFormComponent = (
         form={form}
         buttonLabels={buttonLabels}
         errorLabels={errorLabels}
-        onSubmit={() => null}
+        onSubmit={onSubmit}
         evaluateDisplayConditions={evaluateDisplayConditions}
       />
     )
@@ -64,6 +163,13 @@ const clickNextButton = async () => {
   const nextButton = await screen.findByText(buttonLabels.next)
   await act(async () => {
     fireEvent.click(nextButton)
+  })
+}
+
+const clickSubmitButton = async () => {
+  const submitButton = await screen.findByText(buttonLabels.submit)
+  await act(async () => {
+    fireEvent.click(submitButton)
   })
 }
 
@@ -238,6 +344,86 @@ describe('Conversational Form', () => {
 
     expect(questionTitleAfterClick).toBeInTheDocument()
     expect(errorMessage).toBeInTheDocument()
+  })
+
+  it('Should not navigate to stale downstream questions after changing an upstream answer', async () => {
+    const onSubmit = jest.fn()
+    const evaluateCascadingDisplayConditions = jest.fn(
+      async (response: AnswerInput[]) => {
+        const q1Answer = response.find(
+          ({ question_id }) => question_id === 'q1'
+        )
+        const q2Answer = response.find(
+          ({ question_id }) => question_id === 'q2'
+        )
+
+        return [
+          {
+            question_id: 'q2',
+            rule_id: 'q2-rule',
+            satisfied: q1Answer?.value === '1',
+          },
+          {
+            question_id: 'q3',
+            rule_id: 'q3-rule',
+            satisfied: q2Answer?.value === '1',
+          },
+        ]
+      }
+    )
+
+    renderConversationalFormComponent(
+      cascadingLogicForm,
+      evaluateCascadingDisplayConditions,
+      onSubmit
+    )
+
+    await waitFor(() => expect(screen.getByText('Q1')).toBeInTheDocument())
+
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Q1 A'))
+    })
+    await clickSubmitButton()
+    await waitFor(() => expect(screen.getByText('Q2')).toBeInTheDocument())
+
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Q2 X'))
+    })
+    await clickSubmitButton()
+    await waitFor(() => expect(screen.getByText('Q3')).toBeInTheDocument())
+
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Q3 Y'))
+    })
+    await clickPrevButton()
+    await waitFor(() => expect(screen.getByText('Q2')).toBeInTheDocument())
+    await clickPrevButton()
+    await waitFor(() => expect(screen.getByText('Q1')).toBeInTheDocument())
+
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Q1 B'))
+    })
+    await clickNextButton()
+
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledTimes(1)
+    })
+
+    expect(onSubmit).toHaveBeenCalledWith([
+      {
+        question_id: 'q1',
+        value: '2',
+      },
+      {
+        question_id: 'q2',
+        value: '',
+      },
+      {
+        question_id: 'q3',
+        value: '',
+      },
+    ])
+    expect(screen.queryByText('Q3')).not.toBeInTheDocument()
   })
 })
 

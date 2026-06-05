@@ -6,6 +6,7 @@ import {
   convertToAwellInput,
   convertToFormFormat,
   getDirtyFieldValues,
+  getDefaultValue,
   getErrorsForQuestion,
   getInitialValues,
   isEmpty,
@@ -55,14 +56,45 @@ const useTraditionalForm = ({
   } = useValidate()
 
   const updateQuestionVisibility = useCallback(async () => {
-    const formValuesInput = convertToAwellInput(
-      getDirtyFieldValues(formMethods)
-    )
-    const evaluationResults = await evaluateDisplayConditions(formValuesInput)
-    const updatedQuestions = updateVisibilityForTraditionalForm(
-      questions,
-      evaluationResults
-    ).filter((e) => e.visible)
+    let questionsWithVisibility: Array<QuestionWithVisibility> = []
+
+    for (let attempt = 0; attempt <= questions.length; attempt += 1) {
+      const formValuesInput = convertToAwellInput(
+        getDirtyFieldValues(formMethods)
+      )
+      const evaluationResults = await evaluateDisplayConditions(formValuesInput)
+      questionsWithVisibility = updateVisibilityForTraditionalForm(
+        questions,
+        evaluationResults
+      )
+
+      const didResetHiddenAnswer = questionsWithVisibility
+        .filter((question) => !question.visible)
+        .reduce((didReset, question) => {
+          const defaultValue = getDefaultValue(question)
+          const currentValue = formMethods.getValues(question.id)
+          const fieldState = formMethods.getFieldState(question.id)
+          const hasNonDefaultValue =
+            JSON.stringify(currentValue) !== JSON.stringify(defaultValue)
+
+          if (
+            !fieldState.isDirty &&
+            !fieldState.isTouched &&
+            !hasNonDefaultValue
+          ) {
+            return didReset
+          }
+
+          formMethods.resetField(question.id, { defaultValue })
+          return true
+        }, false)
+
+      if (!didResetHiddenAnswer) {
+        break
+      }
+    }
+
+    const updatedQuestions = questionsWithVisibility.filter((e) => e.visible)
     setVisibleQuestions(updatedQuestions)
 
     return updatedQuestions
