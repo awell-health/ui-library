@@ -84,7 +84,12 @@ const cascadingLogicForm: Form = {
       rule: {
         id: 'q2-rule',
         boolean_operator: BooleanOperator.And,
-        conditions: [],
+        conditions: [
+          {
+            id: 'q2-condition',
+            reference: 'q1',
+          },
+        ],
       },
     },
     {
@@ -111,7 +116,12 @@ const cascadingLogicForm: Form = {
       rule: {
         id: 'q3-rule',
         boolean_operator: BooleanOperator.And,
-        conditions: [],
+        conditions: [
+          {
+            id: 'q3-condition',
+            reference: 'q2',
+          },
+        ],
       },
     },
   ],
@@ -195,6 +205,77 @@ describe('Traditional form', () => {
 
     await waitFor(() => {
       expect(screen.queryByText('Q2')).not.toBeInTheDocument()
+      expect(screen.queryByText('Q3')).not.toBeInTheDocument()
+    })
+
+    await waitFor(() => {
+      const lastAutosavedAnswers = JSON.parse(
+        onAnswersChange.mock.calls[onAnswersChange.mock.calls.length - 1][0]
+      )
+
+      expect(lastAutosavedAnswers.q1).toEqual({
+        id: 'q1-b',
+        label: 'Q1 B',
+        value: 2,
+        value_string: '2',
+      })
+      expect(lastAutosavedAnswers.q2).toBe('')
+      expect(lastAutosavedAnswers.q3).toBe('')
+    })
+  })
+
+  it('clears dependent answers when an upstream answer changes and the dependent question stays visible', async () => {
+    const evaluateDisplayConditions = jest.fn(
+      async (response: AnswerInput[]) => {
+        const q1Answer = response.find(
+          ({ question_id }) => question_id === 'q1'
+        )
+        const q2Answer = response.find(
+          ({ question_id }) => question_id === 'q2'
+        )
+
+        return [
+          {
+            question_id: 'q2',
+            rule_id: 'q2-rule',
+            satisfied: q1Answer?.value === '1' || q1Answer?.value === '2',
+          },
+          {
+            question_id: 'q3',
+            rule_id: 'q3-rule',
+            satisfied: q2Answer?.value === '1',
+          },
+        ]
+      }
+    )
+    const onAnswersChange = jest.fn()
+
+    renderTraditionalFormComponent(
+      cascadingLogicForm,
+      evaluateDisplayConditions,
+      onAnswersChange
+    )
+
+    await waitFor(() => expect(screen.getByText('Q1')).toBeInTheDocument())
+
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Q1 A'))
+    })
+
+    await waitFor(() => expect(screen.getByText('Q2')).toBeInTheDocument())
+
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Q2 X'))
+    })
+
+    await waitFor(() => expect(screen.getByText('Q3')).toBeInTheDocument())
+
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Q1 B'))
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText('Q2')).toBeInTheDocument()
       expect(screen.queryByText('Q3')).not.toBeInTheDocument()
     })
 

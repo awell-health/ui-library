@@ -3,10 +3,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useValidate } from '../useValidate'
 import {
-  convertToAwellInput,
   convertToFormFormat,
-  getDirtyFieldValues,
-  getDefaultValue,
+  convertToAwellInput,
+  evaluateQuestionVisibility,
   getErrorsForQuestion,
   getInitialValues,
   isEmpty,
@@ -55,50 +54,21 @@ const useTraditionalForm = ({
     validateInputValidationResponse,
   } = useValidate()
 
-  const updateQuestionVisibility = useCallback(async () => {
-    let questionsWithVisibility: Array<QuestionWithVisibility> = []
-
-    for (let attempt = 0; attempt <= questions.length; attempt += 1) {
-      const formValuesInput = convertToAwellInput(
-        getDirtyFieldValues(formMethods)
-      )
-      const evaluationResults = await evaluateDisplayConditions(formValuesInput)
-      questionsWithVisibility = updateVisibilityForTraditionalForm(
+  const updateQuestionVisibility = useCallback(
+    async (changedQuestionId?: string) => {
+      const updatedQuestions = await evaluateQuestionVisibility({
         questions,
-        evaluationResults
-      )
+        formMethods,
+        evaluateDisplayConditions,
+        updateVisibilityForQuestions: updateVisibilityForTraditionalForm,
+        changedQuestionId,
+      })
+      setVisibleQuestions(updatedQuestions)
 
-      const didResetHiddenAnswer = questionsWithVisibility
-        .filter((question) => !question.visible)
-        .reduce((didReset, question) => {
-          const defaultValue = getDefaultValue(question)
-          const currentValue = formMethods.getValues(question.id)
-          const fieldState = formMethods.getFieldState(question.id)
-          const hasNonDefaultValue =
-            JSON.stringify(currentValue) !== JSON.stringify(defaultValue)
-
-          if (
-            !fieldState.isDirty &&
-            !fieldState.isTouched &&
-            !hasNonDefaultValue
-          ) {
-            return didReset
-          }
-
-          formMethods.resetField(question.id, { defaultValue })
-          return true
-        }, false)
-
-      if (!didResetHiddenAnswer) {
-        break
-      }
-    }
-
-    const updatedQuestions = questionsWithVisibility.filter((e) => e.visible)
-    setVisibleQuestions(updatedQuestions)
-
-    return updatedQuestions
-  }, [JSON.stringify(questions)])
+      return updatedQuestions
+    },
+    [JSON.stringify(questions)]
+  )
 
   useEffect(() => {
     // If the form is not dirty or we don't autosave, we don't need to update the stored answers

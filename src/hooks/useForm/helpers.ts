@@ -5,6 +5,7 @@ import {
   UserQuestionType,
   QuestionWithVisibility,
   FormError,
+  AnswerInput,
 } from '../../types'
 import { AnswerValue, ErrorLabels, QuestionRuleResult } from './types'
 import { CountryIso2 } from 'react-international-phone'
@@ -40,6 +41,137 @@ export const getInitialValues = (
       [item.id]: getDefaultValue(item),
     }
   }, {})
+
+const getQuestionReferenceValues = (question: Question): Array<string> =>
+  [question.id, question.key, question.definition_id].filter(Boolean)
+
+export const getDependentQuestionIds = (
+  questions: Array<Question>,
+  changedQuestionId?: string
+): Array<string> => {
+  if (!changedQuestionId) {
+    return []
+  }
+
+  const changedQuestion = questions.find(({ id }) => id === changedQuestionId)
+
+  if (!changedQuestion) {
+    return []
+  }
+
+  const dependentQuestionIds = new Set<string>()
+  const questionIdsToCheck = [changedQuestion.id]
+
+  while (questionIdsToCheck.length > 0) {
+    const currentQuestionId = questionIdsToCheck.shift()
+    const currentQuestion = questions.find(({ id }) => id === currentQuestionId)
+
+    if (!currentQuestion) {
+      continue
+    }
+
+    const currentQuestionReferences = getQuestionReferenceValues(currentQuestion)
+
+    questions.forEach((question) => {
+      if (
+        question.id === changedQuestion.id ||
+        dependentQuestionIds.has(question.id)
+      ) {
+        return
+      }
+
+      const dependsOnCurrentQuestion = question.rule?.conditions?.some(
+        ({ reference, reference_key }) =>
+          currentQuestionReferences.includes(reference ?? '') ||
+          currentQuestionReferences.includes(reference_key ?? '')
+      )
+
+      if (dependsOnCurrentQuestion) {
+        dependentQuestionIds.add(question.id)
+        questionIdsToCheck.push(question.id)
+      }
+    })
+  }
+
+  return Array.from(dependentQuestionIds)
+}
+
+const resetQuestionToDefault = (
+  formMethods: UseFormReturn,
+  question: Question
+): boolean => {
+  const defaultValue = getDefaultValue(question)
+  const currentValue = formMethods.getValues(question.id)
+  const fieldState = formMethods.getFieldState(question.id)
+  const hasNonDefaultValue =
+    JSON.stringify(currentValue) !== JSON.stringify(defaultValue)
+
+  if (!fieldState.isDirty && !fieldState.isTouched && !hasNonDefaultValue) {
+    return false
+  }
+
+  formMethods.resetField(question.id, { defaultValue })
+  return true
+}
+
+interface EvaluateQuestionVisibilityParams {
+  questions: Array<Question>
+  formMethods: UseFormReturn
+  evaluateDisplayConditions: (
+    response: Array<AnswerInput>
+  ) => Promise<Array<QuestionRuleResult>>
+  updateVisibilityForQuestions: (
+    questions: Array<Question>,
+    evaluationResults: Array<QuestionRuleResult>
+  ) => Array<QuestionWithVisibility>
+  changedQuestionId?: string
+}
+
+export const evaluateQuestionVisibility = async ({
+  questions,
+  formMethods,
+  evaluateDisplayConditions,
+  updateVisibilityForQuestions,
+  changedQuestionId,
+}: EvaluateQuestionVisibilityParams): Promise<Array<QuestionWithVisibility>> => {
+  const dependentQuestionIds = getDependentQuestionIds(
+    questions,
+    changedQuestionId
+  )
+
+  dependentQuestionIds.forEach((questionId) => {
+    const question = questions.find(({ id }) => id === questionId)
+
+    if (question) {
+      resetQuestionToDefault(formMethods, question)
+    }
+  })
+
+  let questionsWithVisibility: Array<QuestionWithVisibility> = []
+
+  for (let attempt = 0; attempt <= questions.length; attempt += 1) {
+    const formValuesInput = convertToAwellInput(getDirtyFieldValues(formMethods))
+    const evaluationResults = await evaluateDisplayConditions(formValuesInput)
+    questionsWithVisibility = updateVisibilityForQuestions(
+      questions,
+      evaluationResults
+    )
+
+    const didResetHiddenAnswer = questionsWithVisibility
+      .filter((question) => !question.visible)
+      .reduce(
+        (didReset, question) =>
+          resetQuestionToDefault(formMethods, question) || didReset,
+        false
+      )
+
+    if (!didResetHiddenAnswer) {
+      break
+    }
+  }
+
+  return questionsWithVisibility.filter((question) => question.visible)
+}
 
 // FIXME
 const getValue = (answer: Array<Option> | string | number | Option) => {

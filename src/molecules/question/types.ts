@@ -24,7 +24,7 @@ export interface QuestionDataProps {
   labels: QuestionLabels
   inputAutoFocus?: boolean
   submitAndMoveToNextQuestion?: () => void
-  onAnswerChange?: () => void
+  onAnswerChange?: (questionId?: string) => void
   shouldAutoProgress?: (question: Question) => boolean
   onFileUpload?: (file: File, configSlug?: string) => Promise<string>
 }
@@ -36,7 +36,7 @@ export interface QuestionProps {
   labels?: QuestionLabels
   inputAutoFocus?: boolean
   submitAndMoveToNextQuestion?: () => void
-  onAnswerChange?: () => void
+  onAnswerChange?: (questionId?: string) => void
   shouldAutoProgress?: (question: Question) => boolean
   onFileUpload?: (file: File, configSlug?: string) => Promise<string>
 }

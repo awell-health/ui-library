@@ -5,8 +5,7 @@ import {
   calculatePercentageCompleted,
   convertToAwellInput,
   convertToFormFormat,
-  getDirtyFieldValues,
-  getDefaultValue,
+  evaluateQuestionVisibility,
   getErrorsForQuestion,
   getInitialValues,
   isEmpty,
@@ -58,42 +57,12 @@ const useConversationalForm = ({
 
   const updateQuestionVisibility = useCallback(async () => {
     setIsEvaluatingQuestionVisibility(true)
-    let questionsWithVisibility: Array<QuestionWithVisibility> = []
-
-    for (let attempt = 0; attempt <= questions.length; attempt += 1) {
-      const formValuesInput = convertToAwellInput(
-        getDirtyFieldValues(formMethods)
-      )
-      const evaluationResults = await evaluateDisplayConditions(formValuesInput)
-      questionsWithVisibility = updateVisibility(questions, evaluationResults)
-
-      const didResetHiddenAnswer = questionsWithVisibility
-        .filter((question) => !question.visible)
-        .reduce((didReset, question) => {
-          const defaultValue = getDefaultValue(question)
-          const currentValue = formMethods.getValues(question.id)
-          const fieldState = formMethods.getFieldState(question.id)
-          const hasNonDefaultValue =
-            JSON.stringify(currentValue) !== JSON.stringify(defaultValue)
-
-          if (
-            !fieldState.isDirty &&
-            !fieldState.isTouched &&
-            !hasNonDefaultValue
-          ) {
-            return didReset
-          }
-
-          formMethods.resetField(question.id, { defaultValue })
-          return true
-        }, false)
-
-      if (!didResetHiddenAnswer) {
-        break
-      }
-    }
-
-    const updatedQuestions = questionsWithVisibility.filter((e) => e.visible)
+    const updatedQuestions = await evaluateQuestionVisibility({
+      questions,
+      formMethods,
+      evaluateDisplayConditions,
+      updateVisibilityForQuestions: updateVisibility,
+    })
     setVisibleQuestions(updatedQuestions)
     setIsEvaluatingQuestionVisibility(false)
 

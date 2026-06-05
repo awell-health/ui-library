@@ -92,7 +92,7 @@ export const QuestionData = ({
                 onChange={(data) => {
                   onChange(data)
                   if (value !== data) {
-                    onAnswerChange()
+                    onAnswerChange(question.id)
                     if (shouldAutoProgress(question)) {
                       setTimeout(
                         () => submitAndMoveToNextQuestion(),
@@ -131,7 +131,7 @@ export const QuestionData = ({
                     const mapped = selectValueToOptions(selected)
                     onChange(mapped)
                     if (value !== mapped) {
-                      onAnswerChange()
+                      onAnswerChange(question.id)
                     }
                   }}
                   isMulti
@@ -149,7 +149,7 @@ export const QuestionData = ({
                 onChange={(data) => {
                   onChange(data)
                   if (value !== data) {
-                    onAnswerChange()
+                    onAnswerChange(question.id)
                   }
                 }}
                 questionId={question.id}
@@ -176,7 +176,7 @@ export const QuestionData = ({
                   onChange={(selected) => {
                     const mapped = selectValueToSingleValue(selected)
                     onChange(mapped)
-                    onAnswerChange()
+                    onAnswerChange(question.id)
                   }}
                   options={optionsToSelectItems(question.options ?? [])}
                   required={config?.mandatory}
@@ -193,7 +193,7 @@ export const QuestionData = ({
                   onChange(data)
 
                   if (value !== data) {
-                    onAnswerChange()
+                    onAnswerChange(question.id)
                     if (shouldAutoProgress(question)) {
                       setTimeout(
                         () => submitAndMoveToNextQuestion(),
@@ -224,7 +224,7 @@ export const QuestionData = ({
               autoFocus={inputAutoFocus}
               onChange={(e) => {
                 onChange(e.target.value)
-                onAnswerChange()
+                onAnswerChange(question.id)
               }}
               label={question.title}
               id={question.id}
@@ -248,7 +248,7 @@ export const QuestionData = ({
               type="number"
               onChange={(e) => {
                 onChange(e.target.value)
-                onAnswerChange()
+                onAnswerChange(question.id)
               }}
               label={question.title}
               id={question.id}
@@ -289,7 +289,7 @@ export const QuestionData = ({
                 type="text"
                 onChange={(e) => {
                   onChange(e.target.value)
-                  onAnswerChange()
+                  onAnswerChange(question.id)
                 }}
                 label={question.title}
                 id={question.id}
@@ -326,7 +326,7 @@ export const QuestionData = ({
               autoFocus={inputAutoFocus}
               onChange={(e) => {
                 onChange(e.target.value)
-                onAnswerChange()
+                onAnswerChange(question.id)
               }}
               label={question.title}
               id={question.id}
@@ -359,7 +359,7 @@ export const QuestionData = ({
                 label={question.title}
                 onChange={(e) => {
                   onChange(e.target.value)
-                  onAnswerChange()
+                  onAnswerChange(question.id)
                 }}
                 touchTooltipLabel={labels.slider?.tooltip_guide}
                 id={question.id}
@@ -394,7 +394,7 @@ export const QuestionData = ({
               type="email"
               onChange={(e) => {
                 onChange(e.target.value)
-                onAnswerChange()
+                onAnswerChange(question.id)
               }}
               label={question.title}
               id={question.id}
@@ -422,7 +422,7 @@ export const QuestionData = ({
                 label={question.title}
                 onChange={(e) => {
                   onChange(e.target.value)
-                  onAnswerChange()
+                  onAnswerChange(question.id)
                 }}
                 id={question.id}
                 value={value}
@@ -454,7 +454,7 @@ export const QuestionData = ({
                 }}
                 onChange={(data) => {
                   onChange(data)
-                  onAnswerChange()
+                  onAnswerChange(question.id)
                 }}
                 type="single"
                 options={icdClassificationOptions ?? []}
@@ -509,7 +509,7 @@ export const QuestionData = ({
                   onControllerChange(
                     attachment ? JSON.stringify(attachment) : ''
                   )
-                  onAnswerChange()
+                  onAnswerChange(question.id)
                 }}
                 onBlur={onBlur}
                 accept={config?.file_storage?.accepted_file_types ?? undefined}
@@ -553,7 +553,7 @@ export const QuestionData = ({
                   onControllerChange(
                     attachment ? JSON.stringify(attachment) : ''
                   )
-                  onAnswerChange()
+                  onAnswerChange(question.id)
                 }}
                 onBlur={onBlur}
                 accept={

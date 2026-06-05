@@ -54,7 +54,7 @@ export interface FormSettingsContextProps {
   onAnswersChange?: (answers: string) => void
 }
 export interface ConversationalFormContext {
-  updateQuestionVisibility: () => void
+  updateQuestionVisibility: (changedQuestionId?: string) => void
   submitForm: () => void
   isSubmittingForm: boolean
   handleGoToNextQuestion: () => void
@@ -69,7 +69,7 @@ export interface ConversationalFormContext {
 }
 
 export interface TraditionalFormContext {
-  updateQuestionVisibility: () => void
+  updateQuestionVisibility: (changedQuestionId?: string) => void
   submitForm: () => void
   isSubmittingForm: boolean
   formMethods: UseFormReturn
