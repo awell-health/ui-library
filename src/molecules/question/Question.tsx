@@ -141,6 +141,7 @@ export const QuestionData = ({
                   options={optionsToSelectItems(question.options ?? [])}
                   required={config?.mandatory}
                   isSearchable
+                  menuPosition="fixed"
                 />
               )
             }
@@ -184,6 +185,7 @@ export const QuestionData = ({
                   options={optionsToSelectItems(question.options ?? [])}
                   required={config?.mandatory}
                   isSearchable
+                  menuPosition="fixed"
                 />
               )
             }
