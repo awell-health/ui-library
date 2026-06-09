@@ -73,11 +73,11 @@
 
 .traditional_form {
   padding-bottom: calc(
-    var(--awell-mobile-footer-height) + var(--awell-spacing-24)
+    var(--awell-mobile-footer-height) + var(--awell-spacing-36)
   );
 
   @media (min-width: 640px) {
-    padding-bottom: calc(var(--awell-footer-height) + var(--awell-spacing-24));
+    padding-bottom: calc(var(--awell-footer-height) + var(--awell-spacing-36));
   }
 }
 
