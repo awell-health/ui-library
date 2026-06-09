@@ -247,14 +247,27 @@ export const Select = ({
           const containerRect = container.getBoundingClientRect()
           const dropdownRect = dropdownElement.getBoundingClientRect()
           const selectRect = selectWrapperRef.current.getBoundingClientRect()
+          const fixedFooter = Array.from(
+            document.querySelectorAll('footer')
+          ).find((footer) => {
+            const footerStyles = window.getComputedStyle(footer)
+            return (
+              footerStyles.position === 'fixed' && footerStyles.bottom === '0px'
+            )
+          })
+          const visibleContainerBottom = fixedFooter
+            ? Math.min(
+                containerRect.bottom,
+                fixedFooter.getBoundingClientRect().top
+              )
+            : containerRect.bottom
 
           // Check if dropdown would be cut off at the bottom
           const dropdownBottom = selectRect.bottom + dropdownRect.height
-          const containerBottom = containerRect.bottom
 
-          if (dropdownBottom > containerBottom) {
+          if (dropdownBottom > visibleContainerBottom) {
             // Calculate how much to scroll to show the dropdown
-            const scrollAmount = dropdownBottom - containerBottom + 20 // Add some padding
+            const scrollAmount = dropdownBottom - visibleContainerBottom + 20 // Add some padding
             container.scrollTo({
               top: container.scrollTop + scrollAmount,
               behavior: 'smooth',

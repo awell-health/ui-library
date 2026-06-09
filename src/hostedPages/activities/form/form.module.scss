@@ -71,13 +71,13 @@
   margin: 0 auto;
 }
 
-.traditional_form {
+main.traditional_form {
   padding-bottom: calc(
-    var(--awell-mobile-footer-height) + var(--awell-spacing-36)
+    var(--awell-mobile-footer-height) + var(--awell-spacing-28)
   );
 
   @media (min-width: 640px) {
-    padding-bottom: calc(var(--awell-footer-height) + var(--awell-spacing-36));
+    padding-bottom: calc(var(--awell-footer-height) + var(--awell-spacing-28));
   }
 }
 
