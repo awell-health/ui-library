@@ -1,45 +1,44 @@
 @use '../../../../globalStyles';
 
+.loading_indicators {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.loading_indicator {
+  width: 100%;
+  height: 3.125rem;
+  border-radius: var(--awell-skeleton-border-radius);
+  margin: var(--awell-spacing-2) 0;
+  background: linear-gradient(90deg, transparent, #eeeeee, transparent);
+  background-size: 200% 100%;
+  background-position: -100% 0;
+  animation: wave 1.2s infinite;
+}
+
+/* Styles for larger screens */
+@media (min-width: 768px) {
   .loading_indicators {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    max-width: 570px;
+    padding: var(--awell-spacing-8) 0;
   }
-  
-  .loading_indicator {
-    width: 100%;
-    height: 3.125rem;
-    border-radius: var(--awell-border-radius-xl);
-    margin: var(--awell-spacing-2) 0;
-    background: linear-gradient(90deg, transparent, #EEEEEE, transparent);
-    background-size: 200% 100%;
+}
+
+/* Styles for smaller screens (mobile) */
+@media (max-width: 767px) {
+  .loading_indicators {
+    min-width: 336px;
+    padding: var(--awell-spacing-8) var(--awell-spacing-4);
+  }
+}
+
+@keyframes wave {
+  0% {
     background-position: -100% 0;
-    animation: wave 1.2s infinite;
   }
-
-  /* Styles for larger screens */
-  @media (min-width: 768px) {
-    .loading_indicators {
-       max-width: 570px;
-       padding: var(--awell-spacing-8) 0;
-    }
+  100% {
+    background-position: 100% 0;
   }
-   
-   /* Styles for smaller screens (mobile) */
-   @media (max-width: 767px) {
-    .loading_indicators {
-       min-width: 336px;
-       padding: var(--awell-spacing-8) var(--awell-spacing-4);
-    }
-   }
-
-  @keyframes wave {
-    0% {
-      background-position: -100% 0;
-    }
-    100% {
-      background-position: 100% 0;
-    }
-  }
-  
+}

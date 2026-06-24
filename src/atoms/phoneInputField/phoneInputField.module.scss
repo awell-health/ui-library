@@ -7,7 +7,7 @@
 }
 
 .awell_phone_input_field_container {
-  display: flex,
+  display: flex;
 }
 
 .input_wrapper_with_error {
@@ -57,20 +57,22 @@
   font-size: var(--awell-font-size-base);
   line-height: var(--awell-leading-5);
   border: 1px solid rgb(209 213 219);
-  border-radius: var(--awell-border-radius-md);
+  border-radius: var(--awell-border-radius);
   box-shadow: var(--awell-shadow-sm);
   width: 100%;
 
   &:focus {
     outline: 2px transparent;
     outline-offset: 2px;
-    box-shadow:
-      0 0 0 0px #fff,
-      0 0 0 calc(1px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color), 0 0 #0000;
+    box-shadow: 0 0 0 0px #fff,
+      0 0 0 calc(1px + var(--awell-focus-ring-offset-width))
+        var(--awell-focus-ring-color),
+      0 0 #0000;
     border-color: var(--awell-focus-ring-color);
   }
 
-  &:focus, &:active {
+  &:focus,
+  &:active {
     outline-color: var(--awell-accent-color);
   }
   &:disabled {

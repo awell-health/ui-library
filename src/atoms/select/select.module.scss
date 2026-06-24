@@ -13,20 +13,21 @@
 
 .select_input {
   font: var(--awell-font);
-  padding: var(--awell-spacing-3) var(--awell-spacing-14) var(--awell-spacing-3) var(--awell-spacing-4);
+  padding: var(--awell-spacing-3) var(--awell-spacing-14) var(--awell-spacing-3)
+    var(--awell-spacing-4);
   color: var(--awell-slate900);
   font-size: var(--awell-font-size-base);
   line-height: var(--awell-leading-5);
   border: 1px solid rgb(209, 213, 219);
-  border-radius: var(--awell-border-radius-md);
+  border-radius: var(--awell-border-radius);
   box-shadow: var(--awell-shadow-sm);
   width: 100%;
   &:focus {
     outline: 2px transparent;
     outline-offset: 2px;
-    box-shadow:
-      0 0 0 0px #fff,
-      0 0 0 calc(1px + var(--awell-focus-ring-offset-width)) var(--awell-focus-ring-color),
+    box-shadow: 0 0 0 0px #fff,
+      0 0 0 calc(1px + var(--awell-focus-ring-offset-width))
+        var(--awell-focus-ring-color),
       0 0 #0000;
     border-color: var(--awell-focus-ring-color);
   }
@@ -134,7 +135,7 @@
   transition: transform 0.3s ease;
   margin-left: 32px; // Adjust this value based on the position of the badge
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 2px;
@@ -144,7 +145,7 @@
     transform: rotate(-45deg);
   }
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 2px;
