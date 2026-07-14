@@ -32,6 +32,7 @@ export interface QuestionDataProps {
   onAnswerChange?: (change?: AnswerChange) => void
   shouldAutoProgress?: (question: Question) => boolean
   onFileUpload?: (file: File, configSlug?: string) => Promise<string>
+  maxFileSizeMb?: number
 }
 export interface QuestionProps {
   question: Question
@@ -44,6 +45,7 @@ export interface QuestionProps {
   onAnswerChange?: (change?: AnswerChange) => void
   shouldAutoProgress?: (question: Question) => boolean
   onFileUpload?: (file: File, configSlug?: string) => Promise<string>
+  maxFileSizeMb?: number
 }
 
 export interface Attachment {

@@ -30,6 +30,7 @@ interface Props {
   value?: Attachment | null
   mandatory?: boolean
   disabled?: boolean
+  maxFileSizeMb?: number
 }
 
 export const SingleFileInputField: React.FC<Props> = ({
@@ -46,6 +47,7 @@ export const SingleFileInputField: React.FC<Props> = ({
   value,
   mandatory,
   disabled,
+  maxFileSizeMb = 30,
 }) => {
   const [selectedFile, setSelectedFile] = useState<
     SingleFileListItem | undefined
@@ -225,7 +227,7 @@ export const SingleFileInputField: React.FC<Props> = ({
           isMultiple={false} // Always false for single file upload
           accept={accept}
           error={error}
-          maxSizeMb={5}
+          maxSizeMb={maxFileSizeMb}
         />
       </div>
 

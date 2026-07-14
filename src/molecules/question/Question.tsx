@@ -48,6 +48,7 @@ export const QuestionData = ({
   onAnswerChange = noop,
   shouldAutoProgress = () => false,
   onFileUpload,
+  maxFileSizeMb,
 }: QuestionDataProps): JSX.Element => {
   const config = question?.questionConfig
   const notifyAnswerChange = (value: unknown) => {
@@ -523,6 +524,7 @@ export const QuestionData = ({
                   config?.file_storage?.file_storage_config_slug as string
                 }
                 onFileUpload={onFileUpload}
+                maxFileSizeMb={maxFileSizeMb}
                 label={question.title}
                 mandatory={config?.mandatory}
                 error={fieldError?.message}
@@ -570,6 +572,7 @@ export const QuestionData = ({
                   config?.file_storage?.file_storage_config_slug as string
                 }
                 onFileUpload={onFileUpload}
+                maxFileSizeMb={maxFileSizeMb}
                 label={question.title}
                 mandatory={config?.mandatory}
                 error={fieldError?.message}
@@ -603,6 +606,7 @@ export const Question = ({
   onAnswerChange,
   shouldAutoProgress,
   onFileUpload,
+  maxFileSizeMb,
 }: QuestionProps): JSX.Element => {
   const [isVisible, setVisible] = useState(0)
   const style = { '--awell-question-opacity': isVisible } as React.CSSProperties
@@ -627,6 +631,7 @@ export const Question = ({
         onAnswerChange={onAnswerChange}
         shouldAutoProgress={shouldAutoProgress}
         onFileUpload={onFileUpload}
+        maxFileSizeMb={maxFileSizeMb}
       />
 
       {currentError && (
