@@ -24,6 +24,7 @@ export const ConversationalForm = ({
   autosaveAnswers = true,
   showProgressBar = true,
   onFileUpload,
+  maxFileSizeMb,
 }: FormProps) => {
   const {
     submitForm,
@@ -112,6 +113,7 @@ export const ConversationalForm = ({
                   inputAutoFocus={true}
                   shouldAutoProgress={shouldAutoProgress}
                   onFileUpload={onFileUpload}
+                  maxFileSizeMb={maxFileSizeMb}
                 />
                 {form?.trademark && (
                   <div
