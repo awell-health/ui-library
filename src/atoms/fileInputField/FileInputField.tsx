@@ -27,6 +27,7 @@ interface Props {
   configSlug?: string
   value?: Array<Attachment>
   mandatory?: boolean
+  maxFileSizeMb?: number
 }
 
 export const FileInputField: React.FC<Props> = ({
@@ -43,6 +44,7 @@ export const FileInputField: React.FC<Props> = ({
   configSlug,
   value,
   mandatory,
+  maxFileSizeMb = 20,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<
     Array<FileListItem & { url?: string }>
@@ -214,7 +216,7 @@ export const FileInputField: React.FC<Props> = ({
           isMultiple={multiple}
           accept={accept}
           error={error}
-          maxSizeMb={5}
+          maxSizeMb={maxFileSizeMb}
         />
       </div>
 

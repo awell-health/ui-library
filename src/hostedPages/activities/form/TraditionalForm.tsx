@@ -22,6 +22,7 @@ export const TraditionalForm = ({
   autosaveAnswers = true,
   questionLabels,
   onFileUpload,
+  maxFileSizeMb,
 }: FormProps) => {
   const {
     updateQuestionVisibility,
@@ -72,6 +73,7 @@ export const TraditionalForm = ({
                         onAnswerChange={updateQuestionVisibility}
                         labels={questionLabels}
                         onFileUpload={onFileUpload}
+                        maxFileSizeMb={maxFileSizeMb}
                       />
                     </div>
                   ))}

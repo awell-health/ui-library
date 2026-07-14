@@ -28,4 +28,5 @@ export interface FormProps {
   autosaveAnswers?: boolean
   showProgressBar?: boolean
   onFileUpload?: (file: File, configSlug?: string) => Promise<string>
+  maxFileSizeMb?: number
 }
