@@ -1,6 +1,11 @@
 /* eslint-disable no-case-declarations */
 import { Controller } from 'react-hook-form'
-import { FormError, SliderQuestionConfig, UserQuestionType } from '../../types'
+import {
+  FormError,
+  Option,
+  SliderQuestionConfig,
+  UserQuestionType,
+} from '../../types'
 import { SingleChoiceQuestion } from '../singleChoiceQuestion'
 import { MultipleChoiceQuestion } from '../multipleChoiceQuestion'
 import {
@@ -11,7 +16,10 @@ import {
   Description,
   Select as UILibrarySelect,
 } from '../../atoms'
-import { Select as DesignSystemSelect } from '@awell-health/design-system'
+import {
+  Select as DesignSystemSelect,
+  type SelectItem,
+} from '@awell-health/design-system'
 import {
   optionsToSelectItems,
   multiValueToSelectItems,
@@ -20,7 +28,7 @@ import {
   selectValueToSingleValue,
 } from './helpers/selectAdapters'
 import classes from './question.module.scss'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { Attachment, QuestionDataProps, QuestionProps } from './types'
 import { PhoneInputField } from '../../atoms/phoneInputField'
 import { CountryIso2 } from '../../hooks/useValidate'
@@ -54,6 +62,13 @@ export const QuestionData = ({
   const notifyAnswerChange = (value: unknown) => {
     onAnswerChange({ questionId: question.id, value })
   }
+  /**
+   * Remember the exact option chosen in a single-select dropdown. The stored answer only holds
+   * the option `value`, so when several options share the same `value` (but differ in `label`)
+   * we cannot tell them apart by value alone on re-render. Keeping the last-selected item lets us
+   * display the label that was actually clicked instead of the first option with a matching value.
+   */
+  const lastSingleSelectRef = useRef<SelectItem<Option> | undefined>(undefined)
   const {
     options: icdClassificationOptions,
     loading: optionsLoading,
@@ -173,12 +188,25 @@ export const QuestionData = ({
           rules={{ required: config?.mandatory }}
           render={({ field: { onChange, value } }) => {
             if (config?.use_select === true) {
+              // Prefer the option the user actually clicked so that duplicate-value options keep
+              // the label that was selected. Fall back to a value lookup when the answer changed
+              // from outside this control (rehydrated storage, reset, or cleared).
+              const lastSelected = lastSingleSelectRef.current
+              const displayValue =
+                !isNil(value) &&
+                value !== '' &&
+                lastSelected?.metadata?.value === value
+                  ? lastSelected
+                  : singleValueToSelectItem(value, question.options ?? [])
               return (
                 <DesignSystemSelect
                   label={question.title}
-                  value={singleValueToSelectItem(value, question.options ?? [])}
+                  value={displayValue}
                   placeholder={labels.select?.search_placeholder}
                   onChange={(selected) => {
+                    lastSingleSelectRef.current = Array.isArray(selected)
+                      ? undefined
+                      : (selected as SelectItem<Option> | null) ?? undefined
                     const mapped = selectValueToSingleValue(selected)
                     onChange(mapped)
                     notifyAnswerChange(mapped)
