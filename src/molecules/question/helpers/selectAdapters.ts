@@ -1,11 +1,17 @@
 import type { Option } from '../../../types'
 import type { SelectItem, SelectValue } from '@awell-health/design-system'
 
+/**
+ * A SelectItem's `value` is used by the underlying react-select as the option's identity
+ * (and React key). We key on the option's unique `id` — not its `value` — so that options
+ * sharing the same `value` but different `label`s are still distinguishable. The real answer
+ * value is preserved in `metadata` (see `selectValueToSingleValue` / `selectValueToOptions`).
+ */
 export const optionsToSelectItems = (
   options: Option[]
 ): SelectItem<Option>[] =>
   options.map((option) => ({
-    value: String(option.value),
+    value: String(option.id ?? option.value),
     label: option.label,
     metadata: option,
   }))
@@ -15,7 +21,7 @@ export const multiValueToSelectItems = (
 ): SelectItem<Option>[] => {
   if (!value || !Array.isArray(value)) return []
   return value.map((option) => ({
-    value: String(option.value),
+    value: String(option.id ?? option.value),
     label: option.label,
     metadata: option,
   }))
@@ -29,7 +35,7 @@ export const singleValueToSelectItem = (
   const option = options.find((opt) => opt.value === value)
   if (!option) return undefined
   return {
-    value: String(option.value),
+    value: String(option.id ?? option.value),
     label: option.label,
     metadata: option,
   }
