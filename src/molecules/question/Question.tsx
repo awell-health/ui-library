@@ -596,7 +596,6 @@ export const QuestionData = ({
                 accept={
                   config?.file_storage?.accepted_file_types ?? ['image/*']
                 }
-                capture="environment"
                 configSlug={
                   config?.file_storage?.file_storage_config_slug as string
                 }
