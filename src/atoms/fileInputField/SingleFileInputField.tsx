@@ -31,6 +31,9 @@ interface Props {
   mandatory?: boolean
   disabled?: boolean
   maxFileSizeMb?: number
+  // Sets the HTML `capture` attribute on the underlying file input. `'environment'` prompts
+  // mobile browsers to open the rear camera; `'user'` the front camera. Ignored on desktop.
+  capture?: boolean | 'user' | 'environment'
 }
 
 export const SingleFileInputField: React.FC<Props> = ({
@@ -48,6 +51,7 @@ export const SingleFileInputField: React.FC<Props> = ({
   mandatory,
   disabled,
   maxFileSizeMb = 30,
+  capture,
 }) => {
   const [selectedFile, setSelectedFile] = useState<
     SingleFileListItem | undefined
@@ -226,6 +230,7 @@ export const SingleFileInputField: React.FC<Props> = ({
           onError={onError}
           isMultiple={false} // Always false for single file upload
           accept={accept}
+          capture={capture}
           error={error}
           maxSizeMb={maxFileSizeMb}
         />
