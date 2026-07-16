@@ -593,10 +593,14 @@ export const QuestionData = ({
                   notifyAnswerChange(attachmentValue)
                 }}
                 onBlur={onBlur}
-                accept={
-                  config?.file_storage?.accepted_file_types ?? ['image/*']
-                }
-                capture="environment"
+                // Legacy HTML Media Capture hint: append `;capture=camera` to the accept
+                // string so browsers that honour it offer the camera, without forcing
+                // camera-only the way the standalone `capture` attribute does on Android.
+                accept={[
+                  `${(
+                    config?.file_storage?.accepted_file_types ?? ['image/*']
+                  ).join(',')};capture=camera`,
+                ]}
                 configSlug={
                   config?.file_storage?.file_storage_config_slug as string
                 }
