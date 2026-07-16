@@ -3,7 +3,7 @@ import {
   type FileListItem,
   FileUpload,
 } from '@awell-health/design-system'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './FileInputField.module.scss'
 import { Attachment } from '../../molecules/question/types'
 import '@awell-health/design-system/style.css'
@@ -53,7 +53,6 @@ export const SingleFileInputField: React.FC<Props> = ({
   maxFileSizeMb = 30,
   capture,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null)
   const [selectedFile, setSelectedFile] = useState<
     SingleFileListItem | undefined
   >(
@@ -83,24 +82,6 @@ export const SingleFileInputField: React.FC<Props> = ({
       })
     }
   }, [value])
-
-  /**
-   * The underlying `<input type="file">` is rendered by the design-system `FileUpload`, which does
-   * not expose a `capture` prop, so we set the attribute directly on the DOM node. `capture` prompts
-   * mobile browsers to open the camera (`'environment'` = rear, `'user'` = front). Ignored on desktop.
-   */
-  useEffect(() => {
-    const input =
-      containerRef.current?.querySelector<HTMLInputElement>(
-        'input[type="file"]'
-      )
-    if (isNil(input)) return
-    if (isNil(capture) || capture === false) {
-      input.removeAttribute('capture')
-    } else {
-      input.setAttribute('capture', capture === true ? '' : capture)
-    }
-  }, [capture])
 
   const convertErrorMessage = (error: string) => {
     if (error === 'Failed to fetch') {
@@ -235,7 +216,6 @@ export const SingleFileInputField: React.FC<Props> = ({
   return (
     <div
       key={id}
-      ref={containerRef}
       className={`${classes.file_input_field_container} ${className}`}
       data-cy={dataCy}
     >
@@ -250,6 +230,7 @@ export const SingleFileInputField: React.FC<Props> = ({
           onError={onError}
           isMultiple={false} // Always false for single file upload
           accept={accept}
+          capture={capture}
           error={error}
           maxSizeMb={maxFileSizeMb}
         />
