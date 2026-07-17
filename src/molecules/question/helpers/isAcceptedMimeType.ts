@@ -7,22 +7,29 @@
  *  - `image/*` matches `image/png`, `image/jpeg`, … (any subtype)
  *  - an exact type (`application/pdf`) matches only itself
  *
- * Note: this does not normalise non-standard aliases (e.g. `image/jpg` is not `image/jpeg`) — those
- * should be corrected in the form configuration.
+ * Matching is case-insensitive and tolerant of surrounding whitespace, mirroring how browsers
+ * treat the `accept` attribute.
+ *
+ * Note: this expects MIME types (not file extensions like `.pdf`), and does not normalise
+ * non-standard aliases (e.g. `image/jpg` is not `image/jpeg`) — those should be corrected in the
+ * form configuration.
  */
 export const isAcceptedMimeType = (
   contentType: string,
   acceptedFileTypes: string[]
 ): boolean => {
-  if (contentType === '') return false
+  const normalizedContentType = (contentType ?? '').trim().toLowerCase()
+  if (normalizedContentType === '') return false
 
   return acceptedFileTypes.some((accepted) => {
-    if (accepted === '*' || accepted === '*/*') return true
-    if (accepted === contentType) return true
+    const normalized = (accepted ?? '').trim().toLowerCase()
+    if (normalized === '') return false
+    if (normalized === '*' || normalized === '*/*') return true
+    if (normalized === normalizedContentType) return true
     // Wildcard subtype, e.g. "image/*" -> matches any "image/…"
-    if (accepted.endsWith('/*')) {
-      const prefix = accepted.slice(0, accepted.indexOf('/') + 1)
-      return contentType.startsWith(prefix)
+    if (normalized.endsWith('/*')) {
+      const prefix = normalized.slice(0, normalized.indexOf('/') + 1)
+      return normalizedContentType.startsWith(prefix)
     }
     return false
   })

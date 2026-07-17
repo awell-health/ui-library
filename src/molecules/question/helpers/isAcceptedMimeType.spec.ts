@@ -31,4 +31,10 @@ describe('isAcceptedMimeType', () => {
     // `image/jpg` is not a real MIME type; it must not match `image/jpeg`
     expect(isAcceptedMimeType('image/jpeg', ['image/jpg'])).toBe(false)
   })
+
+  it('matches case-insensitively and ignores surrounding whitespace', () => {
+    expect(isAcceptedMimeType('IMAGE/PNG', ['image/png'])).toBe(true)
+    expect(isAcceptedMimeType('image/png', ['IMAGE/*'])).toBe(true)
+    expect(isAcceptedMimeType('image/png', [' image/png '])).toBe(true)
+  })
 })
