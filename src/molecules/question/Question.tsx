@@ -593,14 +593,19 @@ export const QuestionData = ({
                   notifyAnswerChange(attachmentValue)
                 }}
                 onBlur={onBlur}
-                // Legacy HTML Media Capture hint: append `;capture=camera` to the accept
-                // string so browsers that honour it offer the camera, without forcing
-                // camera-only the way the standalone `capture` attribute does on Android.
+                // `android/allowCamera` is a bogus (non-real) MIME type appended to the input's
+                // `accept`. On Android 14/15 the file input's camera option disappears unless
+                // `accept` contains a type the OS doesn't recognise as image/video/audio; adding
+                // this dummy type restores the "Camera" + file-picker options. It isn't a real
+                // file type, so it's kept out of the user-facing `displayAccept` list. See:
+                // https://blog.addpipe.com/html-file-input-accept-video-camera-option-is-missing-android-14-15/
                 accept={[
-                  `${(
-                    config?.file_storage?.accepted_file_types ?? ['image/*']
-                  ).join(',')};capture=camera`,
+                  ...(config?.file_storage?.accepted_file_types ?? ['image/*']),
+                  'android/allowCamera',
                 ]}
+                displayAccept={
+                  config?.file_storage?.accepted_file_types ?? ['image/*']
+                }
                 configSlug={
                   config?.file_storage?.file_storage_config_slug as string
                 }
