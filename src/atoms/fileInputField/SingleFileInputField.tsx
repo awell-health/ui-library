@@ -16,6 +16,9 @@ interface Props {
   id?: string
   label?: string
   accept?: Array<string> // MIME types, e.g., "image/*,.pdf"
+  // Optional override for the displayed "Supported file types" list only; the input's `accept`
+  // still uses `accept`. Falls back to `accept` when omitted.
+  displayAccept?: Array<string>
   error?: string
   onChange: (attachment: Attachment | undefined) => void
   onError?: (error: string) => void
@@ -40,6 +43,7 @@ export const SingleFileInputField: React.FC<Props> = ({
   id,
   label,
   accept,
+  displayAccept,
   error,
   onChange,
   onError,
@@ -230,6 +234,7 @@ export const SingleFileInputField: React.FC<Props> = ({
           onError={onError}
           isMultiple={false} // Always false for single file upload
           accept={accept}
+          displayAccept={displayAccept}
           capture={capture}
           error={error}
           maxSizeMb={maxFileSizeMb}

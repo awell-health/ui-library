@@ -52,10 +52,10 @@
   dependencies:
     node-fetch "^2.6.1"
 
-"@awell-health/design-system@0.16.7":
-  version "0.16.7"
-  resolved "https://registry.yarnpkg.com/@awell-health/design-system/-/design-system-0.16.7.tgz#cef8a718c0a7eb9c8981deb5879de2e45faf33a7"
-  integrity sha512-OaNTH0TF6HS5BQrZeffwGRNYHPsN/kayxkeVLPwTQpT3UgxT4t7B4plG6VSWFw7lmnGk3zm2LYwa7XdkIm6ePw==
+"@awell-health/design-system@0.16.9":
+  version "0.16.9"
+  resolved "https://registry.yarnpkg.com/@awell-health/design-system/-/design-system-0.16.9.tgz#7e4a151260e1f050660d20705aa6ff245c95b208"
+  integrity sha512-oScPUoUABKFgvRQ6uVZOwdp5B/8hY4vMIXWHDNKblN3TDKyZ9fAAuWDeScFmD80cB9tWpsY10tEj3VuWFNwHTg==
   dependencies:
     "@mdxeditor/editor" "^3.40.0"
     "@remixicon/react" "^4.6.0"
