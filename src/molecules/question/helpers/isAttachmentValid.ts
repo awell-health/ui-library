@@ -1,5 +1,6 @@
 import { isNil } from 'lodash'
 import { Attachment } from '../types'
+import { isAcceptedMimeType } from './isAcceptedMimeType'
 
 export const isAttachmentValid = ({
   attachmentsValue,
@@ -30,11 +31,6 @@ export const isAttachmentValid = ({
     return !required
   }
 
-  // If acceptedFileTypes includes wildcard, skip MIME type validation
-  if (acceptedFileTypes.includes('*') || acceptedFileTypes.includes('*/*')) {
-    return true
-  }
-
-  // Check if the file type is accepted
-  return acceptedFileTypes.includes(attachment.contentType)
+  // Check if the file type is accepted (supports `image/*`-style wildcards)
+  return isAcceptedMimeType(attachment.contentType, acceptedFileTypes)
 }
