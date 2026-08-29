@@ -1,4 +1,4 @@
-@use "../../globalStyles";
+@use '../../globalStyles';
 
 .dialog {
   position: relative;
@@ -45,7 +45,7 @@
 .dialog_panel {
   position: relative;
   overflow: hidden;
-  border-radius: var(--awell-border-radius-lg);
+  border-radius: var(--awell-modal-border-radius);
   background: #fff;
   box-shadow: var(--awell-shadow-xl);
   transition-property: all;
@@ -78,7 +78,7 @@
 }
 
 .close_button {
-  border-radius: var(--awell-border-radius-md);
+  border-radius: var(--awell-border-radius);
   color: var(--awell-slate400);
   background: none;
   border: none;
@@ -175,7 +175,7 @@
 .modal_actions {
   margin-top: var(--awell-spacing-5);
 
-  &>* {
+  & > * {
     margin-top: var(--awell-spacing-2);
   }
 
@@ -188,7 +188,7 @@
     display: flex;
     flex-direction: row-reverse;
 
-    &>* {
+    & > * {
       margin-right: var(--awell-spacing-4);
       margin-top: 0;
     }

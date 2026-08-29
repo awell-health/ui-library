@@ -42,11 +42,12 @@
   **/
   --awell-focus-ring-offset-color: #fff;
   --awell-focus-ring-offset-width: 2px;
-  --awell-button-border-radius: var(--awell-border-radius-md);
+  --awell-button-border-radius: var(--awell-border-radius);
 
   display: inline-flex;
   align-items: center;
   border: 1px solid transparent;
+  font: var(--awell-font);
   font-weight: var(--awell-font-medium);
   border-radius: var(--awell-button-border-radius);
   text-align: center;

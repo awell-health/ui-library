@@ -1,3 +1,5 @@
+import { Shape } from './ThemeProvider'
+
 /**
  * Color string can be var(--variable, #ffffff) instead of #ffffff
  */
@@ -53,4 +55,66 @@ export const opacityColor = (colorString: string, opacity: number) => {
   const B = parseInt(hexColor.substring(5, 7), 16)
 
   return `rgba(${R}, ${G}, ${B}, ${opacity})`
+}
+
+export const getBorderRadius = (
+  shape?: Shape,
+  type:
+    | 'primary'
+    | 'modal'
+    | 'checkbox'
+    | 'progressBar'
+    | 'skeleton' = 'primary'
+): string => {
+  const DEFAULT = 'var(--awell-border-radius-md)'
+
+  if (type === 'primary') {
+    if (shape === 'rectangle') {
+      return 'var(--awell-border-radius-none)'
+    }
+
+    if (shape === 'pill') {
+      return 'var(--awell-border-radius-full)'
+    }
+
+    return DEFAULT
+  }
+
+  if (type === 'checkbox') {
+    if (shape === 'rectangle') {
+      return 'var(--awell-border-radius-none)'
+    }
+
+    if (shape === 'pill') {
+      return 'var(--awell-border-radius-md)'
+    }
+
+    return 'var(--awell-border-radius-rounded)'
+  }
+
+  if (type === 'modal') {
+    if (shape === 'rectangle') {
+      return 'var(--awell-border-radius-none)'
+    }
+
+    return 'var(--awell-border-radius-lg)'
+  }
+
+  if (type === 'progressBar') {
+    if (shape === 'rectangle') {
+      return 'var(--awell-border-radius-none)'
+    }
+
+    return '30px'
+  }
+
+  if (type === 'skeleton') {
+    if (shape === 'rectangle') {
+      return 'var(--awell-border-radius-none)'
+    }
+
+    return 'var(--awell-border-radius-xl)'
+  }
+
+  return DEFAULT
 }
